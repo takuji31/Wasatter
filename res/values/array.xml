@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="array_shorturl_service_name"><item>bit.ly</item>
+<item>j.mp</item>
+<!-- <item>byaa.jp</item> -->
+</string-array>
+<string-array name="array_shorturl_service_value"><item>bitly</item>
+<item>jmp</item>
+<!-- <item>byaajp</item> -->
+</string-array>
+
+
+</resources>

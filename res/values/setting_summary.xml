@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="summary_setting_account_twitter_enabled">Twitterを有効にします。</string><string name="summary_setting_account_wassr_enabled">Wassrを有効にします。</string><string name="summary_setting_display_load_image_true">TimeLineでアイコンを表示します</string><string name="summary_setting_display_load_image_false">TimeLineでアイコンを表示しません</string>
+<string name="summary_setting_twitter_use_oauth_enable">OAuthを使用します</string>
+<string name="summary_setting_twitter_use_oauth_disable">OAuthを使用しません。近い将来この設定では利用できなくなります。</string>
+<string name="summary_setting_twitter_oauth_token_get">OAuthで使用するトークンを設定します。</string>
+<string name="summary_setting_display_buttons_enabled">ボタンを表示します。ボタンから各機能にアクセス出来ます。</string><string name="summary_setting_display_buttons_disabled">ボタンを表示しません。各機能へはメニューからアクセス出来ます。</string><string name="summary_setting_category_wassr">Wassrに関する設定です。</string><string name="summary_setting_category_twitter">Twitterに関する設定です。</string><string name="summary_setting_category_display">表示に関する設定です。</string>
+<string name="summary_setting_category_shorturl">URL短縮に関する設定です。</string>
+<string name="summary_setting_shorturl_enabled">URLの自動短縮を有効にします。</string><string name="summary_setting_shorturl_disabled">URLの自動短縮を無効にします。短縮ボタンを押すと短縮されます。</string>
+<string name="summary_setting_shorturl_service">短縮URLに使用するサービスを選択します。</string><string name="summary_setting_load_timeline_enable">タイムラインを取得します。</string><string name="summary_setting_load_timeline_disable">タイムラインを取得しません。</string>
+</resources>

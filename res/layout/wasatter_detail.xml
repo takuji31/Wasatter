@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="fill_parent" android:layout_width="fill_parent" android:orientation="vertical">
+
+
+<TableLayout android:id="@+id/TableLayout01" android:layout_width="fill_parent" android:layout_marginLeft="5dip" android:layout_marginRight="5dip" android:layout_marginTop="5dip" android:layout_height="wrap_content"><TableRow android:id="@+id/TableRow01" android:layout_height="wrap_content" android:layout_width="fill_parent"><ImageView android:id="@+id/icon" android:layout_height="60dip" android:layout_width="60dip"></ImageView><LinearLayout android:id="@+id/LinearLayout01" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1" android:orientation="vertical"><TextView android:text="ScreenName" android:id="@+id/screen_name" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_marginLeft="5dip" android:layout_marginTop="5dip"></TextView>
+<TextView android:id="@+id/service_name" android:text="ServiceName" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_marginLeft="5dip" android:layout_marginTop="5dip"></TextView></LinearLayout>
+</TableRow>
+<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5dip" android:layout_marginTop="5dip" android:id="@+id/layout_reply" android:orientation="vertical"><TextView android:layout_height="wrap_content" android:visibility="visible" android:id="@+id/reply_text" android:layout_width="fill_parent"></TextView><TextView android:layout_height="wrap_content" android:id="@+id/reply_user_name" android:layout_width="fill_parent" android:gravity="right|center_vertical"></TextView>
+</LinearLayout><TextView android:layout_width="fill_parent" android:id="@+id/status" android:layout_marginLeft="5dip" android:layout_marginRight="5dip" android:layout_marginTop="5dip" android:layout_height="wrap_content"></TextView><TextView android:layout_width="fill_parent" android:layout_marginLeft="5dip" android:layout_marginRight="5dip" android:layout_marginTop="5dip" android:layout_height="wrap_content" android:id="@+id/text_result"></TextView>
+
+
+
+
+
+</TableLayout>
+<TableLayout android:id="@+id/TableLayout02" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_marginTop="10dip"><TableRow android:id="@+id/TableRow02" android:layout_height="wrap_content" android:layout_width="fill_parent" android:gravity="center_vertical|center_horizontal"><Button android:layout_height="wrap_content" android:text="イイネ！/Favorite" android:layout_weight="1" android:layout_width="400dip" android:id="@+id/button_favorite"></Button><Button android:layout_height="wrap_content" android:id="@+id/reply_button" android:text="Reply" android:layout_weight="1" android:layout_width="400dip"></Button></TableRow><TableRow android:id="@+id/TableRow03" android:layout_height="wrap_content" android:layout_width="fill_parent"><Button android:layout_height="wrap_content" android:id="@+id/button_open_link" android:layout_weight="1" android:layout_width="400dip" android:text="Open Permalink"></Button><Button android:layout_height="wrap_content" android:id="@+id/button_open_url" android:text="Open URL" android:layout_width="400dip" android:layout_weight="1"></Button></TableRow></TableLayout>
+</LinearLayout>

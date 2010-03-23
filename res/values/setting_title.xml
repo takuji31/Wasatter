@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="title_setting_account_enabled">有効</string><string name="title_setting_category_display">表示</string><string name="title_setting_display_load_image">アイコンのロード</string><string name="title_setting_account">アカウントの設定</string><string name="title_setting_password">パスワード</string><string name="title_setting_login_id">ログインID</string>
+<string name="title_setting_twitter_use_oauth">OAuthを使用（推奨）</string>
+<string name="title_setting_twitter_oauth_token_get">OAuthトークン</string>
+<string name="title_setting_display_buttons">トップにボタンを表示</string>
+
+<string name="title_setting_category_shorturl">URL短縮</string>
+<string name="title_setting_shorturl">自動URL短縮</string>
+<string name="title_setting_shorturl_service">URL短縮サービス</string>
+<string name="title_setting_load_timeline">タイムラインを取得</string>
+</resources>

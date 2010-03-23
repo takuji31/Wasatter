@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="fill_parent" android:layout_width="fill_parent">
+
+<TextView android:id="@+id/todo_text" android:gravity="left|center_vertical" android:layout_height="fill_parent" android:layout_width="fill_parent" android:textSize="20dip" android:text="todo body" android:minHeight="40dip" android:paddingTop="10dip" android:paddingBottom="10dip"></TextView>
+</LinearLayout>

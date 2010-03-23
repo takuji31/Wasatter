@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="title_button_timeline">Timeline</string>
+<string name="title_button_reply">Reply</string>
+<string name="title_button_mypost">MyPost</string>
+<string name="title_button_odai">Odai</string>
+<string name="title_button_todo">TODO</string><string name="title_button_channel">Channel</string>
+</resources>

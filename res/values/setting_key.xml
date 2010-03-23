@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="key_setting_twitter_oauth_enable">twitter_oauth_enable</string>
+<string name="key_setting_twitter_oauth_token">twitter_oauth_token</string>
+<string name="key_setting_display_buttons">display_buttons</string>
+<string name="key_setting_shorturl">shorturl</string>
+<string name="key_setting_shorturl_service">shorturl_service</string>
+<string name="key_setting_twitter_load_timeline">twitter_load_timeline</string><string name="key_setting_wassr_load_timeline">wassr_load_timeline</string>
+</resources>

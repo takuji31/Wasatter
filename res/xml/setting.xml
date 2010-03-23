@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="@string/title_setting_account">
+	<PreferenceScreen android:title="@string/service_wassr"
+		android:summary="@string/summary_setting_category_wassr">
+		<CheckBoxPreference android:key="enable_wassr"
+			android:title="@string/title_setting_account_enabled"
+			android:summary="@string/summary_setting_account_wassr_enabled"
+			android:defaultValue="false"></CheckBoxPreference>
+		<CheckBoxPreference android:defaultValue="true" android:key="@string/key_setting_wassr_load_timeline" android:summaryOn="@string/summary_setting_load_timeline_enable" android:summaryOff="@string/summary_setting_load_timeline_disable" android:title="@string/title_setting_load_timeline"></CheckBoxPreference><EditTextPreference android:key="wassr_id"
+			android:summary="ログインID" android:dialogMessage="@string/message_setting_login_id"
+			android:dialogTitle="@string/title_setting_login_id" android:title="@string/title_setting_login_id" />
+		<EditTextPreference android:key="wassr_pass"
+			android:summary="パスワード" android:password="true"
+			android:dialogMessage="@string/message_setting_password"
+			android:dialogTitle="@string/title_setting_password" android:title="@string/title_setting_password" />
+
+	
+</PreferenceScreen>
+
+
+	<PreferenceScreen android:title="@string/service_twitter"
+		android:summary="@string/summary_setting_category_twitter">
+		<CheckBoxPreference android:title="@string/title_setting_account_enabled"
+			android:defaultValue="false" android:key="enable_twitter"
+			android:summary="@string/summary_setting_account_twitter_enabled"></CheckBoxPreference><CheckBoxPreference android:defaultValue="true" android:summaryOn="@string/summary_setting_load_timeline_enable" android:summaryOff="@string/summary_setting_load_timeline_disable" android:title="@string/title_setting_load_timeline" android:key="@string/key_setting_twitter_load_timeline"></CheckBoxPreference>
+		<EditTextPreference android:key="twitter_id"
+			android:summary="ログインID" android:dialogMessage="@string/message_setting_login_id"
+			android:dialogTitle="@string/title_setting_login_id" android:title="@string/title_setting_login_id" />
+		<EditTextPreference android:key="twitter_pass"
+			android:summary="パスワード" android:password="true"
+			android:dialogMessage="@string/message_setting_password"
+			android:dialogTitle="@string/title_setting_password" android:title="@string/title_setting_password" />
+		<CheckBoxPreference android:key="@string/key_setting_twitter_oauth_enable"
+			android:defaultValue="false" android:title="@string/title_setting_twitter_use_oauth"
+			android:summaryOff="@string/summary_setting_twitter_use_oauth_disable"
+			android:summaryOn="@string/summary_setting_twitter_use_oauth_enable"></CheckBoxPreference>
+	</PreferenceScreen>
+
+	<PreferenceScreen android:title="@string/title_setting_category_display"
+		android:summary="@string/summary_setting_category_display">
+		<CheckBoxPreference android:key="@string/key_setting_display_load_image"
+			android:title="@string/title_setting_display_load_image"
+			android:summaryOff="@string/summary_setting_display_load_image_false"
+			android:summaryOn="@string/summary_setting_display_load_image_true"
+			android:defaultValue="true"></CheckBoxPreference>
+		<CheckBoxPreference android:key="@string/key_setting_display_buttons"
+			android:title="@string/title_setting_display_buttons"
+			android:summaryOn="@string/summary_setting_display_buttons_enabled"
+			android:summaryOff="@string/summary_setting_display_buttons_disabled"
+			android:defaultValue="true"></CheckBoxPreference>
+	<CheckBoxPreference android:title="内容の複数行表示" android:key="display_body_multi_line" android:summaryOff="内容を1行で表示します。収まりきらない場合はスクロールします。" android:summaryOn="内容を複数行で表示します。" android:defaultValue="false"></CheckBoxPreference>
+
+
+</PreferenceScreen>
+	<!-- <PreferenceScreen android:summary="@string/summary_setting_category_shorturl"
+		android:title="@string/title_setting_category_shorturl">
+		<CheckBoxPreference android:summaryOn="@string/summary_setting_shorturl_enabled"
+			android:key="@string/key_setting_shorturl" android:summaryOff="@string/summary_setting_shorturl_disabled"
+			android:title="@string/title_setting_shorturl"></CheckBoxPreference>
+		<ListPreference android:entries="@array/array_shorturl_service_name"
+			android:entryValues="@array/array_shorturl_service_value"
+			android:title="@string/title_setting_shorturl_service" android:key="@string/key_setting_shorturl_service"
+			android:summary="@string/summary_setting_shorturl_service"
+			android:defaultValue="jmp"></ListPreference>
+
+	</PreferenceScreen> -->
+
+</PreferenceScreen>
