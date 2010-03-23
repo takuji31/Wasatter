@@ -6,8 +6,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ListView;
 
-public class TaskReloadTodo extends
-		AsyncTask<Void, Void, ArrayList<WassrTodo>> {
+public class TaskReloadTodo extends AsyncTask<Void, Void, ArrayList<WassrTodo>> {
 	protected ListView listview;
 
 	// コンストラクタ
@@ -37,10 +36,10 @@ public class TaskReloadTodo extends
 	@Override
 	protected void onPostExecute(ArrayList<WassrTodo> result) {
 		// 取得結果の代入
-			Wasatter.main.list_todo = result;
-			AdapterTodo adapter_todo = new AdapterTodo(this.listview
-					.getContext(), R.layout.todo_row, result);
-			this.listview.setAdapter(adapter_todo);
+		Wasatter.main.list_todo = result;
+		AdapterTodo adapter_todo = new AdapterTodo(this.listview.getContext(),
+				R.layout.todo_row, result);
+		this.listview.setAdapter(adapter_todo);
 		this.listview.requestFocus();
 		Wasatter.main.layout_progress_timeline.setVisibility(View.GONE);
 	}

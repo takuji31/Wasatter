@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 
 /**
  * @author Senka/Takuji
- *
+ * 
  */
 public class OAuthPreference extends Preference {
 
@@ -22,6 +22,7 @@ public class OAuthPreference extends Preference {
 		super(context, attrs);
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
+
 	public OAuthPreference(Context context) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		super(context);

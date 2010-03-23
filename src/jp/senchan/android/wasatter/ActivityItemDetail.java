@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 /**
  * 各つぶやき/ヒトコトの詳細
- *
+ * 
  * @author Senka/Takuji
- *
+ * 
  */
 public class ActivityItemDetail extends Activity {
 	protected WasatterItem ws;
@@ -48,22 +48,23 @@ public class ActivityItemDetail extends Activity {
 				// 画像をセット
 				ImageView icon = (ImageView) this.findViewById(R.id.icon);
 				Bitmap bmp = Wasatter.images.get(wss.profileImageUrl);
-				if(bmp != null  && Setting.isLoadImage()){
+				if (bmp != null && Setting.isLoadImage()) {
 					icon.setImageBitmap(bmp);
 					icon.setVisibility(View.VISIBLE);
-				}else{
+				} else {
 					icon.setVisibility(View.GONE);
 				}
 				// 返信であるかどうか判定
-				if (wss.replyUserNick !=null && !wss.replyUserNick.equals("null")) {
+				if (wss.replyUserNick != null
+						&& !wss.replyUserNick.equals("null")) {
 					TextView reply_message = (TextView) this
 							.findViewById(R.id.reply_text);
-						SpannableStringBuilder sb = new SpannableStringBuilder(
-								"by ");
-						sb.append(wss.replyUserNick);
-						TextView reply_user_name = (TextView) this
-								.findViewById(R.id.reply_user_name);
-						reply_user_name.setText(sb.toString());
+					SpannableStringBuilder sb = new SpannableStringBuilder(
+							"by ");
+					sb.append(wss.replyUserNick);
+					TextView reply_user_name = (TextView) this
+							.findViewById(R.id.reply_user_name);
+					reply_user_name.setText(sb.toString());
 					if (wss.replyMessage != null) {
 						SpannableStringBuilder sb2 = new SpannableStringBuilder(
 								"> ");
@@ -107,7 +108,7 @@ public class ActivityItemDetail extends Activity {
 						} else {
 							AlertDialog.Builder ad = new AlertDialog.Builder(
 									ActivityItemDetail.this);
-							//ad.setTitle(R.string.notice_title_no_url);
+							// ad.setTitle(R.string.notice_title_no_url);
 							ad.setMessage(R.string.notice_message_no_url);
 							ad.setPositiveButton("OK", null);
 							ad.show();
@@ -121,7 +122,8 @@ public class ActivityItemDetail extends Activity {
 
 					@Override
 					public void onClick(View v) {
-						new TaskAddFavorite(ActivityItemDetail.this).execute(ActivityItemDetail.this.ws);
+						new TaskAddFavorite(ActivityItemDetail.this)
+								.execute(ActivityItemDetail.this.ws);
 					}
 				});
 				// Replyボタンにイベント割り当て
@@ -132,7 +134,8 @@ public class ActivityItemDetail extends Activity {
 					@Override
 					public void onClick(View v) {
 						// TODO 自動生成されたメソッド・スタブ
-						Intent intent_reply = new Intent(ActivityItemDetail.this,
+						Intent intent_reply = new Intent(
+								ActivityItemDetail.this,
 								ActivityUpdateStatus.class);
 						intent_reply.putExtra(Wasatter.REPLY,
 								ActivityItemDetail.this.ws);

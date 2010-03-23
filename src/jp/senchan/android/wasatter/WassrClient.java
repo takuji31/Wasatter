@@ -58,8 +58,11 @@ public class WassrClient {
 	public static ArrayList<WasatterItem> getOdai() throws TwitterException {
 		return WassrClient.getItems(WassrClient.ODAI_URL, false);
 	}
-	public static ArrayList<WasatterItem> getChannel(String name) throws TwitterException{
-		return WassrClient.getItems(CHANNEL_TIMELINE_URL.replace("[name]", name), true);
+
+	public static ArrayList<WasatterItem> getChannel(String name)
+			throws TwitterException {
+		return WassrClient.getItems(CHANNEL_TIMELINE_URL
+				.replace("[name]", name), true);
 	}
 
 	public static ArrayList<WasatterItem> getItems(String url, boolean channel)
@@ -84,32 +87,36 @@ public class WassrClient {
 				ws.service = Wasatter.SERVICE_WASSR;
 				ws.rid = obj.getString("rid");
 				ws.channel = channel;
-				if(channel){
+				if (channel) {
 					JSONObject ch = obj.getJSONObject("channel");
-					SpannableStringBuilder sb = new SpannableStringBuilder(ch.getString("title"));
+					SpannableStringBuilder sb = new SpannableStringBuilder(ch
+							.getString("title"));
 					sb.append(" (");
 					sb.append(ch.getString("name_en"));
 					ws.service = sb.append(")").toString();
 					ws.id = obj.getJSONObject("user").getString("login_id");
 					ws.name = obj.getJSONObject("user").getString("nick");
-					ws.link = CHANNEL_PERMA_LINK.replace("[name]", ch.getString("name_en")).replace("[rid]", ws.rid);
-					try{
+					ws.link = CHANNEL_PERMA_LINK.replace("[name]",
+							ch.getString("name_en")).replace("[rid]", ws.rid);
+					try {
 						JSONObject reply = obj.getJSONObject("reply");
 						ws.replyUserNick = reply.getString("nick");
 						ws.replyMessage = HTMLEntity.unescape(reply
 								.getString("body"));
-					}catch (JSONException e) {
-						//返信なかったらスルー
+					} catch (JSONException e) {
+						// 返信なかったらスルー
 					}
 					try {
-						ws.epoch = sdf.parse(obj.getString("created_on")).getTime() / 1000;
+						ws.epoch = sdf.parse(obj.getString("created_on"))
+								.getTime() / 1000;
 					} catch (ParseException e) {
 						ws.epoch = 0;
 					}
 					ws.text = HTMLEntity.unescape(obj.getString("body"));
-				}else{
+				} else {
 					ws.id = obj.getString("user_login_id");
-					ws.name = obj.getJSONObject("user").getString("screen_name");
+					ws.name = obj.getJSONObject("user")
+							.getString("screen_name");
 					ws.link = obj.getString("link");
 					ws.replyUserNick = obj.getString("reply_user_nick");
 					ws.replyMessage = HTMLEntity.unescape(obj
@@ -128,19 +135,20 @@ public class WassrClient {
 					ws.replyMessage = Wasatter.CONTEXT
 							.getString(R.string.message_private_message);
 				}
-				//お題のイイネは取得しない。
-				if(!WassrClient.ODAI_URL.equals(url)){
-				JSONArray favorites = obj.getJSONArray("favorites");
-				int fav_count = favorites.length();
-				for (int k = 0; k < fav_count; k++) {
-					String icon_url = WassrClient.FAVORITE_ICON_URL.replace(
-							"[user]", favorites.getString(k));
-					ws.favorite.add(favorites.getString(k));
-					if (Wasatter.downloadWaitUrls.indexOf(icon_url) == -1
-							&& Wasatter.images.get(icon_url) == null) {
-						Wasatter.downloadWaitUrls.add(icon_url);
+				// お題のイイネは取得しない。
+				if (!WassrClient.ODAI_URL.equals(url)) {
+					JSONArray favorites = obj.getJSONArray("favorites");
+					int fav_count = favorites.length();
+					for (int k = 0; k < fav_count; k++) {
+						String icon_url = WassrClient.FAVORITE_ICON_URL
+								.replace("[user]", favorites.getString(k));
+						ws.favorite.add(favorites.getString(k));
+						if (Wasatter.downloadWaitUrls.indexOf(icon_url) == -1
+								&& Wasatter.images.get(icon_url) == null) {
+							Wasatter.downloadWaitUrls.add(icon_url);
+						}
 					}
-				}}
+				}
 				ret.add(ws);
 			}
 		} catch (JSONException e) {
@@ -192,7 +200,7 @@ public class WassrClient {
 				try {
 					JSONObject obj = result.getJSONObject(i);
 					WasatterItem item = new WasatterItem();
-					item.id = obj.getString("name_en"); 
+					item.id = obj.getString("name_en");
 					item.name = obj.getString("title");
 					ret.add(item);
 				} catch (JSONException e) {
@@ -246,6 +254,7 @@ public class WassrClient {
 		}
 		return false;
 	}
+
 	public static String channelFavorite(WasatterItem item) {
 		JSONObject json;
 		try {

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 /**
  * @author Senka/Takuji
- *
+ * 
  */
 public class ActivityUpdateStatus extends Activity {
 	protected WasatterItem ws;
@@ -75,9 +75,9 @@ public class ActivityUpdateStatus extends Activity {
 			LinearLayout layout_service = (LinearLayout) this
 					.findViewById(R.id.layout_service);
 			layout_service.setVisibility(View.GONE);
-		}else{
+		} else {
 			LinearLayout layout_reply = (LinearLayout) this
-			.findViewById(R.id.layout_reply);
+					.findViewById(R.id.layout_reply);
 			layout_reply.setVisibility(View.GONE);
 		}
 
@@ -95,9 +95,10 @@ public class ActivityUpdateStatus extends Activity {
 					SpannableStringBuilder sb = (SpannableStringBuilder) status
 							.getText();
 					Button update_button = (Button) v;
-					//未入力チェック
-					if("".equals(sb.toString())){
-						AlertDialog.Builder adb = new AlertDialog.Builder(ActivityUpdateStatus.this);
+					// 未入力チェック
+					if ("".equals(sb.toString())) {
+						AlertDialog.Builder adb = new AlertDialog.Builder(
+								ActivityUpdateStatus.this);
 						adb.setTitle("");
 						adb.setMessage(R.string.notice_message_required);
 						adb.setPositiveButton("OK", null);
@@ -106,26 +107,33 @@ public class ActivityUpdateStatus extends Activity {
 					}
 					// 二重投稿防止
 					update_button.setClickable(false);
-					TaskUpdate ut = new TaskUpdate(ActivityUpdateStatus.this.reply,wassr.isChecked(),twitter.isChecked());
-					ut.execute(sb.toString(),ActivityUpdateStatus.this.reply ? ActivityUpdateStatus.this.ws.rid : null);
+					TaskUpdate ut = new TaskUpdate(
+							ActivityUpdateStatus.this.reply, wassr.isChecked(),
+							twitter.isChecked());
+					ut
+							.execute(
+									sb.toString(),
+									ActivityUpdateStatus.this.reply ? ActivityUpdateStatus.this.ws.rid
+											: null);
 					ActivityUpdateStatus.this.finish();
 				}
 			});
 		}
 
-		Button short_button = (Button)this.findViewById(R.id.short_button);
+		Button short_button = (Button) this.findViewById(R.id.short_button);
 		short_button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
-				EditText status = (EditText)ActivityUpdateStatus.this.findViewById(R.id.post_status_text);
+				EditText status = (EditText) ActivityUpdateStatus.this
+						.findViewById(R.id.post_status_text);
 				String str = status.getText().toString();
 				String replace;
 				String url = Wasatter.getUrl(str);
 				String short_url = UrlGetter.bitly(url, UrlGetter.JMP);
-				if(!"".equals(short_url)){
+				if (!"".equals(short_url)) {
 					replace = str.replace(url, short_url);
-				}else{
+				} else {
 					replace = str;
 				}
 				status.setText(replace);

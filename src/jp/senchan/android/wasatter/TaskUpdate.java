@@ -30,7 +30,8 @@ public class TaskUpdate extends AsyncTask<String, String, Void> {
 				this.r_wassr = WassrClient.updateTimeLine(params[0], params[1]);
 			} catch (TwitterException e) {
 				// TODO 自動生成された catch ブロック
-				publishProgress(Wasatter.MODE_ERROR,Wasatter.SERVICE_WASSR,String.valueOf(e.getStatusCode()));
+				publishProgress(Wasatter.MODE_ERROR, Wasatter.SERVICE_WASSR,
+						String.valueOf(e.getStatusCode()));
 				this.r_wassr = false;
 			}
 		}
@@ -51,7 +52,8 @@ public class TaskUpdate extends AsyncTask<String, String, Void> {
 				tw.updateStatus(params[0]);
 				this.r_twitter = true;
 			} catch (TwitterException e) {
-				publishProgress(Wasatter.MODE_ERROR,Wasatter.SERVICE_TWITTER,String.valueOf(e.getStatusCode()));
+				publishProgress(Wasatter.MODE_ERROR, Wasatter.SERVICE_TWITTER,
+						String.valueOf(e.getStatusCode()));
 				this.r_twitter = false;
 			}
 		}
@@ -65,7 +67,8 @@ public class TaskUpdate extends AsyncTask<String, String, Void> {
 		if (Wasatter.MODE_POSTING.equals(values[0])) {
 			TextView text_posting_service = (TextView) Wasatter.main
 					.findViewById(R.id.text_update_status_service);
-			LinearLayout layout = (LinearLayout) Wasatter.main.findViewById(R.id.layout_update_status);
+			LinearLayout layout = (LinearLayout) Wasatter.main
+					.findViewById(R.id.layout_update_status);
 			layout.setVisibility(View.VISIBLE);
 			text_posting_service.setText(service);
 		} else if (Wasatter.MODE_ERROR.equals(values[0])) {
@@ -76,7 +79,8 @@ public class TaskUpdate extends AsyncTask<String, String, Void> {
 
 	@Override
 	protected void onPostExecute(Void result) {
-		LinearLayout layout = (LinearLayout) Wasatter.main.findViewById(R.id.layout_update_status);
+		LinearLayout layout = (LinearLayout) Wasatter.main
+				.findViewById(R.id.layout_update_status);
 		layout.setVisibility(View.GONE);
 	}
 }

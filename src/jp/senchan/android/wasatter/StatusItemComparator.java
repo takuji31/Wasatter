@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 /**
  * @author Senka/Takuji
- *
+ * 
  */
 public class StatusItemComparator implements Comparator<WasatterItem> {
 	@Override

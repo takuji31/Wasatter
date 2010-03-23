@@ -10,7 +10,7 @@ import android.widget.Button;
 
 /**
  * @author takuji
- *
+ * 
  */
 public class TaskGetOAuthRequestUrl extends AsyncTask<Void, Void, Void> {
 	private ActivityOAuthToken target;
@@ -20,10 +20,11 @@ public class TaskGetOAuthRequestUrl extends AsyncTask<Void, Void, Void> {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.target = target;
 	}
+
 	@Override
 	protected void onPreExecute() {
 		// TODO 自動生成されたメソッド・スタブ
-		btn = (Button)this.target.findViewById(R.id.button_set_token);
+		btn = (Button) this.target.findViewById(R.id.button_set_token);
 		btn.setClickable(false);
 	}
 

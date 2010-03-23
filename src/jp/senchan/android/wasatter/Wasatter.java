@@ -45,7 +45,7 @@ public class Wasatter {
 	public static String MODE_DISPLAY = "mode_display";
 	public static String MODE_ERROR = "mode_error";
 
-	public static long cacheExpire(){
+	public static long cacheExpire() {
 		return new Date().getTime() / 1000 - 2 * 24 * 60 * 60;
 	}
 
@@ -58,6 +58,7 @@ public class Wasatter {
 		}
 		return "";
 	}
+
 	public static String makeImageFileName() {
 		String names = "abcdefghijklmnopqrstuvwxyz0123456789";
 		SpannableStringBuilder path = new SpannableStringBuilder();
@@ -116,7 +117,8 @@ public class Wasatter {
 		path.append(getImagePath());
 		path.append(name);
 		try {
-			return BitmapFactory.decodeStream(new FileInputStream(path.toString()));
+			return BitmapFactory.decodeStream(new FileInputStream(path
+					.toString()));
 		} catch (Exception e) {
 			try {
 				if (in != null)
@@ -128,11 +130,13 @@ public class Wasatter {
 			return null;
 		}
 	}
-	public static void deleteImage(String name){
-		try{
-		File file = new File(new SpannableStringBuilder(Wasatter.getImagePath()).append(name).toString());
-		file.delete();
-		}catch (Exception e) {
+
+	public static void deleteImage(String name) {
+		try {
+			File file = new File(new SpannableStringBuilder(Wasatter
+					.getImagePath()).append(name).toString());
+			file.delete();
+		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
@@ -144,26 +148,26 @@ public class Wasatter {
 		path.append("/imagecache/");
 		return path.toString();
 	}
-	public static void deleteImageCache(){
+
+	public static void deleteImageCache() {
 		Wasatter.images.clear();
 		SQLiteDatabase rdb = Wasatter.imageStore.getReadableDatabase();
 		SQLiteDatabase wdb = Wasatter.imageStore.getWritableDatabase();
 		Cursor c = rdb.rawQuery("select filename from imagestore", null);
 		c.moveToFirst();
 		int count = c.getCount();
-		for(int i=0;i < count;i++){
-				String imageName = c.getString(0);
-				Wasatter.deleteImage(imageName);
-				c.moveToNext();
+		for (int i = 0; i < count; i++) {
+			String imageName = c.getString(0);
+			Wasatter.deleteImage(imageName);
+			c.moveToNext();
 		}
 		c.close();
 		wdb.execSQL("delete from imagestore");
 	}
 
-	public static void displayHttpError(String error,String service){
+	public static void displayHttpError(String error, String service) {
 		String message;
-		if (ERROR_TMP.equals(error)
-				&& Wasatter.SERVICE_WASSR.equals(service)) {
+		if (ERROR_TMP.equals(error) && Wasatter.SERVICE_WASSR.equals(service)) {
 			message = "エラーが発生しました（Wassr,503）Wassrが一時的に不安定になっている可能性があります。";
 		} else if (ERROR_TMP.equals(error)
 				&& Wasatter.SERVICE_TWITTER.equals(service)) {
@@ -174,10 +178,9 @@ public class Wasatter {
 		} else if (ERROR_AUTH.equals(error)
 				&& Wasatter.SERVICE_TWITTER.equals(service)) {
 			message = "エラーが発生しました（Twitter,401）IDかパスワードが間違っている可能性があります。";
-		} else if("JSON".equals(error)) {
+		} else if ("JSON".equals(error)) {
 			message = "取得データが破損しています、リロードしてください。";
-		} else if("-1".equals(error)
-		&& Wasatter.SERVICE_WASSR.equals(service)){
+		} else if ("-1".equals(error) && Wasatter.SERVICE_WASSR.equals(service)) {
 			message = "不明なエラーが発生しました（Wassr）IDかパスワードが間違っているか、一時的に不安定になっている可能性があります。";
 		} else {
 			message = "通信中に不明なエラーが発生しました。このエラーが何度も発生する場合は、恐れ入りますがバグ報告をよろしくお願いします。";

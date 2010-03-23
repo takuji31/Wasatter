@@ -7,10 +7,11 @@ import android.text.SpannableStringBuilder;
 
 /**
  * Wasatterつぶやき＆ヒトコトクラス
+ * 
  * @author Senka/Takuji
- *
+ * 
  */
-public class WasatterItem implements Serializable{
+public class WasatterItem implements Serializable {
 	/**
 	 *
 	 */
@@ -48,9 +49,11 @@ public class WasatterItem implements Serializable{
 	public long epoch;
 	public ArrayList<String> favorite = new ArrayList<String>();
 	public boolean channel;
+
 	@Override
 	public String toString() {
 		// TODO 自動生成されたメソッド・スタブ
-		return new SpannableStringBuilder(name).append("(").append(id).append(")").toString();
+		return new SpannableStringBuilder(name).append("(").append(id).append(
+				")").toString();
 	}
 }

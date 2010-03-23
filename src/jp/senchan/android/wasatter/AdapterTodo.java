@@ -14,8 +14,7 @@ public class AdapterTodo extends ArrayAdapter {
 	private ArrayList items;
 	private LayoutInflater inflater;
 
-	public AdapterTodo(Context context, int textViewResourceId,
-			ArrayList items) {
+	public AdapterTodo(Context context, int textViewResourceId, ArrayList items) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 		this.inflater = (LayoutInflater) context

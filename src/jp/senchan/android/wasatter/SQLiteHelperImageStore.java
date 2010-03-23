@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * @author takuji
- *
+ * 
  */
 public class SQLiteHelperImageStore extends SQLiteOpenHelper {
 
@@ -18,13 +18,18 @@ public class SQLiteHelperImageStore extends SQLiteOpenHelper {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
-	/* (非 Javadoc)
-	 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
+	/*
+	 * (非 Javadoc)
+	 * 
+	 * @see
+	 * android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite
+	 * .SQLiteDatabase)
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO 自動生成されたメソッド・スタブ
-		db.execSQL("create table imagestore(url text primary key,filename text,created integer)");
+		db
+				.execSQL("create table imagestore(url text primary key,filename text,created integer)");
 
 	}
 

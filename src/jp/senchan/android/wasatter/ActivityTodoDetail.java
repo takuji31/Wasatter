@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 /**
  * @author takuji
- *
+ * 
  */
 public class ActivityTodoDetail extends Activity {
 	public WassrTodo status;

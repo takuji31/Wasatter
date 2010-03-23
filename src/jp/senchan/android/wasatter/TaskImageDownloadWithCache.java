@@ -23,29 +23,33 @@ import android.widget.TextView;
 
 /**
  * @author takuji
- *
+ * 
  */
 public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 	private int count;
 	public FrameLayout layout_progress;
 	public TextView progress_text_count;
+
 	public TaskImageDownloadWithCache() {
 		// TODO 自動生成されたコンストラクター・スタブ
 		count = Wasatter.downloadWaitUrls.size();
-		layout_progress = (FrameLayout)Wasatter.main.findViewById(R.id.layout_load_image_progress);
-		progress_text_count = (TextView)Wasatter.main.findViewById(R.id.load_image_count);
+		layout_progress = (FrameLayout) Wasatter.main
+				.findViewById(R.id.layout_load_image_progress);
+		progress_text_count = (TextView) Wasatter.main
+				.findViewById(R.id.load_image_count);
 	}
 
 	@Override
 	protected void onPreExecute() {
 		Wasatter.main.progress_image.setMax(count);
-		//そもそもロードしない設定なら走らせない
-		if(!Setting.isLoadImage()){
+		// そもそもロードしない設定なら走らせない
+		if (!Setting.isLoadImage()) {
 			this.cancel(true);
 			return;
 		}
-		progress_text_count.setText(new SpannableStringBuilder("0/").append(String.valueOf(count)).toString());
-		if(count != 0){
+		progress_text_count.setText(new SpannableStringBuilder("0/").append(
+				String.valueOf(count)).toString());
+		if (count != 0) {
 			layout_progress.setVisibility(View.VISIBLE);
 		}
 	}
@@ -54,9 +58,10 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 	protected Void doInBackground(Void... params) {
 		// 画像のダウンロードを行うサービス
 		HttpClient http = new HttpClient();
-		/*http.setConnectionTimeout(5000);
-		http.setReadTimeout(10000);
-		http.setRetryCount(1);*/
+		/*
+		 * http.setConnectionTimeout(5000); http.setReadTimeout(10000);
+		 * http.setRetryCount(1);
+		 */
 		SQLiteDatabase db = Wasatter.imageStore.getWritableDatabase();
 		ArrayList<String> urls = Wasatter.downloadWaitUrls;
 		db.beginTransaction();
@@ -68,9 +73,9 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		st = db
 				.compileStatement("insert into imagestore(url,filename,created) values(?,?,?)");
 		try {
-			while(it.hasNext()){
-			//for (int i=0;i<count;i++) {
-			//	String url = urls.get(i);
+			while (it.hasNext()) {
+				// for (int i=0;i<count;i++) {
+				// String url = urls.get(i);
 				String url = it.next();
 				try {
 					HttpResponse res = http.get(url);
@@ -104,7 +109,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 			e.printStackTrace();
 		}
 		db.endTransaction();
-		//Wasatter.downloadWaitUrls.clear();
+		// Wasatter.downloadWaitUrls.clear();
 		return null;
 	}
 
@@ -113,11 +118,14 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onProgressUpdate(values);
 		Wasatter.main.progress_image.incrementProgressBy(1);
-		progress_text_count.setText(new SpannableStringBuilder(String.valueOf(Wasatter.main.progress_image.getProgress())).append("/").append(String.valueOf(count)).toString());
-		try{
-			AdapterTimeline adapter = (AdapterTimeline) Wasatter.main.ls.getAdapter();
+		progress_text_count.setText(new SpannableStringBuilder(String
+				.valueOf(Wasatter.main.progress_image.getProgress())).append(
+				"/").append(String.valueOf(count)).toString());
+		try {
+			AdapterTimeline adapter = (AdapterTimeline) Wasatter.main.ls
+					.getAdapter();
 			adapter.updateView();
-		}catch (ClassCastException e) {
+		} catch (ClassCastException e) {
 			// お題とかに切り替わってたらスルーする
 		}
 	}
@@ -126,16 +134,17 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 	protected void onPostExecute(Void result) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onPostExecute(result);
-		try{
-			AdapterTimeline adapter = (AdapterTimeline) Wasatter.main.ls.getAdapter();
+		try {
+			AdapterTimeline adapter = (AdapterTimeline) Wasatter.main.ls
+					.getAdapter();
 			adapter.updateView();
-		}catch (ClassCastException e) {
+		} catch (ClassCastException e) {
 			// お題とかに切り替わってたらスルーする
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			// 初回起動時に切り替えたりとかしたらスルーする
 		}
 		Wasatter.main.progress_image.setProgress(0);
-		if(count != 0){
+		if (count != 0) {
 			layout_progress.setVisibility(View.GONE);
 		}
 	}

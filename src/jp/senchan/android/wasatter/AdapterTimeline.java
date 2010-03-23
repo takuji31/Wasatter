@@ -15,13 +15,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class AdapterTimeline extends ArrayAdapter<WasatterItem> implements WasatterAdapter {
+public class AdapterTimeline extends ArrayAdapter<WasatterItem> implements
+		WasatterAdapter {
 
 	private ArrayList<WasatterItem> items;
 	private LayoutInflater inflater;
 
 	public AdapterTimeline(Context context, int textViewResourceId,
-			ArrayList<WasatterItem> items,boolean channel) {
+			ArrayList<WasatterItem> items, boolean channel) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 		this.inflater = (LayoutInflater) context
@@ -48,16 +49,17 @@ public class AdapterTimeline extends ArrayAdapter<WasatterItem> implements Wasat
 			if (text != null) {
 				text.setText(item.text);
 			}
-			//テキストの行数を決定する。
+			// テキストの行数を決定する。
 			text.setSingleLine(!Setting.isDisplayBodyMultiLine());
-			if(!Setting.isDisplayBodyMultiLine()){
+			if (!Setting.isDisplayBodyMultiLine()) {
 				text.setEllipsize(TruncateAt.MARQUEE);
-			}else{
+			} else {
 				text.setEllipsize(null);
 			}
 			// 返信元の名前をビューにセットする
 			TextView reply_name = (TextView) view.findViewById(R.id.reply_name);
-			if (reply_name != null && !"null".equals(item.replyUserNick) && item.replyUserNick != null) {
+			if (reply_name != null && !"null".equals(item.replyUserNick)
+					&& item.replyUserNick != null) {
 				reply_name.setText(new SpannableStringBuilder(">").append(
 						item.replyUserNick).toString());
 				reply_name.setVisibility(View.VISIBLE);
@@ -67,10 +69,10 @@ public class AdapterTimeline extends ArrayAdapter<WasatterItem> implements Wasat
 			}
 			// アイコンをロードする。
 			Bitmap image = Wasatter.images.get(item.profileImageUrl);
-				ImageView icon = (ImageView) view.findViewById(R.id.icon);
-			if(!Setting.isLoadImage()){
+			ImageView icon = (ImageView) view.findViewById(R.id.icon);
+			if (!Setting.isLoadImage()) {
 				icon.setVisibility(View.GONE);
-			}else{
+			} else {
 				icon.setImageBitmap(image);
 				icon.setVisibility(View.VISIBLE);
 			}
@@ -79,25 +81,29 @@ public class AdapterTimeline extends ArrayAdapter<WasatterItem> implements Wasat
 			if (service != null) {
 				service.setText(item.service);
 			}
-			//イイネ！アイコンリストを表示
-			LinearLayout layout_favorite_list = (LinearLayout)view.findViewById(R.id.layout_favorite);
-			LinearLayout layout_favorite_icons = (LinearLayout)view.findViewById(R.id.layout_favorite_images);
-			if(item.favorite.size()==0){
+			// イイネ！アイコンリストを表示
+			LinearLayout layout_favorite_list = (LinearLayout) view
+					.findViewById(R.id.layout_favorite);
+			LinearLayout layout_favorite_icons = (LinearLayout) view
+					.findViewById(R.id.layout_favorite_images);
+			if (item.favorite.size() == 0) {
 				layout_favorite_list.setVisibility(View.GONE);
 				layout_favorite_icons.removeAllViews();
-			}else if(Setting.isLoadImage()){
+			} else if (Setting.isLoadImage()) {
 				layout_favorite_list.setVisibility(View.VISIBLE);
 				layout_favorite_icons.removeAllViews();
 				ArrayList<String> favorites = item.favorite;
 				int count = favorites.size();
-				for(int i=0;i<count;i++){
+				for (int i = 0; i < count; i++) {
 					ImageView add_icon = new ImageView(view.getContext());
-					add_icon.setImageBitmap(Wasatter.images.get(WassrClient.FAVORITE_ICON_URL.replace("[user]", favorites.get(i))));
+					add_icon.setImageBitmap(Wasatter.images
+							.get(WassrClient.FAVORITE_ICON_URL.replace(
+									"[user]", favorites.get(i))));
 					add_icon.setLayoutParams(new LayoutParams(28, 28));
 					add_icon.setPadding(2, 2, 2, 2);
 					layout_favorite_icons.addView(add_icon);
 				}
-			}else{
+			} else {
 				layout_favorite_list.setVisibility(View.VISIBLE);
 				layout_favorite_icons.removeAllViews();
 				int count = item.favorite.size();

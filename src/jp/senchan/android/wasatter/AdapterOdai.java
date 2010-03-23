@@ -17,8 +17,7 @@ public class AdapterOdai extends ArrayAdapter {
 	private ArrayList items;
 	private LayoutInflater inflater;
 
-	public AdapterOdai(Context context, int textViewResourceId,
-			ArrayList items) {
+	public AdapterOdai(Context context, int textViewResourceId, ArrayList items) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 		this.inflater = (LayoutInflater) context
@@ -39,7 +38,8 @@ public class AdapterOdai extends ArrayAdapter {
 				text.setText(item.text);
 			}
 			TextView date = (TextView) view.findViewById(R.id.odai_date);
-			date.setText(new SimpleDateFormat(Wasatter.ODAI_DATE_FORMAT).format(new Date(item.epoch*1000)));
+			date.setText(new SimpleDateFormat(Wasatter.ODAI_DATE_FORMAT)
+					.format(new Date(item.epoch * 1000)));
 		}
 		return view;
 	}

@@ -26,7 +26,7 @@ import android.text.SpannableStringBuilder;
 
 /**
  * @author Senka/Takuji
- *
+ * 
  */
 public class TwitterClient {
 	private static final String FRIEND_TIMELINE_URL = "http://twitter.com/statuses/home_timeline.json";
@@ -36,11 +36,9 @@ public class TwitterClient {
 	private static final String PERMA_LINK = "http://twitter.com/[id]/status/[rid]";
 	private static HttpClientWrapper http = new HttpClientWrapper();
 
-
-
 	/*
 	 * (非 Javadoc)
-	 *
+	 * 
 	 * @see jp.senchan.android.wasatter.WasatterClient#getTimeLine(int)
 	 */
 	public static ArrayList<WasatterItem> getTimeLine() throws TwitterException {
@@ -55,14 +53,17 @@ public class TwitterClient {
 		return TwitterClient.getItems(TwitterClient.MYPOST_URL);
 	}
 
-	public static ArrayList<WasatterItem> getItems(String url) throws TwitterException {
+	public static ArrayList<WasatterItem> getItems(String url)
+			throws TwitterException {
 		ArrayList<WasatterItem> ret = new ArrayList<WasatterItem>();
-		if (!Setting.isTwitterEnabled() || (!Setting.isLoadTwitterTimeline() && TwitterClient.FRIEND_TIMELINE_URL.equals(url))) {
+		if (!Setting.isTwitterEnabled()
+				|| (!Setting.isLoadTwitterTimeline() && TwitterClient.FRIEND_TIMELINE_URL
+						.equals(url))) {
 			return ret;
 		}
 		HttpResponse res;
 		try {
-			res = http.get(url,getAuthorization());
+			res = http.get(url, getAuthorization());
 			JSONArray result = res.asJSONArray();
 			SimpleDateFormat sdf = new SimpleDateFormat(
 					"EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
@@ -78,8 +79,9 @@ public class TwitterClient {
 				ws.link = TwitterClient.PERMA_LINK.replace("[id]", ws.id)
 						.replace("[rid]", ws.rid);
 				String profile = obj.getJSONObject("user").getString(
-				"profile_image_url");
-				if(Wasatter.downloadWaitUrls.indexOf(profile) == -1 && Wasatter.images.get(profile) == null){
+						"profile_image_url");
+				if (Wasatter.downloadWaitUrls.indexOf(profile) == -1
+						&& Wasatter.images.get(profile) == null) {
 					Wasatter.downloadWaitUrls.add(profile);
 				}
 				ws.profileImageUrl = profile;
@@ -103,7 +105,7 @@ public class TwitterClient {
 
 	/*
 	 * (非 Javadoc)
-	 *
+	 * 
 	 * @see
 	 * jp.senchan.android.wasatter.WasatterClient#updateTimeLine(java.lang.String
 	 * , java.lang.String)
@@ -121,7 +123,7 @@ public class TwitterClient {
 		}
 		HttpResponse response;
 		try {
-			response = http.post(sb.toString(),getAuthorization());
+			response = http.post(sb.toString(), getAuthorization());
 			JSONObject res = response.asJSONObject();
 			return res.getString("text") != null;
 		} catch (TwitterException e1) {
@@ -134,14 +136,17 @@ public class TwitterClient {
 		return false;
 	}
 
-	public static Authorization getAuthorization(){
-		if(Setting.isTwitterOAuthEnable()){
-			return new OAuthAuthorization(ConfigurationContext.getInstance(), Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET, new AccessToken(Setting.getTwitterToken(),Setting.getTwitterTokenSecret()));
-		}else{
-			return new BasicAuthorization(Setting.getTwitterId(), Setting.getTwitterPass());
+	public static Authorization getAuthorization() {
+		if (Setting.isTwitterOAuthEnable()) {
+			return new OAuthAuthorization(ConfigurationContext.getInstance(),
+					Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET, new AccessToken(
+							Setting.getTwitterToken(), Setting
+									.getTwitterTokenSecret()));
+		} else {
+			return new BasicAuthorization(Setting.getTwitterId(), Setting
+					.getTwitterPass());
 		}
 
 	}
-
 
 }

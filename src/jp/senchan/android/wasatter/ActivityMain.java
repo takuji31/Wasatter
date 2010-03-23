@@ -60,11 +60,16 @@ public class ActivityMain extends Activity {
 		this.setContentView(R.layout.main);
 		Wasatter.imageStore = new SQLiteHelperImageStore(Wasatter.CONTEXT);
 		this.ls = (ListView) this.findViewById(R.id.timeline_list);
-		this.progress_image = (ProgressBar) this.findViewById(R.id.load_image_progress);
-		this.layout_progress_timeline = (LinearLayout) this.findViewById(R.id.layout_load_timeline);
-		this.layout_channel_list = (LinearLayout)this.findViewById(R.id.layout_channel_list);
-		this.loading_timeline_text = (TextView) this.findViewById(R.id.text_loading_timeline);
-		this.spinner_channel_list = (Spinner)this.findViewById(R.id.channel_list);
+		this.progress_image = (ProgressBar) this
+				.findViewById(R.id.load_image_progress);
+		this.layout_progress_timeline = (LinearLayout) this
+				.findViewById(R.id.layout_load_timeline);
+		this.layout_channel_list = (LinearLayout) this
+				.findViewById(R.id.layout_channel_list);
+		this.loading_timeline_text = (TextView) this
+				.findViewById(R.id.text_loading_timeline);
+		this.spinner_channel_list = (Spinner) this
+				.findViewById(R.id.channel_list);
 		// トグルボタンをメンバー変数に代入
 		this.button_timeline = (ToggleButton) this
 				.findViewById(R.id.toggle_button_timeline);
@@ -83,7 +88,8 @@ public class ActivityMain extends Activity {
 		this.button_reply.setOnClickListener(new ReplyButtonClickListener());
 		this.button_mypost.setOnClickListener(new MyPostButtonClickListener());
 		this.button_odai.setOnClickListener(new OdaiButtonClickListener());
-		this.button_channel.setOnClickListener(new ChannelButtonClickListener());
+		this.button_channel
+				.setOnClickListener(new ChannelButtonClickListener());
 
 		// トグルボタンの初期値をタイムラインに設定
 		this.buttonSelect(R.id.toggle_button_timeline);
@@ -95,8 +101,9 @@ public class ActivityMain extends Activity {
 		button_setting.setOnClickListener(new ButtonOpenSettingListener());
 		Button button_reload = (Button) this.findViewById(R.id.button_reload);
 		button_reload.setOnClickListener(new ButtonReloadListener());
-		this.spinner_channel_list.setOnItemSelectedListener(new ChannelListClickListener());
-		//色んなところからいじれるように、Static変数に突っ込む
+		this.spinner_channel_list
+				.setOnItemSelectedListener(new ChannelListClickListener());
+		// 色んなところからいじれるように、Static変数に突っ込む
 		Wasatter.main = this;
 	}
 
@@ -112,7 +119,7 @@ public class ActivityMain extends Activity {
 		} else {
 			layout_buttons.setVisibility(View.GONE);
 		}
-		//テーマの設定
+		// テーマの設定
 		// TwitterもしくはWassrが有効になっているかチェックする
 		boolean enable = (!Setting.isTwitterEnabled())
 				&& (!Setting.isWassrEnabled());
@@ -143,9 +150,9 @@ public class ActivityMain extends Activity {
 		} else if (this.first_load) {
 			this.loadCache();
 			this.doReloadTask(this.mode);
-		} else if (this.from_config){
-			WasatterAdapter adapter = (WasatterAdapter)this.ls.getAdapter();
-			if(adapter != null){
+		} else if (this.from_config) {
+			WasatterAdapter adapter = (WasatterAdapter) this.ls.getAdapter();
+			if (adapter != null) {
 				adapter.updateView();
 			}
 			buttonSelect(checkWassrEnabled(selctedButtonId));
@@ -167,12 +174,15 @@ public class ActivityMain extends Activity {
 	public void getOdai() {
 		this.doReloadTask(TaskReloadTimeline.MODE_ODAI);
 	}
-	public void getChannelList(){
+
+	public void getChannelList() {
 		this.doReloadTask(TaskReloadTimeline.MODE_CHANNEL_LIST);
 	}
-	public void getChannel(String channel){
+
+	public void getChannel(String channel) {
 		this.first_load = false;
-		TaskReloadTimeline rt = new TaskReloadTimeline(this.ls, TaskReloadTimeline.MODE_CHANNEL);
+		TaskReloadTimeline rt = new TaskReloadTimeline(this.ls,
+				TaskReloadTimeline.MODE_CHANNEL);
 		rt.execute(channel);
 	}
 
@@ -187,7 +197,7 @@ public class ActivityMain extends Activity {
 		rt.execute();
 	}
 
-	public void startImageDownload(){
+	public void startImageDownload() {
 		new TaskImageDownloadWithCache().execute();
 	}
 
@@ -225,7 +235,7 @@ public class ActivityMain extends Activity {
 	}
 
 	public void buttonSelect(int id) {
-		//Wassr固有の機能はWassrを有効にしていないと利用出来ないようにする
+		// Wassr固有の機能はWassrを有効にしていないと利用出来ないようにする
 		id = checkWassrEnabled(id);
 		this.button_timeline.setChecked(false);
 		this.button_timeline.setClickable(true);
@@ -240,29 +250,31 @@ public class ActivityMain extends Activity {
 		ToggleButton btn = (ToggleButton) this.findViewById(id);
 		btn.setChecked(true);
 		btn.setClickable(false);
-		/*switch (id) {
-		case R.id.toggle_button_channel:
-			this.ls.setOnItemClickListener(new TodoItemClickListener());
-			break;
-		default:*/
-			this.ls.setOnItemClickListener(new TimelineItemClickListener());
-		/*	break;
-		}*/
+		/*
+		 * switch (id) { case R.id.toggle_button_channel:
+		 * this.ls.setOnItemClickListener(new TodoItemClickListener()); break;
+		 * default:
+		 */
+		this.ls.setOnItemClickListener(new TimelineItemClickListener());
+		/*
+		 * break; }
+		 */
 		int channnel_list_visible = View.GONE;
-		if(id == R.id.toggle_button_channel){
+		if (id == R.id.toggle_button_channel) {
 			channnel_list_visible = View.VISIBLE;
 		}
 		layout_channel_list.setVisibility(channnel_list_visible);
 		this.selctedButtonId = id;
 	}
-	public int checkWassrEnabled(int id){
+
+	public int checkWassrEnabled(int id) {
 		boolean wassr = Setting.isWassrEnabled();
 		this.button_odai.setEnabled(wassr);
 		this.button_channel.setEnabled(wassr);
 		ArrayList<Integer> wassr_function_list = new ArrayList<Integer>();
 		wassr_function_list.add(R.id.toggle_button_channel);
 		wassr_function_list.add(R.id.toggle_button_odai);
-		if(wassr_function_list.indexOf(Integer.valueOf(id)) != -1 && !wassr){
+		if (wassr_function_list.indexOf(Integer.valueOf(id)) != -1 && !wassr) {
 			id = R.id.toggle_button_timeline;
 		}
 		return id;
@@ -314,31 +326,34 @@ public class ActivityMain extends Activity {
 	@Override
 	protected void onDestroy() {
 		// TODO 自動生成されたメソッド・スタブ
-		ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+		ActivityManager am = (ActivityManager) this
+				.getSystemService(ACTIVITY_SERVICE);
 		am.restartPackage(this.getPackageName());
 	}
 
-	public void loadCache(){
+	public void loadCache() {
 		SQLiteHelperImageStore imageStore = Wasatter.imageStore;
 		SQLiteDatabase db = imageStore.getReadableDatabase();
 		SQLiteDatabase dbw = imageStore.getWritableDatabase();
 		Cursor c = db.rawQuery("select * from imagestore", null);
 		c.moveToFirst();
 		int count = c.getCount();
-		for(int i=0;i < count;i++){
-				String url = c.getString(0);
-				String imageName = c.getString(1);
-				long created = c.getLong(2);
-				if(created > Wasatter.cacheExpire()){
-					Wasatter.images.put(url, Wasatter.getImage(imageName));
-				}else{
-					SQLiteStatement st = dbw.compileStatement("delete from imagestore where url=?");
-					st.bindString(1, url);
-					st.execute();
-					File file = new File(new SpannableStringBuilder(Wasatter.getImagePath()).append(imageName).toString());
-					file.delete();
-				}
-				c.moveToNext();
+		for (int i = 0; i < count; i++) {
+			String url = c.getString(0);
+			String imageName = c.getString(1);
+			long created = c.getLong(2);
+			if (created > Wasatter.cacheExpire()) {
+				Wasatter.images.put(url, Wasatter.getImage(imageName));
+			} else {
+				SQLiteStatement st = dbw
+						.compileStatement("delete from imagestore where url=?");
+				st.bindString(1, url);
+				st.execute();
+				File file = new File(new SpannableStringBuilder(Wasatter
+						.getImagePath()).append(imageName).toString());
+				file.delete();
+			}
+			c.moveToNext();
 		}
 		c.close();
 	}
@@ -355,7 +370,8 @@ public class ActivityMain extends Activity {
 				ActivityMain.this.getTimeLine();
 			} else {
 				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
-						R.id.timeline_list, ActivityMain.this.list_timeline,false);
+						R.id.timeline_list, ActivityMain.this.list_timeline,
+						false);
 				ActivityMain.this.ls.setAdapter(adapter);
 				ActivityMain.this.ls.requestFocus();
 			}
@@ -372,7 +388,7 @@ public class ActivityMain extends Activity {
 				ActivityMain.this.getReply();
 			} else {
 				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
-						R.id.timeline_list, ActivityMain.this.list_reply,false);
+						R.id.timeline_list, ActivityMain.this.list_reply, false);
 				ActivityMain.this.ls.setAdapter(adapter);
 				ActivityMain.this.ls.requestFocus();
 			}
@@ -389,7 +405,8 @@ public class ActivityMain extends Activity {
 				ActivityMain.this.getMyPost();
 			} else {
 				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
-						R.id.timeline_list, ActivityMain.this.list_mypost,false);
+						R.id.timeline_list, ActivityMain.this.list_mypost,
+						false);
 				ActivityMain.this.ls.setAdapter(adapter);
 				ActivityMain.this.ls.requestFocus();
 			}
@@ -431,9 +448,9 @@ public class ActivityMain extends Activity {
 
 	/**
 	 * ダイアログから設定画面を開くOnClickListener
-	 *
+	 * 
 	 * @author takuji
-	 *
+	 * 
 	 */
 	private class OpenSettingClickListener implements
 			DialogInterface.OnClickListener {
@@ -445,9 +462,9 @@ public class ActivityMain extends Activity {
 
 	/**
 	 * タイムラインをクリックした時のOnClickListener
-	 *
+	 * 
 	 * @author takuji
-	 *
+	 * 
 	 */
 	private class TimelineItemClickListener implements OnItemClickListener {
 		@Override
@@ -466,9 +483,9 @@ public class ActivityMain extends Activity {
 
 	/**
 	 * TODOをクリックした時のOnClickListener
-	 *
+	 * 
 	 * @author takuji
-	 *
+	 * 
 	 */
 	private class TodoItemClickListener implements OnItemClickListener {
 		@Override
@@ -484,24 +501,25 @@ public class ActivityMain extends Activity {
 			ActivityMain.this.startActivity(intent_detail);
 		}
 	}
-	
-	private class ChannelListClickListener implements OnItemSelectedListener{
+
+	private class ChannelListClickListener implements OnItemSelectedListener {
 
 		@Override
-		public void onItemSelected(AdapterView<?> parent, View view, int position,
-				long id) {
-			Spinner spinner = (Spinner)parent;
-			WasatterItem item = (WasatterItem) spinner.getAdapter().getItem(position);
+		public void onItemSelected(AdapterView<?> parent, View view,
+				int position, long id) {
+			Spinner spinner = (Spinner) parent;
+			WasatterItem item = (WasatterItem) spinner.getAdapter().getItem(
+					position);
 			ActivityMain.this.getChannel(item.id);
-			
+
 		}
 
 		@Override
 		public void onNothingSelected(AdapterView<?> arg0) {
 			// TODO 自動生成されたメソッド・スタブ
-			
+
 		}
-		
+
 	}
 
 	/*

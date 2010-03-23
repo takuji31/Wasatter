@@ -17,30 +17,33 @@ import android.widget.TextView;
 
 /**
  * @author Senka/Takuji
- *
+ * 
  */
 public class ActivityOAuthToken extends Activity {
 	public Twitter twitter;
 	public RequestToken request;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.oauth_dialog);
-		Button cancel_button = (Button)this.findViewById(R.id.button_cancel);
+		Button cancel_button = (Button) this.findViewById(R.id.button_cancel);
 		cancel_button.setOnClickListener(new CancelButtonClickListener());
-		Button set_button = (Button)this.findViewById(R.id.button_set_token);
+		Button set_button = (Button) this.findViewById(R.id.button_set_token);
 		set_button.setOnClickListener(new SetTokenClickListener());
-		Button clear_button = (Button)this.findViewById(R.id.button_clear_token);
+		Button clear_button = (Button) this
+				.findViewById(R.id.button_clear_token);
 		clear_button.setOnClickListener(new ClearTokenClickListener());
 
 		this.twitter = new TwitterFactory().getInstance();
-		this.twitter.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
+		this.twitter
+				.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
 		new TaskGetOAuthRequestUrl(this).execute();
 
 	}
 
-	private class CancelButtonClickListener implements OnClickListener{
+	private class CancelButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
@@ -48,21 +51,24 @@ public class ActivityOAuthToken extends Activity {
 		}
 	}
 
-	private class SetTokenClickListener implements OnClickListener{
+	private class SetTokenClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
-			TextView pin = (TextView)ActivityOAuthToken.this.findViewById(R.id.text_token);
-			new TaskSetOAuthToken(ActivityOAuthToken.this).execute(pin.getText().toString());
+			TextView pin = (TextView) ActivityOAuthToken.this
+					.findViewById(R.id.text_token);
+			new TaskSetOAuthToken(ActivityOAuthToken.this).execute(pin
+					.getText().toString());
 		}
 	}
 
-	private class ClearTokenClickListener implements OnClickListener{
+	private class ClearTokenClickListener implements OnClickListener {
 
 		@Override
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
-			AlertDialog.Builder ad = new AlertDialog.Builder(ActivityOAuthToken.this);
+			AlertDialog.Builder ad = new AlertDialog.Builder(
+					ActivityOAuthToken.this);
 			ad.setMessage(R.string.message_confirm_clear_oauth_token);
 			ad.setPositiveButton("OK", new ClearTokenOkButtonClickListener());
 			ad.setNegativeButton("Cancel", null);
@@ -70,15 +76,18 @@ public class ActivityOAuthToken extends Activity {
 		}
 
 	}
-	private class ClearTokenOkButtonClickListener implements android.content.DialogInterface.OnClickListener{
+
+	private class ClearTokenOkButtonClickListener implements
+			android.content.DialogInterface.OnClickListener {
 
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			// TODO 自動生成されたメソッド・スタブ
 			Setting.setTwitterToken("");
 			Setting.setTwitterTokenSecret("");
-			//Wasatter.makeToast("OAuthトークンをクリアしました。");
-			AlertDialog.Builder ad = new AlertDialog.Builder(ActivityOAuthToken.this);
+			// Wasatter.makeToast("OAuthトークンをクリアしました。");
+			AlertDialog.Builder ad = new AlertDialog.Builder(
+					ActivityOAuthToken.this);
 			ad.setMessage("OAuthトークンを削除しました。");
 			ad.setPositiveButton("OK", null);
 			ad.show();

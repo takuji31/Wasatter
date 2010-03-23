@@ -23,7 +23,7 @@ public class TaskReloadTimeline extends
 	public static final int MODE_CHANNEL_LIST = 6;
 	public static final int MODE_CHANNEL = 7;
 	public static final String[] msg = new String[] { "Timeline", "Reply",
-			"My post", "Odai", "TODO" ,"Channel list","Channel status"};
+			"My post", "Odai", "TODO", "Channel list", "Channel status" };
 
 	// コンストラクタ
 	public TaskReloadTimeline(ListView lv, int mode) {
@@ -36,85 +36,95 @@ public class TaskReloadTimeline extends
 		ArrayList<WasatterItem> ret = new ArrayList<WasatterItem>();
 		switch (this.mode) {
 		case TaskReloadTimeline.MODE_TIMELINE:
-			try{
-			ret = WassrClient.getTimeLine();
-			}catch (TwitterException e) {
-				publishProgress(Wasatter.SERVICE_WASSR,String.valueOf(e.getStatusCode()));
+			try {
+				ret = WassrClient.getTimeLine();
+			} catch (TwitterException e) {
+				publishProgress(Wasatter.SERVICE_WASSR, String.valueOf(e
+						.getStatusCode()));
 			}
 
-			try{
-			ret.addAll(TwitterClient.getTimeLine());
-			}catch (TwitterException e) {
-				publishProgress(Wasatter.SERVICE_TWITTER,String.valueOf(e.getStatusCode()));
+			try {
+				ret.addAll(TwitterClient.getTimeLine());
+			} catch (TwitterException e) {
+				publishProgress(Wasatter.SERVICE_TWITTER, String.valueOf(e
+						.getStatusCode()));
 			}
 			break;
 		case TaskReloadTimeline.MODE_REPLY:
-			try{
-			ret = WassrClient.getReply();
-			}catch (TwitterException e) {
-				publishProgress(Wasatter.SERVICE_WASSR,String.valueOf(e.getStatusCode()));
+			try {
+				ret = WassrClient.getReply();
+			} catch (TwitterException e) {
+				publishProgress(Wasatter.SERVICE_WASSR, String.valueOf(e
+						.getStatusCode()));
 			}
 
-			try{
-			ret.addAll(TwitterClient.getReply());
-			}catch (TwitterException e) {
-				publishProgress(Wasatter.SERVICE_TWITTER,String.valueOf(e.getStatusCode()));
+			try {
+				ret.addAll(TwitterClient.getReply());
+			} catch (TwitterException e) {
+				publishProgress(Wasatter.SERVICE_TWITTER, String.valueOf(e
+						.getStatusCode()));
 			}
 
 			break;
 		case TaskReloadTimeline.MODE_MYPOST:
-			try{
-			ret = WassrClient.getMyPost();
-			}catch (TwitterException e) {
-				publishProgress(Wasatter.SERVICE_WASSR,String.valueOf(e.getStatusCode()));
+			try {
+				ret = WassrClient.getMyPost();
+			} catch (TwitterException e) {
+				publishProgress(Wasatter.SERVICE_WASSR, String.valueOf(e
+						.getStatusCode()));
 			}
 
-			try{
-			ret.addAll(TwitterClient.getMyPost());
-			}catch (TwitterException e) {
-				publishProgress(Wasatter.SERVICE_TWITTER,String.valueOf(e.getStatusCode()));
+			try {
+				ret.addAll(TwitterClient.getMyPost());
+			} catch (TwitterException e) {
+				publishProgress(Wasatter.SERVICE_TWITTER, String.valueOf(e
+						.getStatusCode()));
 			}
 
 			break;
 		case TaskReloadTimeline.MODE_ODAI:
-			try{
-			ret = WassrClient.getOdai();
-			}catch (TwitterException e) {
-				publishProgress(Wasatter.SERVICE_WASSR,String.valueOf(e.getStatusCode()));
+			try {
+				ret = WassrClient.getOdai();
+			} catch (TwitterException e) {
+				publishProgress(Wasatter.SERVICE_WASSR, String.valueOf(e
+						.getStatusCode()));
 			}
 
 			break;
 		case TaskReloadTimeline.MODE_CHANNEL_LIST:
-			try{
+			try {
 				ret = WassrClient.getChannelList();
-				}catch (TwitterException e) {
-					publishProgress(Wasatter.SERVICE_WASSR,String.valueOf(e.getStatusCode()));
-				}			
+			} catch (TwitterException e) {
+				publishProgress(Wasatter.SERVICE_WASSR, String.valueOf(e
+						.getStatusCode()));
+			}
 			break;
 		case TaskReloadTimeline.MODE_CHANNEL:
-			try{
+			try {
 				ret = WassrClient.getChannel(param[0]);
-				}catch (TwitterException e) {
-					e.printStackTrace();
-					String cause;
-					if (e.getCause() instanceof JSONException) {
-						cause = "JSON";
-					}else{
-						cause = String.valueOf(e.getStatusCode());
-					}
-					publishProgress(Wasatter.SERVICE_WASSR,cause);
-				}			
+			} catch (TwitterException e) {
+				e.printStackTrace();
+				String cause;
+				if (e.getCause() instanceof JSONException) {
+					cause = "JSON";
+				} else {
+					cause = String.valueOf(e.getStatusCode());
+				}
+				publishProgress(Wasatter.SERVICE_WASSR, cause);
+			}
 			break;
 		}
 		return ret;
 	}
+
 	@Override
 	protected void onProgressUpdate(String... values) {
 		// まず、何が起こってここに飛んできたか判定
 		String service = values[0];
-			String error = values[1];
-			Wasatter.displayHttpError(error, service);
+		String error = values[1];
+		Wasatter.displayHttpError(error, service);
 	}
+
 	// 進行中に出す処理
 	protected void onPreExecute() {
 		SpannableStringBuilder sb = new SpannableStringBuilder();
@@ -167,17 +177,21 @@ public class TaskReloadTimeline extends
 				this.listview.setAdapter(adapter_odai);
 				break;
 			case TaskReloadTimeline.MODE_CHANNEL_LIST:
-				ArrayAdapter<WasatterItem> adapter_channel_list = new ArrayAdapter<WasatterItem>(this.listview.getContext(), android.R.layout.simple_spinner_item,result);
-				adapter_channel_list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				Spinner channel_list = (Spinner) Wasatter.main.findViewById(R.id.channel_list);
+				ArrayAdapter<WasatterItem> adapter_channel_list = new ArrayAdapter<WasatterItem>(
+						this.listview.getContext(),
+						android.R.layout.simple_spinner_item, result);
+				adapter_channel_list
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				Spinner channel_list = (Spinner) Wasatter.main
+						.findViewById(R.id.channel_list);
 				channel_list.setAdapter(adapter_channel_list);
 				break;
 			default:
 				boolean channel = this.mode == TaskReloadTimeline.MODE_CHANNEL;
 				AdapterTimeline adapter = new AdapterTimeline(this.listview
-						.getContext(), R.layout.timeline_row, result,channel);
-				if(!channel){
-				adapter.sort(new StatusItemComparator());
+						.getContext(), R.layout.timeline_row, result, channel);
+				if (!channel) {
+					adapter.sort(new StatusItemComparator());
 				}
 				this.listview.setAdapter(adapter);
 				break;
