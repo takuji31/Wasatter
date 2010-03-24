@@ -25,7 +25,6 @@ public class ActivityItemDetail extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.wasatter_detail);
 		Bundle extras = this.getIntent().getExtras();
@@ -34,7 +33,7 @@ public class ActivityItemDetail extends Activity {
 					.getSerializable(Wasatter.ITEM_DETAIL);
 			if (this.ws != null) {
 				WasatterItem wss = this.ws;
-				// サービス名をセット
+				// サービス名/チャンネル名をセット
 				TextView service_name = (TextView) this
 						.findViewById(R.id.service_name);
 				service_name.setText(wss.service);

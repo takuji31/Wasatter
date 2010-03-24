@@ -439,7 +439,12 @@ public class ActivityMain extends Activity {
 			// TODO 自動生成されたメソッド・スタブ
 			if (ActivityMain.this.list_channel_list == null) {
 				ActivityMain.this.getChannelList();
-			} else {
+			}
+			//チャンネルの内容取ってくる
+			if(ActivityMain.this.list_channel == null){
+				
+			}else{
+				
 			}
 			ActivityMain.this.mode = TaskReloadTimeline.MODE_CHANNEL_LIST;
 			ActivityMain.this.buttonSelect(v.getId());
