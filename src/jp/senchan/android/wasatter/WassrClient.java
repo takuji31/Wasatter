@@ -73,7 +73,6 @@ public class WassrClient {
 						.equals(url))) {
 			return ret;
 		}
-		// Twitter4jのHttpClientで実装（仮）
 		JSONArray result;
 		try {
 			HttpResponse res = http.get(url, getAuthorization());
@@ -100,7 +99,7 @@ public class WassrClient {
 							ch.getString("name_en")).replace("[rid]", ws.rid);
 					try {
 						JSONObject reply = obj.getJSONObject("reply");
-						ws.replyUserNick = reply.getString("nick");
+						ws.replyUserNick = reply.getJSONObject("user").getString("nick");
 						ws.replyMessage = HTMLEntity.unescape(reply
 								.getString("body"));
 					} catch (JSONException e) {
@@ -304,9 +303,7 @@ public class WassrClient {
 			}
 			return "ok".equalsIgnoreCase(json.getString("message"));
 		} catch (JSONException e) {
-			// TODO: handle exception
 		} catch (TwitterException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 		return false;

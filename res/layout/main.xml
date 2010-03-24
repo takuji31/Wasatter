@@ -6,7 +6,8 @@
 	android:layout_height="fill_parent" android:layout_width="fill_parent"
 	android:orientation="vertical">
 
-	<LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/layout_channel_list"><TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20dip" android:layout_gravity="center_vertical" android:text="Channel : " android:layout_marginRight="10dip"></TextView><Spinner android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/channel_list"></Spinner>
+	<LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/layout_channel_list"><Spinner android:layout_height="wrap_content" android:id="@+id/channel_list" android:layout_width="wrap_content" android:layout_weight="1"></Spinner><Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/button_reload_channel_list" android:text="    Reload    "></Button>
+
 </LinearLayout><ListView android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:layout_weight="1"
 		android:id="@+id/timeline_list">

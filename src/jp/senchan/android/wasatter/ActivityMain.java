@@ -36,6 +36,7 @@ public class ActivityMain extends Activity {
 	public ArrayList<WasatterItem> list_channel_list;
 	public ArrayList<WasatterItem> list_channel;
 	public ArrayList<WassrTodo> list_todo;
+	public Button button_reload_channel_list;
 	public ToggleButton button_timeline;
 	public ToggleButton button_reply;
 	public ToggleButton button_mypost;
@@ -51,6 +52,7 @@ public class ActivityMain extends Activity {
 	public boolean from_config = false;
 	public int mode = TaskReloadTimeline.MODE_TIMELINE;
 	private int selctedButtonId;
+	public String selected_channel;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,8 @@ public class ActivityMain extends Activity {
 				.findViewById(R.id.text_loading_timeline);
 		this.spinner_channel_list = (Spinner) this
 				.findViewById(R.id.channel_list);
+		this.button_reload_channel_list = (Button)this.findViewById(R.id.button_reload_channel_list);
+		this.button_reload_channel_list.setOnClickListener(new ChannelReloadButtonClickListener());
 		// トグルボタンをメンバー変数に代入
 		this.button_timeline = (ToggleButton) this
 				.findViewById(R.id.toggle_button_timeline);
@@ -310,7 +314,9 @@ public class ActivityMain extends Activity {
 		} else if (this.button_odai.isChecked()) {
 			this.getOdai();
 		} else if (this.button_channel.isChecked()) {
-			this.getChannelList();
+			if(this.selected_channel != null){
+				this.getChannel(this.selected_channel);
+			}
 		}
 
 	}
@@ -436,18 +442,23 @@ public class ActivityMain extends Activity {
 	private class ChannelButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			// TODO 自動生成されたメソッド・スタブ
 			if (ActivityMain.this.list_channel_list == null) {
 				ActivityMain.this.getChannelList();
 			}
-			//チャンネルの内容取ってくる
-			if(ActivityMain.this.list_channel == null){
-				
-			}else{
-				
+			//チャンネルの内容取ってたら表示する。
+			if(ActivityMain.this.list_channel != null){
+				AdapterTimeline adapter = new AdapterTimeline(ActivityMain.this.ls
+						.getContext(), R.layout.timeline_row, ActivityMain.this.list_channel, true);
+				ActivityMain.this.ls.setAdapter(adapter);
 			}
 			ActivityMain.this.mode = TaskReloadTimeline.MODE_CHANNEL_LIST;
 			ActivityMain.this.buttonSelect(v.getId());
+		}
+	}
+	private class ChannelReloadButtonClickListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+				ActivityMain.this.getChannelList();
 		}
 	}
 
@@ -516,6 +527,7 @@ public class ActivityMain extends Activity {
 			WasatterItem item = (WasatterItem) spinner.getAdapter().getItem(
 					position);
 			ActivityMain.this.getChannel(item.id);
+			ActivityMain.this.selected_channel = item.id;
 
 		}
 
