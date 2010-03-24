@@ -74,7 +74,7 @@ public class ActivityMain extends Activity {
 				.findViewById(R.id.channel_list);
 		this.button_reload_channel_list = (Button)this.findViewById(R.id.button_reload_channel_list);
 		this.button_reload_channel_list.setOnClickListener(new ChannelReloadButtonClickListener());
-		// トグルボタンをメンバー変数に代入
+		// トグルボタンを代入
 		this.button_timeline = (ToggleButton) this
 				.findViewById(R.id.toggle_button_timeline);
 		this.button_reply = (ToggleButton) this
