@@ -180,10 +180,8 @@ public class Wasatter {
 			message = "エラーが発生しました（Twitter,401）IDかパスワードが間違っている可能性があります。";
 		} else if ("JSON".equals(error)) {
 			message = "取得データが破損しています、リロードしてください。";
-		} else if ("-1".equals(error) && Wasatter.SERVICE_WASSR.equals(service)) {
-			message = "不明なエラーが発生しました（Wassr）IDかパスワードが間違っているか、一時的に不安定になっている可能性があります。";
 		} else {
-			message = "通信中に不明なエラーが発生しました。このエラーが何度も発生する場合は、恐れ入りますがバグ報告をよろしくお願いします。";
+			message = "ネットワークエラーが発生しました。リトライしてください。";
 		}
 		AlertDialog.Builder ad = new AlertDialog.Builder(Wasatter.main);
 		ad.setMessage(message);

@@ -184,6 +184,7 @@ public class ActivityMain extends Activity {
 	}
 
 	public void getChannel(String channel) {
+		this.ls.setAdapter(null);
 		this.first_load = false;
 		TaskReloadTimeline rt = new TaskReloadTimeline(this.ls,
 				TaskReloadTimeline.MODE_CHANNEL);
@@ -196,6 +197,7 @@ public class ActivityMain extends Activity {
 	}
 
 	public void doReloadTask(int mode) {
+		this.ls.setAdapter(null);
 		this.first_load = false;
 		TaskReloadTimeline rt = new TaskReloadTimeline(this.ls, mode);
 		rt.execute();
@@ -254,15 +256,7 @@ public class ActivityMain extends Activity {
 		ToggleButton btn = (ToggleButton) this.findViewById(id);
 		btn.setChecked(true);
 		btn.setClickable(false);
-		/*
-		 * switch (id) { case R.id.toggle_button_channel:
-		 * this.ls.setOnItemClickListener(new TodoItemClickListener()); break;
-		 * default:
-		 */
 		this.ls.setOnItemClickListener(new TimelineItemClickListener());
-		/*
-		 * break; }
-		 */
 		int channnel_list_visible = View.GONE;
 		if (id == R.id.toggle_button_channel) {
 			channnel_list_visible = View.VISIBLE;
@@ -371,7 +365,8 @@ public class ActivityMain extends Activity {
 	private class TimelineButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			// TODO 自動生成されたメソッド・スタブ
+			ActivityMain.this.mode = TaskReloadTimeline.MODE_TIMELINE;
+			ActivityMain.this.buttonSelect(v.getId());
 			if (ActivityMain.this.list_timeline == null) {
 				ActivityMain.this.getTimeLine();
 			} else {
@@ -381,15 +376,14 @@ public class ActivityMain extends Activity {
 				ActivityMain.this.ls.setAdapter(adapter);
 				ActivityMain.this.ls.requestFocus();
 			}
-			ActivityMain.this.mode = TaskReloadTimeline.MODE_TIMELINE;
-			ActivityMain.this.buttonSelect(v.getId());
 		}
 	}
 
 	private class ReplyButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			// TODO 自動生成されたメソッド・スタブ
+			ActivityMain.this.mode = TaskReloadTimeline.MODE_REPLY;
+			ActivityMain.this.buttonSelect(v.getId());
 			if (ActivityMain.this.list_reply == null) {
 				ActivityMain.this.getReply();
 			} else {
@@ -398,15 +392,14 @@ public class ActivityMain extends Activity {
 				ActivityMain.this.ls.setAdapter(adapter);
 				ActivityMain.this.ls.requestFocus();
 			}
-			ActivityMain.this.mode = TaskReloadTimeline.MODE_REPLY;
-			ActivityMain.this.buttonSelect(v.getId());
 		}
 	}
 
 	private class MyPostButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			// TODO 自動生成されたメソッド・スタブ
+			ActivityMain.this.mode = TaskReloadTimeline.MODE_MYPOST;
+			ActivityMain.this.buttonSelect(v.getId());
 			if (ActivityMain.this.list_mypost == null) {
 				ActivityMain.this.getMyPost();
 			} else {
@@ -416,15 +409,14 @@ public class ActivityMain extends Activity {
 				ActivityMain.this.ls.setAdapter(adapter);
 				ActivityMain.this.ls.requestFocus();
 			}
-			ActivityMain.this.mode = TaskReloadTimeline.MODE_MYPOST;
-			ActivityMain.this.buttonSelect(v.getId());
 		}
 	}
 
 	private class OdaiButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			// TODO 自動生成されたメソッド・スタブ
+			ActivityMain.this.mode = TaskReloadTimeline.MODE_ODAI;
+			ActivityMain.this.buttonSelect(v.getId());
 			if (ActivityMain.this.list_odai == null) {
 				ActivityMain.this.getOdai();
 			} else {
@@ -433,8 +425,6 @@ public class ActivityMain extends Activity {
 				ActivityMain.this.ls.setAdapter(adapter);
 				ActivityMain.this.ls.requestFocus();
 			}
-			ActivityMain.this.mode = TaskReloadTimeline.MODE_ODAI;
-			ActivityMain.this.buttonSelect(v.getId());
 
 		}
 	}
@@ -442,6 +432,8 @@ public class ActivityMain extends Activity {
 	private class ChannelButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
+			ActivityMain.this.mode = TaskReloadTimeline.MODE_CHANNEL_LIST;
+			ActivityMain.this.buttonSelect(v.getId());
 			if (ActivityMain.this.list_channel_list == null) {
 				ActivityMain.this.getChannelList();
 			}
@@ -451,8 +443,6 @@ public class ActivityMain extends Activity {
 						.getContext(), R.layout.timeline_row, ActivityMain.this.list_channel, true);
 				ActivityMain.this.ls.setAdapter(adapter);
 			}
-			ActivityMain.this.mode = TaskReloadTimeline.MODE_CHANNEL_LIST;
-			ActivityMain.this.buttonSelect(v.getId());
 		}
 	}
 	private class ChannelReloadButtonClickListener implements OnClickListener {
@@ -464,9 +454,9 @@ public class ActivityMain extends Activity {
 
 	/**
 	 * ダイアログから設定画面を開くOnClickListener
-	 * 
+	 *
 	 * @author takuji
-	 * 
+	 *
 	 */
 	private class OpenSettingClickListener implements
 			DialogInterface.OnClickListener {
@@ -478,9 +468,9 @@ public class ActivityMain extends Activity {
 
 	/**
 	 * タイムラインをクリックした時のOnClickListener
-	 * 
+	 *
 	 * @author takuji
-	 * 
+	 *
 	 */
 	private class TimelineItemClickListener implements OnItemClickListener {
 		@Override
@@ -497,26 +487,6 @@ public class ActivityMain extends Activity {
 		}
 	}
 
-	/**
-	 * TODOをクリックした時のOnClickListener
-	 * 
-	 * @author takuji
-	 * 
-	 */
-	private class TodoItemClickListener implements OnItemClickListener {
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			ListView listView = (ListView) parent;
-			// 選択されたアイテムを取得します
-			WassrTodo item = (WassrTodo) listView.getAdapter()
-					.getItem(position);
-			Intent intent_detail = new Intent(ActivityMain.this,
-					ActivityTodoDetail.class);
-			intent_detail.putExtra(Wasatter.ITEM_DETAIL, item);
-			ActivityMain.this.startActivity(intent_detail);
-		}
-	}
 
 	private class ChannelListClickListener implements OnItemSelectedListener {
 

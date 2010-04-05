@@ -8,13 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-@SuppressWarnings("unchecked")
-public class AdapterTodo extends ArrayAdapter {
+public class AdapterTodo extends ArrayAdapter<WassrTodo> {
 
-	private ArrayList items;
+	private ArrayList<WassrTodo> items;
 	private LayoutInflater inflater;
 
-	public AdapterTodo(Context context, int textViewResourceId, ArrayList items) {
+	public AdapterTodo(Context context, int textViewResourceId, ArrayList<WassrTodo> items) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 		this.inflater = (LayoutInflater) context
@@ -27,7 +26,7 @@ public class AdapterTodo extends ArrayAdapter {
 			view = this.inflater.inflate(R.layout.todo_row, null);
 		}
 		// データの取得
-		WassrTodo item = (WassrTodo) this.items.get(position);
+		WassrTodo item = this.items.get(position);
 		if (item != null) {
 			TextView text = (TextView) view.findViewById(R.id.todo_text);
 			// テキストをビューにセットする

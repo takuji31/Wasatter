@@ -7,9 +7,9 @@ import android.text.SpannableStringBuilder;
 
 /**
  * Wasatterつぶやき＆ヒトコトクラス
- * 
+ *
  * @author Senka/Takuji
- * 
+ *
  */
 public class WasatterItem implements Serializable {
 	/**
@@ -56,4 +56,5 @@ public class WasatterItem implements Serializable {
 		return new SpannableStringBuilder(name).append("(").append(id).append(
 				")").toString();
 	}
+	public boolean favorited;
 }

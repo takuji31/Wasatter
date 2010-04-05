@@ -44,12 +44,13 @@
 			android:summaryOff="@string/summary_setting_display_load_image_false"
 			android:summaryOn="@string/summary_setting_display_load_image_true"
 			android:defaultValue="true"></CheckBoxPreference>
-		<CheckBoxPreference android:key="@string/key_setting_display_buttons"
+		<CheckBoxPreference android:summaryOff="イイネ！のアイコンを取得せずにイイネ！の数のみ表示します。" android:key="display_load_favorite_image" android:title="イイネ！アイコンの取得" android:defaultValue="false" android:summaryOn="イイネ！アイコンを取得します。(Wi-Fi推奨)"></CheckBoxPreference><CheckBoxPreference android:key="@string/key_setting_display_buttons"
 			android:title="@string/title_setting_display_buttons"
 			android:summaryOn="@string/summary_setting_display_buttons_enabled"
 			android:summaryOff="@string/summary_setting_display_buttons_disabled"
 			android:defaultValue="true"></CheckBoxPreference>
 	<CheckBoxPreference android:title="内容の複数行表示" android:key="display_body_multi_line" android:summaryOff="内容を1行で表示します。収まりきらない場合はスクロールします。" android:summaryOn="内容を複数行で表示します。" android:defaultValue="false"></CheckBoxPreference>
+
 
 
 </PreferenceScreen>

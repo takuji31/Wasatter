@@ -89,11 +89,14 @@ public class AdapterTimeline extends ArrayAdapter<WasatterItem> implements
 			if (item.favorite.size() == 0) {
 				layout_favorite_list.setVisibility(View.GONE);
 				layout_favorite_icons.removeAllViews();
-			} else if (Setting.isLoadImage()) {
-				layout_favorite_list.setVisibility(View.VISIBLE);
-				layout_favorite_icons.removeAllViews();
+			} else {
 				ArrayList<String> favorites = item.favorite;
 				int count = favorites.size();
+				TextView tv = new TextView(view.getContext());
+				tv.setText(new SpannableStringBuilder("x").append(String.valueOf(count)).toString());
+				layout_favorite_icons.removeAllViews();
+				layout_favorite_icons.addView(tv);
+				if (Setting.isLoadFavoriteImage()) {
 				for (int i = 0; i < count; i++) {
 					ImageView add_icon = new ImageView(view.getContext());
 					add_icon.setImageBitmap(Wasatter.images
@@ -103,13 +106,8 @@ public class AdapterTimeline extends ArrayAdapter<WasatterItem> implements
 					add_icon.setPadding(2, 2, 2, 2);
 					layout_favorite_icons.addView(add_icon);
 				}
-			} else {
+				}
 				layout_favorite_list.setVisibility(View.VISIBLE);
-				layout_favorite_icons.removeAllViews();
-				int count = item.favorite.size();
-				TextView tv = new TextView(view.getContext());
-				tv.setText(String.valueOf(count));
-				layout_favorite_icons.addView(tv);
 			}
 		}
 		return view;

@@ -16,9 +16,9 @@ import android.preference.Preference.OnPreferenceClickListener;
 
 /**
  * アカウント設定
- * 
+ *
  * @author Senka/Takuji
- * 
+ *
  */
 public class Setting extends PreferenceActivity {
 	@Override
@@ -134,6 +134,12 @@ public class Setting extends PreferenceActivity {
 		Context con = Wasatter.CONTEXT;
 		return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
 				"display_load_image", true);
+	}
+
+	public static boolean isLoadFavoriteImage() {
+		Context con = Wasatter.CONTEXT;
+		return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
+				"display_load_favorite_image", false);
 	}
 
 	public static boolean isDisplayButtons() {

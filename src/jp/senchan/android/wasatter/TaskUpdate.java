@@ -15,15 +15,29 @@ public class TaskUpdate extends AsyncTask<String, String, Void> {
 	public boolean wassr;
 	public boolean r_twitter = false;
 	public boolean r_wassr = false;
+	public boolean channel;
 
 	public TaskUpdate(boolean... params) {
 		this.reply = params[0];
 		this.wassr = params[1];
 		this.twitter = params[2];
+		this.channel = params[3];
 	}
 
 	@Override
 	protected Void doInBackground(String... params) {
+		if(this.channel){
+			publishProgress(Wasatter.MODE_POSTING, params[2]);
+			try {
+				this.r_wassr = WassrClient.updateChannel(params[2],params[0], params[1]);
+			} catch (TwitterException e) {
+				// TODO 自動生成された catch ブロック
+				publishProgress(Wasatter.MODE_ERROR, Wasatter.SERVICE_WASSR,
+						String.valueOf(e.getStatusCode()));
+				this.r_wassr = false;
+			}
+			return null;
+		}
 		if (this.wassr) {
 			publishProgress(Wasatter.MODE_POSTING, Wasatter.SERVICE_WASSR);
 			try {

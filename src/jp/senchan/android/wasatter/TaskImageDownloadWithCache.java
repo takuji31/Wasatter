@@ -23,12 +23,13 @@ import android.widget.TextView;
 
 /**
  * @author takuji
- * 
+ *
  */
 public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 	private int count;
 	public FrameLayout layout_progress;
 	public TextView progress_text_count;
+	private int errorCount;
 
 	public TaskImageDownloadWithCache() {
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -37,6 +38,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 				.findViewById(R.id.layout_load_image_progress);
 		progress_text_count = (TextView) Wasatter.main
 				.findViewById(R.id.load_image_count);
+		this.errorCount = 0;
 	}
 
 	@Override
@@ -100,8 +102,9 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 				} catch (TwitterException e) {
 					// TODO 自動生成された catch ブロック
 					e.printStackTrace();
+					publishProgress(e.getStatusCode());
 				}
-				publishProgress();
+				publishProgress(200);
 			}
 			db.setTransactionSuccessful();
 		} catch (Exception e) {
@@ -115,16 +118,23 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 
 	@Override
 	protected void onProgressUpdate(Integer... values) {
-		// TODO 自動生成されたメソッド・スタブ
-		super.onProgressUpdate(values);
+		if(values[0] != 200){
+			this.errorCount++;
+		}
 		Wasatter.main.progress_image.incrementProgressBy(1);
-		progress_text_count.setText(new SpannableStringBuilder(String
+		SpannableStringBuilder sb = new SpannableStringBuilder(String
 				.valueOf(Wasatter.main.progress_image.getProgress())).append(
-				"/").append(String.valueOf(count)).toString());
+				"/").append(String.valueOf(count));
+		if(this.errorCount != 0){
+			sb.append(" (").append(String.valueOf(this.errorCount)).append(" Error)");
+		}
+		progress_text_count.setText(sb.toString());
 		try {
 			AdapterTimeline adapter = (AdapterTimeline) Wasatter.main.ls
 					.getAdapter();
-			adapter.updateView();
+			if(adapter != null){
+				adapter.updateView();
+			}
 		} catch (ClassCastException e) {
 			// お題とかに切り替わってたらスルーする
 		}

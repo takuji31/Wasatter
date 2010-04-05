@@ -16,17 +16,22 @@ import android.widget.TextView;
 
 /**
  * 各つぶやき/ヒトコトの詳細
- * 
+ *
  * @author Senka/Takuji
- * 
+ *
  */
 public class ActivityItemDetail extends Activity {
 	protected WasatterItem ws;
-
+	public static String ADD_WASSR = "イイネ！する";
+	public static String DEL_WASSR = "イイネ！を消す";
+	public static String ADD_TWITTER = "お気に入りに追加する";
+	public static String DEL_TWITTER = "お気に入りから削除する";
+	public Button favoriteButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.wasatter_detail);
+		favoriteButton = (Button) findViewById(R.id.button_favorite);
 		Bundle extras = this.getIntent().getExtras();
 		if (extras != null) {
 			this.ws = (WasatterItem) extras
@@ -117,11 +122,18 @@ public class ActivityItemDetail extends Activity {
 				// Favoriteボタンにイベント割り当て
 				Button button_favorite = (Button) this
 						.findViewById(R.id.button_favorite);
+				if(Wasatter.SERVICE_TWITTER.equals(wss.service)){
+					button_favorite.setText(ADD_TWITTER);
+				}else if(wss.favorite != null && wss.favorite.indexOf(Setting.getWassrId()) != -1){
+					button_favorite.setText(DEL_WASSR);
+				}else{
+					button_favorite.setText(ADD_WASSR);
+				}
 				button_favorite.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
-						new TaskAddFavorite(ActivityItemDetail.this)
+						new TaskToggleFavorite(ActivityItemDetail.this)
 								.execute(ActivityItemDetail.this.ws);
 					}
 				});

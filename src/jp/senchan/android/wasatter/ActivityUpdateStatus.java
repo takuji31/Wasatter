@@ -14,11 +14,13 @@ import android.widget.TextView;
 
 /**
  * @author Senka/Takuji
- * 
+ *
  */
 public class ActivityUpdateStatus extends Activity {
 	protected WasatterItem ws;
 	protected boolean reply;
+	protected boolean channel;
+	protected String channelId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class ActivityUpdateStatus extends Activity {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.status_update);
 		Bundle extras = this.getIntent().getExtras();
+		this.channel = Wasatter.main.button_channel.isChecked();
 		if (extras != null) {
 			this.ws = (WasatterItem) extras.getSerializable(Wasatter.REPLY);
 		}
@@ -39,6 +42,11 @@ public class ActivityUpdateStatus extends Activity {
 		wassr_enable.setClickable(Setting.isWassrEnabled());
 		twitter_enable.setChecked(Setting.isTwitterEnabled());
 		twitter_enable.setClickable(Setting.isTwitterEnabled());
+		if(channel){
+			twitter_enable.setChecked(false);
+			twitter_enable.setClickable(false);
+			this.channelId = Wasatter.main.selected_channel;
+		}
 		// 返信の場合は元メッセージの表示処理等を追加
 		if (this.ws != null) {
 			this.reply = true;
@@ -109,12 +117,12 @@ public class ActivityUpdateStatus extends Activity {
 					update_button.setClickable(false);
 					TaskUpdate ut = new TaskUpdate(
 							ActivityUpdateStatus.this.reply, wassr.isChecked(),
-							twitter.isChecked());
+							twitter.isChecked(),ActivityUpdateStatus.this.channel);
 					ut
 							.execute(
 									sb.toString(),
 									ActivityUpdateStatus.this.reply ? ActivityUpdateStatus.this.ws.rid
-											: null);
+											: null,ActivityUpdateStatus.this.channelId);
 					ActivityUpdateStatus.this.finish();
 				}
 			});
