@@ -53,6 +53,7 @@ public class ActivityMain extends Activity {
 	public int mode = TaskReloadTimeline.MODE_TIMELINE;
 	private int selctedButtonId;
 	public String selected_channel;
+	public WasatterItem selectedItem;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -358,6 +359,14 @@ public class ActivityMain extends Activity {
 		c.close();
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == IntentCode.MAIN_ITEMDETAIL){
+			AdapterTimeline adapter = (AdapterTimeline)this.ls.getAdapter();
+			adapter.updateView();
+		}
+	}
+
 	/*
 	 * Innner Class
 	 */
@@ -478,12 +487,11 @@ public class ActivityMain extends Activity {
 				long id) {
 			ListView listView = (ListView) parent;
 			// 選択されたアイテムを取得します
-			WasatterItem item = (WasatterItem) listView.getAdapter().getItem(
+			ActivityMain.this.selectedItem = (WasatterItem) listView.getAdapter().getItem(
 					position);
 			Intent intent_detail = new Intent(ActivityMain.this,
 					ActivityItemDetail.class);
-			intent_detail.putExtra(Wasatter.ITEM_DETAIL, item);
-			ActivityMain.this.startActivity(intent_detail);
+			ActivityMain.this.startActivityForResult(intent_detail, IntentCode.MAIN_ITEMDETAIL);
 		}
 	}
 

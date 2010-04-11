@@ -93,21 +93,22 @@ public class AdapterTimeline extends ArrayAdapter<WasatterItem> implements
 				ArrayList<String> favorites = item.favorite;
 				int count = favorites.size();
 				TextView tv = new TextView(view.getContext());
-				tv.setText(new SpannableStringBuilder("x").append(String.valueOf(count)).toString());
+				tv.setText(new SpannableStringBuilder("x").append(
+						String.valueOf(count)).toString());
 				layout_favorite_icons.removeAllViews();
 				layout_favorite_icons.addView(tv);
-				if (Setting.isLoadFavoriteImage()) {
-				for (int i = 0; i < count; i++) {
-					ImageView add_icon = new ImageView(view.getContext());
-					add_icon.setImageBitmap(Wasatter.images
-							.get(WassrClient.FAVORITE_ICON_URL.replace(
-									"[user]", favorites.get(i))));
-					add_icon.setLayoutParams(new LayoutParams(28, 28));
-					add_icon.setPadding(2, 2, 2, 2);
-					layout_favorite_icons.addView(add_icon);
-				}
-				}
 				layout_favorite_list.setVisibility(View.VISIBLE);
+				if (Setting.isLoadFavoriteImage()) {
+					for (int i = 0; i < count; i++) {
+						ImageView add_icon = new ImageView(view.getContext());
+						add_icon.setImageBitmap(Wasatter.images
+								.get(WassrClient.FAVORITE_ICON_URL.replace(
+										"[user]", favorites.get(i))));
+						add_icon.setLayoutParams(new LayoutParams(28, 28));
+						add_icon.setPadding(2, 2, 2, 2);
+						layout_favorite_icons.addView(add_icon);
+					}
+				}
 			}
 		}
 		return view;
