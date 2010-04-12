@@ -155,7 +155,6 @@ public class ActivityItemDetail extends Activity {
 		super.onPause();
 		if(isFinishing()){
 			setResult(ResultCode.OK);
-			finish();
 		}
 	}
 }
