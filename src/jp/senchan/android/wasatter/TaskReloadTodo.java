@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ListView;
 
-public class TaskReloadTodo extends AsyncTask<Void, Void, ArrayList<WassrTodo>> {
+public class TaskReloadTodo extends AsyncTask<Void, Void, ArrayList<WasatterItem>> {
 	protected ListView listview;
 
 	// コンストラクタ
@@ -15,8 +15,8 @@ public class TaskReloadTodo extends AsyncTask<Void, Void, ArrayList<WassrTodo>> 
 	}
 
 	// バックグラウンドで実行する処理
-	protected ArrayList<WassrTodo> doInBackground(Void... param) {
-		ArrayList<WassrTodo> ret = WassrClient.getTodo();
+	protected ArrayList<WasatterItem> doInBackground(Void... param) {
+		ArrayList<WasatterItem> ret = WassrClient.getTodo();
 		return ret;
 	}
 
@@ -34,7 +34,7 @@ public class TaskReloadTodo extends AsyncTask<Void, Void, ArrayList<WassrTodo>> 
 
 	// メインスレッドで実行する処理
 	@Override
-	protected void onPostExecute(ArrayList<WassrTodo> result) {
+	protected void onPostExecute(ArrayList<WasatterItem> result) {
 		// 取得結果の代入
 		Wasatter.main.list_todo = result;
 		AdapterTodo adapter_todo = new AdapterTodo(this.listview.getContext(),

@@ -160,8 +160,8 @@ public class WassrClient {
 		return ret;
 	}
 
-	public static ArrayList<WassrTodo> getTodo() {
-		ArrayList<WassrTodo> ret = new ArrayList<WassrTodo>();
+	public static ArrayList<WasatterItem> getTodo() {
+		ArrayList<WasatterItem> ret = new ArrayList<WasatterItem>();
 		if (!Setting.isWassrEnabled()) {
 			return ret;
 		}
@@ -173,9 +173,9 @@ public class WassrClient {
 			for (int i = 0; i < j; i++) {
 				try {
 					JSONObject obj = result.getJSONObject(i);
-					WassrTodo ws = new WassrTodo();
+					WasatterItem ws = new WasatterItem();
 					ws.rid = obj.getString("todo_rid");
-					ws.body = obj.getString("body");
+					ws.text = obj.getString("body");
 					ret.add(ws);
 				} catch (JSONException e) {
 					e.printStackTrace();

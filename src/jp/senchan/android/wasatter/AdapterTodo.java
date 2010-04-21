@@ -1,6 +1,7 @@
 package jp.senchan.android.wasatter;
 
 import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class AdapterTodo extends ArrayAdapter<WassrTodo> {
+public class AdapterTodo extends ArrayAdapter<WasatterItem> {
 
-	private ArrayList<WassrTodo> items;
+	private ArrayList<WasatterItem> items;
 	private LayoutInflater inflater;
 
-	public AdapterTodo(Context context, int textViewResourceId, ArrayList<WassrTodo> items) {
+	public AdapterTodo(Context context, int textViewResourceId, ArrayList<WasatterItem> items) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 		this.inflater = (LayoutInflater) context
@@ -26,12 +27,12 @@ public class AdapterTodo extends ArrayAdapter<WassrTodo> {
 			view = this.inflater.inflate(R.layout.todo_row, null);
 		}
 		// データの取得
-		WassrTodo item = this.items.get(position);
+		WasatterItem item = this.items.get(position);
 		if (item != null) {
 			TextView text = (TextView) view.findViewById(R.id.todo_text);
 			// テキストをビューにセットする
 			if (text != null) {
-				text.setText(item.body);
+				text.setText(item.text);
 			}
 		}
 		return view;

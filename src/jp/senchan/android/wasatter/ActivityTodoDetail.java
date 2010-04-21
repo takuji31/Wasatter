@@ -13,10 +13,10 @@ import android.widget.Toast;
 
 /**
  * @author takuji
- * 
+ *
  */
 public class ActivityTodoDetail extends Activity {
-	public WassrTodo status;
+	public WasatterItem status;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +25,12 @@ public class ActivityTodoDetail extends Activity {
 		this.setContentView(R.layout.todo_detail);
 		Bundle extras = this.getIntent().getExtras();
 		if (extras != null) {
-			this.status = (WassrTodo) extras
+			this.status = (WasatterItem) extras
 					.getSerializable(Wasatter.ITEM_DETAIL);
 		}
 		if (this.status != null) {
 			TextView body = (TextView) this.findViewById(R.id.todobody);
-			body.setText(this.status.body);
+			body.setText(this.status.text);
 		}
 		Button todo_start_button = (Button) this.findViewById(R.id.todo_start);
 		todo_start_button.setOnClickListener(new TodoStartClickListener());

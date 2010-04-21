@@ -35,7 +35,7 @@ public class ActivityMain extends Activity {
 	public ArrayList<WasatterItem> list_odai;
 	public ArrayList<WasatterItem> list_channel_list;
 	public ArrayList<WasatterItem> list_channel;
-	public ArrayList<WassrTodo> list_todo;
+	public ArrayList<WasatterItem> list_todo;
 	public Button button_reload_channel_list;
 	public ToggleButton button_timeline;
 	public ToggleButton button_reply;
@@ -73,8 +73,10 @@ public class ActivityMain extends Activity {
 				.findViewById(R.id.text_loading_timeline);
 		this.spinner_channel_list = (Spinner) this
 				.findViewById(R.id.channel_list);
-		this.button_reload_channel_list = (Button)this.findViewById(R.id.button_reload_channel_list);
-		this.button_reload_channel_list.setOnClickListener(new ChannelReloadButtonClickListener());
+		this.button_reload_channel_list = (Button) this
+				.findViewById(R.id.button_reload_channel_list);
+		this.button_reload_channel_list
+				.setOnClickListener(new ChannelReloadButtonClickListener());
 		// トグルボタンを代入
 		this.button_timeline = (ToggleButton) this
 				.findViewById(R.id.toggle_button_timeline);
@@ -309,7 +311,7 @@ public class ActivityMain extends Activity {
 		} else if (this.button_odai.isChecked()) {
 			this.getOdai();
 		} else if (this.button_channel.isChecked()) {
-			if(this.selected_channel != null){
+			if (this.selected_channel != null) {
 				this.getChannel(this.selected_channel);
 			}
 		}
@@ -361,9 +363,14 @@ public class ActivityMain extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(requestCode == IntentCode.MAIN_ITEMDETAIL){
-			AdapterTimeline adapter = (AdapterTimeline)this.ls.getAdapter();
-			adapter.updateView();
+		try {
+			if (requestCode == IntentCode.MAIN_ITEMDETAIL) {
+				AdapterTimeline adapter = (AdapterTimeline) this.ls
+						.getAdapter();
+				adapter.updateView();
+			}
+		} catch (ClassCastException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -446,18 +453,21 @@ public class ActivityMain extends Activity {
 			if (ActivityMain.this.list_channel_list == null) {
 				ActivityMain.this.getChannelList();
 			}
-			//チャンネルの内容取ってたら表示する。
-			if(ActivityMain.this.list_channel != null){
-				AdapterTimeline adapter = new AdapterTimeline(ActivityMain.this.ls
-						.getContext(), R.layout.timeline_row, ActivityMain.this.list_channel, true);
+			// チャンネルの内容取ってたら表示する。
+			if (ActivityMain.this.list_channel != null) {
+				AdapterTimeline adapter = new AdapterTimeline(
+						ActivityMain.this.ls.getContext(),
+						R.layout.timeline_row, ActivityMain.this.list_channel,
+						true);
 				ActivityMain.this.ls.setAdapter(adapter);
 			}
 		}
 	}
+
 	private class ChannelReloadButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-				ActivityMain.this.getChannelList();
+			ActivityMain.this.getChannelList();
 		}
 	}
 
@@ -487,14 +497,14 @@ public class ActivityMain extends Activity {
 				long id) {
 			ListView listView = (ListView) parent;
 			// 選択されたアイテムを取得します
-			ActivityMain.this.selectedItem = (WasatterItem) listView.getAdapter().getItem(
-					position);
+			ActivityMain.this.selectedItem = (WasatterItem) listView
+					.getAdapter().getItem(position);
 			Intent intent_detail = new Intent(ActivityMain.this,
 					ActivityItemDetail.class);
-			ActivityMain.this.startActivityForResult(intent_detail, IntentCode.MAIN_ITEMDETAIL);
+			ActivityMain.this.startActivityForResult(intent_detail,
+					IntentCode.MAIN_ITEMDETAIL);
 		}
 	}
-
 
 	private class ChannelListClickListener implements OnItemSelectedListener {
 
