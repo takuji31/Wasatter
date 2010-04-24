@@ -1,6 +1,8 @@
 package jp.senchan.android.wasatter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -110,6 +112,13 @@ public class AdapterTimeline extends ArrayAdapter<WasatterItem> implements
 					}
 				}
 			}
+
+			//投稿日時表示するぜヒャッハー
+			TextView date = (TextView) view.findViewById(R.id.post_date);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date now = new Date();
+			now.setTime(item.epoch * 1000);
+			date.setText(sdf.format(now));
 		}
 		return view;
 	}
