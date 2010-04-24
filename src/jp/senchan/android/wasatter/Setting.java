@@ -3,6 +3,9 @@
  */
 package jp.senchan.android.wasatter;
 
+import jp.senchan.android.wasatter.activity.ActivityOAuthToken;
+import jp.senchan.android.wasatter.util.OAuthPreference;
+import jp.senchan.android.wasatter.util.Wasatter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;

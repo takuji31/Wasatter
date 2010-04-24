@@ -1,5 +1,11 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.activity;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Setting;
+import jp.senchan.android.wasatter.task.TaskToggleFavorite;
+import jp.senchan.android.wasatter.util.ResultCode;
+import jp.senchan.android.wasatter.util.Wasatter;
+import jp.senchan.android.wasatter.util.WasatterItem;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;

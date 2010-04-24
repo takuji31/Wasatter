@@ -1,8 +1,17 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.adapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Setting;
+import jp.senchan.android.wasatter.R.id;
+import jp.senchan.android.wasatter.R.layout;
+import jp.senchan.android.wasatter.util.Wasatter;
+import jp.senchan.android.wasatter.util.WasatterAdapter;
+import jp.senchan.android.wasatter.util.WasatterItem;
+import jp.senchan.android.wasatter.util.WassrClient;
 
 import android.content.Context;
 import android.graphics.Bitmap;

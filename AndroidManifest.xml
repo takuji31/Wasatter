@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="jp.senchan.android.wasatter"
-      android:versionCode="7" android:versionName="1.00">
+      android:versionCode="8" android:versionName="1.00a">
     <application android:label="@string/app_name" android:theme="@android:style/Theme.Light" android:icon="@drawable/wasattericon" android:debuggable="true">
         <activity android:name=".ActivityMain">
             <intent-filter>
@@ -11,11 +11,11 @@
         </activity>
 
     
-<activity android:name="ActivityUpdateStatus" android:label="New post"></activity>
+<activity android:label="New post" android:name=".activity.ActivityUpdateStatus"></activity>
 <activity android:name="Setting" android:label="Setting"></activity>
-<activity android:name="ActivityItemDetail" android:label="Status"></activity>
-<activity android:name="ActivityTodoDetail" android:label="TODO"></activity>
-<activity android:name="ActivityOAuthToken" android:label="Get OAuth token"></activity>
+<activity android:label="Status" android:name=".activity.ActivityItemDetail"></activity>
+<activity android:label="TODO" android:name=".activity.ActivityTodoDetail"></activity>
+<activity android:label="Get OAuth token" android:name=".activity.ActivityOAuthToken"></activity>
 
 </application>
     <uses-sdk android:minSdkVersion="4" />

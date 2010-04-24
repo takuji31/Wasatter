@@ -3,6 +3,19 @@ package jp.senchan.android.wasatter;
 import java.io.File;
 import java.util.ArrayList;
 
+import jp.senchan.android.wasatter.activity.ActivityItemDetail;
+import jp.senchan.android.wasatter.activity.ActivityUpdateStatus;
+import jp.senchan.android.wasatter.adapter.AdapterOdai;
+import jp.senchan.android.wasatter.adapter.AdapterTimeline;
+import jp.senchan.android.wasatter.task.TaskImageDownloadWithCache;
+import jp.senchan.android.wasatter.task.TaskReloadTimeline;
+import jp.senchan.android.wasatter.task.TaskReloadTodo;
+import jp.senchan.android.wasatter.util.DBHelper;
+import jp.senchan.android.wasatter.util.IntentCode;
+import jp.senchan.android.wasatter.util.Wasatter;
+import jp.senchan.android.wasatter.util.WasatterAdapter;
+import jp.senchan.android.wasatter.util.WasatterItem;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -61,7 +74,7 @@ public class ActivityMain extends Activity {
 		Wasatter.CONTEXT = this.getBaseContext();
 		this.setTitle(R.string.app_title_version);
 		this.setContentView(R.layout.main);
-		Wasatter.imageStore = new SQLiteHelperImageStore(Wasatter.CONTEXT);
+		Wasatter.imageStore = new DBHelper(Wasatter.CONTEXT);
 		this.ls = (ListView) this.findViewById(R.id.timeline_list);
 		this.progress_image = (ProgressBar) this
 				.findViewById(R.id.load_image_progress);
@@ -335,7 +348,7 @@ public class ActivityMain extends Activity {
 	}
 
 	public void loadCache() {
-		SQLiteHelperImageStore imageStore = Wasatter.imageStore;
+		DBHelper imageStore = Wasatter.imageStore;
 		SQLiteDatabase db = imageStore.getReadableDatabase();
 		SQLiteDatabase dbw = imageStore.getWritableDatabase();
 		Cursor c = db.rawQuery("select * from imagestore", null);

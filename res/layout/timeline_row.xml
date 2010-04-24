@@ -9,12 +9,13 @@
 <TextView android:id="@+id/reply_name" android:layout_height="wrap_content" android:text="&gt;reply_name" android:layout_width="wrap_content"></TextView><TextView android:layout_width="fill_parent" android:id="@+id/status" android:marqueeRepeatLimit="marquee_forever" android:ellipsize="marquee" android:singleLine="true" android:gravity="center_vertical" android:layout_height="wrap_content" />
 
 
-</LinearLayout></LinearLayout><LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:padding="5dip" android:id="@+id/layout_favorite"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/text_favorite" android:paddingRight="5dip" android:text="イイネ!:"></TextView>
+</LinearLayout></LinearLayout><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/post_date" android:text="2010/01/01 00:00:00" android:layout_gravity="right"></TextView><LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:padding="5dip" android:id="@+id/layout_favorite"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/text_favorite" android:paddingRight="5dip" android:text="イイネ!:"></TextView>
 <LinearLayout android:id="@+id/layout_favorite_images" android:layout_gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_margin="1dip">
 
 </LinearLayout>
 </LinearLayout>  
       
+
 
 
 
