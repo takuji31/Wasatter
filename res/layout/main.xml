@@ -1,52 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<LinearLayout android:id="@+id/LinearLayout01"
+<LinearLayout android:id="@+id/frame"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="fill_parent" android:layout_width="fill_parent"
 	android:orientation="vertical">
-
-	<LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/layout_channel_list"><Spinner android:layout_height="wrap_content" android:id="@+id/channel_list" android:layout_width="wrap_content" android:layout_weight="1"></Spinner><Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/button_reload_channel_list" android:text="    Reload    "></Button>
-
-</LinearLayout><ListView android:layout_width="fill_parent"
+	<ListView android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:layout_weight="1"
-		android:id="@+id/timeline_list">
-
-</ListView><LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_gravity="center_vertical" android:id="@+id/layout_load_timeline" android:visibility="gone"><ProgressBar android:layout_height="wrap_content" android:max="10000" android:id="@+id/load_timeline_progress" style="?android:attr/progressBarStyleSmall" android:layout_width="wrap_content" android:paddingLeft="10dip"></ProgressBar><TextView android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:paddingLeft="10dip" android:paddingRight="10dip" android:text="Loading image..." android:id="@+id/text_loading_timeline"></TextView>
-</LinearLayout><LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_gravity="center_vertical" android:id="@+id/layout_update_status" android:visibility="gone"><ProgressBar android:layout_height="wrap_content" android:max="10000" style="?android:attr/progressBarStyleSmall" android:layout_width="wrap_content" android:paddingLeft="10dip" android:id="@+id/update_status_progress"></ProgressBar><TextView android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:paddingLeft="10dip" android:id="@+id/text_update_status" android:text="Posting"></TextView><TextView android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:paddingLeft="10dip" android:paddingRight="10dip" android:id="@+id/text_update_status_service" android:text="ServiceName"></TextView>
-</LinearLayout><FrameLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/layout_load_image_progress" android:visibility="gone"><ProgressBar android:layout_height="wrap_content" android:layout_width="fill_parent" android:max="10000" style="?android:attr/progressBarStyleHorizontal" android:id="@+id/load_image_progress"></ProgressBar><LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_gravity="center_vertical" android:id="@+id/layout_load_image_text"><TextView android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:paddingLeft="10dip" android:paddingRight="10dip" android:text="Loading image..." android:id="@+id/text_load_image"></TextView><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/load_image_count" android:text="9999/9999"></TextView>
-</LinearLayout>
-</FrameLayout>
-	<LinearLayout android:layout_height="wrap_content"
-		android:orientation="horizontal" android:layout_width="fill_parent" android:id="@+id/layout_buttons">
-		<Button android:layout_height="wrap_content" android:layout_width="400dp" android:layout_weight="1" android:id="@+id/button_new_post" android:text="New"></Button>
-	
-<Button android:layout_height="wrap_content" android:id="@+id/button_reload" android:text="Reload" android:layout_width="400dip" android:layout_weight="1"></Button><Button android:layout_height="wrap_content" android:id="@+id/button_open_setting" android:layout_width="400dip" android:layout_weight="1" android:text="Setting"></Button>
-
-</LinearLayout>
+		android:id="@+id/timeline">
+	</ListView>
 	<LinearLayout android:id="@+id/LinearLayout02"
 		android:layout_width="fill_parent" android:layout_gravity="bottom"
 		android:layout_height="wrap_content">
-		<ToggleButton android:layout_height="wrap_content"
-			android:id="@+id/toggle_button_timeline" android:textOff="@string/title_button_timeline"
-			android:textOn="@string/title_button_timeline" android:layout_weight="1"
-			android:layout_width="420dip"></ToggleButton>
-		<ToggleButton android:layout_height="wrap_content"
-			android:id="@+id/toggle_button_reply" android:textOff="@string/title_button_reply"
-			android:textOn="@string/title_button_reply" android:layout_width="400dip"
-			android:layout_weight="1"></ToggleButton>
-		<ToggleButton android:text="@+id/ToggleButton01"
-			android:layout_height="wrap_content" android:textOff="@string/title_button_mypost"
-			android:textOn="@string/title_button_mypost" android:id="@+id/toggle_button_mypost"
-			android:layout_width="400dip" android:layout_weight="1"></ToggleButton>
-		<ToggleButton android:layout_height="wrap_content"
-			android:textOff="@string/title_button_odai" android:textOn="@string/title_button_odai"
-			android:id="@+id/toggle_button_odai" android:layout_width="400dip"
-			android:layout_weight="1"></ToggleButton>
-		<ToggleButton android:layout_height="wrap_content"
-			android:layout_width="400dip" android:layout_weight="1" android:textOn="@string/title_button_channel" android:textOff="@string/title_button_channel" android:id="@+id/toggle_button_channel"></ToggleButton>
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:src="@drawable/post" android:id="@+id/buttonNew"></ImageButton>
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:src="@drawable/my" android:id="@+id/buttonShowMyPage"></ImageButton>
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/buttonShowReply"
+			android:layout_weight="1" android:src="@drawable/reply"></ImageButton>
+
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:src="@drawable/odai" android:id="@+id/buttonShowOdai"></ImageButton>
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:src="@drawable/mail"
+			android:layout_weight="1" android:id="@+id/buttonShowChannel"></ImageButton>
+		<ImageButton android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:src="@drawable/reload" android:id="@+id/buttonReload"></ImageButton>
 	</LinearLayout>
-
-
-
 </LinearLayout>
