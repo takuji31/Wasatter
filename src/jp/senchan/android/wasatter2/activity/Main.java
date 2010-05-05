@@ -7,6 +7,8 @@ import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.adapter.AdapterTimeline;
 import jp.senchan.android.wasatter2.client.Wassr;
+import jp.senchan.android.wasatter2.setting.TwitterAccount;
+import jp.senchan.android.wasatter2.setting.WassrAccount;
 import jp.senchan.android.wasatter2.task.TaskImageDownloadWithCache;
 import jp.senchan.android.wasatter2.util.DBHelper;
 import jp.senchan.android.wasatter2.util.IntentCode;
@@ -21,11 +23,14 @@ import android.text.SpannableStringBuilder;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class Main extends TimelineActivitity {
+public class Main extends TimelineActivity {
 	public WasatterItem selectedItem;
 
 	//別スレッドに投げるリロード処理とその後の処理
@@ -44,6 +49,28 @@ public class Main extends TimelineActivitity {
 		// リストにイベントリスナーを割り当てる
 		listView.setOnItemClickListener(new TLItemClickListener());
 		reload();
+		//仮にXAuthテスト用アクティビティーを呼び出すボタンを作る
+		ImageButton xauth = (ImageButton) findViewById(R.id.buttonNew);
+		xauth.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO 自動生成されたメソッド・スタブ
+				Intent intent = new Intent(Main.this,XAuthLogin.class);
+				startActivity(intent);
+			}
+		});
+		//レイアウト確認用ボタンを作る
+		ImageButton layout = (ImageButton) findViewById(R.id.buttonShowMyPage);
+		layout.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO 自動生成されたメソッド・スタブ
+				Intent intent = new Intent(Main.this,TwitterAccount.class);
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
@@ -154,7 +181,7 @@ public class Main extends TimelineActivitity {
 	 * リロードを実行するメソッド
 	 */
 	public void reload() {
-		if(reloadThread != null){
+		if(reloadThread == null){
 			reloadThread = new ReloadThread(this, Wassr.TIMELINE, false, null);
 			reloadThread.start();
 		}

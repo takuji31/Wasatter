@@ -212,10 +212,9 @@ public class Wasatter {
 		ad.show();
 	}
 
-	public static String base64Encode(String src){
+	public static String base64Encode(byte[] src){
 		try {
-			byte[] srcArray = src.getBytes("UTF-8");
-			byte[] returnArray = Base64.encodeBase64(srcArray);
+			byte[] returnArray = Base64.encodeBase64(src);
 			return new String(returnArray,"UTF-8");
 
 		} catch (UnsupportedEncodingException e) {

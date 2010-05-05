@@ -15,7 +15,7 @@ import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public abstract class TimelineActivitity extends Activity {
+public abstract class TimelineActivity extends Activity {
 	public ListView listView;
 	public ArrayList<Item> list;
 	public Handler handler = new Handler();
@@ -25,12 +25,12 @@ public abstract class TimelineActivitity extends Activity {
 
 	protected class ReloadThread extends Thread {
 		private int mode;
-		private TimelineActivitity target;
+		private TimelineActivity target;
 		private boolean clear;
 		private ArrayList<Item> list;
 		private HashMap<String, String> params;
 
-		public ReloadThread(TimelineActivitity target, int mode, boolean clear,
+		public ReloadThread(TimelineActivity target, int mode, boolean clear,
 				HashMap<String, String> params) {
 			// 引数に渡すパラメータをあらかじめセットする
 			this.mode = mode;
@@ -51,6 +51,7 @@ public abstract class TimelineActivitity extends Activity {
 					// ソートを実行
 					Timeline tl = (Timeline) listView.getAdapter();
 					tl.sort(new ItemComparator());
+					reloadThread = null;
 				}
 			});
 		}
