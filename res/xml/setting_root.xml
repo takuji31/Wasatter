@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="@string/title_setting_account">
+	<PreferenceScreen android:title="全般" android:summary="Wasatter全般に関する設定です"></PreferenceScreen><PreferenceScreen android:title="Wassr" android:summary="Wassrに関する設定です">
+		
+		
+		
+
+	
+</PreferenceScreen>
+
+
+	<PreferenceScreen android:title="Twitter" android:summary="Twitterに関する設定です">
+		
+		
+		
+		
+	</PreferenceScreen><PreferenceScreen android:title="表示" android:summary="表示に関する設定です">
+		
+		
+	
+
+
+
+</PreferenceScreen>
+
+	
+	<!-- <PreferenceScreen android:summary="@string/summary_setting_category_shorturl"
+		android:title="@string/title_setting_category_shorturl">
+		<CheckBoxPreference android:summaryOn="@string/summary_setting_shorturl_enabled"
+			android:key="@string/key_setting_shorturl" android:summaryOff="@string/summary_setting_shorturl_disabled"
+			android:title="@string/title_setting_shorturl"></CheckBoxPreference>
+		<ListPreference android:entries="@array/array_shorturl_service_name"
+			android:entryValues="@array/array_shorturl_service_value"
+			android:title="@string/title_setting_shorturl_service" android:key="@string/key_setting_shorturl_service"
+			android:summary="@string/summary_setting_shorturl_service"
+			android:defaultValue="jmp"></ListPreference>
+
+	</PreferenceScreen> -->
+
+
+</PreferenceScreen>

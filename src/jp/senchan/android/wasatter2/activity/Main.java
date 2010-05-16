@@ -1,37 +1,27 @@
 package jp.senchan.android.wasatter2.activity;
 
-import java.io.File;
-
 import jp.senchan.android.wasatter2.R;
-import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
-import jp.senchan.android.wasatter2.adapter.AdapterTimeline;
+import jp.senchan.android.wasatter2.adapter.Timeline;
 import jp.senchan.android.wasatter2.client.Wassr;
+import jp.senchan.android.wasatter2.item.Item;
+import jp.senchan.android.wasatter2.setting.SettingRoot;
 import jp.senchan.android.wasatter2.setting.TwitterAccount;
-import jp.senchan.android.wasatter2.setting.WassrAccount;
 import jp.senchan.android.wasatter2.task.TaskImageDownloadWithCache;
-import jp.senchan.android.wasatter2.util.DBHelper;
 import jp.senchan.android.wasatter2.util.IntentCode;
-import jp.senchan.android.wasatter2.util.WasatterItem;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Main extends TimelineActivity {
-	public WasatterItem selectedItem;
+	public Item selectedItem;
 
 	//別スレッドに投げるリロード処理とその後の処理
 
@@ -84,7 +74,7 @@ public class Main extends TimelineActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		try {
 			if (requestCode == IntentCode.MAIN_ITEMDETAIL) {
-				AdapterTimeline adapter = (AdapterTimeline) this.listView
+				Timeline adapter = (Timeline) this.listView
 						.getAdapter();
 				adapter.updateView();
 			}
@@ -126,32 +116,6 @@ public class Main extends TimelineActivity {
 		return true;
 	}
 
-	public void loadCache() {
-		DBHelper imageStore = Wasatter.db;
-		SQLiteDatabase db = imageStore.getReadableDatabase();
-		SQLiteDatabase dbw = imageStore.getWritableDatabase();
-		Cursor c = db.rawQuery("select * from imagestore", null);
-		c.moveToFirst();
-		int count = c.getCount();
-		for (int i = 0; i < count; i++) {
-			String url = c.getString(0);
-			String imageName = c.getString(1);
-			long created = c.getLong(2);
-			if (created > Wasatter.cacheExpire()) {
-				Wasatter.images.put(url, Wasatter.getImage(imageName));
-			} else {
-				SQLiteStatement st = dbw
-						.compileStatement("delete from imagestore where url=?");
-				st.bindString(1, url);
-				st.execute();
-				File file = new File(new SpannableStringBuilder(Wasatter
-						.getImagePath()).append(imageName).toString());
-				file.delete();
-			}
-			c.moveToNext();
-		}
-		c.close();
-	}
 
 	/**
 	 * 投稿ウィンドウを開くメソッド
@@ -165,7 +129,7 @@ public class Main extends TimelineActivity {
 	 * 設定ダイアログを開くメソッド
 	 */
 	public void openSetting() {
-		Intent intent_setting = new Intent(this, Setting.class);
+		Intent intent_setting = new Intent(this, SettingRoot.class);
 		this.startActivity(intent_setting);
 	}
 
@@ -182,7 +146,7 @@ public class Main extends TimelineActivity {
 	 */
 	public void reload() {
 		if(reloadThread == null){
-			reloadThread = new ReloadThread(this, Wassr.TIMELINE, false, null);
+			reloadThread = new ReloadThread(this, Wassr.TIMELINE, true, null);
 			reloadThread.start();
 		}
 	}
@@ -204,9 +168,9 @@ public class Main extends TimelineActivity {
 				long id) {
 			ListView listView = (ListView) parent;
 			// 選択されたアイテムを取得します
-			Main.this.selectedItem = (WasatterItem) listView.getAdapter()
+			Main.this.selectedItem = (Item) listView.getAdapter()
 					.getItem(position);
-			Intent intent_detail = new Intent(Main.this, ItemDetail.class);
+			Intent intent_detail = new Intent(Main.this, Detail.class);
 			Main.this.startActivityForResult(intent_detail,
 					IntentCode.MAIN_ITEMDETAIL);
 		}

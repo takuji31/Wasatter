@@ -1,10 +1,11 @@
 package jp.senchan.android.wasatter2.item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.text.SpannableStringBuilder;
 
-public class Item {
+public class Item implements Serializable{
 	/**
 	 *
 	 */

@@ -19,6 +19,10 @@ public class Startup extends Activity {
 		if(Wasatter.db == null){
 			Wasatter.db = new DBHelper(Wasatter.CONTEXT);
 		}
+
+		//ダウンロード待ちURLを解放
+		Wasatter.downloadWaitUrls.clear();
+
 		//何か処理する、アップデート確認とかバグ報告とか
 
 

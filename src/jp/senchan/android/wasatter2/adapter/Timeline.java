@@ -8,9 +8,11 @@ import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.item.Item;
+import jp.senchan.android.wasatter2.setting.DisplaySetting;
 import jp.senchan.android.wasatter2.util.WassrClient;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.InputType;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils.TruncateAt;
 import android.view.LayoutInflater;
@@ -57,8 +59,9 @@ public class Timeline extends ArrayAdapter<Item> implements
 				text.setText(item.html);
 			}
 			// テキストの行数を決定する。
-			text.setSingleLine(!Setting.isDisplayBodyMultiLine());
-			if (!Setting.isDisplayBodyMultiLine()) {
+			boolean multiLine = DisplaySetting.get(DisplaySetting.BODY_MULTILINE, true);
+			text.setSingleLine(!multiLine);
+			if (!multiLine) {
 				text.setEllipsize(TruncateAt.MARQUEE);
 			} else {
 				text.setEllipsize(null);

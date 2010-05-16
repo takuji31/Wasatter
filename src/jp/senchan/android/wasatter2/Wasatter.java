@@ -1,12 +1,9 @@
 package jp.senchan.android.wasatter2;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,10 +12,10 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.codec.binary.Base64;
-
 import jp.senchan.android.wasatter2.activity.Main;
 import jp.senchan.android.wasatter2.util.DBHelper;
+
+import org.apache.commons.codec.binary.Base64;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -51,8 +48,12 @@ public class Wasatter {
 	public static String MODE_DISPLAY = "mode_display";
 	public static String MODE_ERROR = "mode_error";
 
+	public static ArrayList<String> dlIconUrls = new ArrayList<String>();
+	public static HashMap<String, Bitmap> icons = new HashMap<String, Bitmap>();
+
 	/**
 	 * キャッシュの有効期限を取得する
+	 *
 	 * @return キャッシュの有効期限（秒数）
 	 */
 	public static long cacheExpire() {
@@ -91,13 +92,16 @@ public class Wasatter {
 	}
 
 	public static boolean saveImage(String name, Bitmap image) {
-		return saveImage(getImagePath(),name, image,CompressFormat.PNG,80);
-	}
-	public static boolean saveTempImage(Bitmap image) {
-		return saveImage(getTempPath(),"temp.jpg", image,CompressFormat.JPEG,80);
+		return saveImage(getImagePath(), name, image, CompressFormat.PNG, 80);
 	}
 
-	public static boolean saveImage(String path,String name, Bitmap image,CompressFormat format,int quality) {
+	public static boolean saveTempImage(Bitmap image) {
+		return saveImage(getTempPath(), "temp.jpg", image, CompressFormat.JPEG,
+				80);
+	}
+
+	public static boolean saveImage(String path, String name, Bitmap image,
+			CompressFormat format, int quality) {
 		// ファイル名の生成
 		SpannableStringBuilder fullPath = new SpannableStringBuilder();
 		fullPath.append(path);
@@ -128,8 +132,6 @@ public class Wasatter {
 	}
 
 	public static Bitmap getImage(String name) {
-		InputStream in = null;
-		ByteArrayOutputStream out = null;
 		// ファイル名の生成
 		SpannableStringBuilder path = new SpannableStringBuilder();
 		path.append(getImagePath());
@@ -138,13 +140,6 @@ public class Wasatter {
 			return BitmapFactory.decodeStream(new FileInputStream(path
 					.toString()));
 		} catch (Exception e) {
-			try {
-				if (in != null)
-					in.close();
-				if (out != null)
-					out.close();
-			} catch (Exception e2) {
-			}
 			return null;
 		}
 	}
@@ -159,9 +154,10 @@ public class Wasatter {
 		}
 	}
 
-	public static String getTempPath(){
+	public static String getTempPath() {
 		String sdPath = Environment.getExternalStorageDirectory().getPath();
-		return new SpannableStringBuilder(sdPath).append("/wasatter/").toString();
+		return new SpannableStringBuilder(sdPath).append("/wasatter/")
+				.toString();
 	}
 
 	public static String getImagePath() {
@@ -192,14 +188,11 @@ public class Wasatter {
 		String message;
 		if (ERROR_TMP.equals(error) && Wasatter.WASSR.equals(service)) {
 			message = "エラーが発生しました（Wassr,503）Wassrが一時的に不安定になっている可能性があります。";
-		} else if (ERROR_TMP.equals(error)
-				&& Wasatter.TWITTER.equals(service)) {
+		} else if (ERROR_TMP.equals(error) && Wasatter.TWITTER.equals(service)) {
 			message = "エラーが発生しました（Twitter,503）API制限を超えた可能性があります。";
-		} else if (ERROR_AUTH.equals(error)
-				&& Wasatter.WASSR.equals(service)) {
+		} else if (ERROR_AUTH.equals(error) && Wasatter.WASSR.equals(service)) {
 			message = "エラーが発生しました（Wassr,401）IDかパスワードが間違っている、もしくはAPI制限を超えた可能性があります。";
-		} else if (ERROR_AUTH.equals(error)
-				&& Wasatter.TWITTER.equals(service)) {
+		} else if (ERROR_AUTH.equals(error) && Wasatter.TWITTER.equals(service)) {
 			message = "エラーが発生しました（Twitter,401）IDかパスワードが間違っている可能性があります。";
 		} else if ("JSON".equals(error)) {
 			message = "取得データが破損しています、リロードしてください。";
@@ -212,10 +205,10 @@ public class Wasatter {
 		ad.show();
 	}
 
-	public static String base64Encode(byte[] src){
+	public static String base64Encode(byte[] src) {
 		try {
 			byte[] returnArray = Base64.encodeBase64(src);
-			return new String(returnArray,"UTF-8");
+			return new String(returnArray, "UTF-8");
 
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -223,4 +216,4 @@ public class Wasatter {
 		}
 	}
 
- }
+}

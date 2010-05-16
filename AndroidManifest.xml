@@ -19,6 +19,9 @@
 <activity android:name=".activity.XAuthLogin"></activity>
 <activity android:name=".setting.WassrAccount" android:label="設定 - Wassr" android:windowSoftInputMode="stateHidden"></activity>
 <activity android:name=".setting.TwitterAccount" android:label="設定 - Twitter" android:windowSoftInputMode="stateHidden"></activity>
+<activity android:name=".setting.SettingRoot"></activity>
+<activity android:name=".activity.Detail" android:theme="@android:style/Theme.Dialog"></activity>
+<activity android:name=".setting.DisplaySetting"></activity>
 </application>
 	<uses-sdk android:minSdkVersion="4" />
 	<uses-permission android:name="android.permission.INTERNET" />

@@ -29,6 +29,8 @@ public class TwitterAccount extends Setting {
 	public String xAuthToken = null;
 	public String xAuthTokenSecret = null;
 	public Button authButton;
+	public TextView xAuthUserName;
+	public String userName;
 	public Runnable authFailure = new Runnable() {
 
 		@Override
@@ -38,6 +40,7 @@ public class TwitterAccount extends Setting {
 					.makeText(TwitterAccount.this, "認証に失敗しました",
 							Toast.LENGTH_SHORT).show();
 			authButton.setClickable(true);
+			setProgressBarVisibility(false);
 		}
 	};
 	public Runnable authSuccess = new Runnable() {
@@ -48,7 +51,9 @@ public class TwitterAccount extends Setting {
 			Toast
 					.makeText(TwitterAccount.this, "認証に成功しました",
 							Toast.LENGTH_SHORT).show();
+			xAuthUserName.setText(userName);
 			authButton.setClickable(true);
+			setProgressBarVisibility(false);
 		}
 	};
 
@@ -59,7 +64,7 @@ public class TwitterAccount extends Setting {
 		setContentView(R.layout.twitter_account);
 
 		// 現在認証に使われているユーザー名を取得
-		final TextView xAuthUserName = (TextView) findViewById(R.id.xAuthUserName);
+		xAuthUserName = (TextView) findViewById(R.id.xAuthUserName);
 		xAuthUserName.setText(Setting.get(USERNAME, ""));
 		// パスワードを表示のチェックボックスにイベントを割り当てる
 		final EditText password = (EditText) findViewById(R.id.password);
@@ -126,6 +131,9 @@ public class TwitterAccount extends Setting {
 				}
 				// 二重送信防止
 				authButton.setClickable(false);
+				// プログレスバー回してみようか
+				setProgressBarIndeterminate(true);
+				setProgressBarVisibility(true);
 				// スレッド立てる
 				new Thread(new Runnable() {
 
@@ -140,7 +148,7 @@ public class TwitterAccount extends Setting {
 						}
 						String token = authResult.get(RES_TOKEN);
 						String tokenSecret = authResult.get(RES_TOKEN_SECRET);
-						String userName = authResult.get(RES_USERNAME);
+						userName = authResult.get(RES_USERNAME);
 						// どちらかの値がなかったら失敗してる
 						if (token == null || tokenSecret == null) {
 							handler.post(authFailure);
@@ -150,7 +158,6 @@ public class TwitterAccount extends Setting {
 						Setting.set(TOKEN, token);
 						Setting.set(TOKEN_SECRET, tokenSecret);
 						Setting.set(USERNAME, userName);
-						xAuthUserName.setText(userName);
 
 						handler.post(authSuccess);
 					}

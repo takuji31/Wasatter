@@ -1,6 +1,5 @@
 package jp.senchan.android.wasatter2.client;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,20 +9,22 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map.Entry;
 
+import jp.senchan.android.wasatter2.R;
+import jp.senchan.android.wasatter2.Setting;
+import jp.senchan.android.wasatter2.Wasatter;
+import jp.senchan.android.wasatter2.activity.TimelineActivity;
+import jp.senchan.android.wasatter2.item.Item;
+import jp.senchan.android.wasatter2.util.WassrClient;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -32,23 +33,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import jp.senchan.android.wasatter2.R;
-import jp.senchan.android.wasatter2.Setting;
-import jp.senchan.android.wasatter2.Wasatter;
-import jp.senchan.android.wasatter2.activity.TimelineActivity;
-import jp.senchan.android.wasatter2.item.Item;
-import jp.senchan.android.wasatter2.util.WasatterItem;
-import jp.senchan.android.wasatter2.util.WassrClient;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Html.ImageGetter;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 
 /**
  * Version2からのWassrクライアントクラス
@@ -56,7 +47,7 @@ import android.util.Log;
  * @author takuji
  *
  */
-public class Wassr {
+public class Wassr extends BaseClient{
 	public static final int TIMELINE = 1;
 	public static final int REPLY = 2;
 	public static final int MYPOST = 3;
@@ -162,7 +153,7 @@ public class Wassr {
 
 					@Override
 					public void run() {
-						target.httpError(errorCode, "");
+						target.httpError(errorCode, "Wassr");
 
 					}
 				});
@@ -183,6 +174,11 @@ public class Wassr {
 
 				SimpleDateFormat sdf = new SimpleDateFormat(
 						"EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+
+				//リストをクリアする設定ならクリアする
+				if(clear){
+					items.clear();
+				}
 				for (int i = 0; i < j; i++) {
 					JSONObject obj = result.getJSONObject(i);
 					Item item = new Item();
@@ -200,6 +196,10 @@ public class Wassr {
 									// 必要な画像のURLをあらかじめ取得
 									Bitmap bmp = Wasatter.images
 											.get(source);
+									if(bmp == null){
+										Wassr.getImageWithCache(source);
+										bmp = Wasatter.images.get(source);
+									}
 									if (Wasatter.downloadWaitUrls
 											.indexOf(source) == -1
 											&& bmp == null) {
@@ -284,13 +284,6 @@ public class Wassr {
 					item.favorited = item.favorite
 							.indexOf(Setting.getWassrId()) != -1;
 					items.add(0, item);
-					target.handler.post(new Runnable() {
-
-						@Override
-						public void run() {
-							target.updateList();
-						}
-					});
 				}
 			} catch (JSONException e) {
 				// TODO 自動生成された catch ブロック
@@ -306,6 +299,89 @@ public class Wassr {
 			// TODO JSONデータが破損している場合に到達するブロック
 			e.printStackTrace();
 		}
-
 	}
+
+
+	public static boolean favorite(Item item) {
+		JSONObject json = null;
+		try {
+			// HttpClientの準備
+			DefaultHttpClient client = getHttpClient();
+			//URLの設定
+			String url = null;
+			if (!item.favorited) {
+				url = WassrUrl.FAVORITE_ADD.replace("[rid]", item.rid);
+
+			} else {
+				url = WassrUrl.FAVORITE_DEL.replace("[rid]", item.rid);
+			}
+			HttpPost post = new HttpPost(url);
+			HttpResponse response = client.execute(post);
+			HttpEntity entity = response.getEntity();
+			if (entity != null) {
+				String resString = EntityUtils.toString(entity);
+				json = new JSONObject(resString);
+			}
+			// 配列が空なら終了
+			if (json == null || json.length() == 0) {
+				return false;
+			}
+			boolean result = json.getString("status").equalsIgnoreCase("ok");
+			if (result) {
+				if (item.favorited) {
+					item.favorite.remove(Setting.getWassrId());
+				} else {
+					item.favorite.add(Setting.getWassrId());
+				}
+				item.favorited = !item.favorited;
+			}
+			return result;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public static String channelFavorite(Item item) {
+		JSONObject json = null;
+		try {
+			// HttpClientの準備
+			DefaultHttpClient client = getHttpClient();
+			//URLの設定
+			String url = WassrUrl.FAVORITE_CHANNEL.replace("[rid]", item.rid);
+			HttpGet get = new HttpGet(url);
+			HttpResponse response = client.execute(get);
+			HttpEntity entity = response.getEntity();
+			if (entity != null) {
+				String resString = EntityUtils.toString(entity);
+				json = new JSONObject(resString);
+			}
+			// 配列が空なら終了
+			if (json == null || json.length() == 0) {
+				return null;
+			}
+			return json.getString("message");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		return "NG";
+	}
+
+
+
+
+
+
 }

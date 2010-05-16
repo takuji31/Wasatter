@@ -1,16 +1,24 @@
 package jp.senchan.android.wasatter2.activity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import jp.senchan.android.wasatter2.R;
+import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.adapter.Timeline;
 import jp.senchan.android.wasatter2.client.Wassr;
 import jp.senchan.android.wasatter2.item.Item;
+import jp.senchan.android.wasatter2.task.IconDownload;
+import jp.senchan.android.wasatter2.util.DBHelper;
 import jp.senchan.android.wasatter2.util.ItemComparator;
 import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.SpannableStringBuilder;
 import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -43,7 +51,17 @@ public abstract class TimelineActivity extends Activity {
 		@Override
 		public void run() {
 			// タイムラインを取得
+			handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					// プログレスバーを500にセット、これでダウンロードしてるっぽく見えるはず…？
+					setProgressBarVisibility(true);
+					setProgress(500);
+				}
+			});
 			Wassr.getItems(mode, target, clear, list, params);
+			target.loadCache();
 			handler.post(new Runnable() {
 
 				@Override
@@ -52,6 +70,9 @@ public abstract class TimelineActivity extends Activity {
 					Timeline tl = (Timeline) listView.getAdapter();
 					tl.sort(new ItemComparator());
 					reloadThread = null;
+					//10000にセットしてプログレスバーを消す
+					setProgress(10000);
+					new IconDownload(target).execute();
 				}
 			});
 		}
@@ -61,8 +82,7 @@ public abstract class TimelineActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
-		// タイトルをプログレスに使う
-		// MAXが10k固定っぽいので割り算とかしないと…
+		// タイトルをプログレスバーに使う
 		requestWindowFeature(Window.FEATURE_PROGRESS);
 
 		setContentView(R.layout.main);
@@ -102,6 +122,38 @@ public abstract class TimelineActivity extends Activity {
 		if(tl != null){
 			tl.updateView();
 		}
+	}
+
+	/**
+	 * 画像のキャッシュをロードするメソッド
+	 */
+	public void loadCache() {
+		DBHelper imageStore = Wasatter.db;
+		SQLiteDatabase db = imageStore.getReadableDatabase();
+		SQLiteDatabase dbw = imageStore.getWritableDatabase();
+		Cursor c = db.rawQuery("select * from imagestore", null);
+		c.moveToFirst();
+		int count = c.getCount();
+		for (int i = 0; i < count; i++) {
+			String url = c.getString(0);
+			String imageName = c.getString(1);
+			long created = c.getLong(2);
+			if (created > Wasatter.cacheExpire()) {
+				Wasatter.images.put(url, Wasatter.getImage(imageName));
+			} else {
+				SQLiteStatement st = dbw
+						.compileStatement("delete from imagestore where url=?");
+				st.bindString(1, url);
+				st.execute();
+				File file = new File(new SpannableStringBuilder(Wasatter
+						.getImagePath()).append(imageName).toString());
+				file.delete();
+			}
+			c.moveToNext();
+		}
+		c.close();
+		db.execSQL("vacuum imagestore");
+		db.execSQL("reindex imagestore");
 	}
 
 

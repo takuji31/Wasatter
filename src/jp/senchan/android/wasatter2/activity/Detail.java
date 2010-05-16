@@ -3,17 +3,21 @@ package jp.senchan.android.wasatter2.activity;
 import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
+import jp.senchan.android.wasatter2.item.Item;
+import jp.senchan.android.wasatter2.task.Favorite;
 import jp.senchan.android.wasatter2.task.TaskToggleFavorite;
 import jp.senchan.android.wasatter2.util.ResultCode;
 import jp.senchan.android.wasatter2.util.WasatterItem;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.Resources.Theme;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,8 +30,8 @@ import android.widget.TextView;
  * @author Senka/Takuji
  *
  */
-public class ItemDetail extends Activity {
-	protected WasatterItem ws;
+public class Detail extends Activity {
+	protected Item ws;
 	public static String ADD_WASSR = "イイネ！する";
 	public static String DEL_WASSR = "イイネ！を消す";
 	public static String ADD_TWITTER = "お気に入りに追加する";
@@ -37,11 +41,12 @@ public class ItemDetail extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.wasatter_detail);
 		favoriteButton = (Button) findViewById(R.id.button_favorite);
-		//this.ws = Wasatter.main.selectedItem;
-		if (this.ws != null) {
-			WasatterItem wss = this.ws;
+		try {
+			this.ws = Wasatter.main.selectedItem;
+			Item wss = this.ws;
 			// サービス名/チャンネル名をセット
 			TextView service_name = (TextView) this
 					.findViewById(R.id.service_name);
@@ -56,12 +61,7 @@ public class ItemDetail extends Activity {
 			// 画像をセット
 			ImageView icon = (ImageView) this.findViewById(R.id.icon);
 			Bitmap bmp = Wasatter.images.get(wss.profileImageUrl);
-			if (bmp != null && Setting.isLoadImage()) {
-				icon.setImageBitmap(bmp);
-				icon.setVisibility(View.VISIBLE);
-			} else {
-				icon.setVisibility(View.GONE);
-			}
+			icon.setImageBitmap(bmp);
 			// 返信であるかどうか判定
 			if (wss.replyUserNick != null && !wss.replyUserNick.equals("null")) {
 				TextView reply_message = (TextView) this
@@ -91,7 +91,7 @@ public class ItemDetail extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
-					String permalink = ItemDetail.this.ws.link;
+					String permalink = Detail.this.ws.link;
 					Intent intent_parmalink = new Intent(Intent.ACTION_VIEW,
 							Uri.parse(permalink));
 					startActivity(intent_parmalink);
@@ -105,7 +105,7 @@ public class ItemDetail extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
-					String text = ItemDetail.this.ws.text;
+					String text = Detail.this.ws.text;
 					String url = Wasatter.getUrl(text);
 					if (!"".equals(url)) {
 						Intent intent_url = new Intent(Intent.ACTION_VIEW, Uri
@@ -113,7 +113,7 @@ public class ItemDetail extends Activity {
 						startActivity(intent_url);
 					} else {
 						AlertDialog.Builder ad = new AlertDialog.Builder(
-								ItemDetail.this);
+								Detail.this);
 						// ad.setTitle(R.string.notice_title_no_url);
 						ad.setMessage(R.string.notice_message_no_url);
 						ad.setPositiveButton("OK", null);
@@ -136,8 +136,7 @@ public class ItemDetail extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					new TaskToggleFavorite(ItemDetail.this)
-							.execute(ItemDetail.this.ws);
+					new Favorite(Detail.this).execute(Detail.this.ws);
 				}
 			});
 			// Replyボタンにイベント割り当て
@@ -147,19 +146,21 @@ public class ItemDetail extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
-					Intent intent_reply = new Intent(ItemDetail.this,
-							Update.class);
-					intent_reply.putExtra(Wasatter.REPLY,
-							ItemDetail.this.ws);
+					Intent intent_reply = new Intent(Detail.this, Update.class);
+					intent_reply.putExtra(Wasatter.REPLY, Detail.this.ws);
 					startActivity(intent_reply);
 				}
 			});
+		} catch (NullPointerException e) {
+			// 何かおかしかったら終了させる
+			finish();
 		}
 	}
+
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if(isFinishing()){
+		if (isFinishing()) {
 			setResult(ResultCode.OK);
 		}
 	}
