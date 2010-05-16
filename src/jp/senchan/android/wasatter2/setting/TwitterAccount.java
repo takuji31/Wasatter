@@ -3,7 +3,7 @@ package jp.senchan.android.wasatter2.setting;
 import java.util.HashMap;
 
 import jp.senchan.android.wasatter2.R;
-import jp.senchan.android.wasatter2.util.XAuth;
+import jp.senchan.android.wasatter2.xauth.XAuth;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -140,7 +140,7 @@ public class TwitterAccount extends Setting {
 					@Override
 					public void run() {
 						XAuth xauth = new XAuth(userId, pass);
-						HashMap<String, String> authResult = xauth.request();
+						HashMap<String, String> authResult = xauth.getToken();
 						if (authResult.size() < 3) {
 							// 多分結果が3未満なら失敗してる…？
 							handler.post(authFailure);

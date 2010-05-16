@@ -3,6 +3,7 @@ package jp.senchan.android.wasatter2.activity;
 import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.adapter.Timeline;
+import jp.senchan.android.wasatter2.client.Twitter;
 import jp.senchan.android.wasatter2.client.Wassr;
 import jp.senchan.android.wasatter2.item.Item;
 import jp.senchan.android.wasatter2.setting.SettingRoot;
@@ -39,14 +40,14 @@ public class Main extends TimelineActivity {
 		// リストにイベントリスナーを割り当てる
 		listView.setOnItemClickListener(new TLItemClickListener());
 		reload();
-		//仮にXAuthテスト用アクティビティーを呼び出すボタンを作る
-		ImageButton xauth = (ImageButton) findViewById(R.id.buttonNew);
-		xauth.setOnClickListener(new OnClickListener() {
+		//新規投稿ボタンにイベント割り当て
+		ImageButton buttonNew = (ImageButton) findViewById(R.id.buttonNew);
+		buttonNew.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
-				Intent intent = new Intent(Main.this,XAuthLogin.class);
+				Intent intent = new Intent(Main.this,Update.class);
 				startActivity(intent);
 			}
 		});
@@ -145,9 +146,13 @@ public class Main extends TimelineActivity {
 	 * リロードを実行するメソッド
 	 */
 	public void reload() {
-		if(reloadThread == null){
-			reloadThread = new ReloadThread(this, Wassr.TIMELINE, true, null);
-			reloadThread.start();
+		if(reloadThreadWassr == null){
+			reloadThreadWassr = new ReloadThreadWassr(this, Wassr.TIMELINE, false, null);
+			reloadThreadWassr.start();
+		}
+		if(reloadThreadTwitter == null){
+			reloadThreadTwitter = new ReloadThreadTwitter(this, Twitter.TIMELINE, false, null);
+			reloadThreadTwitter.start();
 		}
 	}
 

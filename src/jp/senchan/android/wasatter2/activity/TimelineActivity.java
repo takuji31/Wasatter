@@ -7,6 +7,7 @@ import java.util.HashMap;
 import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.adapter.Timeline;
+import jp.senchan.android.wasatter2.client.Twitter;
 import jp.senchan.android.wasatter2.client.Wassr;
 import jp.senchan.android.wasatter2.item.Item;
 import jp.senchan.android.wasatter2.task.IconDownload;
@@ -27,18 +28,24 @@ public abstract class TimelineActivity extends Activity {
 	public ListView listView;
 	public ArrayList<Item> list;
 	public Handler handler = new Handler();
-	public ReloadThread reloadThread;
+	public ReloadThreadWassr reloadThreadWassr;
+	public ReloadThreadTwitter reloadThreadTwitter;
 
 	public abstract void reload();
 
-	protected class ReloadThread extends Thread {
+	/**
+	 * Wassrリロードスレッド
+	 * @author takuji
+	 *
+	 */
+	protected class ReloadThreadWassr extends Thread {
 		private int mode;
 		private TimelineActivity target;
 		private boolean clear;
 		private ArrayList<Item> list;
 		private HashMap<String, String> params;
 
-		public ReloadThread(TimelineActivity target, int mode, boolean clear,
+		public ReloadThreadWassr(TimelineActivity target, int mode, boolean clear,
 				HashMap<String, String> params) {
 			// 引数に渡すパラメータをあらかじめセットする
 			this.mode = mode;
@@ -69,7 +76,7 @@ public abstract class TimelineActivity extends Activity {
 					// ソートを実行
 					Timeline tl = (Timeline) listView.getAdapter();
 					tl.sort(new ItemComparator());
-					reloadThread = null;
+					reloadThreadTwitter = null;
 					//10000にセットしてプログレスバーを消す
 					setProgress(10000);
 					new IconDownload(target).execute();
@@ -77,6 +84,59 @@ public abstract class TimelineActivity extends Activity {
 			});
 		}
 	};
+
+	/**
+	 * Twitterリロードスレッド
+	 * @author takuji
+	 *
+	 */
+	protected class ReloadThreadTwitter extends Thread {
+		private int mode;
+		private TimelineActivity target;
+		private boolean clear;
+		private ArrayList<Item> list;
+		private HashMap<String, String> params;
+
+		public ReloadThreadTwitter(TimelineActivity target, int mode, boolean clear,
+				HashMap<String, String> params) {
+			// 引数に渡すパラメータをあらかじめセットする
+			this.mode = mode;
+			this.target = target;
+			this.clear = clear;
+			this.list = target.list;
+			this.params = params;
+		}
+
+		@Override
+		public void run() {
+			// タイムラインを取得
+			handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					// プログレスバーを500にセット、これでダウンロードしてるっぽく見えるはず…？
+					setProgressBarVisibility(true);
+					setProgress(500);
+				}
+			});
+			target.loadCache();
+			Twitter.getItems(mode, target, clear, list, params);
+			handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					// ソートを実行
+					Timeline tl = (Timeline) listView.getAdapter();
+					tl.sort(new ItemComparator());
+					reloadThreadWassr = null;
+					//10000にセットしてプログレスバーを消す
+					setProgress(10000);
+					new IconDownload(target).execute();
+				}
+			});
+		}
+	};
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

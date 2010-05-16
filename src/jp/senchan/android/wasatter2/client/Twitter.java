@@ -14,8 +14,12 @@ import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.activity.TimelineActivity;
 import jp.senchan.android.wasatter2.item.Item;
-import jp.senchan.android.wasatter2.setting.WassrAccount;
+import jp.senchan.android.wasatter2.setting.TwitterAccount;
+import jp.senchan.android.wasatter2.util.ToastUtil;
+import jp.senchan.android.wasatter2.util.TwitterClient;
+import jp.senchan.android.wasatter2.util.WasatterItem;
 import jp.senchan.android.wasatter2.util.WassrClient;
+import jp.senchan.android.wasatter2.xauth.XAuth;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpEntity;
@@ -34,6 +38,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import twitter4j.http.HTMLEntity;
+
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
@@ -46,14 +52,10 @@ import android.text.Html.ImageGetter;
  * @author takuji
  *
  */
-public class Wassr extends BaseClient{
+public class Twitter extends BaseClient {
 	public static final int TIMELINE = 1;
 	public static final int REPLY = 2;
 	public static final int MYPOST = 3;
-	public static final int ODAI = 4;
-	public static final int TODO = 5;
-	public static final int CHANNEL_LIST = 6;
-	public static final int CHANNEL = 7;
 
 	public static DefaultHttpClient getHttpClient() {
 		// HttpClientの準備
@@ -89,61 +91,46 @@ public class Wassr extends BaseClient{
 	public static void getItems(int mode, final TimelineActivity target,
 			boolean clear, ArrayList<Item> items, HashMap<String, String> params) {
 
-		// 取得するのがチャンネルか否か
-		boolean channel = false;
 		// 取得するURL
 		String url;
-		// TODO Wassrが無効なら終了
-		if (!WassrAccount.get(WassrAccount.LOAD_TL, false)) {
+		// Twitterが無効なら終了
+		if (!TwitterAccount.get(TwitterAccount.LOAD_TL, false)) {
+			return;
+		}
+		//xAuth設定がまだだったらToast出して終了
+		if("".equals(TwitterAccount.get(TwitterAccount.TOKEN, ""))){
+			target.handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					// Toastぶん投げ
+					ToastUtil.show("認証の設定がありません");
+				}
+			});
 			return;
 		}
 
-		// URLを決定する、チャンネルかどうかも判断する
+		// URLを決定する
 		switch (mode) {
 		case TIMELINE:
-			url = WassrUrl.FRIEND_TIMELINE;
+			url = TwitterUrl.FRIEND_TIMELINE;
 			break;
 		case REPLY:
-			url = WassrUrl.REPLY;
+			url = TwitterUrl.REPLY;
 			break;
 		case MYPOST:
-			url = WassrUrl.MYPOST;
-			break;
-		case ODAI:
-			url = WassrUrl.ODAI;
-			break;
-		case TODO:
-			url = WassrUrl.TODO;
-			break;
-		case CHANNEL_LIST:
-			url = WassrUrl.CHANNEL_LIST;
-			break;
-		case CHANNEL:
-			url = WassrUrl.CHANNEL_TIMELINE;
-			channel = true;
+			url = TwitterUrl.MYPOST;
 			break;
 		// 正しくない値が渡されたら終了
 		default:
 			return;
 		}
 
-		// HttpClientの準備
-		DefaultHttpClient client = getHttpClient();
-		HttpGet get = new HttpGet(url);
-		// パラメーターをセットする
-		HttpParams param = get.getParams();
-		if (params != null) {
-			Iterator<Entry<String, String>> it = params.entrySet().iterator();
-			while (it.hasNext()) {
-				Entry<String, String> entry = it.next();
-				param.setParameter(entry.getKey(), entry.getValue());
-			}
-		}
+		// xAuthリクエストの準備
+		XAuth request = new XAuth(url, "GET", params);
 
-		// 通信する
-		HttpResponse response;
 		try {
-			response = client.execute(get);
+			HttpResponse response = request.request();
 			// HTTPレスポンスステータスを取得
 			final int errorCode = response.getStatusLine().getStatusCode();
 			// 400番台以上の場合、エラー処理
@@ -152,7 +139,7 @@ public class Wassr extends BaseClient{
 
 					@Override
 					public void run() {
-						target.httpError(errorCode, "Wassr");
+						target.httpError(errorCode, "Twitter");
 
 					}
 				});
@@ -173,78 +160,26 @@ public class Wassr extends BaseClient{
 				int j = result.length();
 
 				SimpleDateFormat sdf = new SimpleDateFormat(
-						"EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+						"EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
 
-				//リストをクリアする設定ならクリアする
-				if(clear){
+				// リストをクリアする設定ならクリアする
+				if (clear) {
 					items.clear();
 				}
 				for (int i = 0; i < j; i++) {
 					JSONObject obj = result.getJSONObject(i);
 					Item item = new Item();
-					item.service = Wasatter.WASSR;
-					item.rid = obj.getString("rid");
-					item.channel = channel;
-					// 一旦HTMLの解析をして必要な画像をとっておく
-					String htmlSrc = StringEscapeUtils.unescapeHtml(obj
-							.getString("html"));
-					Html.fromHtml(htmlSrc,
-							new ImageGetter() {
-
-								@Override
-								public Drawable getDrawable(String source) {
-									// 必要な画像のURLをあらかじめ取得
-									Bitmap bmp = Wasatter.images
-											.get(source);
-									if(bmp == null){
-										Wassr.getImageWithCache(source);
-									}
-									return null;
-								}
-							}, null);
-					item.html = htmlSrc;
-					if (channel) {
-						JSONObject ch = obj.getJSONObject("channel");
-						SpannableStringBuilder sb = new SpannableStringBuilder(
-								ch.getString("title"));
-						sb.append(" (");
-						sb.append(ch.getString("name_en"));
-						item.service = sb.append(")").toString();
-						item.id = obj.getJSONObject("user").getString(
-								"login_id");
-						item.name = obj.getJSONObject("user").getString("nick");
-						item.link = WassrUrl.CHANNEL_PERMA_LINK.replace(
-								"[name]", ch.getString("name_en")).replace(
-								"[rid]", item.rid);
-						try {
-							JSONObject reply = obj.getJSONObject("reply");
-							item.replyUserNick = reply.getJSONObject("user")
-									.getString("nick");
-							item.replyMessage = StringEscapeUtils
-									.unescapeHtml(reply.getString("body"));
-						} catch (JSONException e) {
-							// 返信なかったらスルー
-						}
-						try {
-							item.epoch = sdf.parse(obj.getString("created_on"))
-									.getTime() / 1000;
-						} catch (ParseException e) {
-							item.epoch = 0;
-						}
-						item.text = StringEscapeUtils.unescapeHtml(obj
-								.getString("body"));
-					} else {
-						item.id = obj.getString("user_login_id");
-						item.name = obj.getJSONObject("user").getString(
-								"screen_name");
-						item.link = obj.getString("link");
-						item.replyUserNick = obj.getString("reply_user_nick");
-						item.replyMessage = StringEscapeUtils.unescapeHtml(obj
-								.getString("reply_message"));
-						item.epoch = Long.parseLong(obj.getString("epoch"));
-
-						item.text = obj.getString("text");
-					}
+					item.service = Wasatter.TWITTER;
+					item.html = HTMLEntity.unescape(obj.getString("text"));
+					item.id = obj.getJSONObject("user")
+							.getString("screen_name");
+					item.name = obj.getJSONObject("user").getString("name");
+					item.rid = obj.getString("id");
+					item.link = TwitterUrl.PERMA_LINK.replace("[id]", item.id)
+							.replace("[rid]", item.rid);
+					item.text = StringEscapeUtils.unescapeHtml(obj
+							.getString("text"));
+					item.html = item.text;
 					String profile = obj.getJSONObject("user").getString(
 							"profile_image_url");
 					if (Wasatter.downloadWaitUrls.indexOf(profile) == -1
@@ -252,29 +187,19 @@ public class Wassr extends BaseClient{
 						Wasatter.downloadWaitUrls.add(profile);
 					}
 					item.profileImageUrl = profile;
-					if ("null".equalsIgnoreCase(item.replyMessage)) {
-						item.replyMessage = Wasatter.CONTEXT
-								.getString(R.string.message_private_message);
+					item.replyUserNick = obj
+							.getString("in_reply_to_screen_name");
+					try {
+						item.epoch = sdf.parse(obj.getString("created_at"))
+								.getTime() / 1000;
+					} catch (ParseException e) {
+						// まぁまずないだろうけど一応
+						item.epoch = 0;
 					}
-					JSONArray favorites = obj.getJSONArray("favorites");
-					// お題のイイネは取得しない。
-					int fav_count = favorites.length();
-					for (int k = 0; k < fav_count; k++) {
-						String icon_url = WassrClient.FAVORITE_ICON_URL
-								.replace("[user]", favorites.getString(k));
-						item.favorite.add(favorites.getString(k));
-						if (!WassrUrl.ODAI.equals(url)
-								&& Wasatter.downloadWaitUrls.indexOf(icon_url) == -1
-								&& Wasatter.images.get(icon_url) == null) {
-							Wasatter.downloadWaitUrls.add(icon_url);
-						}
-					}
-					item.favorited = item.favorite
-							.indexOf(Setting.getWassrId()) != -1;
+					item.favorited = obj.getBoolean("favorited");
 					if(items.indexOf(item) == -1){
 						items.add(0, item);
 					}
-
 				}
 			} catch (JSONException e) {
 				// TODO 自動生成された catch ブロック
@@ -292,13 +217,12 @@ public class Wassr extends BaseClient{
 		}
 	}
 
-
 	public static boolean favorite(Item item) {
 		JSONObject json = null;
 		try {
 			// HttpClientの準備
 			DefaultHttpClient client = getHttpClient();
-			//URLの設定
+			// URLの設定
 			String url = null;
 			if (!item.favorited) {
 				url = WassrUrl.FAVORITE_ADD.replace("[rid]", item.rid);
@@ -338,41 +262,5 @@ public class Wassr extends BaseClient{
 		}
 		return false;
 	}
-
-	public static String channelFavorite(Item item) {
-		JSONObject json = null;
-		try {
-			// HttpClientの準備
-			DefaultHttpClient client = getHttpClient();
-			//URLの設定
-			String url = WassrUrl.FAVORITE_CHANNEL.replace("[rid]", item.rid);
-			HttpGet get = new HttpGet(url);
-			HttpResponse response = client.execute(get);
-			HttpEntity entity = response.getEntity();
-			if (entity != null) {
-				String resString = EntityUtils.toString(entity);
-				json = new JSONObject(resString);
-			}
-			// 配列が空なら終了
-			if (json == null || json.length() == 0) {
-				return null;
-			}
-			return json.getString("message");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		return "NG";
-	}
-
-
-
-
-
 
 }

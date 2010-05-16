@@ -13,9 +13,14 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Resources.Theme;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.SpannableStringBuilder;
+import android.text.Html.ImageGetter;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -31,7 +36,7 @@ import android.widget.TextView;
  *
  */
 public class Detail extends Activity {
-	protected Item ws;
+	protected Item item;
 	public static String ADD_WASSR = "イイネ！する";
 	public static String DEL_WASSR = "イイネ！を消す";
 	public static String ADD_TWITTER = "お気に入りに追加する";
@@ -45,36 +50,51 @@ public class Detail extends Activity {
 		this.setContentView(R.layout.wasatter_detail);
 		favoriteButton = (Button) findViewById(R.id.button_favorite);
 		try {
-			this.ws = Wasatter.main.selectedItem;
-			Item wss = this.ws;
+			Item item = Wasatter.main.selectedItem;
+			this.item = item;
 			// サービス名/チャンネル名をセット
 			TextView service_name = (TextView) this
 					.findViewById(R.id.service_name);
-			service_name.setText(wss.service);
+			service_name.setText(item.service);
 			// ニックネームをセット
 			TextView screen_name = (TextView) this
 					.findViewById(R.id.screen_name);
-			screen_name.setText(wss.name);
+			screen_name.setText(item.name);
 			// 本文をセット
 			TextView status = (TextView) this.findViewById(R.id.status);
-			status.setText(wss.html);
+			CharSequence html = Html.fromHtml(item.html,
+					new ImageGetter() {
+
+						@Override
+						public Drawable getDrawable(String source) {
+							Bitmap bmp = Wasatter.images
+									.get(source);
+							BitmapDrawable bd = new BitmapDrawable(
+									bmp);
+							// TODO:解像度ごとにサイズ変えられたらいいなああああ
+							Rect bounds = new Rect(0, 0, 20, 20);
+							bd.setBounds(bounds);
+							return bd;
+						}
+					}, null);
+			status.setText(html);
 			// 画像をセット
 			ImageView icon = (ImageView) this.findViewById(R.id.icon);
-			Bitmap bmp = Wasatter.images.get(wss.profileImageUrl);
+			Bitmap bmp = Wasatter.images.get(item.profileImageUrl);
 			icon.setImageBitmap(bmp);
 			// 返信であるかどうか判定
-			if (wss.replyUserNick != null && !wss.replyUserNick.equals("null")) {
+			if (item.replyUserNick != null && !item.replyUserNick.equals("null")) {
 				TextView reply_message = (TextView) this
 						.findViewById(R.id.reply_text);
 				SpannableStringBuilder sb = new SpannableStringBuilder("by ");
-				sb.append(wss.replyUserNick);
+				sb.append(item.replyUserNick);
 				TextView reply_user_name = (TextView) this
 						.findViewById(R.id.reply_user_name);
 				reply_user_name.setText(sb.toString());
-				if (wss.replyMessage != null) {
+				if (item.replyMessage != null) {
 					SpannableStringBuilder sb2 = new SpannableStringBuilder(
 							"> ");
-					sb2.append(wss.replyMessage);
+					sb2.append(item.replyMessage);
 					reply_message.setText(sb2.toString());
 				}
 
@@ -91,7 +111,7 @@ public class Detail extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
-					String permalink = Detail.this.ws.link;
+					String permalink = Detail.this.item.link;
 					Intent intent_parmalink = new Intent(Intent.ACTION_VIEW,
 							Uri.parse(permalink));
 					startActivity(intent_parmalink);
@@ -105,7 +125,7 @@ public class Detail extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
-					String text = Detail.this.ws.text;
+					String text = Detail.this.item.text;
 					String url = Wasatter.getUrl(text);
 					if (!"".equals(url)) {
 						Intent intent_url = new Intent(Intent.ACTION_VIEW, Uri
@@ -124,10 +144,10 @@ public class Detail extends Activity {
 			// Favoriteボタンにイベント割り当て
 			Button button_favorite = (Button) this
 					.findViewById(R.id.button_favorite);
-			if (Wasatter.TWITTER.equals(wss.service)) {
+			if (Wasatter.TWITTER.equals(item.service)) {
 				button_favorite.setText(ADD_TWITTER);
-			} else if (wss.favorite != null
-					&& wss.favorite.indexOf(Setting.getWassrId()) != -1) {
+			} else if (item.favorite != null
+					&& item.favorite.indexOf(Setting.getWassrId()) != -1) {
 				button_favorite.setText(DEL_WASSR);
 			} else {
 				button_favorite.setText(ADD_WASSR);
@@ -136,7 +156,7 @@ public class Detail extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					new Favorite(Detail.this).execute(Detail.this.ws);
+					new Favorite(Detail.this).execute(Detail.this.item);
 				}
 			});
 			// Replyボタンにイベント割り当て
@@ -147,7 +167,7 @@ public class Detail extends Activity {
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
 					Intent intent_reply = new Intent(Detail.this, Update.class);
-					intent_reply.putExtra(Wasatter.REPLY, Detail.this.ws);
+					intent_reply.putExtra(Wasatter.REPLY, Detail.this.item);
 					startActivity(intent_reply);
 				}
 			});

@@ -56,4 +56,18 @@ public class Item implements Serializable{
 				")").toString();
 	}
 	public boolean favorited;
+
+	@Override
+	public boolean equals(Object o) {
+		// TODO 自動生成されたメソッド・スタブ
+		try{
+			Item obj = (Item) o;
+			//サービス名とridが一致してたら同じモノと考える
+			return this.service.equals(obj.service) && this.rid.equals(obj.rid);
+		}catch(Exception e){
+
+		}
+		return false;
+	}
+
 }

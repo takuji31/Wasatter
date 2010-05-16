@@ -13,7 +13,6 @@ import jp.senchan.android.wasatter2.activity.TimelineActivity;
 import jp.senchan.android.wasatter2.client.Wassr;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 /**
@@ -57,6 +56,7 @@ public class IconDownload extends AsyncTask<Void, Integer, Void> {
 		ArrayList<String> urls = Wasatter.downloadWaitUrls;
 		SQLiteStatement st = db
 				.compileStatement("delete from imagestore where created <= ?");
+		//TODO:イテレーターを使わないように書き換える
 		Iterator<String> it = urls.iterator();
 		// キャッシュの期限は5日にしておこう。
 		st.bindLong(1, new Date().getTime() / 1000 - 5 * 24 * 60 * 60);
@@ -71,7 +71,7 @@ public class IconDownload extends AsyncTask<Void, Integer, Void> {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			// TODO: 例外が1個でも発生したらその先何も処理されないので何とかしる
 			e.printStackTrace();
 		}
 		return null;
@@ -86,8 +86,8 @@ public class IconDownload extends AsyncTask<Void, Integer, Void> {
 
 	@Override
 	protected void onPostExecute(Void result) {
-		// TODO 自動生成されたメソッド・スタブ
 		super.onPostExecute(result);
+		//リストの再描画
 		activity.updateList();
 		// プログレスバーをフェードアウトさせる
 		activity.setProgress(10000);

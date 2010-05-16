@@ -22,6 +22,8 @@ public class Startup extends Activity {
 
 		//ダウンロード待ちURLを解放
 		Wasatter.downloadWaitUrls.clear();
+		//メモリ内の画像キャッシュを解放
+		Wasatter.images.clear();
 
 		//何か処理する、アップデート確認とかバグ報告とか
 
