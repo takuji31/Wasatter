@@ -38,7 +38,7 @@ public class Item implements Serializable{
 	/**
 	 * HTML
 	 */
-	public CharSequence html;
+	public String html;
 	/**
 	 * サービスの種類
 	 */

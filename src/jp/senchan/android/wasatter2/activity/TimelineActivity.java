@@ -60,8 +60,8 @@ public abstract class TimelineActivity extends Activity {
 					setProgress(500);
 				}
 			});
-			Wassr.getItems(mode, target, clear, list, params);
 			target.loadCache();
+			Wassr.getItems(mode, target, clear, list, params);
 			handler.post(new Runnable() {
 
 				@Override

@@ -188,7 +188,7 @@ public class Wassr extends BaseClient{
 					// 一旦HTMLの解析をして必要な画像をとっておく
 					String htmlSrc = StringEscapeUtils.unescapeHtml(obj
 							.getString("html"));
-					CharSequence html = Html.fromHtml(htmlSrc,
+					Html.fromHtml(htmlSrc,
 							new ImageGetter() {
 
 								@Override
@@ -198,23 +198,11 @@ public class Wassr extends BaseClient{
 											.get(source);
 									if(bmp == null){
 										Wassr.getImageWithCache(source);
-										bmp = Wasatter.images.get(source);
 									}
-									if (Wasatter.downloadWaitUrls
-											.indexOf(source) == -1
-											&& bmp == null) {
-										Wasatter.downloadWaitUrls
-												.add(source);
-									}
-									BitmapDrawable bd = new BitmapDrawable(
-											bmp);
-									// TODO:解像度ごとにサイズ変えられたらいいなああああ
-									Rect bounds = new Rect(0, 0, 20, 20);
-									bd.setBounds(bounds);
-									return bd;
+									return null;
 								}
 							}, null);
-					item.html = html;
+					item.html = htmlSrc;
 					if (channel) {
 						JSONObject ch = obj.getJSONObject("channel");
 						SpannableStringBuilder sb = new SpannableStringBuilder(

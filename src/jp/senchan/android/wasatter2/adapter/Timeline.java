@@ -7,13 +7,19 @@ import java.util.Date;
 import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
+import jp.senchan.android.wasatter2.client.Wassr;
 import jp.senchan.android.wasatter2.item.Item;
 import jp.senchan.android.wasatter2.setting.DisplaySetting;
 import jp.senchan.android.wasatter2.util.WassrClient;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.text.Html;
 import android.text.InputType;
 import android.text.SpannableStringBuilder;
+import android.text.Html.ImageGetter;
 import android.text.TextUtils.TruncateAt;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +62,23 @@ public class Timeline extends ArrayAdapter<Item> implements
 			}
 			// テキストをビューにセットする
 			if (text != null) {
-				text.setText(item.html);
+				CharSequence html = Html.fromHtml(item.html,
+						new ImageGetter() {
+
+							@Override
+							public Drawable getDrawable(String source) {
+								// 必要な画像のURLをあらかじめ取得
+								Bitmap bmp = Wasatter.images
+										.get(source);
+								BitmapDrawable bd = new BitmapDrawable(
+										bmp);
+								// TODO:解像度ごとにサイズ変えられたらいいなああああ
+								Rect bounds = new Rect(0, 0, 20, 20);
+								bd.setBounds(bounds);
+								return bd;
+							}
+						}, null);
+				text.setText(html);
 			}
 			// テキストの行数を決定する。
 			boolean multiLine = DisplaySetting.get(DisplaySetting.BODY_MULTILINE, true);
