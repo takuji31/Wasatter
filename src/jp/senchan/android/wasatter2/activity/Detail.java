@@ -103,44 +103,11 @@ public class Detail extends Activity {
 						.findViewById(R.id.layout_reply);
 				layout_reply.setVisibility(View.GONE);
 			}
-			// OpenPermalinkボタンにイベント割り当て
-			Button button_open_link = (Button) this
-					.findViewById(R.id.button_open_link);
-			button_open_link.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					// TODO 自動生成されたメソッド・スタブ
-					String permalink = Detail.this.item.link;
-					Intent intent_parmalink = new Intent(Intent.ACTION_VIEW,
-							Uri.parse(permalink));
-					startActivity(intent_parmalink);
-				}
-			});
-			// Open URLボタンにイベント割り当て
-			Button button_open_url = (Button) this
-					.findViewById(R.id.button_open_url);
-			button_open_url.setOnClickListener(new OnClickListener() {
+			//パーマリンクを表示する
+			TextView permaLink = (TextView) findViewById(R.id.permaLink);
+			permaLink.setText(item.link);
 
-				@Override
-				public void onClick(View v) {
-					// TODO 自動生成されたメソッド・スタブ
-					String text = Detail.this.item.text;
-					String url = Wasatter.getUrl(text);
-					if (!"".equals(url)) {
-						Intent intent_url = new Intent(Intent.ACTION_VIEW, Uri
-								.parse(url));
-						startActivity(intent_url);
-					} else {
-						AlertDialog.Builder ad = new AlertDialog.Builder(
-								Detail.this);
-						// ad.setTitle(R.string.notice_title_no_url);
-						ad.setMessage(R.string.notice_message_no_url);
-						ad.setPositiveButton("OK", null);
-						ad.show();
-					}
-				}
-			});
 			// Favoriteボタンにイベント割り当て
 			Button button_favorite = (Button) this
 					.findViewById(R.id.button_favorite);

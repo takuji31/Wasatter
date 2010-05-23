@@ -84,7 +84,7 @@ public class ItemDetail extends Activity {
 				layout_reply.setVisibility(View.GONE);
 			}
 			// OpenPermalinkボタンにイベント割り当て
-			Button button_open_link = (Button) this
+/*			Button button_open_link = (Button) this
 					.findViewById(R.id.button_open_link);
 			button_open_link.setOnClickListener(new OnClickListener() {
 
@@ -96,9 +96,9 @@ public class ItemDetail extends Activity {
 							Uri.parse(permalink));
 					startActivity(intent_parmalink);
 				}
-			});
+			});*/
 			// Open URLボタンにイベント割り当て
-			Button button_open_url = (Button) this
+			/*Button button_open_url = (Button) this
 					.findViewById(R.id.button_open_url);
 			button_open_url.setOnClickListener(new OnClickListener() {
 
@@ -120,7 +120,7 @@ public class ItemDetail extends Activity {
 						ad.show();
 					}
 				}
-			});
+			});*/
 			// Favoriteボタンにイベント割り当て
 			Button button_favorite = (Button) this
 					.findViewById(R.id.button_favorite);

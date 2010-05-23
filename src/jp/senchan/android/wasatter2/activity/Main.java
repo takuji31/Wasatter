@@ -51,15 +51,14 @@ public class Main extends TimelineActivity {
 				startActivity(intent);
 			}
 		});
-		//レイアウト確認用ボタンを作る
-		ImageButton layout = (ImageButton) findViewById(R.id.buttonShowMyPage);
-		layout.setOnClickListener(new OnClickListener() {
+		//新規投稿ボタンにイベント割り当て
+		ImageButton buttonReload = (ImageButton) findViewById(R.id.buttonReload);
+		buttonReload.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
-				Intent intent = new Intent(Main.this,TwitterAccount.class);
-				startActivity(intent);
+				reload();
 			}
 		});
 	}

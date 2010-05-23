@@ -10,6 +10,8 @@ import jp.senchan.android.wasatter2.adapter.Timeline;
 import jp.senchan.android.wasatter2.client.Twitter;
 import jp.senchan.android.wasatter2.client.Wassr;
 import jp.senchan.android.wasatter2.item.Item;
+import jp.senchan.android.wasatter2.setting.TwitterAccount;
+import jp.senchan.android.wasatter2.setting.WassrAccount;
 import jp.senchan.android.wasatter2.task.IconDownload;
 import jp.senchan.android.wasatter2.util.DBHelper;
 import jp.senchan.android.wasatter2.util.ItemComparator;
@@ -30,6 +32,10 @@ public abstract class TimelineActivity extends Activity {
 	public Handler handler = new Handler();
 	public ReloadThreadWassr reloadThreadWassr;
 	public ReloadThreadTwitter reloadThreadTwitter;
+	public boolean wassrLoad;
+	public boolean twitterLoad;
+	public boolean wassrLoadComplete = false;
+	public boolean twitterLoadComplete = false;
 
 	public abstract void reload();
 
@@ -47,12 +53,14 @@ public abstract class TimelineActivity extends Activity {
 
 		public ReloadThreadWassr(TimelineActivity target, int mode, boolean clear,
 				HashMap<String, String> params) {
-			// 引数に渡すパラメータをあらかじめセットする
+			// パラメータをあらかじめセットする
 			this.mode = mode;
 			this.target = target;
 			this.clear = clear;
 			this.list = target.list;
 			this.params = params;
+			target.wassrLoad = WassrAccount.get(WassrAccount.LOAD_TL, false);
+			target.twitterLoad = TwitterAccount.get(TwitterAccount.LOAD_TL, false);
 		}
 
 		@Override
@@ -69,6 +77,7 @@ public abstract class TimelineActivity extends Activity {
 			});
 			target.loadCache();
 			Wassr.getItems(mode, target, clear, list, params);
+			target.wassrLoadComplete = true;
 			handler.post(new Runnable() {
 
 				@Override
@@ -76,10 +85,16 @@ public abstract class TimelineActivity extends Activity {
 					// ソートを実行
 					Timeline tl = (Timeline) listView.getAdapter();
 					tl.sort(new ItemComparator());
-					reloadThreadTwitter = null;
-					//10000にセットしてプログレスバーを消す
-					setProgress(10000);
-					new IconDownload(target).execute();
+					reloadThreadWassr = null;
+					if((target.twitterLoad && target.twitterLoadComplete) || !target.twitterLoad){
+						//10000にセットしてプログレスバーを消す
+						setProgress(10000);
+						target.twitterLoadComplete = false;
+						target.wassrLoadComplete = false;
+						new IconDownload(target).execute();
+					}else if(target.wassrLoad){
+						setProgress(5000);
+					}
 				}
 			});
 		}
@@ -99,12 +114,14 @@ public abstract class TimelineActivity extends Activity {
 
 		public ReloadThreadTwitter(TimelineActivity target, int mode, boolean clear,
 				HashMap<String, String> params) {
-			// 引数に渡すパラメータをあらかじめセットする
+			// パラメータをあらかじめセットする
 			this.mode = mode;
 			this.target = target;
 			this.clear = clear;
 			this.list = target.list;
 			this.params = params;
+			target.wassrLoad = WassrAccount.get(WassrAccount.LOAD_TL, false);
+			target.twitterLoad = TwitterAccount.get(TwitterAccount.LOAD_TL, false);
 		}
 
 		@Override
@@ -121,6 +138,7 @@ public abstract class TimelineActivity extends Activity {
 			});
 			target.loadCache();
 			Twitter.getItems(mode, target, clear, list, params);
+			target.twitterLoadComplete = true;
 			handler.post(new Runnable() {
 
 				@Override
@@ -128,10 +146,16 @@ public abstract class TimelineActivity extends Activity {
 					// ソートを実行
 					Timeline tl = (Timeline) listView.getAdapter();
 					tl.sort(new ItemComparator());
-					reloadThreadWassr = null;
-					//10000にセットしてプログレスバーを消す
-					setProgress(10000);
-					new IconDownload(target).execute();
+					reloadThreadTwitter = null;
+					if((target.wassrLoad && target.wassrLoadComplete) || !target.wassrLoad){
+						//10000にセットしてプログレスバーを消す
+						target.twitterLoadComplete = false;
+						target.wassrLoadComplete = false;
+						setProgress(10000);
+						new IconDownload(target).execute();
+					}else if(target.twitterLoad){
+						setProgress(5000);
+					}
 				}
 			});
 		}
