@@ -2,12 +2,13 @@ package jp.senchan.android.wasatter2;
 
 import jp.senchan.android.wasatter2.activity.Main;
 import jp.senchan.android.wasatter2.util.DBHelper;
+import jp.senchan.android.wasatter2.util.ToastUtil;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 public class Startup extends Activity {
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
@@ -26,12 +27,12 @@ public class Startup extends Activity {
 		Wasatter.images.clear();
 
 		//何か処理する、アップデート確認とかバグ報告とか
+		ToastUtil.show(Wasatter.getDataPath("cache"));
 
 
 		//メイン画面を呼び出す
 		Intent intentMain = new Intent(this, Main.class);
 		startActivity(intentMain);
 		finish();
-
 	}
 }

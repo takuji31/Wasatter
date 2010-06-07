@@ -13,6 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import jp.senchan.android.wasatter2.activity.Main;
+import jp.senchan.android.wasatter2.item.Item;
+import jp.senchan.android.wasatter2.setting.Setting;
 import jp.senchan.android.wasatter2.util.DBHelper;
 
 import org.apache.commons.codec.binary.Base64;
@@ -50,6 +52,9 @@ public class Wasatter {
 
 	public static ArrayList<String> dlIconUrls = new ArrayList<String>();
 	public static HashMap<String, Bitmap> icons = new HashMap<String, Bitmap>();
+	
+	public static HashMap<String, Item> userWassr = new HashMap<String, Item>();
+	public static HashMap<String, Item> userTwitter = new HashMap<String, Item>();
 
 	/**
 	 * キャッシュの有効期限を取得する
@@ -96,7 +101,7 @@ public class Wasatter {
 	}
 
 	public static boolean saveTempImage(Bitmap image) {
-		return saveImage(getTempPath(), "temp.jpg", image, CompressFormat.JPEG,
+		return saveImage(getImageTempPath(), "temp.jpg", image, CompressFormat.JPEG,
 				80);
 	}
 
@@ -154,7 +159,7 @@ public class Wasatter {
 		}
 	}
 
-	public static String getTempPath() {
+	public static String getImageTempPath() {
 		String sdPath = Environment.getExternalStorageDirectory().getPath();
 		return new SpannableStringBuilder(sdPath).append("/wasatter/")
 				.toString();
@@ -162,16 +167,12 @@ public class Wasatter {
 
 	public static String getImagePath() {
 		SpannableStringBuilder path = new SpannableStringBuilder();
-		path.append("/data/data/");
-		path.append(CONTEXT.getPackageName());
-		path.append("/imagecache/");
-		return path.toString();
+		return CONTEXT.getDir("imagecache", Context.MODE_WORLD_READABLE).getAbsolutePath();
 	}
 
 	public static void deleteImageCache() {
 		Wasatter.images.clear();
 		SQLiteDatabase rdb = Wasatter.db.getReadableDatabase();
-		SQLiteDatabase wdb = Wasatter.db.getWritableDatabase();
 		Cursor c = rdb.rawQuery("select filename from imagestore", null);
 		c.moveToFirst();
 		int count = c.getCount();
@@ -181,6 +182,7 @@ public class Wasatter {
 			c.moveToNext();
 		}
 		c.close();
+		SQLiteDatabase wdb = Wasatter.db.getWritableDatabase();
 		wdb.execSQL("delete from imagestore");
 	}
 
@@ -214,6 +216,23 @@ public class Wasatter {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static String getDataPath(String dir){
+		return getDataPath(dir,Setting.get("use_sd", true));
+	}
+	
+	public static String getDataPath(String dir,boolean external) {
+		SpannableStringBuilder sb = new SpannableStringBuilder();
+		if(external){
+			sb.append(Environment.getExternalStorageDirectory().getAbsolutePath());
+		}
+		sb.append(CONTEXT.getFilesDir().getParentFile().getAbsolutePath());
+		sb.append("/");
+		sb.append(dir);
+		sb.append("/");
+		new File(sb.toString()).mkdirs();
+		return sb.toString();
 	}
 
 }

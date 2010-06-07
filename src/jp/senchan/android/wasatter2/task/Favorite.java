@@ -32,7 +32,7 @@ public class Favorite extends AsyncTask<Item, Void, Boolean> {
 		detail.favoriteButton.setClickable(false);
 	}
 
-	@Override
+	
 	protected Boolean doInBackground(Item... params) {
 		item = params[0];
 		if (item.channel) {
@@ -63,7 +63,7 @@ public class Favorite extends AsyncTask<Item, Void, Boolean> {
 		return false;
 	}
 
-	@Override
+	
 	protected void onPostExecute(Boolean result) {
 		TextView text_result = (TextView) detail.findViewById(R.id.text_result);
 		Button button = (Button) detail.findViewById(R.id.button_favorite);

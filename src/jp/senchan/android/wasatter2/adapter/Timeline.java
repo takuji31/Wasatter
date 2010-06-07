@@ -65,7 +65,7 @@ public class Timeline extends ArrayAdapter<Item> implements
 				CharSequence html = Html.fromHtml(item.html,
 						new ImageGetter() {
 
-							@Override
+							
 							public Drawable getDrawable(String source) {
 								// 必要な画像のURLをあらかじめ取得
 								Bitmap bmp = Wasatter.images
@@ -153,7 +153,7 @@ public class Timeline extends ArrayAdapter<Item> implements
 		return view;
 	}
 
-	@Override
+	
 	public void updateView() {
 		// TODO 自動生成されたメソッド・スタブ
 		super.notifyDataSetChanged();

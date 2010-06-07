@@ -125,7 +125,7 @@ public class TaskReloadTimeline extends
 		return ret;
 	}
 
-	@Override
+	
 	protected void onProgressUpdate(String... values) {
 		// まず、何が起こってここに飛んできたか判定
 		String service = values[0];
@@ -144,7 +144,7 @@ public class TaskReloadTimeline extends
 	};
 
 	// メインスレッドで実行する処理
-	@Override
+	
 	protected void onPostExecute(ArrayList<WasatterItem> result) {
 		// 取得結果の代入
 		boolean set = false;

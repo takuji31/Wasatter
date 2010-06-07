@@ -52,7 +52,7 @@ public class WasatterItem implements Serializable {
 	public ArrayList<String> favorite = new ArrayList<String>();
 	public boolean channel;
 
-	@Override
+	
 	public String toString() {
 		// TODO 自動生成されたメソッド・スタブ
 		return new SpannableStringBuilder(name).append("(").append(id).append(

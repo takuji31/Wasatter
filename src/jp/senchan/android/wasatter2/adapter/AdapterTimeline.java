@@ -128,7 +128,7 @@ public class AdapterTimeline extends ArrayAdapter<WasatterItem> implements
 		return view;
 	}
 
-	@Override
+	
 	public void updateView() {
 		// TODO 自動生成されたメソッド・スタブ
 		super.notifyDataSetChanged();

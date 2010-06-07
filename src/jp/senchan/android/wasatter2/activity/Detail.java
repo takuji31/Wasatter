@@ -5,18 +5,13 @@ import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.item.Item;
 import jp.senchan.android.wasatter2.task.Favorite;
-import jp.senchan.android.wasatter2.task.TaskToggleFavorite;
 import jp.senchan.android.wasatter2.util.ResultCode;
-import jp.senchan.android.wasatter2.util.WasatterItem;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.res.Resources.Theme;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -43,7 +38,7 @@ public class Detail extends Activity {
 	public static String DEL_TWITTER = "お気に入りから削除する";
 	public Button favoriteButton;
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -65,7 +60,6 @@ public class Detail extends Activity {
 			CharSequence html = Html.fromHtml(item.html,
 					new ImageGetter() {
 
-						@Override
 						public Drawable getDrawable(String source) {
 							Bitmap bmp = Wasatter.images
 									.get(source);
@@ -121,7 +115,6 @@ public class Detail extends Activity {
 			}
 			button_favorite.setOnClickListener(new OnClickListener() {
 
-				@Override
 				public void onClick(View v) {
 					new Favorite(Detail.this).execute(Detail.this.item);
 				}
@@ -130,7 +123,6 @@ public class Detail extends Activity {
 			Button button_reply = (Button) this.findViewById(R.id.reply_button);
 			button_reply.setOnClickListener(new OnClickListener() {
 
-				@Override
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
 					Intent intent_reply = new Intent(Detail.this, Update.class);
@@ -144,7 +136,7 @@ public class Detail extends Activity {
 		}
 	}
 
-	@Override
+	
 	protected void onPause() {
 		super.onPause();
 		if (isFinishing()) {

@@ -155,7 +155,7 @@ public class WassrClient {
 					CharSequence html = Html.fromHtml(htmlSrc,
 							new ImageGetter() {
 
-								@Override
+								
 								public Drawable getDrawable(String source) {
 									// 必要な画像のURLをあらかじめ取得
 									Bitmap bmp = Wasatter.images.get(source);

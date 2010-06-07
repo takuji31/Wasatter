@@ -63,12 +63,12 @@ public abstract class TimelineActivity extends Activity {
 			target.twitterLoad = TwitterAccount.get(TwitterAccount.LOAD_TL, false);
 		}
 
-		@Override
+		
 		public void run() {
 			// タイムラインを取得
 			handler.post(new Runnable() {
 
-				@Override
+				
 				public void run() {
 					// プログレスバーを500にセット、これでダウンロードしてるっぽく見えるはず…？
 					setProgressBarVisibility(true);
@@ -80,7 +80,7 @@ public abstract class TimelineActivity extends Activity {
 			target.wassrLoadComplete = true;
 			handler.post(new Runnable() {
 
-				@Override
+				
 				public void run() {
 					// ソートを実行
 					Timeline tl = (Timeline) listView.getAdapter();
@@ -124,12 +124,12 @@ public abstract class TimelineActivity extends Activity {
 			target.twitterLoad = TwitterAccount.get(TwitterAccount.LOAD_TL, false);
 		}
 
-		@Override
+		
 		public void run() {
 			// タイムラインを取得
 			handler.post(new Runnable() {
 
-				@Override
+				
 				public void run() {
 					// プログレスバーを500にセット、これでダウンロードしてるっぽく見えるはず…？
 					setProgressBarVisibility(true);
@@ -141,7 +141,7 @@ public abstract class TimelineActivity extends Activity {
 			target.twitterLoadComplete = true;
 			handler.post(new Runnable() {
 
-				@Override
+				
 				public void run() {
 					// ソートを実行
 					Timeline tl = (Timeline) listView.getAdapter();
@@ -162,7 +162,7 @@ public abstract class TimelineActivity extends Activity {
 	};
 
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);

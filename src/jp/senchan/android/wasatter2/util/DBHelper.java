@@ -26,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite
 	 * .SQLiteDatabase)
 	 */
-	@Override
+	
 	public void onCreate(SQLiteDatabase db) {
 		// ImageStoreテーブル→プロフィール、イイネアイコン
 		db.execSQL("create table imagestore(url text primary key,filename text,created integer)");
@@ -34,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	}
 
-	@Override
+	
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		//1.0のDBから2.0のDBにアップグレード
 		if(oldVersion == 1){

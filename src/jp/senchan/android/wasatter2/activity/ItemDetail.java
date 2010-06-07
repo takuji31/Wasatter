@@ -34,7 +34,7 @@ public class ItemDetail extends Activity {
 	public static String DEL_TWITTER = "お気に入りから削除する";
 	public Button favoriteButton;
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.wasatter_detail);
@@ -88,7 +88,7 @@ public class ItemDetail extends Activity {
 					.findViewById(R.id.button_open_link);
 			button_open_link.setOnClickListener(new OnClickListener() {
 
-				@Override
+				
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
 					String permalink = ItemDetail.this.ws.link;
@@ -102,7 +102,7 @@ public class ItemDetail extends Activity {
 					.findViewById(R.id.button_open_url);
 			button_open_url.setOnClickListener(new OnClickListener() {
 
-				@Override
+				
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
 					String text = ItemDetail.this.ws.text;
@@ -134,7 +134,7 @@ public class ItemDetail extends Activity {
 			}
 			button_favorite.setOnClickListener(new OnClickListener() {
 
-				@Override
+				
 				public void onClick(View v) {
 					new TaskToggleFavorite(ItemDetail.this)
 							.execute(ItemDetail.this.ws);
@@ -144,7 +144,7 @@ public class ItemDetail extends Activity {
 			Button button_reply = (Button) this.findViewById(R.id.reply_button);
 			button_reply.setOnClickListener(new OnClickListener() {
 
-				@Override
+				
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
 					Intent intent_reply = new Intent(ItemDetail.this,
@@ -156,7 +156,7 @@ public class ItemDetail extends Activity {
 			});
 		}
 	}
-	@Override
+	
 	protected void onPause() {
 		super.onPause();
 		if(isFinishing()){

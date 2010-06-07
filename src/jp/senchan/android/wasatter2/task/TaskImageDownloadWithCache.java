@@ -45,7 +45,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 */		this.errorCount = 0;
 	}
 
-	@Override
+	
 	protected void onPreExecute() {
 		//Wasatter.main.progress_image.setMax(count);
 		// そもそもロードしない設定なら走らせない
@@ -60,7 +60,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		}
 	}
 
-	@Override
+	
 	protected Void doInBackground(Void... params) {
 		// 画像のダウンロードを行うサービス
 		HttpClient http = new HttpClient();
@@ -117,7 +117,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		return null;
 	}
 
-	@Override
+	
 	protected void onProgressUpdate(Integer... values) {
 		if(values[0] != 200){
 			this.errorCount++;
@@ -141,7 +141,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		}
 	}
 
-	@Override
+	
 	protected void onPostExecute(Void result) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onPostExecute(result);

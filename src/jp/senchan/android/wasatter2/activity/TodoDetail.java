@@ -22,7 +22,7 @@ import android.widget.Toast;
 public class TodoDetail extends Activity {
 	public WasatterItem status;
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
@@ -48,7 +48,7 @@ public class TodoDetail extends Activity {
 	}
 
 	private class TodoStartClickListener implements OnClickListener {
-		@Override
+		
 		public void onClick(View v) {
 			// TODO Todo関連処理のオール非同期化
 			if (WassrClient.startTodo(TodoDetail.this.status.rid)) {
@@ -64,7 +64,7 @@ public class TodoDetail extends Activity {
 	}
 
 	private class TodoStopClickListener implements OnClickListener {
-		@Override
+		
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
 			if (WassrClient.stopTodo(TodoDetail.this.status.rid)) {
@@ -80,7 +80,7 @@ public class TodoDetail extends Activity {
 	}
 
 	private class TodoCompleteClickListener implements OnClickListener {
-		@Override
+		
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
 			if (WassrClient.completeTodo(TodoDetail.this.status.rid)) {
@@ -96,7 +96,7 @@ public class TodoDetail extends Activity {
 	}
 
 	private class TodoDeleteClickListener implements OnClickListener {
-		@Override
+		
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
 			if (WassrClient.deleteTodo(TodoDetail.this.status.rid)) {

@@ -47,7 +47,7 @@ public class AdapterOdai extends ArrayAdapter implements WasatterAdapter{
 		return view;
 	}
 
-	@Override
+	
 	public void updateView() {
 		// TODO 自動生成されたメソッド・スタブ
 		super.notifyDataSetChanged();

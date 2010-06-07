@@ -33,7 +33,7 @@ public class TwitterAccount extends Setting {
 	public String userName;
 	public Runnable authFailure = new Runnable() {
 
-		@Override
+		
 		public void run() {
 			// TODO 自動生成されたメソッド・スタブ
 			Toast
@@ -45,7 +45,7 @@ public class TwitterAccount extends Setting {
 	};
 	public Runnable authSuccess = new Runnable() {
 
-		@Override
+		
 		public void run() {
 			// TODO 自動生成されたメソッド・スタブ
 			Toast
@@ -57,7 +57,7 @@ public class TwitterAccount extends Setting {
 		}
 	};
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
@@ -72,7 +72,7 @@ public class TwitterAccount extends Setting {
 		CheckBox showPassword = (CheckBox) findViewById(R.id.showPassword);
 		showPassword.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-			@Override
+			
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
 				// チェックされていればパスワードを表示する。
@@ -95,7 +95,7 @@ public class TwitterAccount extends Setting {
 		Button cancelButton = (Button) findViewById(R.id.cancelButton);
 		saveButton.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				Setting.set(LOAD_TL, loadTimeline.isChecked());
 				Setting.set(POST_ENABLE, postEnable.isChecked());
@@ -107,7 +107,7 @@ public class TwitterAccount extends Setting {
 		});
 		cancelButton.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				// キャンセルボタンが押されたら前の画面に戻る
 				TwitterAccount.this.finish();
@@ -118,7 +118,7 @@ public class TwitterAccount extends Setting {
 		authButton = (Button) findViewById(R.id.authButton);
 		authButton.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				// 認証ボタンをクリックしたら入力チェックしてxAuth認証
 				final String userId = id.getText().toString();
@@ -137,7 +137,7 @@ public class TwitterAccount extends Setting {
 				// スレッド立てる
 				new Thread(new Runnable() {
 
-					@Override
+					
 					public void run() {
 						XAuth xauth = new XAuth(userId, pass);
 						HashMap<String, String> authResult = xauth.getToken();

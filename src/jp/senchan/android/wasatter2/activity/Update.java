@@ -38,7 +38,7 @@ public class Update extends Activity {
 	public static final int SELECT_IMAGE = 2;
 	public static String attachFileName;
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
@@ -106,7 +106,7 @@ public class Update extends Activity {
 		Button post_btn = (Button) this.findViewById(R.id.post_button);
 		if (post_btn != null) {
 			post_btn.setOnClickListener(new OnClickListener() {
-				@Override
+				
 				public void onClick(View v) {
 					EditText status = (EditText) Update.this
 							.findViewById(R.id.post_status_text);
@@ -146,7 +146,7 @@ public class Update extends Activity {
 
 		Button short_button = (Button) this.findViewById(R.id.short_button);
 		short_button.setOnClickListener(new OnClickListener() {
-			@Override
+			
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
 				EditText status = (EditText) Update.this
@@ -168,7 +168,7 @@ public class Update extends Activity {
 		Button openCamera = (Button) findViewById(R.id.openCamera);
 		openCamera.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
 				final Intent intent = new Intent(
@@ -180,7 +180,7 @@ public class Update extends Activity {
 		Button selectImage = (Button) findViewById(R.id.selectImage);
 		selectImage.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
 				final Intent intent = new Intent(Intent.ACTION_PICK);
@@ -190,7 +190,7 @@ public class Update extends Activity {
 		});
 	}
 
-	@Override
+	
 	protected void onActivityResult(final int requestCode,
 			final int resultCode, final Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -215,7 +215,7 @@ public class Update extends Activity {
 			ImageView image_preview = (ImageView) findViewById(R.id.cameraResult);
 			image_preview.setImageBitmap(image);
 			Wasatter.saveTempImage(image);
-			attachFileName = Wasatter.getTempPath()+"temp.jpg";
+			attachFileName = Wasatter.getImageTempPath()+"temp.jpg";
 		}
 		} catch (Throwable e) {
 			e.printStackTrace();

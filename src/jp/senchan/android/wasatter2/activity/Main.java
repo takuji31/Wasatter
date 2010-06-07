@@ -30,7 +30,7 @@ public class Main extends TimelineActivity {
 	 * on○○系のイベント
 	 */
 
-	@Override
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -44,7 +44,7 @@ public class Main extends TimelineActivity {
 		ImageButton buttonNew = (ImageButton) findViewById(R.id.buttonNew);
 		buttonNew.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
 				Intent intent = new Intent(Main.this,Update.class);
@@ -55,7 +55,7 @@ public class Main extends TimelineActivity {
 		ImageButton buttonReload = (ImageButton) findViewById(R.id.buttonReload);
 		buttonReload.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
 				reload();
@@ -63,14 +63,14 @@ public class Main extends TimelineActivity {
 		});
 	}
 
-	@Override
+	
 	protected void onResume() {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onResume();
 		//Resume時に必要な処理書かないと…。
 	}
 
-	@Override
+	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		try {
 			if (requestCode == IntentCode.MAIN_ITEMDETAIL) {
@@ -85,7 +85,7 @@ public class Main extends TimelineActivity {
 
 	// メニューが生成される際に起動される。
 	// この中でメニューのアイテムを追加したりする。
-	@Override
+	
 	public boolean onCreateOptionsMenu(android.view.Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		// メニューインフレーターを取得
@@ -95,7 +95,7 @@ public class Main extends TimelineActivity {
 	}
 
 	// メニューのアイテムが選択された際に起動される。
-	@Override
+	
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_open_setting:
@@ -167,7 +167,7 @@ public class Main extends TimelineActivity {
 	 *
 	 */
 	private class TLItemClickListener implements OnItemClickListener {
-		@Override
+		
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			ListView listView = (ListView) parent;

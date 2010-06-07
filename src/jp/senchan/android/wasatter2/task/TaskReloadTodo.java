@@ -31,14 +31,14 @@ public class TaskReloadTodo extends AsyncTask<Void, Void, ArrayList<WasatterItem
 		//Wasatter.main.layout_progress_timeline.setVisibility(View.VISIBLE);
 	};
 
-	@Override
+	
 	protected void onProgressUpdate(Void... values) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onProgressUpdate(values);
 	}
 
 	// メインスレッドで実行する処理
-	@Override
+	
 	protected void onPostExecute(ArrayList<WasatterItem> result) {
 		// 取得結果の代入
 		//Wasatter.main.list_todo = result;

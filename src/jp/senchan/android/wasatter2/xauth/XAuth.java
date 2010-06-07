@@ -23,7 +23,6 @@ import jp.senchan.android.wasatter.auth.params.XAuthTwitter;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.setting.TwitterAccount;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
@@ -188,7 +187,7 @@ public class XAuth {
 		sb.append("oauth_consumer_key=");
 		sb.append(consumerKey);
 		sb.append("&oauth_nonce=");
-		sb.append(RandomStringUtils.randomAlphabetic(42));
+		sb.append(UUID.randomUUID().toString());
 		sb.append("&oauth_signature_method=");
 		sb.append(oauthSignatureMethod);
 		sb.append("&oauth_timestamp=");

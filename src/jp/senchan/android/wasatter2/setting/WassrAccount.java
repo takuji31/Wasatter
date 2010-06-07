@@ -19,7 +19,7 @@ public class WassrAccount extends Setting {
 	public static final String LOAD_FAVORITE = "display_load_favorite_image";
 	public static final String POST_ENABLE = "enable_wassr";
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
@@ -34,7 +34,7 @@ public class WassrAccount extends Setting {
 		CheckBox showPassword = (CheckBox) findViewById(R.id.showPassword);
 		showPassword.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-			@Override
+			
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
 				// チェックされていればパスワードを表示する。
@@ -59,7 +59,7 @@ public class WassrAccount extends Setting {
 		Button cancelButton = (Button) findViewById(R.id.cancelButton);
 		saveButton.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				Setting.set(ID, id.getText().toString());
 				Setting.set(PASS, password.getText().toString());
@@ -72,7 +72,7 @@ public class WassrAccount extends Setting {
 		});
 		cancelButton.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				// キャンセルボタンが押されたら前の画面に戻る
 				WassrAccount.this.finish();

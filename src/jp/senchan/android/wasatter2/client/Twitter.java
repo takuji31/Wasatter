@@ -21,7 +21,6 @@ import jp.senchan.android.wasatter2.util.WasatterItem;
 import jp.senchan.android.wasatter2.util.WassrClient;
 import jp.senchan.android.wasatter2.xauth.XAuth;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -101,7 +100,7 @@ public class Twitter extends BaseClient {
 		if("".equals(TwitterAccount.get(TwitterAccount.TOKEN, ""))){
 			target.handler.post(new Runnable() {
 
-				@Override
+				
 				public void run() {
 					// Toastぶん投げ
 					ToastUtil.show("認証の設定がありません");
@@ -137,7 +136,7 @@ public class Twitter extends BaseClient {
 			if (errorCode >= 400) {
 				target.handler.post(new Runnable() {
 
-					@Override
+					
 					public void run() {
 						target.httpError(errorCode, "Twitter");
 
@@ -171,14 +170,14 @@ public class Twitter extends BaseClient {
 					Item item = new Item();
 					item.service = Wasatter.TWITTER;
 					item.html = HTMLEntity.unescape(obj.getString("text"));
-					item.id = obj.getJSONObject("user")
+					item.screenName = obj.getJSONObject("user")
 							.getString("screen_name");
 					item.name = obj.getJSONObject("user").getString("name");
 					item.rid = obj.getString("id");
-					item.link = TwitterUrl.PERMA_LINK.replace("[id]", item.id)
+					item.link = TwitterUrl.PERMA_LINK.replace("[id]", item.screenName)
 							.replace("[rid]", item.rid);
-					item.text = StringEscapeUtils.unescapeHtml(obj
-							.getString("text"));
+					item.text = obj
+							.getString("text");
 					item.html = item.text;
 					String profile = obj.getJSONObject("user").getString(
 							"profile_image_url");

@@ -14,7 +14,7 @@
 		<activity android:name="Setting" android:label="Setting"></activity>
 		<activity android:label="Status" android:name=".activity.ItemDetail"></activity>
 		<activity android:label="TODO" android:name=".activity.TodoDetail"></activity>
-		<activity android:label="Get OAuth token" android:name=".activity.OAuthToken"></activity>
+		
 
 <activity android:name=".setting.WassrAccount" android:label="設定 - Wassr" android:windowSoftInputMode="stateHidden"></activity>
 <activity android:name=".setting.TwitterAccount" android:label="設定 - Twitter" android:windowSoftInputMode="stateHidden"></activity>

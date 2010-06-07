@@ -17,7 +17,6 @@ import jp.senchan.android.wasatter2.item.Item;
 import jp.senchan.android.wasatter2.setting.WassrAccount;
 import jp.senchan.android.wasatter2.util.WassrClient;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -42,11 +41,11 @@ import android.text.Html.ImageGetter;
 
 /**
  * Version2からのWassrクライアントクラス
- *
+ * 
  * @author takuji
- *
+ * 
  */
-public class Wassr extends BaseClient{
+public class Wassr extends BaseClient {
 	public static final int TIMELINE = 1;
 	public static final int REPLY = 2;
 	public static final int MYPOST = 3;
@@ -75,7 +74,7 @@ public class Wassr extends BaseClient{
 
 	/**
 	 * APIを経由してデータを取得するメソッド イメージとしてはThreadでこれを呼ぶ、このメソッドはHandlerでメインスレッドで処理をやる
-	 *
+	 * 
 	 * @param mode
 	 *            どのデータを取得するか
 	 * @param clear
@@ -150,7 +149,7 @@ public class Wassr extends BaseClient{
 			if (errorCode >= 400) {
 				target.handler.post(new Runnable() {
 
-					@Override
+					
 					public void run() {
 						target.httpError(errorCode, "Wassr");
 
@@ -175,8 +174,8 @@ public class Wassr extends BaseClient{
 				SimpleDateFormat sdf = new SimpleDateFormat(
 						"EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
 
-				//リストをクリアする設定ならクリアする
-				if(clear){
+				// リストをクリアする設定ならクリアする
+				if (clear) {
 					items.clear();
 				}
 				for (int i = 0; i < j; i++) {
@@ -186,22 +185,19 @@ public class Wassr extends BaseClient{
 					item.rid = obj.getString("rid");
 					item.channel = channel;
 					// 一旦HTMLの解析をして必要な画像をとっておく
-					String htmlSrc = StringEscapeUtils.unescapeHtml(obj
-							.getString("html"));
-					Html.fromHtml(htmlSrc,
-							new ImageGetter() {
+					String htmlSrc = obj.getString("html");
+					Html.fromHtml(htmlSrc, new ImageGetter() {
 
-								@Override
-								public Drawable getDrawable(String source) {
-									// 必要な画像のURLをあらかじめ取得
-									Bitmap bmp = Wasatter.images
-											.get(source);
-									if(bmp == null){
-										Wassr.getImageWithCache(source);
-									}
-									return null;
-								}
-							}, null);
+						
+						public Drawable getDrawable(String source) {
+							// 必要な画像のURLをあらかじめ取得
+							Bitmap bmp = Wasatter.images.get(source);
+							if (bmp == null) {
+								Wassr.getImageWithCache(source);
+							}
+							return null;
+						}
+					}, null);
 					item.html = htmlSrc;
 					if (channel) {
 						JSONObject ch = obj.getJSONObject("channel");
@@ -210,7 +206,7 @@ public class Wassr extends BaseClient{
 						sb.append(" (");
 						sb.append(ch.getString("name_en"));
 						item.service = sb.append(")").toString();
-						item.id = obj.getJSONObject("user").getString(
+						item.screenName = obj.getJSONObject("user").getString(
 								"login_id");
 						item.name = obj.getJSONObject("user").getString("nick");
 						item.link = WassrUrl.CHANNEL_PERMA_LINK.replace(
@@ -220,8 +216,7 @@ public class Wassr extends BaseClient{
 							JSONObject reply = obj.getJSONObject("reply");
 							item.replyUserNick = reply.getJSONObject("user")
 									.getString("nick");
-							item.replyMessage = StringEscapeUtils
-									.unescapeHtml(reply.getString("body"));
+							item.replyMessage = reply.getString("body");
 						} catch (JSONException e) {
 							// 返信なかったらスルー
 						}
@@ -231,16 +226,14 @@ public class Wassr extends BaseClient{
 						} catch (ParseException e) {
 							item.epoch = 0;
 						}
-						item.text = StringEscapeUtils.unescapeHtml(obj
-								.getString("body"));
+						item.text = obj.getString("body");
 					} else {
-						item.id = obj.getString("user_login_id");
+						item.screenName = obj.getString("user_login_id");
 						item.name = obj.getJSONObject("user").getString(
 								"screen_name");
 						item.link = obj.getString("link");
 						item.replyUserNick = obj.getString("reply_user_nick");
-						item.replyMessage = StringEscapeUtils.unescapeHtml(obj
-								.getString("reply_message"));
+						item.replyMessage = obj.getString("reply_message");
 						item.epoch = Long.parseLong(obj.getString("epoch"));
 
 						item.text = obj.getString("text");
@@ -271,7 +264,7 @@ public class Wassr extends BaseClient{
 					}
 					item.favorited = item.favorite
 							.indexOf(Setting.getWassrId()) != -1;
-					if(items.indexOf(item) == -1){
+					if (items.indexOf(item) == -1) {
 						items.add(0, item);
 					}
 
@@ -292,13 +285,12 @@ public class Wassr extends BaseClient{
 		}
 	}
 
-
 	public static boolean favorite(Item item) {
 		JSONObject json = null;
 		try {
 			// HttpClientの準備
 			DefaultHttpClient client = getHttpClient();
-			//URLの設定
+			// URLの設定
 			String url = null;
 			if (!item.favorited) {
 				url = WassrUrl.FAVORITE_ADD.replace("[rid]", item.rid);
@@ -344,7 +336,7 @@ public class Wassr extends BaseClient{
 		try {
 			// HttpClientの準備
 			DefaultHttpClient client = getHttpClient();
-			//URLの設定
+			// URLの設定
 			String url = WassrUrl.FAVORITE_CHANNEL.replace("[rid]", item.rid);
 			HttpGet get = new HttpGet(url);
 			HttpResponse response = client.execute(get);
@@ -369,10 +361,5 @@ public class Wassr extends BaseClient{
 		}
 		return "NG";
 	}
-
-
-
-
-
 
 }

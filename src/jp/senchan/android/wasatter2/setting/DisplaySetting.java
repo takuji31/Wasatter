@@ -17,7 +17,7 @@ public class DisplaySetting extends Setting {
 	public static final String LOAD_ICON = "load_icon";
 	public static final String BODY_MULTILINE = "display_body_multi_line";
 
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
@@ -33,7 +33,7 @@ public class DisplaySetting extends Setting {
 		Button clearCache = (Button) findViewById(R.id.clearCache);
 		clearCache.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
 				SQLiteDatabase db = Wasatter.db.getWritableDatabase();
@@ -47,7 +47,7 @@ public class DisplaySetting extends Setting {
 		Button cancelButton = (Button) findViewById(R.id.cancelButton);
 		saveButton.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				Setting.set(LOAD_ICON, loadIcon.isChecked());
 				Setting.set(BODY_MULTILINE, bodyMultiline.isChecked());
@@ -57,7 +57,7 @@ public class DisplaySetting extends Setting {
 		});
 		cancelButton.setOnClickListener(new OnClickListener() {
 
-			@Override
+			
 			public void onClick(View v) {
 				// キャンセルボタンが押されたら前の画面に戻る
 				DisplaySetting.this.finish();

@@ -3,12 +3,9 @@
  */
 package jp.senchan.android.wasatter2;
 
-import jp.senchan.android.wasatter2.activity.OAuthToken;
-import jp.senchan.android.wasatter2.util.OAuthPreference;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -23,16 +20,11 @@ import android.preference.Preference.OnPreferenceClickListener;
  *
  */
 public class Setting extends PreferenceActivity {
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
 		this.addPreferencesFromResource(R.xml.setting);
-		PreferenceScreen pc = (PreferenceScreen) this.getPreferenceScreen()
-				.getPreference(1);
-		OAuthPreference pf = new OAuthPreference(Wasatter.CONTEXT);
-		pf.setOnPreferenceClickListener(new OAuthGetTokenListener());
-		pc.addPreference(pf);
 		PreferenceScreen pc2 = (PreferenceScreen) this.getPreferenceScreen()
 				.getPreference(2);
 		Preference pf2 = new Preference(Wasatter.CONTEXT);
@@ -150,20 +142,7 @@ public class Setting extends PreferenceActivity {
 				con.getString(R.string.key_setting_display_buttons), true);
 	}
 
-	private class OAuthGetTokenListener implements OnPreferenceClickListener {
-		@Override
-		public boolean onPreferenceClick(Preference preference) {
-			// TODO 自動生成されたメソッド・スタブ
-			Intent intent = new Intent(Setting.this.getBaseContext(),
-					OAuthToken.class);
-			Setting.this.startActivity(intent);
-			return true;
-			// return false;
-		}
-	}
-
 	private class CacheClearListener implements OnPreferenceClickListener {
-		@Override
 		public boolean onPreferenceClick(Preference preference) {
 			// TODO 自動生成されたメソッド・スタブ
 			AlertDialog.Builder adb = new AlertDialog.Builder(Setting.this);
@@ -177,7 +156,6 @@ public class Setting extends PreferenceActivity {
 
 	private class CacheClearDoListener implements
 			DialogInterface.OnClickListener {
-		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			// TODO 自動生成されたメソッド・スタブ
 			Wasatter.deleteImageCache();

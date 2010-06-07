@@ -32,7 +32,7 @@ public class IconDownload extends AsyncTask<Void, Integer, Void> {
 		progressPerImage = count != 0 ? 10000 / count : 10000;
 	}
 
-	@Override
+	
 	protected void onPreExecute() {
 		// そもそもロードしない設定なら走らせない
 		if (!Setting.isLoadImage()) {
@@ -50,7 +50,7 @@ public class IconDownload extends AsyncTask<Void, Integer, Void> {
 		progressCount = 0;
 	}
 
-	@Override
+	
 	protected Void doInBackground(Void... params) {
 		SQLiteDatabase db = Wasatter.db.getWritableDatabase();
 		ArrayList<String> urls = Wasatter.downloadWaitUrls;
@@ -77,14 +77,14 @@ public class IconDownload extends AsyncTask<Void, Integer, Void> {
 		return null;
 	}
 
-	@Override
+	
 	protected void onProgressUpdate(Integer... values) {
 		progressCount++;
 		activity.setProgress(progressCount * progressPerImage);
 		activity.updateList();
 	}
 
-	@Override
+	
 	protected void onPostExecute(Void result) {
 		super.onPostExecute(result);
 		//リストの再描画

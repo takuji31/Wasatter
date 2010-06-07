@@ -24,7 +24,7 @@ public class TaskUpdate extends AsyncTask<Object, String, Void> {
 		this.channel = params[3];
 	}
 
-	@Override
+	
 	protected Void doInBackground(Object... params) {
 		String status = (String) params[0];
 		String rid = (String) params[1];
@@ -78,7 +78,7 @@ public class TaskUpdate extends AsyncTask<Object, String, Void> {
 		return null;
 	}
 
-	@Override
+	
 	protected void onProgressUpdate(String... values) {
 		// まず、何が起こってここに飛んできたか判定
 		String service = values[1];
@@ -95,7 +95,7 @@ public class TaskUpdate extends AsyncTask<Object, String, Void> {
 		}
 	}
 
-	@Override
+	
 	protected void onPostExecute(Void result) {
 		//LinearLayout layout = (LinearLayout) Wasatter.main
 		//		.findViewById(R.id.layout_update_status);

@@ -13,7 +13,7 @@ public class Item implements Serializable{
 	/**
 	 * ユーザーID（発言者）
 	 */
-	public String id;
+	public String screenName;
 	/**
 	 * ユーザー名（発言者）
 	 */
@@ -49,15 +49,15 @@ public class Item implements Serializable{
 	public ArrayList<String> favorite = new ArrayList<String>();
 	public boolean channel;
 
-	@Override
+	
 	public String toString() {
 		// TODO 自動生成されたメソッド・スタブ
-		return new SpannableStringBuilder(name).append("(").append(id).append(
+		return new SpannableStringBuilder(name).append("(").append(screenName).append(
 				")").toString();
 	}
 	public boolean favorited;
 
-	@Override
+	
 	public boolean equals(Object o) {
 		// TODO 自動生成されたメソッド・スタブ
 		try{

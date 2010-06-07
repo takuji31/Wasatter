@@ -18,7 +18,7 @@ import android.preference.Preference.OnPreferenceClickListener;
  *
  */
 public class SettingRoot extends PreferenceActivity {
-	@Override
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
@@ -34,7 +34,7 @@ public class SettingRoot extends PreferenceActivity {
 
 		all.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
-			@Override
+			
 			public boolean onPreferenceClick(Preference preference) {
 				// 全般設定の表示
 				return false;
@@ -43,7 +43,7 @@ public class SettingRoot extends PreferenceActivity {
 
 		all.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
-			@Override
+			
 			public boolean onPreferenceClick(Preference preference) {
 				// 全般設定の表示
 				return false;
@@ -52,7 +52,7 @@ public class SettingRoot extends PreferenceActivity {
 
 		wassr.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
-			@Override
+			
 			public boolean onPreferenceClick(Preference preference) {
 				// Wassr設定の表示
 				Intent intent = new Intent(SettingRoot.this, WassrAccount.class);
@@ -63,7 +63,7 @@ public class SettingRoot extends PreferenceActivity {
 
 		twitter.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
-			@Override
+			
 			public boolean onPreferenceClick(Preference preference) {
 				// 全般設定の表示
 				Intent intent = new Intent(SettingRoot.this, TwitterAccount.class);
@@ -74,7 +74,7 @@ public class SettingRoot extends PreferenceActivity {
 
 		display.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
-			@Override
+			
 			public boolean onPreferenceClick(Preference preference) {
 				// 表示設定の表示
 				Intent intent = new Intent(SettingRoot.this, DisplaySetting.class);
