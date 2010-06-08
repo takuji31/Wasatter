@@ -7,7 +7,6 @@ import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.activity.Detail;
-import jp.senchan.android.wasatter2.activity.ItemDetail;
 import jp.senchan.android.wasatter2.client.Wassr;
 import jp.senchan.android.wasatter2.item.Item;
 import twitter4j.Twitter;
@@ -73,9 +72,9 @@ public class Favorite extends AsyncTask<Item, Void, Boolean> {
 		if (!isWassr) {
 			text = result ? "お気に入りに追加しました。" : "お気に入りに追加できませんでした。";
 			if(favorited){
-				button.setText(ItemDetail.DEL_TWITTER);
+				button.setText(Detail.DEL_TWITTER);
 			}else{
-				button.setText(ItemDetail.ADD_TWITTER);
+				button.setText(Detail.ADD_TWITTER);
 			}
 
 		} else if(favorited){
@@ -84,9 +83,9 @@ public class Favorite extends AsyncTask<Item, Void, Boolean> {
 			text = result ? "イイネ！を取り消しました。" : "イイネ！できませんでした。";
 		}
 		if(favorited && isWassr){
-			button.setText(ItemDetail.DEL_WASSR);
+			button.setText(Detail.DEL_WASSR);
 		}else if(isWassr){
-			button.setText(ItemDetail.ADD_WASSR);
+			button.setText(Detail.ADD_WASSR);
 		}
 		text_result.setText(text);
 		detail.favoriteButton.setClickable(true);
