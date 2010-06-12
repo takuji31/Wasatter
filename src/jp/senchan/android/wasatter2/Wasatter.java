@@ -166,7 +166,6 @@ public class Wasatter {
 	}
 
 	public static String getImagePath() {
-		SpannableStringBuilder path = new SpannableStringBuilder();
 		return CONTEXT.getDir("imagecache", Context.MODE_WORLD_READABLE).getAbsolutePath();
 	}
 
