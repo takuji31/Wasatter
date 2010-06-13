@@ -75,7 +75,6 @@ public abstract class TimelineActivity extends Activity {
 					setProgress(500);
 				}
 			});
-			target.loadCache();
 			Wassr.getItems(mode, target, clear, list, params);
 			target.wassrLoadComplete = true;
 			handler.post(new Runnable() {
@@ -136,7 +135,6 @@ public abstract class TimelineActivity extends Activity {
 					setProgress(500);
 				}
 			});
-			target.loadCache();
 			Twitter.getItems(mode, target, clear, list, params);
 			target.twitterLoadComplete = true;
 			handler.post(new Runnable() {
@@ -207,38 +205,5 @@ public abstract class TimelineActivity extends Activity {
 			tl.updateView();
 		}
 	}
-
-	/**
-	 * 画像のキャッシュをロードするメソッド
-	 */
-	public void loadCache() {
-		DBHelper imageStore = Wasatter.db;
-		SQLiteDatabase db = imageStore.getReadableDatabase();
-		SQLiteDatabase dbw = imageStore.getWritableDatabase();
-		Cursor c = db.rawQuery("select * from imagestore", null);
-		c.moveToFirst();
-		int count = c.getCount();
-		for (int i = 0; i < count; i++) {
-			String url = c.getString(0);
-			String imageName = c.getString(1);
-			long created = c.getLong(2);
-			if (created > Wasatter.cacheExpire()) {
-				Wasatter.images.put(url, Wasatter.getImage(imageName));
-			} else {
-				SQLiteStatement st = dbw
-						.compileStatement("delete from imagestore where url=?");
-				st.bindString(1, url);
-				st.execute();
-				File file = new File(new SpannableStringBuilder(Wasatter
-						.getImagePath()).append(imageName).toString());
-				file.delete();
-			}
-			c.moveToNext();
-		}
-		c.close();
-		db.execSQL("vacuum imagestore");
-		db.execSQL("reindex imagestore");
-	}
-
 
 }

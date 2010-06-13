@@ -8,7 +8,7 @@ import jdbm.RecordManagerFactory;
 import jdbm.htree.HTree;
 import jp.senchan.android.wasatter2.Wasatter;
 
-public class ItemStore {
+public class DataStore {
 	/**
 	 * Wassrのヒトコト、rid=>Item
 	 */
@@ -45,16 +45,27 @@ public class ItemStore {
 		try {
 			recman = RecordManagerFactory.createRecordManager(Wasatter
 					.getDataPath("data/datastore"), pt);
-			long recid = recman.getNamedObject(KEY_STATUS_WASSR);
-			if (recid != 0) {
-				statusWassr = HTree.load(recman, recid);
-			} else {
-				statusWassr = HTree.createInstance(recman);
-				recman.setNamedObject(KEY_STATUS_WASSR, statusWassr.getRecid());
-			}
+			//各レコードをロードする
+			statusWassr = load(KEY_STATUS_WASSR);
+			statusTwitter = load(KEY_STATUS_TWITTER);
+			userWassr = load(KEY_USER_WASSR);
+			userTwitter = load(KEY_USER_TWITTER);
+			icon = load(KEY_ICON);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static HTree load(String key) throws IOException{
+		HTree obj;
+		long recid = recman.getNamedObject(key);
+		if (recid != 0) {
+			obj = HTree.load(recman, recid);
+		} else {
+			obj = HTree.createInstance(recman);
+			recman.setNamedObject(key , obj.getRecid());
+		}
+		return obj;
 	}
 
 }
