@@ -21,7 +21,7 @@ public class DisplaySetting extends Setting {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.display_setting);
+		setContentView(R.layout.setting_display);
 		// アイコンのロード設定を読み込む
 		final CheckBox loadIcon = (CheckBox) findViewById(R.id.loadIcon);
 		final CheckBox bodyMultiline = (CheckBox) findViewById(R.id.bodyMultiline);

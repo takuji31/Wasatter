@@ -23,7 +23,7 @@ public class WassrAccount extends Setting {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.wassr_account);
+		setContentView(R.layout.setting_wassr_account);
 		// IDとパスワードを入力
 		final EditText id = (EditText) findViewById(R.id.id);
 		final EditText password = (EditText) findViewById(R.id.password);

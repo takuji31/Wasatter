@@ -61,7 +61,7 @@ public class TwitterAccount extends Setting {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.twitter_account);
+		setContentView(R.layout.setting_twitter_account);
 
 		// 現在認証に使われているユーザー名を取得
 		xAuthUserName = (TextView) findViewById(R.id.xAuthUserName);
