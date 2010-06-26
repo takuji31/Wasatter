@@ -5,20 +5,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
-import java.util.Map.Entry;
 
-import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.activity.TimelineActivity;
 import jp.senchan.android.wasatter2.item.Item;
 import jp.senchan.android.wasatter2.setting.TwitterAccount;
 import jp.senchan.android.wasatter2.util.ToastUtil;
-import jp.senchan.android.wasatter2.util.TwitterClient;
-import jp.senchan.android.wasatter2.util.WasatterItem;
-import jp.senchan.android.wasatter2.util.WassrClient;
 import jp.senchan.android.wasatter2.xauth.XAuth;
 
 import org.apache.http.HttpEntity;
@@ -27,7 +21,6 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
@@ -36,14 +29,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import twitter4j.http.HTMLEntity;
-
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.text.Html;
-import android.text.SpannableStringBuilder;
-import android.text.Html.ImageGetter;
 
 /**
  * Version2からのWassrクライアントクラス
@@ -169,7 +154,7 @@ public class Twitter extends BaseClient {
 					JSONObject obj = result.getJSONObject(i);
 					Item item = new Item();
 					item.service = Wasatter.TWITTER;
-					item.html = HTMLEntity.unescape(obj.getString("text"));
+					item.html = obj.getString("text");
 					item.screenName = obj.getJSONObject("user")
 							.getString("screen_name");
 					item.name = obj.getJSONObject("user").getString("name");
