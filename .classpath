@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/WasatterOAuthParams"/>
 	<classpathentry kind="lib" path="lib/apache-mime4j-0.6.jar" sourcepath="lib/httpcomponents-client-4.0.1-src.zip"/>
 	<classpathentry kind="lib" path="lib/httpclient-4.0.1.jar" sourcepath="lib/httpcomponents-client-4.0.1-src.zip"/>
 	<classpathentry kind="lib" path="lib/httpmime-4.0.1.jar" sourcepath="lib/httpcomponents-client-4.0.1-src.zip"/>
@@ -18,5 +17,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/jdbm-1.0.jar" sourcepath="lib/jdbm-1.0-src.zip"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/WasatteOAuthParams"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

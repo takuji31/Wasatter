@@ -166,7 +166,7 @@ public class Wasatter {
 	}
 
 	public static String getImagePath() {
-		return CONTEXT.getDir("imagecache", Context.MODE_WORLD_READABLE).getAbsolutePath();
+		return CONTEXT.getDir("imagecache", Context.MODE_WORLD_READABLE).getAbsolutePath() + "/";
 	}
 
 	public static void deleteImageCache() {
