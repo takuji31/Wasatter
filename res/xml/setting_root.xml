@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="設定">
-	<PreferenceScreen android:title="Wassr" android:summary="アカウント、タイムライン、ヒトコト"></PreferenceScreen>
-	<PreferenceScreen android:title="Twitter" android:summary="アカウント、タイムライン、ツイート"></PreferenceScreen>
-	<PreferenceScreen android:title="表示" android:summary="各種アイコン表示、タイムライン表示"></PreferenceScreen>
-	<PreferenceScreen android:title="データ"></PreferenceScreen>
+	<PreferenceScreen android:title="Wassrアカウント設定"></PreferenceScreen>
+	<PreferenceScreen android:title="Twitterアカウント設定"></PreferenceScreen>
+	<PreferenceScreen android:title="表示設定"></PreferenceScreen>
+	<PreferenceScreen android:title="データ設定"></PreferenceScreen>
 </PreferenceScreen>

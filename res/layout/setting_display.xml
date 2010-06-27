@@ -11,38 +11,17 @@
 				android:layout_height="wrap_content" android:textSize="25dip"
 				android:text="表示設定"></TextView>
 			<CheckBox android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="アイコンを読み込む"
-				android:id="@+id/loadIcon"></CheckBox>
-			<TextView android:id="@+id/TextView03" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="ユーザーのアイコンを読み込みます。アイコンは変更されない限り5日間キャッシュされます。"></TextView>
+				android:layout_height="wrap_content" android:id="@+id/loadIcon" android:text="アイコンを表示する"></CheckBox>
+			
 			<CheckBox android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="本文の複数行表示" android:id="@+id/bodyMultiline"></CheckBox>
-			<TextView android:id="@+id/TextView03" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="本文を複数行で表示します。"></TextView>
-			<Button android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/clearCache"
-				android:text="キャッシュの消去"></Button><TextView android:id="@+id/TextView03" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="アイコンのキャッシュを消去します。"></TextView>
+				android:layout_height="wrap_content" android:id="@+id/bodyMultiline" android:text="本文を折り返して表示する"></CheckBox>
+			
+			
+			
 			<Button android:layout_height="wrap_content" android:text="保存"
 				android:layout_width="wrap_content" android:id="@+id/saveButton"></Button>
 			<Button android:layout_height="wrap_content" android:text="キャンセル"
 				android:layout_width="wrap_content" android:id="@+id/cancelButton"></Button>
 		</TableLayout>
 	</ScrollView>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </LinearLayout>

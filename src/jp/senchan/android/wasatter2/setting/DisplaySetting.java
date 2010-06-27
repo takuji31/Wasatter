@@ -28,20 +28,6 @@ public class DisplaySetting extends Setting {
 		loadIcon.setChecked(Setting.get(LOAD_ICON, true));
 		bodyMultiline.setChecked(Setting.get(BODY_MULTILINE, true));
 
-
-		//キャッシュクリアボタンにイベントを割り当てる
-		Button clearCache = (Button) findViewById(R.id.clearCache);
-		clearCache.setOnClickListener(new OnClickListener() {
-
-			
-			public void onClick(View v) {
-				// TODO 自動生成されたメソッド・スタブ
-				SQLiteDatabase db = Wasatter.db.getWritableDatabase();
-				db.execSQL("delete from imagestore");
-				ToastUtil.show("キャッシュを消去しました");
-			}
-		});
-
 		// 保存とキャンセルボタンにイベントを割り当てる
 		Button saveButton = (Button) findViewById(R.id.saveButton);
 		Button cancelButton = (Button) findViewById(R.id.cancelButton);

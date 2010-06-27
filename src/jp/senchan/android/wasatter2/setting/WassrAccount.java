@@ -46,14 +46,6 @@ public class WassrAccount extends Setting {
 			}
 		});
 
-		// タイムラインとイイネアイコンのロード設定を読み込む
-		final CheckBox loadTimeline = (CheckBox) findViewById(R.id.loadTimeline);
-		final CheckBox loadFavorite = (CheckBox) findViewById(R.id.loadFavorite);
-		final CheckBox postEnable = (CheckBox) findViewById(R.id.postEnable);
-		loadTimeline.setChecked(Setting.get(LOAD_TL, false));
-		loadFavorite.setChecked(Setting.get(LOAD_FAVORITE, true));
-		postEnable.setChecked(Setting.get(POST_ENABLE, false));
-
 		// 保存とキャンセルボタンにイベントを割り当てる
 		Button saveButton = (Button) findViewById(R.id.saveButton);
 		Button cancelButton = (Button) findViewById(R.id.cancelButton);
@@ -63,9 +55,6 @@ public class WassrAccount extends Setting {
 			public void onClick(View v) {
 				Setting.set(ID, id.getText().toString());
 				Setting.set(PASS, password.getText().toString());
-				Setting.set(LOAD_TL, loadTimeline.isChecked());
-				Setting.set(LOAD_FAVORITE, loadFavorite.isChecked());
-				Setting.set(POST_ENABLE, postEnable.isChecked());
 				Toast.makeText(WassrAccount.this, MESSAGE, Toast.LENGTH_SHORT).show();
 				finish();
 			}

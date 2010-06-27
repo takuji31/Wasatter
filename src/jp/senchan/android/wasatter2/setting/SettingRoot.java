@@ -68,7 +68,7 @@ public class SettingRoot extends PreferenceActivity {
 			public boolean onPreferenceClick(Preference preference) {
 				// データ設定の表示
 				Intent intent = new Intent(SettingRoot.this,
-						DisplaySetting.class);
+						Data.class);
 				startActivity(intent);
 				return false;
 			}

@@ -31,6 +31,7 @@ public class TwitterAccount extends Setting {
 	public Button authButton;
 	public TextView xAuthUserName;
 	public String userName;
+	public Thread authThread;
 	public Runnable authFailure = new Runnable() {
 
 		
@@ -54,6 +55,7 @@ public class TwitterAccount extends Setting {
 			xAuthUserName.setText(userName);
 			authButton.setClickable(true);
 			setProgressBarVisibility(false);
+			TwitterAccount.this.finish();
 		}
 	};
 
@@ -84,32 +86,14 @@ public class TwitterAccount extends Setting {
 			}
 		});
 
-		// タイムラインのロード設定を読み込む
-		final CheckBox loadTimeline = (CheckBox) findViewById(R.id.loadTimeline);
-		final CheckBox postEnable = (CheckBox) findViewById(R.id.postEnable);
-		loadTimeline.setChecked(Setting.get(LOAD_TL, false));
-		postEnable.setChecked(Setting.get(POST_ENABLE, false));
-
 		// 保存とキャンセルボタンにイベントを割り当てる
-		Button saveButton = (Button) findViewById(R.id.saveButton);
 		Button cancelButton = (Button) findViewById(R.id.cancelButton);
-		saveButton.setOnClickListener(new OnClickListener() {
-
-			
-			public void onClick(View v) {
-				Setting.set(LOAD_TL, loadTimeline.isChecked());
-				Setting.set(POST_ENABLE, postEnable.isChecked());
-				Toast
-						.makeText(TwitterAccount.this, MESSAGE,
-								Toast.LENGTH_SHORT).show();
-				finish();
-			}
-		});
 		cancelButton.setOnClickListener(new OnClickListener() {
 
 			
 			public void onClick(View v) {
-				// キャンセルボタンが押されたら前の画面に戻る
+				//認証をキャンセル
+				// 前の画面に戻る
 				TwitterAccount.this.finish();
 			}
 		});
@@ -135,7 +119,7 @@ public class TwitterAccount extends Setting {
 				setProgressBarIndeterminate(true);
 				setProgressBarVisibility(true);
 				// スレッド立てる
-				new Thread(new Runnable() {
+				authThread = new Thread(new Runnable() {
 
 					
 					public void run() {
@@ -161,7 +145,8 @@ public class TwitterAccount extends Setting {
 
 						handler.post(authSuccess);
 					}
-				}).start();
+				});
+				authThread.start();
 			}
 		});
 	}
