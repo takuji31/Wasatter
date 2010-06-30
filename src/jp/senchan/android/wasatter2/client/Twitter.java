@@ -10,6 +10,7 @@ import java.util.Locale;
 import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.activity.TimelineActivity;
+import jp.senchan.android.wasatter2.activity.Update;
 import jp.senchan.android.wasatter2.item.Item;
 import jp.senchan.android.wasatter2.setting.TwitterAccount;
 import jp.senchan.android.wasatter2.util.ToastUtil;
@@ -50,13 +51,16 @@ public class Twitter extends BaseClient {
 		HttpConnectionParams.setConnectionTimeout(params, 10000);
 		// データ取得タイムアウトを設定：10秒
 		HttpConnectionParams.setSoTimeout(params, 10000);
-		// 認証のセット
-		Credentials cred = new UsernamePasswordCredentials(
-				Setting.getWassrId(), Setting.getWassrPass());
-		AuthScope scope = new AuthScope("api.wassr.jp", 80);
-		client.getCredentialsProvider().setCredentials(scope, cred);
 
 		return client;
+	}
+	
+	/**
+	 * Twitterが有効かどうか調べるメソッド
+	 * @return boolean Twitterが有効かどうか
+	 */
+	public static boolean isTwitterAvailable(){
+		return !"".equals(TwitterAccount.get(TwitterAccount.TOKEN, ""));
 	}
 
 	/**
@@ -70,7 +74,6 @@ public class Twitter extends BaseClient {
 	 *            追加する先のリスト
 	 * @param params
 	 *            HTTP通信で使うパラメータ
-	 * @return 追加されたリスト
 	 */
 	public static void getItems(int mode, final TimelineActivity target,
 			boolean clear, ArrayList<Item> items, HashMap<String, String> params) {
@@ -78,22 +81,9 @@ public class Twitter extends BaseClient {
 		// 取得するURL
 		String url;
 		// Twitterが無効なら終了
-		if (!TwitterAccount.get(TwitterAccount.LOAD_TL, false)) {
+		if (!isTwitterAvailable()) {
 			return;
 		}
-		//xAuth設定がまだだったらToast出して終了
-		if("".equals(TwitterAccount.get(TwitterAccount.TOKEN, ""))){
-			target.handler.post(new Runnable() {
-
-				
-				public void run() {
-					// Toastぶん投げ
-					ToastUtil.show("認証の設定がありません");
-				}
-			});
-			return;
-		}
-
 		// URLを決定する
 		switch (mode) {
 		case TIMELINE:
@@ -201,6 +191,44 @@ public class Twitter extends BaseClient {
 		}
 	}
 
+	
+	public static boolean update(String status,String imagePath){
+
+		// Twitterが無効なら終了
+		if (!isTwitterAvailable()) {
+			return false;
+		}
+		// xAuthリクエストの準備
+		//TODO 仮にテキストだけ
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("status", status);
+		XAuth request = new XAuth(TwitterUrl.UPDATE_TIMELINE, "POST", params);
+
+		try {
+			HttpResponse response = request.request();
+			// HTTPレスポンスステータスを取得
+			final int errorCode = response.getStatusLine().getStatusCode();
+			// 400番台以上の場合、falseを返す
+			if (errorCode >= 400) {
+				return false;
+			}
+			HttpEntity resEntity = response.getEntity();
+			JSONArray result = null;
+			String resString = EntityUtils.toString(resEntity);
+			return true;
+		} catch (ClientProtocolException e1) {
+			// TODO ようわからんけど通信がおかしかったら到達するブロック
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO ネットワークエラー…？
+			e1.printStackTrace();
+		} catch (Exception e) {
+			// TODO: ぬるぽとか
+		}		
+		return false;
+	}
+	
+	
 	public static boolean favorite(Item item) {
 		JSONObject json = null;
 		try {

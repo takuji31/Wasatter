@@ -27,7 +27,6 @@ public class Startup extends Activity {
 		Wasatter.images.clear();
 
 		//何か処理する、アップデート確認とかバグ報告とか
-		ToastUtil.show(Wasatter.getDataPath("cache"));
 
 
 		//メイン画面を呼び出す

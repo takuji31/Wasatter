@@ -54,24 +54,10 @@ public class TaskUpdate extends AsyncTask<Object, String, Void> {
 			}*/
 		}
 		if (this.twitter) {
-			Twitter tw;
-			if (Setting.isTwitterOAuthEnable()) {
-				tw = new TwitterFactory().getInstance();
-				//tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
-				tw.setOAuthAccessToken(new AccessToken(Setting
-						.getTwitterToken(), Setting.getTwitterTokenSecret()));
-
-			} else {
-				tw = new TwitterFactory().getInstance(Setting.getTwitterId(),
-						Setting.getTwitterPass());
-			}
 			try {
 				publishProgress(Wasatter.MODE_POSTING, Wasatter.TWITTER);
-				tw.updateStatus(status);
-				this.r_twitter = true;
-			} catch (TwitterException e) {
-				publishProgress(Wasatter.MODE_ERROR, Wasatter.TWITTER,
-						String.valueOf(e.getStatusCode()));
+				this.r_twitter = jp.senchan.android.wasatter2.client.Twitter.update(status, null);
+			} catch (Exception e) {
 				this.r_twitter = false;
 			}
 		}
