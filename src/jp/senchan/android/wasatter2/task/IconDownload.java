@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
-import jp.senchan.android.wasatter2.activity.TimelineActivity;
+import jp.senchan.android.wasatter2.activity.Main;
 import jp.senchan.android.wasatter2.client.Wassr;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
@@ -21,11 +21,11 @@ import android.os.AsyncTask;
  */
 public class IconDownload extends AsyncTask<Void, Integer, Void> {
 	private int count;
-	private TimelineActivity activity;
+	private Main activity;
 	private int progressPerImage;
 	private int progressCount;
 
-	public IconDownload(TimelineActivity activity) {
+	public IconDownload(Main activity) {
 		count = Wasatter.downloadWaitUrls.size();
 		this.activity = activity;
 		// 1個辺りなんぼ値進めるか

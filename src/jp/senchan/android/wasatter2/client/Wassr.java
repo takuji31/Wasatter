@@ -12,7 +12,7 @@ import java.util.Map.Entry;
 import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
-import jp.senchan.android.wasatter2.activity.TimelineActivity;
+import jp.senchan.android.wasatter2.activity.Main;
 import jp.senchan.android.wasatter2.item.Item;
 import jp.senchan.android.wasatter2.setting.WassrAccount;
 import jp.senchan.android.wasatter2.util.WassrClient;
@@ -85,7 +85,7 @@ public class Wassr extends BaseClient {
 	 *            HTTP通信で使うパラメータ
 	 * @return 追加されたリスト
 	 */
-	public static void getItems(int mode, final TimelineActivity target,
+	public static void getItems(int mode, final Main target,
 			boolean clear, ArrayList<Item> items, HashMap<String, String> params) {
 
 		// 取得するのがチャンネルか否か

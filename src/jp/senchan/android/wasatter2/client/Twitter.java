@@ -9,18 +9,13 @@ import java.util.Locale;
 
 import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
-import jp.senchan.android.wasatter2.activity.TimelineActivity;
-import jp.senchan.android.wasatter2.activity.Update;
+import jp.senchan.android.wasatter2.activity.Main;
 import jp.senchan.android.wasatter2.item.Item;
 import jp.senchan.android.wasatter2.setting.TwitterAccount;
-import jp.senchan.android.wasatter2.util.ToastUtil;
 import jp.senchan.android.wasatter2.xauth.XAuth;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.Credentials;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -75,7 +70,7 @@ public class Twitter extends BaseClient {
 	 * @param params
 	 *            HTTP通信で使うパラメータ
 	 */
-	public static void getItems(int mode, final TimelineActivity target,
+	public static void getItems(int mode, final Main target,
 			boolean clear, ArrayList<Item> items, HashMap<String, String> params) {
 
 		// 取得するURL

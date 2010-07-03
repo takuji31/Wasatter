@@ -1,12 +1,8 @@
 package jp.senchan.android.wasatter2.task;
 
-import jp.senchan.android.wasatter2.Setting;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.util.WassrClient;
-import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
 import android.os.AsyncTask;
 
 public class TaskUpdate extends AsyncTask<Object, String, Void> {

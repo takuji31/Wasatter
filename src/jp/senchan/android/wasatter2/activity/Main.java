@@ -1,5 +1,8 @@
 package jp.senchan.android.wasatter2.activity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter2.Wasatter;
 import jp.senchan.android.wasatter2.adapter.Timeline;
@@ -8,21 +11,189 @@ import jp.senchan.android.wasatter2.client.Wassr;
 import jp.senchan.android.wasatter2.item.Item;
 import jp.senchan.android.wasatter2.setting.SettingRoot;
 import jp.senchan.android.wasatter2.setting.TwitterAccount;
+import jp.senchan.android.wasatter2.setting.WassrAccount;
+import jp.senchan.android.wasatter2.task.IconDownload;
 import jp.senchan.android.wasatter2.task.TaskImageDownloadWithCache;
 import jp.senchan.android.wasatter2.util.IntentCode;
+import jp.senchan.android.wasatter2.util.ItemComparator;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class Main extends TimelineActivity {
+public class Main extends Activity {
 	public Item selectedItem;
+	public ListView listView;
+	public ArrayList<Item> list;
+	public Handler handler = new Handler();
+	public ReloadThreadWassr reloadThreadWassr;
+	public ReloadThreadTwitter reloadThreadTwitter;
+	public boolean wassrLoad;
+	public boolean twitterLoad;
+	public boolean wassrLoadComplete = false;
+	public boolean twitterLoadComplete = false;
+
+	/**
+	 * Wassrリロードスレッド
+	 * @author takuji
+	 *
+	 */
+	protected class ReloadThreadWassr extends Thread {
+		private int mode;
+		private Main target;
+		private boolean clear;
+		private ArrayList<Item> list;
+		private HashMap<String, String> params;
+
+		public ReloadThreadWassr(Main target, int mode, boolean clear,
+				HashMap<String, String> params) {
+			// パラメータをあらかじめセットする
+			this.mode = mode;
+			this.target = target;
+			this.clear = clear;
+			this.list = target.list;
+			this.params = params;
+			target.wassrLoad = WassrAccount.get(WassrAccount.LOAD_TL, false);
+			target.twitterLoad = TwitterAccount.get(TwitterAccount.LOAD_TL, false);
+		}
+
+		
+		public void run() {
+			// タイムラインを取得
+			handler.post(new Runnable() {
+
+				
+				public void run() {
+					// プログレスバーを500にセット、これでダウンロードしてるっぽく見えるはず…？
+					setProgressBarVisibility(true);
+					setProgress(500);
+				}
+			});
+			Wassr.getItems(mode, target, clear, list, params);
+			target.wassrLoadComplete = true;
+			handler.post(new Runnable() {
+
+				
+				public void run() {
+					// ソートを実行
+					Timeline tl = (Timeline) listView.getAdapter();
+					tl.sort(new ItemComparator());
+					reloadThreadWassr = null;
+					if((target.twitterLoad && target.twitterLoadComplete) || !target.twitterLoad){
+						//10000にセットしてプログレスバーを消す
+						setProgress(10000);
+						target.twitterLoadComplete = false;
+						target.wassrLoadComplete = false;
+						new IconDownload(target).execute();
+					}else if(target.wassrLoad){
+						setProgress(5000);
+					}
+				}
+			});
+		}
+	};
+
+	/**
+	 * Twitterリロードスレッド
+	 * @author takuji
+	 *
+	 */
+	protected class ReloadThreadTwitter extends Thread {
+		private int mode;
+		private Main target;
+		private boolean clear;
+		private ArrayList<Item> list;
+		private HashMap<String, String> params;
+
+		public ReloadThreadTwitter(Main target, int mode, boolean clear,
+				HashMap<String, String> params) {
+			// パラメータをあらかじめセットする
+			this.mode = mode;
+			this.target = target;
+			this.clear = clear;
+			this.list = target.list;
+			this.params = params;
+			target.wassrLoad = WassrAccount.get(WassrAccount.LOAD_TL, false);
+			target.twitterLoad = TwitterAccount.get(TwitterAccount.LOAD_TL, false);
+		}
+
+		
+		public void run() {
+			// タイムラインを取得
+			handler.post(new Runnable() {
+
+				
+				public void run() {
+					// プログレスバーを500にセット、これでダウンロードしてるっぽく見えるはず…？
+					setProgressBarVisibility(true);
+					setProgress(500);
+				}
+			});
+			Twitter.getItems(mode, target, clear, list, params);
+			target.twitterLoadComplete = true;
+			handler.post(new Runnable() {
+
+				
+				public void run() {
+					// ソートを実行
+					Timeline tl = (Timeline) listView.getAdapter();
+					tl.sort(new ItemComparator());
+					reloadThreadTwitter = null;
+					if((target.wassrLoad && target.wassrLoadComplete) || !target.wassrLoad){
+						//10000にセットしてプログレスバーを消す
+						target.twitterLoadComplete = false;
+						target.wassrLoadComplete = false;
+						setProgress(10000);
+						new IconDownload(target).execute();
+					}else if(target.twitterLoad){
+						setProgress(5000);
+					}
+				}
+			});
+		}
+	};
+
+
+	
+	/**
+	 * 別スレッドから呼び出すHTTPエラーに対する処理
+	 * @param code エラーコード
+	 * @param message メッセージ
+	 */
+	public void httpError(int code, String message) {
+		// TODO とりあえず表示してるけど、もっとわかりやすいメッセージに変えたい
+		Toast.makeText(this, "HTTP Error! \n" + String.valueOf(code) + message,
+				Toast.LENGTH_SHORT).show();
+	}
+
+	/**
+	 * HTTP以外のエラーが発生した場合のデバッグ用メソッド
+	 * @param e
+	 */
+	public void error(Exception e) {
+		// TODO とりあえず表示してるけど、もっとわかりやすいメッセージに変えたい
+		Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+	}
+
+	/**
+	 * リストビューの表示を更新するメソッド、メインスレッドから呼び出すべし。
+	 */
+	public void updateList(){
+		Timeline tl = (Timeline) this.listView.getAdapter();
+		if(tl != null){
+			tl.updateView();
+		}
+	}
 
 	//別スレッドに投げるリロード処理とその後の処理
 
@@ -33,6 +204,17 @@ public class Main extends TimelineActivity {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// タイトルをプログレスバーに使う
+		requestWindowFeature(Window.FEATURE_PROGRESS);
+
+		setContentView(R.layout.main);
+		//リストを初期化
+		list = new ArrayList<Item>();
+		//リストビューを取得
+		listView = (ListView) findViewById(R.id.timeline);
+		//リストビューにリストを代入
+		listView.setAdapter(new Timeline(this, R.layout.timeline_row, list , false));
 
 		// 色んなところからいじれるように、Static変数に突っ込む
 		Wasatter.main = this;
