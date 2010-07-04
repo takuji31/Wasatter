@@ -14,7 +14,6 @@ import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.activity.Main;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.WassrAccount;
-import jp.senchan.android.wasatter.util.WassrClient;
 import jp.senchan.android.wasatter.R;
 
 import org.apache.http.HttpEntity;
@@ -72,6 +71,12 @@ public class Wassr extends BaseClient {
 		return client;
 	}
 
+	public static boolean enabled() {
+		boolean id_ne = !WassrAccount.get(WassrAccount.ID, "").equals("");
+		boolean pass_ne = !WassrAccount.get(WassrAccount.PASS, "").equals("");
+		return id_ne && pass_ne;
+	}
+
 	/**
 	 * APIを経由してデータを取得するメソッド イメージとしてはThreadでこれを呼ぶ、このメソッドはHandlerでメインスレッドで処理をやる
 	 * 
@@ -85,15 +90,15 @@ public class Wassr extends BaseClient {
 	 *            HTTP通信で使うパラメータ
 	 * @return 追加されたリスト
 	 */
-	public static void getItems(int mode, final Main target,
-			boolean clear, ArrayList<Item> items, HashMap<String, String> params) {
+	public static void getItems(int mode, final Main target, boolean clear,
+			ArrayList<Item> items, HashMap<String, String> params) {
 
 		// 取得するのがチャンネルか否か
 		boolean channel = false;
 		// 取得するURL
 		String url;
 		// TODO Wassrが無効なら終了
-		if (!WassrAccount.get(WassrAccount.LOAD_TL, false)) {
+		if (!enabled()) {
 			return;
 		}
 
@@ -149,7 +154,6 @@ public class Wassr extends BaseClient {
 			if (errorCode >= 400) {
 				target.handler.post(new Runnable() {
 
-					
 					public void run() {
 						target.httpError(errorCode, "Wassr");
 
@@ -170,10 +174,8 @@ public class Wassr extends BaseClient {
 			try {
 				// 配列の長さを代入
 				int j = result.length();
-
 				SimpleDateFormat sdf = new SimpleDateFormat(
 						"EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
-
 				// リストをクリアする設定ならクリアする
 				if (clear) {
 					items.clear();
@@ -187,8 +189,6 @@ public class Wassr extends BaseClient {
 					// 一旦HTMLの解析をして必要な画像をとっておく
 					String htmlSrc = obj.getString("html");
 					Html.fromHtml(htmlSrc, new ImageGetter() {
-
-						
 						public Drawable getDrawable(String source) {
 							// 必要な画像のURLをあらかじめ取得
 							Bitmap bmp = Wasatter.images.get(source);
@@ -253,8 +253,8 @@ public class Wassr extends BaseClient {
 					// お題のイイネは取得しない。
 					int fav_count = favorites.length();
 					for (int k = 0; k < fav_count; k++) {
-						String icon_url = WassrClient.FAVORITE_ICON_URL
-								.replace("[user]", favorites.getString(k));
+						String icon_url = WassrUrl.FAVORITE_ICON.replace(
+								"[user]", favorites.getString(k));
 						item.favorite.add(favorites.getString(k));
 						if (!WassrUrl.ODAI.equals(url)
 								&& Wasatter.downloadWaitUrls.indexOf(icon_url) == -1

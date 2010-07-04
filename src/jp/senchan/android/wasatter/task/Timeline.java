@@ -6,7 +6,7 @@ import jp.senchan.android.wasatter.util.WasatterItem;
 import android.os.AsyncTask;
 import android.widget.ListView;
 
-public class DownloadTimeline extends
+public class Timeline extends
 		AsyncTask<String, String, ArrayList<WasatterItem>> {
 	protected ListView listview;
 	protected int mode;
@@ -21,7 +21,8 @@ public class DownloadTimeline extends
 			"My post", "Odai", "TODO", "Channel list", "Channel status" };
 
 	// コンストラクタ
-	public DownloadTimeline() {
+	public Timeline(int mode) {
+		this.mode = mode;
 	}
 
 	// バックグラウンドで実行する処理

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/frame"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="fill_parent" android:layout_width="fill_parent">
+  <LinearLayout android:id="@+id/main" android:layout_height="fill_parent" android:layout_width="wrap_content" android:layout_weight="1" android:orientation="horizontal">
+    <LinearLayout android:id="@+id/LinearLayout02" android:layout_gravity="bottom" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="fill_parent">
+      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/post" android:id="@+id/buttonNew"></ImageButton><ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/buttonTL" android:src="@drawable/tl"></ImageButton>
+      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/my" android:id="@+id/buttonShowMyPage" android:visibility="gone"></ImageButton>
+      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/buttonShowReply" android:layout_weight="1" android:src="@drawable/reply"></ImageButton>
+      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/odai" android:id="@+id/buttonShowOdai"></ImageButton>
+      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/mail" android:layout_weight="1" android:id="@+id/buttonShowChannel"></ImageButton>
+      <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/reload" android:id="@+id/buttonReload"></ImageButton>
+    </LinearLayout><ListView android:layout_width="fill_parent"
+      android:layout_height="fill_parent" android:layout_weight="1"
+      android:id="@+id/timeline">
+    </ListView>
+    
+  </LinearLayout>
+  <LinearLayout android:id="@+id/detail" android:layout_height="fill_parent" android:layout_width="280dip"><ScrollView android:id="@+id/ScrollView01" android:layout_height="fill_parent" android:layout_width="fill_parent">
+    <LinearLayout android:id="@+id/LinearLayout02" android:orientation="vertical" android:layout_height="fill_parent" android:layout_width="fill_parent">
+      <TableLayout android:id="@+id/TableLayout01" android:layout_width="fill_parent" android:layout_marginLeft="5dip" android:layout_marginRight="5dip" android:layout_marginTop="5dip" android:layout_height="wrap_content">
+        <TableRow android:id="@+id/TableRow01" android:layout_height="wrap_content" android:layout_width="fill_parent">
+          <ImageView android:id="@+id/icon" android:layout_height="60dip" android:layout_width="60dip"></ImageView>
+          <LinearLayout android:id="@+id/LinearLayout01" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1" android:orientation="vertical">
+            <TextView android:text="ScreenName" android:id="@+id/screen_name" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_marginLeft="5dip" android:layout_marginTop="5dip"></TextView>
+            <TextView android:id="@+id/service_name" android:text="ServiceName" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_marginLeft="5dip" android:layout_marginTop="5dip"></TextView>
+          </LinearLayout>
+        </TableRow>
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5dip" android:layout_marginTop="5dip" android:id="@+id/layout_reply" android:orientation="vertical">
+          <TextView android:layout_height="wrap_content" android:visibility="visible" android:id="@+id/reply_text" android:layout_width="fill_parent"></TextView>
+          <TextView android:layout_height="wrap_content" android:id="@+id/reply_user_name" android:layout_width="fill_parent" android:gravity="right|center_vertical" android:autoLink="web|email"></TextView>
+        </LinearLayout>
+        <TextView android:layout_width="fill_parent" android:id="@+id/status" android:layout_marginLeft="5dip" android:layout_marginRight="5dip" android:layout_marginTop="5dip" android:layout_height="wrap_content" android:autoLink="web|email"></TextView>
+        <TextView android:layout_width="fill_parent" android:layout_marginLeft="5dip" android:layout_marginRight="5dip" android:layout_marginTop="5dip" android:layout_height="wrap_content" android:id="@+id/text_result"></TextView>
+        <LinearLayout android:id="@+id/LinearLayout03" android:layout_width="wrap_content" android:layout_height="wrap_content">
+          <TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Permalink : "></TextView>
+          <TextView android:layout_height="wrap_content" android:layout_width="fill_parent" android:text="http://www.example.com/" android:autoLink="web" android:id="@+id/permaLink"></TextView>
+        </LinearLayout>
+      </TableLayout>
+      <TableLayout android:id="@+id/TableLayout02" android:layout_width="fill_parent" android:layout_margin="5dip" android:gravity="bottom" android:layout_height="fill_parent">
+        <Button android:layout_height="wrap_content" android:id="@+id/reply_button" android:text="Reply" android:layout_weight="1" android:layout_width="400dip"></Button>
+        <Button android:layout_height="wrap_content" android:text="イイネ！/Favorite" android:layout_weight="1" android:layout_width="400dip" android:id="@+id/button_favorite"></Button>
+      </TableLayout>
+    </LinearLayout>
+  </ScrollView></LinearLayout>
+  
+</LinearLayout>

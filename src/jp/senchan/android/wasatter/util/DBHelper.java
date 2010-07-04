@@ -15,7 +15,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	public DBHelper(Context context) {
 		//名前がひどいけど、一度これで作っちゃったからやむを得ない…＞＜
-		super(context, "imagestore.db", null,1);
+		super(context, "wasatter.db", null,1);
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
@@ -30,17 +30,9 @@ public class DBHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// ImageStoreテーブル→プロフィール、イイネアイコン
 		db.execSQL("create table imagestore(url text primary key,filename text,created integer)");
-		//db.execSQL("");
-
 	}
 
 	
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		//1.0のDBから2.0のDBにアップグレード
-		if(oldVersion == 1){
-			db.execSQL("create table icons(url text primary key,filename text,created integer)");
-		}
-
-
 	}
 }

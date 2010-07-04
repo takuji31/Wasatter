@@ -5,7 +5,7 @@
     
     
     
-    <string name="key_setting_display_load_image">display_load_image</string>
+    
     
     
     
@@ -21,7 +21,7 @@
     
     
     <string name="reload_complete">リロードしました。</string>
-    <string name="app_name">Wasatter Beta</string>
+    <string name="app_name">Wasatter</string>
 
 
 

@@ -1,11 +1,10 @@
 package jp.senchan.android.wasatter.activity;
 
+import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
-import jp.senchan.android.wasatter.task.TaskUpdate;
 import jp.senchan.android.wasatter.util.UrlGetter;
 import jp.senchan.android.wasatter.util.WasatterItem;
-import jp.senchan.android.wasatter.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -129,7 +128,7 @@ public class Update extends Activity {
 					}
 					// 二重投稿防止
 					update_button.setClickable(false);
-					TaskUpdate ut = new TaskUpdate(
+					/*TaskUpdate ut = new TaskUpdate(
 							Update.this.reply, wassr.isChecked(),
 							twitter.isChecked(),
 							Update.this.channel);
@@ -138,7 +137,7 @@ public class Update extends Activity {
 									sb.toString(),
 									Update.this.reply ? Update.this.ws.rid
 											: null,
-									Update.this.channelId,attachFileName);
+									Update.this.channelId,attachFileName);*/
 					Update.this.finish();
 				}
 			});

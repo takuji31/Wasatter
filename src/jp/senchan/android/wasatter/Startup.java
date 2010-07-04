@@ -2,7 +2,6 @@ package jp.senchan.android.wasatter;
 
 import jp.senchan.android.wasatter.activity.Main;
 import jp.senchan.android.wasatter.util.DBHelper;
-import jp.senchan.android.wasatter.util.ToastUtil;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -3,7 +3,6 @@
  */
 package jp.senchan.android.wasatter;
 
-import jp.senchan.android.wasatter.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,8 +23,6 @@ public class Setting extends PreferenceActivity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
-		super.onCreate(savedInstanceState);
-		this.addPreferencesFromResource(R.xml.setting);
 		PreferenceScreen pc2 = (PreferenceScreen) this.getPreferenceScreen()
 				.getPreference(2);
 		Preference pf2 = new Preference(Wasatter.CONTEXT);
@@ -52,22 +49,6 @@ public class Setting extends PreferenceActivity {
 		Context con = Wasatter.CONTEXT;
 		return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
 				"display_body_multi_line", false);
-	}
-
-	public static boolean isLoadWassrTimeline() {
-		Context con = Wasatter.CONTEXT;
-		return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-				con.getString(R.string.key_setting_wassr_load_timeline), true);
-	}
-
-	public static boolean isLoadTwitterTimeline() {
-		Context con = Wasatter.CONTEXT;
-		return PreferenceManager
-				.getDefaultSharedPreferences(con)
-				.getBoolean(
-						con
-								.getString(R.string.key_setting_twitter_load_timeline),
-						true);
 	}
 
 	public static String getWassrId() {
@@ -135,12 +116,6 @@ public class Setting extends PreferenceActivity {
 		Context con = Wasatter.CONTEXT;
 		return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
 				"display_load_favorite_image", false);
-	}
-
-	public static boolean isDisplayButtons() {
-		Context con = Wasatter.CONTEXT;
-		return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-				con.getString(R.string.key_setting_display_buttons), true);
 	}
 
 	private class CacheClearListener implements OnPreferenceClickListener {

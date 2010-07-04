@@ -7,9 +7,9 @@ import java.util.Date;
 import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.client.Wassr;
+import jp.senchan.android.wasatter.client.WassrUrl;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.DisplaySetting;
-import jp.senchan.android.wasatter.util.WassrClient;
 import jp.senchan.android.wasatter.R;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -134,7 +134,7 @@ public class Timeline extends ArrayAdapter<Item> implements
 					for (int i = 0; i < count; i++) {
 						ImageView add_icon = new ImageView(view.getContext());
 						add_icon.setImageBitmap(Wasatter.images
-								.get(WassrClient.FAVORITE_ICON_URL.replace(
+								.get(WassrUrl.FAVORITE_ICON.replace(
 										"[user]", favorites.get(i))));
 						add_icon.setLayoutParams(new LayoutParams(28, 28));
 						add_icon.setPadding(2, 2, 2, 2);

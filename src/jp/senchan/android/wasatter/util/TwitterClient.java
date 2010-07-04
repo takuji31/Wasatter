@@ -59,11 +59,6 @@ public class TwitterClient {
 	public static ArrayList<WasatterItem> getItems(String url)
 			throws TwitterException {
 		ArrayList<WasatterItem> ret = new ArrayList<WasatterItem>();
-		if (!Setting.isTwitterEnabled()
-				|| (!Setting.isLoadTwitterTimeline() && TwitterClient.FRIEND_TIMELINE_URL
-						.equals(url))) {
-			return ret;
-		}
 		HttpResponse res;
 		try {
 			res = http.get(url, getAuthorization());
