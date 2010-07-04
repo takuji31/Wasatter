@@ -2,12 +2,12 @@ package jp.senchan.android.wasatter.task;
 
 import java.util.ArrayList;
 
-import jp.senchan.android.wasatter.util.WasatterItem;
+import jp.senchan.android.wasatter.item.Item;
 import android.os.AsyncTask;
 import android.widget.ListView;
 
 public class Timeline extends
-		AsyncTask<String, String, ArrayList<WasatterItem>> {
+		AsyncTask<String, String, ArrayList<Item>> {
 	protected ListView listview;
 	protected int mode;
 	public static final int MODE_TIMELINE = 1;
@@ -26,7 +26,7 @@ public class Timeline extends
 	}
 
 	// バックグラウンドで実行する処理
-	protected ArrayList<WasatterItem> doInBackground(String... param) {
+	protected ArrayList<Item> doInBackground(String... param) {
 		return null;
 	}
 
@@ -40,6 +40,6 @@ public class Timeline extends
 
 	// メインスレッドで実行する処理
 	
-	protected void onPostExecute(ArrayList<WasatterItem> result) {
+	protected void onPostExecute(ArrayList<Item> result) {
 	}
 }

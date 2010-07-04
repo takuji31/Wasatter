@@ -28,7 +28,7 @@ import android.widget.Toast;
  * @author Senka/Takuji
  *
  */
-public class Update extends Activity {
+public class Reply extends Activity {
 	protected Item ws;
 	protected boolean reply;
 	protected boolean channel;
@@ -107,11 +107,11 @@ public class Update extends Activity {
 			post_btn.setOnClickListener(new OnClickListener() {
 				
 				public void onClick(View v) {
-					EditText status = (EditText) Update.this
+					EditText status = (EditText) Reply.this
 							.findViewById(R.id.post_status_text);
-					CheckBox wassr = (CheckBox) Update.this
+					CheckBox wassr = (CheckBox) Reply.this
 							.findViewById(R.id.check_post_wassr);
-					CheckBox twitter = (CheckBox) Update.this
+					CheckBox twitter = (CheckBox) Reply.this
 							.findViewById(R.id.check_post_twitter);
 					SpannableStringBuilder sb = (SpannableStringBuilder) status
 							.getText();
@@ -119,7 +119,7 @@ public class Update extends Activity {
 					// 未入力チェック
 					if ("".equals(sb.toString())) {
 						AlertDialog.Builder adb = new AlertDialog.Builder(
-								Update.this);
+								Reply.this);
 						adb.setTitle("");
 						adb.setMessage(R.string.notice_message_required);
 						adb.setPositiveButton("OK", null);
@@ -138,7 +138,7 @@ public class Update extends Activity {
 									Update.this.reply ? Update.this.ws.rid
 											: null,
 									Update.this.channelId,attachFileName);*/
-					Update.this.finish();
+					Reply.this.finish();
 				}
 			});
 		}
@@ -148,7 +148,7 @@ public class Update extends Activity {
 			
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
-				EditText status = (EditText) Update.this
+				EditText status = (EditText) Reply.this
 						.findViewById(R.id.post_status_text);
 				String str = status.getText().toString();
 				String replace;
@@ -218,7 +218,7 @@ public class Update extends Activity {
 		}
 		} catch (Throwable e) {
 			e.printStackTrace();
-			Toast.makeText(Update.this, "画像の添付に失敗しました。サイズオーバーです…。", Toast.LENGTH_SHORT).show();
+			Toast.makeText(Reply.this, "画像の添付に失敗しました。サイズオーバーです…。", Toast.LENGTH_SHORT).show();
 		}
 	}
 }
