@@ -17,6 +17,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/jdbm-1.0.jar" sourcepath="lib/jdbm-1.0-src.zip"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/WasatteOAuthParams"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/WasatterOAuthParams"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
