@@ -8,7 +8,7 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".activity.Main"></activity>
+		<activity android:name=".activity.Main" android:configChanges="keyboardHidden|orientation"></activity>
 		<activity android:label="New post" android:name=".activity.Update"></activity>
 		<activity android:name="Setting" android:label="Setting"></activity>
 		<activity android:name=".setting.WassrAccount" android:label="設定 - Wassr"

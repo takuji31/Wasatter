@@ -25,6 +25,11 @@ public class DataStore {
 	public static HTree icon;
 	public static final String KEY_ICON = "icon";
 	/**
+	 * アイコンキャッシュ、url=>ファイル名
+	 */
+	public static HTree icon_loaded;
+	public static final String KEY_ICON_LOADED = "icon_loaded";
+	/**
 	 * ユーザー情報(Wassr)、screenName=>ユーザー情報
 	 */
 	public static HTree userWassr;
@@ -51,6 +56,7 @@ public class DataStore {
 			userWassr = load(KEY_USER_WASSR);
 			userTwitter = load(KEY_USER_TWITTER);
 			icon = load(KEY_ICON);
+			icon_loaded = load(KEY_ICON_LOADED);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
