@@ -130,7 +130,8 @@ public class Timeline extends ArrayAdapter<Item> implements
 				layout_favorite_icons.removeAllViews();
 				layout_favorite_icons.addView(tv);
 				layout_favorite_list.setVisibility(View.VISIBLE);
-				if (Setting.isLoadFavoriteImage()) {
+				//TODO イイネアイコンのロード設定
+				//if (Setting.isLoadFavoriteImage()) {
 					for (int i = 0; i < count; i++) {
 						ImageView add_icon = new ImageView(view.getContext());
 						add_icon.setImageBitmap(Wasatter.images
@@ -140,7 +141,7 @@ public class Timeline extends ArrayAdapter<Item> implements
 						add_icon.setPadding(2, 2, 2, 2);
 						layout_favorite_icons.addView(add_icon);
 					}
-				}
+				//}
 			}
 
 			//投稿日時表示するぜヒャッハー

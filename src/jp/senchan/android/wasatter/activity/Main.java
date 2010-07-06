@@ -204,45 +204,12 @@ public class Main extends Activity {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		// タイトルをプログレスバーに使う
 		requestWindowFeature(Window.FEATURE_PROGRESS);
-
-		setContentView(R.layout.main);
 		//リストを初期化
 		list = new ArrayList<Item>();
-		//リストビューを取得
-		listView = (ListView) findViewById(R.id.timeline);
-		//リストビューにリストを代入
-		listView.setAdapter(new Timeline(this, R.layout.timeline_row, list , false));
-
-		// 色んなところからいじれるように、Static変数に突っ込む
-		Wasatter.main = this;
-
-		// リストにイベントリスナーを割り当てる
-		listView.setOnItemClickListener(new TLItemClickListener());
+		initialize();
 		reload();
-		//新規投稿ボタンにイベント割り当て
-		ImageButton buttonNew = (ImageButton) findViewById(R.id.buttonNew);
-		buttonNew.setOnClickListener(new OnClickListener() {
-
-			
-			public void onClick(View v) {
-				// TODO 自動生成されたメソッド・スタブ
-				Intent intent = new Intent(Main.this,Update.class);
-				startActivity(intent);
-			}
-		});
-		//新規投稿ボタンにイベント割り当て
-		ImageButton buttonReload = (ImageButton) findViewById(R.id.buttonReload);
-		buttonReload.setOnClickListener(new OnClickListener() {
-
-			
-			public void onClick(View v) {
-				// TODO 自動生成されたメソッド・スタブ
-				reload();
-			}
-		});
 	}
 
 	
@@ -359,13 +326,42 @@ public class Main extends Activity {
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO 自動生成されたメソッド・スタブ
 		super.onConfigurationChanged(newConfig);
-		//レイアウト割り当てやり直し
+		initialize();
+	}
+	
+	public void initialize(){
 		setContentView(R.layout.main);
-		//リスト当てはめ直し
+		//リストビューを取得
 		listView = (ListView) findViewById(R.id.timeline);
-		listView.setAdapter(new Timeline(this, R.layout.timeline_row, list, false));
-		updateList();
+		//リストビューにリストを代入
+		listView.setAdapter(new Timeline(this, R.layout.timeline_row, list , false));
+
+		// 色んなところからいじれるように、Static変数に突っ込む
+		Wasatter.main = this;
+
+		// リストにイベントリスナーを割り当てる
+		listView.setOnItemClickListener(new TLItemClickListener());
+		//新規投稿ボタンにイベント割り当て
+		ImageButton buttonNew = (ImageButton) findViewById(R.id.buttonNew);
+		buttonNew.setOnClickListener(new OnClickListener() {
+
+			
+			public void onClick(View v) {
+				// TODO 自動生成されたメソッド・スタブ
+				Intent intent = new Intent(Main.this,Update.class);
+				startActivity(intent);
+			}
+		});
+		//新規投稿ボタンにイベント割り当て
+		ImageButton buttonReload = (ImageButton) findViewById(R.id.buttonReload);
+		buttonReload.setOnClickListener(new OnClickListener() {
+
+			
+			public void onClick(View v) {
+				// TODO 自動生成されたメソッド・スタブ
+				reload();
+			}
+		});
 	}
 }
