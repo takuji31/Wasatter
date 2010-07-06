@@ -18,6 +18,7 @@ import jp.senchan.android.wasatter.util.ItemComparator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -354,5 +355,17 @@ public class Main extends Activity {
 			Main.this.startActivityForResult(intent_detail,
 					IntentCode.MAIN_ITEMDETAIL);
 		}
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// TODO 自動生成されたメソッド・スタブ
+		super.onConfigurationChanged(newConfig);
+		//レイアウト割り当てやり直し
+		setContentView(R.layout.main);
+		//リスト当てはめ直し
+		listView = (ListView) findViewById(R.id.timeline);
+		listView.setAdapter(new Timeline(this, R.layout.timeline_row, list, false));
+		updateList();
 	}
 }
