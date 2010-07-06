@@ -10,6 +10,7 @@ import java.util.Iterator;
 import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.activity.Main;
+import jp.senchan.android.wasatter.client.BaseClient;
 import jp.senchan.android.wasatter.client.Wassr;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
@@ -52,19 +53,13 @@ public class IconDownload extends AsyncTask<Void, Integer, Void> {
 
 	
 	protected Void doInBackground(Void... params) {
-		SQLiteDatabase db = Wasatter.db.getWritableDatabase();
 		ArrayList<String> urls = Wasatter.downloadWaitUrls;
-		SQLiteStatement st = db
-				.compileStatement("delete from imagestore where created <= ?");
 		//TODO:イテレーターを使わないように書き換える
 		Iterator<String> it = urls.iterator();
-		// キャッシュの期限は5日にしておこう。
-		st.bindLong(1, new Date().getTime() / 1000 - 5 * 24 * 60 * 60);
-		st.execute();
 		try {
 			while (it.hasNext()) {
 				String url = it.next();
-				if(Wassr.getImageWithCache(url)){
+				if(BaseClient.getImageWithCache(url)){
 					it.remove();
 				}
 				publishProgress(200);

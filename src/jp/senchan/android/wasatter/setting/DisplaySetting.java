@@ -1,10 +1,7 @@
 package jp.senchan.android.wasatter.setting;
 
 
-import jp.senchan.android.wasatter.Wasatter;
-import jp.senchan.android.wasatter.util.ToastUtil;
 import jp.senchan.android.wasatter.R;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;

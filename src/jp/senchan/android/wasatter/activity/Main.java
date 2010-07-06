@@ -3,6 +3,7 @@ package jp.senchan.android.wasatter.activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.adapter.Timeline;
 import jp.senchan.android.wasatter.client.Twitter;
@@ -12,10 +13,8 @@ import jp.senchan.android.wasatter.setting.SettingRoot;
 import jp.senchan.android.wasatter.setting.TwitterAccount;
 import jp.senchan.android.wasatter.setting.WassrAccount;
 import jp.senchan.android.wasatter.task.IconDownload;
-import jp.senchan.android.wasatter.task.TaskImageDownloadWithCache;
 import jp.senchan.android.wasatter.util.IntentCode;
 import jp.senchan.android.wasatter.util.ItemComparator;
-import jp.senchan.android.wasatter.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -336,11 +335,6 @@ public class Main extends Activity {
 			reloadThreadTwitter.start();
 		}
 	}
-
-	public void startImageDownload() {
-		new TaskImageDownloadWithCache().execute();
-	}
-
 
 	/**
 	 * タイムラインをクリックした時のOnClickListener

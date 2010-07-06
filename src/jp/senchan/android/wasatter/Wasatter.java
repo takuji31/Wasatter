@@ -16,6 +16,7 @@ import jp.senchan.android.wasatter.activity.Main;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.Setting;
 import jp.senchan.android.wasatter.util.DBHelper;
+import jp.senchan.android.wasatter.util.ToastUtil;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -170,6 +171,7 @@ public class Wasatter {
 	}
 
 	public static void deleteImageCache() {
+		//TODO JDBM仕様に書き換える
 		Wasatter.images.clear();
 		SQLiteDatabase rdb = Wasatter.db.getReadableDatabase();
 		Cursor c = rdb.rawQuery("select filename from imagestore", null);
@@ -217,11 +219,14 @@ public class Wasatter {
 		}
 	}
 	
+	public static String getDataPath(String dir,String filename){
+		return getDataPath(dir,filename,Setting.get("use_sd", true));
+	}
 	public static String getDataPath(String dir){
-		return getDataPath(dir,Setting.get("use_sd", true));
+		return getDataPath(dir,"",Setting.get("use_sd", true));
 	}
 	
-	public static String getDataPath(String dir,boolean external) {
+	public static String getDataPath(String dir,String filename,boolean external) {
 		SpannableStringBuilder sb = new SpannableStringBuilder();
 		if(external){
 			sb.append(Environment.getExternalStorageDirectory().getAbsolutePath());
@@ -230,8 +235,9 @@ public class Wasatter {
 		sb.append("/");
 		sb.append(dir);
 		sb.append("/");
+		sb.append(filename);
 		new File(sb.toString()).mkdirs();
 		return sb.toString();
 	}
-
+	
 }

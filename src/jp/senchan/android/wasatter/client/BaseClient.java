@@ -1,9 +1,9 @@
 package jp.senchan.android.wasatter.client;
 
 import java.io.IOException;
-import java.util.Date;
 
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.item.DataStore;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -14,9 +14,6 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
-import android.database.sqlite.SQLiteConstraintException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -57,26 +54,22 @@ public class BaseClient {
 	}
 
 	public static boolean getImageWithCache(String url) {
-		SQLiteDatabase db = Wasatter.db.getWritableDatabase();
-		SQLiteStatement st;
-		Bitmap bmp = Wassr.getImage(url);
-		if (bmp != null) {
-			String filename = Wasatter.makeImageFileName();
-			if (Wasatter.saveImage(filename, bmp)) {
-				try {
-					st = db
-							.compileStatement("insert into imagestore(url,filename,created) values(?,?,?)");
-					st.bindString(1, url);
-					st.bindString(2, filename);
-					// 取得した時間（秒単位）を入れておく
-					st.bindLong(3, new Date().getTime() / 1000);
-					st.executeInsert();
-					Wasatter.images.put(url, bmp);
-					return true;
-				} catch (SQLiteConstraintException e) {
-					//FIXME とりあえずその場しのぎ
-				}
+		Bitmap bmp = null;
+		try {
+			String name = (String) DataStore.icon.get(url);
+			if(name != null){
+				bmp = Wasatter.getImage(name);
+			}else{
+				bmp = getImage(url);
+				String filename = Wasatter.makeImageFileName();
+				Wasatter.saveImage(filename, bmp);
+				DataStore.icon.put(url, filename);
+				DataStore.commit();
 			}
+			Wasatter.images.put(url, bmp);
+			return true;
+		} catch (IOException e1) {
+			//まず通らない気がするけど一応
 		}
 		return false;
 	}

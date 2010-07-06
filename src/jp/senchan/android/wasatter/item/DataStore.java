@@ -49,7 +49,7 @@ public class DataStore {
 		Properties pt = new Properties();
 		try {
 			recman = RecordManagerFactory.createRecordManager(Wasatter
-					.getDataPath("data/datastore"), pt);
+					.getDataPath("data","datastore"), pt);
 			//各レコードをロードする
 			statusWassr = load(KEY_STATUS_WASSR);
 			statusTwitter = load(KEY_STATUS_TWITTER);
@@ -72,6 +72,14 @@ public class DataStore {
 			recman.setNamedObject(key , obj.getRecid());
 		}
 		return obj;
+	}
+	
+	public static void commit(){
+		try {
+			recman.commit();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
