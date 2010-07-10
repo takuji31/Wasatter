@@ -25,7 +25,7 @@ public class Timeline extends
 
 	// バックグラウンドで実行する処理
 	protected ArrayList<Item> doInBackground(String... param) {
-		HttpResponse response = Wassr.getItems(mode, null, true, null, null);
+		HttpResponse response = Wassr.request(mode, null);
 		// HTTPレスポンスステータスを取得
 		final int errorCode = response.getStatusLine().getStatusCode();
 		// 400番台以上の場合、エラー処理

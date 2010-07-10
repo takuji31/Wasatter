@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 
 import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
-import jp.senchan.android.wasatter.activity.Main;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.WassrAccount;
 import jp.senchan.android.wasatter.R;
@@ -75,19 +74,12 @@ public class Wassr extends BaseClient {
 	 * 
 	 * @param mode
 	 *            どのデータを取得するか
-	 * @param clear
-	 *            リストの中身をクリアするか否か
-	 * @param items
-	 *            追加する先のリスト
 	 * @param params
 	 *            HTTP通信で使うパラメータ
 	 * @return 追加されたリスト
 	 */
-	public static HttpResponse getItems(int mode, final Main target,
-			boolean clear, ArrayList<Item> items, HashMap<String, String> params) {
+	public static HttpResponse request(int mode, HashMap<String, String> params) {
 
-		// 取得するのがチャンネルか否か
-		boolean channel = false;
 		// 取得するURL
 		String url;
 		// TODO Wassrが無効なら終了
@@ -117,7 +109,6 @@ public class Wassr extends BaseClient {
 			break;
 		case CHANNEL:
 			url = WassrUrl.CHANNEL_TIMELINE;
-			channel = true;
 			break;
 		// 正しくない値が渡されたら終了
 		default:
@@ -138,7 +129,6 @@ public class Wassr extends BaseClient {
 		}
 
 		// 通信する
-		HttpResponse response;
 		try {
 			return client.execute(get);
 		} catch (ClientProtocolException e1) {

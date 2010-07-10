@@ -1,20 +1,13 @@
 package jp.senchan.android.wasatter.activity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.adapter.Timeline;
-import jp.senchan.android.wasatter.client.Twitter;
-import jp.senchan.android.wasatter.client.Wassr;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.SettingRoot;
-import jp.senchan.android.wasatter.setting.TwitterAccount;
-import jp.senchan.android.wasatter.setting.WassrAccount;
-import jp.senchan.android.wasatter.task.IconDownload;
 import jp.senchan.android.wasatter.util.IntentCode;
-import jp.senchan.android.wasatter.util.ItemComparator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -36,135 +29,11 @@ public class Main extends Activity {
 	public ListView listView;
 	public ArrayList<Item> list;
 	public Handler handler = new Handler();
-	public ReloadThreadWassr reloadThreadWassr;
-	public ReloadThreadTwitter reloadThreadTwitter;
 	public boolean wassrLoad;
 	public boolean twitterLoad;
 	public boolean wassrLoadComplete = false;
 	public boolean twitterLoadComplete = false;
 
-	/**
-	 * Wassrリロードスレッド
-	 * @author takuji
-	 *
-	 */
-	protected class ReloadThreadWassr extends Thread {
-		private int mode;
-		private Main target;
-		private boolean clear;
-		private ArrayList<Item> list;
-		private HashMap<String, String> params;
-
-		public ReloadThreadWassr(Main target, int mode, boolean clear,
-				HashMap<String, String> params) {
-			// パラメータをあらかじめセットする
-			this.mode = mode;
-			this.target = target;
-			this.clear = clear;
-			this.list = target.list;
-			this.params = params;
-			target.wassrLoad = WassrAccount.get(WassrAccount.LOAD_TL, false);
-			target.twitterLoad = TwitterAccount.get(TwitterAccount.LOAD_TL, false);
-		}
-
-		
-		public void run() {
-			// タイムラインを取得
-			handler.post(new Runnable() {
-
-				
-				public void run() {
-					// プログレスバーを500にセット、これでダウンロードしてるっぽく見えるはず…？
-					setProgressBarVisibility(true);
-					setProgress(500);
-				}
-			});
-			Wassr.getItems(mode, target, clear, list, params);
-			target.wassrLoadComplete = true;
-			handler.post(new Runnable() {
-
-				
-				public void run() {
-					// ソートを実行
-					Timeline tl = (Timeline) listView.getAdapter();
-					tl.sort(new ItemComparator());
-					reloadThreadWassr = null;
-					if((target.twitterLoad && target.twitterLoadComplete) || !target.twitterLoad){
-						//10000にセットしてプログレスバーを消す
-						setProgress(10000);
-						target.twitterLoadComplete = false;
-						target.wassrLoadComplete = false;
-						new IconDownload(target).execute();
-					}else if(target.wassrLoad){
-						setProgress(5000);
-					}
-				}
-			});
-		}
-	};
-
-	/**
-	 * Twitterリロードスレッド
-	 * @author takuji
-	 *
-	 */
-	protected class ReloadThreadTwitter extends Thread {
-		private int mode;
-		private Main target;
-		private boolean clear;
-		private ArrayList<Item> list;
-		private HashMap<String, String> params;
-
-		public ReloadThreadTwitter(Main target, int mode, boolean clear,
-				HashMap<String, String> params) {
-			// パラメータをあらかじめセットする
-			this.mode = mode;
-			this.target = target;
-			this.clear = clear;
-			this.list = target.list;
-			this.params = params;
-			target.wassrLoad = WassrAccount.get(WassrAccount.LOAD_TL, false);
-			target.twitterLoad = TwitterAccount.get(TwitterAccount.LOAD_TL, false);
-		}
-
-		
-		public void run() {
-			// タイムラインを取得
-			handler.post(new Runnable() {
-
-				
-				public void run() {
-					// プログレスバーを500にセット、これでダウンロードしてるっぽく見えるはず…？
-					setProgressBarVisibility(true);
-					setProgress(500);
-				}
-			});
-			Twitter.getItems(mode, target, clear, list, params);
-			target.twitterLoadComplete = true;
-			handler.post(new Runnable() {
-
-				
-				public void run() {
-					// ソートを実行
-					Timeline tl = (Timeline) listView.getAdapter();
-					tl.sort(new ItemComparator());
-					reloadThreadTwitter = null;
-					if((target.wassrLoad && target.wassrLoadComplete) || !target.wassrLoad){
-						//10000にセットしてプログレスバーを消す
-						target.twitterLoadComplete = false;
-						target.wassrLoadComplete = false;
-						setProgress(10000);
-						new IconDownload(target).execute();
-					}else if(target.twitterLoad){
-						setProgress(5000);
-					}
-				}
-			});
-		}
-	};
-
-
-	
 	/**
 	 * 別スレッドから呼び出すHTTPエラーに対する処理
 	 * @param code エラーコード
@@ -296,14 +165,6 @@ public class Main extends Activity {
 	 * リロードを実行するメソッド
 	 */
 	public void reload() {
-		if(reloadThreadWassr == null){
-			reloadThreadWassr = new ReloadThreadWassr(this, Wassr.TIMELINE, false, null);
-			reloadThreadWassr.start();
-		}
-		if(reloadThreadTwitter == null){
-			reloadThreadTwitter = new ReloadThreadTwitter(this, Twitter.TIMELINE, false, null);
-			reloadThreadTwitter.start();
-		}
 	}
 
 	/**
