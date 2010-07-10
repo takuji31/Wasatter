@@ -1,5 +1,6 @@
 package jp.senchan.android.wasatter.client;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,10 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -36,6 +41,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Html.ImageGetter;
+import android.util.Log;
 
 /**
  * Version2からのWassrクライアントクラス
@@ -336,5 +342,59 @@ public class Wassr extends BaseClient {
 
 	public static ArrayList<Item> parseJSON(String jsonStr) {
 		return parseJSON(jsonStr, Wassr.TIMELINE);
+	}
+	
+	/**
+	 * Wassrにヒトコトを投げるメソッド、通常タイムラインへの投稿と返信はこのメソッドで行う。
+	 *
+	 * @param status
+	 *            本文
+	 * @param rid
+	 *            返信先のID
+	 * @param image
+	 *            添付する画像
+	 * @return
+	 */
+	public static boolean updateTimeLine(String status, String rid, String image){
+		try {
+
+			// まずはパラメーターを準備する
+			MultipartEntity reqEntity = new MultipartEntity(
+					HttpMultipartMode.BROWSER_COMPATIBLE);
+			// 画像が指定されていれば画像
+			if (image != null) {
+				File file = new File(image);
+				FileBody bin = new FileBody(file);
+				reqEntity.addPart("image", bin);
+			}
+
+			// 返信の場合はrid
+			if (rid != null) {
+				StringBody reply_rid = new StringBody(rid);
+				reqEntity.addPart("reply_status_rid", reply_rid);
+			}
+
+			// その他のパラメータ
+			StringBody via = new StringBody(Wasatter.VIA);
+			StringBody st = new StringBody(status);
+			reqEntity.addPart("source", via);
+			reqEntity.addPart("status", st);
+
+			//HttpClientの準備
+			DefaultHttpClient client = getHttpClient();
+			HttpPost post = new HttpPost(WassrUrl.UPDATE_TIMELINE);
+			post.setEntity(reqEntity);
+			org.apache.http.HttpResponse response = client.execute(post);
+			HttpEntity resEntity = response.getEntity();
+			if (resEntity != null) {
+				Log.i("RESPONSE", EntityUtils.toString(resEntity));
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		//ここまで来ることはまずないけど、きたら失敗
+		return false;
 	}
 }
