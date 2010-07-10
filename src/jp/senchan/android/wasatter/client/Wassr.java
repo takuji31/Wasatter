@@ -45,13 +45,6 @@ import android.text.Html.ImageGetter;
  * 
  */
 public class Wassr extends BaseClient {
-	public static final int TIMELINE = 1;
-	public static final int REPLY = 2;
-	public static final int MYPOST = 3;
-	public static final int ODAI = 4;
-	public static final int TODO = 5;
-	public static final int CHANNEL_LIST = 6;
-	public static final int CHANNEL = 7;
 
 	public static DefaultHttpClient getHttpClient() {
 		// HttpClientの準備
@@ -90,8 +83,8 @@ public class Wassr extends BaseClient {
 	 *            HTTP通信で使うパラメータ
 	 * @return 追加されたリスト
 	 */
-	public static void getItems(int mode, final Main target, boolean clear,
-			ArrayList<Item> items, HashMap<String, String> params) {
+	public static HttpResponse getItems(int mode, final Main target,
+			boolean clear, ArrayList<Item> items, HashMap<String, String> params) {
 
 		// 取得するのがチャンネルか否か
 		boolean channel = false;
@@ -99,7 +92,7 @@ public class Wassr extends BaseClient {
 		String url;
 		// TODO Wassrが無効なら終了
 		if (!enabled()) {
-			return;
+			return null;
 		}
 
 		// URLを決定する、チャンネルかどうかも判断する
@@ -128,7 +121,7 @@ public class Wassr extends BaseClient {
 			break;
 		// 正しくない値が渡されたら終了
 		default:
-			return;
+			return null;
 		}
 
 		// HttpClientの準備
@@ -147,142 +140,15 @@ public class Wassr extends BaseClient {
 		// 通信する
 		HttpResponse response;
 		try {
-			response = client.execute(get);
-			// HTTPレスポンスステータスを取得
-			final int errorCode = response.getStatusLine().getStatusCode();
-			// 400番台以上の場合、エラー処理
-			if (errorCode >= 400) {
-				target.handler.post(new Runnable() {
-
-					public void run() {
-						target.httpError(errorCode, "Wassr");
-
-					}
-				});
-				return;
-			}
-			HttpEntity resEntity = response.getEntity();
-			JSONArray result = null;
-			if (resEntity != null) {
-				String resString = EntityUtils.toString(resEntity);
-				result = new JSONArray(resString);
-			}
-			// 配列が空なら終了
-			if (result == null || result.length() == 0) {
-				return;
-			}
-			try {
-				// 配列の長さを代入
-				int j = result.length();
-				SimpleDateFormat sdf = new SimpleDateFormat(
-						"EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
-				// リストをクリアする設定ならクリアする
-				if (clear) {
-					items.clear();
-				}
-				for (int i = 0; i < j; i++) {
-					JSONObject obj = result.getJSONObject(i);
-					Item item = new Item();
-					item.service = Wasatter.WASSR;
-					item.rid = obj.getString("rid");
-					item.channel = channel;
-					// 一旦HTMLの解析をして必要な画像をとっておく
-					String htmlSrc = obj.getString("html");
-					Html.fromHtml(htmlSrc, new ImageGetter() {
-						public Drawable getDrawable(String source) {
-							// 必要な画像のURLをあらかじめ取得
-							Bitmap bmp = Wasatter.images.get(source);
-							if (bmp == null) {
-								Wassr.getImageWithCache(source);
-							}
-							return null;
-						}
-					}, null);
-					item.html = htmlSrc;
-					if (channel) {
-						JSONObject ch = obj.getJSONObject("channel");
-						SpannableStringBuilder sb = new SpannableStringBuilder(
-								ch.getString("title"));
-						sb.append(" (");
-						sb.append(ch.getString("name_en"));
-						item.service = sb.append(")").toString();
-						item.screenName = obj.getJSONObject("user").getString(
-								"login_id");
-						item.name = obj.getJSONObject("user").getString("nick");
-						item.link = WassrUrl.CHANNEL_PERMA_LINK.replace(
-								"[name]", ch.getString("name_en")).replace(
-								"[rid]", item.rid);
-						try {
-							JSONObject reply = obj.getJSONObject("reply");
-							item.replyUserNick = reply.getJSONObject("user")
-									.getString("nick");
-							item.replyMessage = reply.getString("body");
-						} catch (JSONException e) {
-							// 返信なかったらスルー
-						}
-						try {
-							item.epoch = sdf.parse(obj.getString("created_on"))
-									.getTime() / 1000;
-						} catch (ParseException e) {
-							item.epoch = 0;
-						}
-						item.text = obj.getString("body");
-					} else {
-						item.screenName = obj.getString("user_login_id");
-						item.name = obj.getJSONObject("user").getString(
-								"screen_name");
-						item.link = obj.getString("link");
-						item.replyUserNick = obj.getString("reply_user_nick");
-						item.replyMessage = obj.getString("reply_message");
-						item.epoch = Long.parseLong(obj.getString("epoch"));
-
-						item.text = obj.getString("text");
-					}
-					String profile = obj.getJSONObject("user").getString(
-							"profile_image_url");
-					if (Wasatter.downloadWaitUrls.indexOf(profile) == -1
-							&& Wasatter.images.get(profile) == null) {
-						Wasatter.downloadWaitUrls.add(profile);
-					}
-					item.profileImageUrl = profile;
-					if ("null".equalsIgnoreCase(item.replyMessage)) {
-						item.replyMessage = Wasatter.CONTEXT
-								.getString(R.string.message_private_message);
-					}
-					JSONArray favorites = obj.getJSONArray("favorites");
-					// お題のイイネは取得しない。
-					int fav_count = favorites.length();
-					for (int k = 0; k < fav_count; k++) {
-						String icon_url = WassrUrl.FAVORITE_ICON.replace(
-								"[user]", favorites.getString(k));
-						item.favorite.add(favorites.getString(k));
-						if (!WassrUrl.ODAI.equals(url)
-								&& Wasatter.downloadWaitUrls.indexOf(icon_url) == -1
-								&& Wasatter.images.get(icon_url) == null) {
-							Wasatter.downloadWaitUrls.add(icon_url);
-						}
-					}
-					item.favorited = item.favorite
-							.indexOf(Setting.getWassrId()) != -1;
-					if (items.indexOf(item) == -1) {
-						items.add(0, item);
-					}
-
-				}
-			} catch (JSONException e) {
-				// TODO 自動生成された catch ブロック
-			}
-			return;
+			return client.execute(get);
 		} catch (ClientProtocolException e1) {
 			// TODO ようわからんけど通信がおかしかったら到達するブロック
 			e1.printStackTrace();
 		} catch (IOException e1) {
 			// TODO ネットワークエラー…？
 			e1.printStackTrace();
-		} catch (JSONException e) {
-			// TODO JSONデータが破損している場合に到達するブロック
-			e.printStackTrace();
 		}
+		return null;
 	}
 
 	public static boolean favorite(Item item) {
@@ -362,4 +228,123 @@ public class Wassr extends BaseClient {
 		return "NG";
 	}
 
+	/**
+	 * タイムラインのJSONをパースするメソッド
+	 * 
+	 * @param jsonStr
+	 * @return
+	 */
+	public static ArrayList<Item> parseJSON(String jsonStr, int mode) {
+		ArrayList<Item> items = new ArrayList<Item>();
+		// 配列が空でない時のみ処理する
+		try {
+			JSONArray result = new JSONArray(jsonStr);
+			boolean channel = (mode == Wassr.CHANNEL);
+			if (result.length() != 0) {
+				// 配列の長さを代入
+				int j = result.length();
+				SimpleDateFormat sdf = new SimpleDateFormat(
+						"EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+				for (int i = 0; i < j; i++) {
+					JSONObject obj = result.getJSONObject(i);
+					Item item = new Item();
+					item.service = Wasatter.WASSR;
+					item.rid = obj.getString("rid");
+					item.channel = channel;
+					// 一旦HTMLの解析をして必要な画像をとっておく
+					String htmlSrc = obj.getString("html");
+					Html.fromHtml(htmlSrc, new ImageGetter() {
+						public Drawable getDrawable(String source) {
+							// 必要な画像のURLをあらかじめ取得
+							Bitmap bmp = Wasatter.images.get(source);
+							if (bmp == null) {
+								Wassr.getImageWithCache(source);
+							}
+							return null;
+						}
+					}, null);
+					item.html = htmlSrc;
+					if (channel) {
+						JSONObject ch = obj.getJSONObject("channel");
+						SpannableStringBuilder sb = new SpannableStringBuilder(
+								ch.getString("title"));
+						sb.append(" (");
+						sb.append(ch.getString("name_en"));
+						item.service = sb.append(")").toString();
+						item.screenName = obj.getJSONObject("user").getString(
+								"login_id");
+						item.name = obj.getJSONObject("user").getString("nick");
+						item.link = WassrUrl.CHANNEL_PERMA_LINK.replace(
+								"[name]", ch.getString("name_en")).replace(
+								"[rid]", item.rid);
+						try {
+							JSONObject reply = obj.getJSONObject("reply");
+							item.replyUserNick = reply.getJSONObject("user")
+									.getString("nick");
+							item.replyMessage = reply.getString("body");
+						} catch (JSONException e) {
+							// 返信なかったらスルー
+						}
+						try {
+							item.epoch = sdf.parse(obj.getString("created_on"))
+									.getTime() / 1000;
+						} catch (ParseException e) {
+							item.epoch = 0;
+						}
+						item.text = obj.getString("body");
+					} else {
+						item.screenName = obj.getString("user_login_id");
+						item.name = obj.getJSONObject("user").getString(
+								"screen_name");
+						item.link = obj.getString("link");
+						item.replyUserNick = obj.getString("reply_user_nick");
+						item.replyMessage = obj.getString("reply_message");
+						item.epoch = Long.parseLong(obj.getString("epoch"));
+
+						item.text = obj.getString("text");
+					}
+					String profile = obj.getJSONObject("user").getString(
+							"profile_image_url");
+					if (Wasatter.downloadWaitUrls.indexOf(profile) == -1
+							&& Wasatter.images.get(profile) == null) {
+						Wasatter.downloadWaitUrls.add(profile);
+					}
+					item.profileImageUrl = profile;
+					if ("null".equalsIgnoreCase(item.replyMessage)) {
+						item.replyMessage = Wasatter.CONTEXT
+								.getString(R.string.message_private_message);
+					}
+					JSONArray favorites = obj.getJSONArray("favorites");
+					// お題のイイネは取得しない。
+					int fav_count = favorites.length();
+					for (int k = 0; k < fav_count; k++) {
+						String icon_url = WassrUrl.FAVORITE_ICON.replace(
+								"[user]", favorites.getString(k));
+						item.favorite.add(favorites.getString(k));
+						if (!(mode == Wassr.ODAI)
+								&& Wasatter.downloadWaitUrls.indexOf(icon_url) == -1
+								&& Wasatter.images.get(icon_url) == null) {
+							Wasatter.downloadWaitUrls.add(icon_url);
+						}
+					}
+					item.favorited = item.favorite
+							.indexOf(Setting.getWassrId()) != -1;
+					if (items.indexOf(item) == -1) {
+						items.add(0, item);
+					}
+
+				}
+			}
+		} catch (JSONException e) {
+			//TODO JSONのパースエラー出すべき？
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		return items;
+	}
+
+	public static ArrayList<Item> parseJSON(String jsonStr) {
+		return parseJSON(jsonStr, Wassr.TIMELINE);
+	}
 }

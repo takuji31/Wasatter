@@ -25,7 +25,7 @@ public class Startup extends Activity {
 		//メモリ内の画像キャッシュを解放
 		Wasatter.images.clear();
 
-		//何か処理する、アップデート確認とかバグ報告とか
+		//TODO アップデート確認とかバグ報告とか
 
 
 		//メイン画面を呼び出す

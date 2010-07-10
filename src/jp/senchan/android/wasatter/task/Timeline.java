@@ -2,6 +2,12 @@ package jp.senchan.android.wasatter.task;
 
 import java.util.ArrayList;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+
+import jp.senchan.android.wasatter.client.Wassr;
 import jp.senchan.android.wasatter.item.Item;
 import android.os.AsyncTask;
 import android.widget.ListView;
@@ -10,15 +16,7 @@ public class Timeline extends
 		AsyncTask<String, String, ArrayList<Item>> {
 	protected ListView listview;
 	protected int mode;
-	public static final int MODE_TIMELINE = 1;
-	public static final int MODE_REPLY = 2;
-	public static final int MODE_MYPOST = 3;
-	public static final int MODE_ODAI = 4;
-	public static final int MODE_TODO = 5;
-	public static final int MODE_CHANNEL_LIST = 6;
-	public static final int MODE_CHANNEL = 7;
-	public static final String[] msg = new String[] { "Timeline", "Reply",
-			"My post", "Odai", "TODO", "Channel list", "Channel status" };
+	private int progressCount;
 
 	// コンストラクタ
 	public Timeline(int mode) {
@@ -27,6 +25,13 @@ public class Timeline extends
 
 	// バックグラウンドで実行する処理
 	protected ArrayList<Item> doInBackground(String... param) {
+		HttpResponse response = Wassr.getItems(mode, null, true, null, null);
+		// HTTPレスポンスステータスを取得
+		final int errorCode = response.getStatusLine().getStatusCode();
+		// 400番台以上の場合、エラー処理
+		if (errorCode >= 400) {
+			//エラー処理
+		}
 		return null;
 	}
 
@@ -42,4 +47,5 @@ public class Timeline extends
 	
 	protected void onPostExecute(ArrayList<Item> result) {
 	}
+	
 }

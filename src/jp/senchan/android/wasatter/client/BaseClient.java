@@ -18,6 +18,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 public class BaseClient {
+	public static final int TIMELINE = 1;
+	public static final int REPLY = 2;
+	public static final int MYPOST = 3;
+	public static final int ODAI = 4;
+	public static final int TODO = 5;
+	public static final int CHANNEL_LIST = 6;
+	public static final int CHANNEL = 7;
+	public static final String[] msg = new String[] { "Timeline", "Reply",
+		"My post", "Odai", "TODO", "Channel list", "Channel status" };
+
+	
 	public static DefaultHttpClient getHttpClient() {
 		// HttpClientの準備
 		// TODO Staticに突っ込んで使い回そうかと思ったけどどっか1つ詰まったらそのまま通信出来なさそうなのでやめた。

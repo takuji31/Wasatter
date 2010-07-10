@@ -16,7 +16,6 @@ import jp.senchan.android.wasatter.activity.Main;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.Setting;
 import jp.senchan.android.wasatter.util.DBHelper;
-import jp.senchan.android.wasatter.util.ToastUtil;
 
 import org.apache.commons.codec.binary.Base64;
 

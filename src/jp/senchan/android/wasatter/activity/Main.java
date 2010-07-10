@@ -208,6 +208,8 @@ public class Main extends Activity {
 		requestWindowFeature(Window.FEATURE_PROGRESS);
 		//リストを初期化
 		list = new ArrayList<Item>();
+		
+		//初期化処理の実行
 		initialize();
 		reload();
 	}
