@@ -11,7 +11,9 @@ import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.TwitterAccount;
-import jp.senchan.android.wasatter.xauth.XAuth;
+import jp.senchan.android.wasatter.xauth.SignatureEncode;
+import jp.senchan.android.wasatter.xauth.XAuthClient;
+import jp.senchan.android.wasatter.xauth.XAuthTokenGetter;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -24,6 +26,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 /**
  * Version2からのWassrクライアントクラス
@@ -87,7 +91,7 @@ public class Twitter extends BaseClient {
 		}
 
 		// xAuthリクエストの準備
-		XAuth request = new XAuth(url, "GET", params);
+		XAuthClient request = new XAuthClient(url, "GET", params);
 
 		return request.request();
 	}
@@ -102,8 +106,8 @@ public class Twitter extends BaseClient {
 		// xAuthリクエストの準備
 		//TODO 仮にテキストだけ
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("status", status);
-		XAuth request = new XAuth(TwitterUrl.UPDATE_TIMELINE, "POST", params);
+		params.put("status", SignatureEncode.encode(status));
+		XAuthClient request = new XAuthClient(TwitterUrl.UPDATE_TIMELINE, "POST", params);
 
 		try {
 			HttpResponse response = request.request();
@@ -114,8 +118,9 @@ public class Twitter extends BaseClient {
 				return false;
 			}
 			HttpEntity resEntity = response.getEntity();
-			JSONArray result = null;
 			String resString = EntityUtils.toString(resEntity);
+			JSONObject result = new JSONObject(resString);
+			Log.i("Result", result.toString());
 			return true;
 		} catch (ClientProtocolException e1) {
 			// TODO ようわからんけど通信がおかしかったら到達するブロック
