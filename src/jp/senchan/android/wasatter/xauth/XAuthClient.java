@@ -3,8 +3,6 @@ package jp.senchan.android.wasatter.xauth;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 
 import jp.senchan.android.wasatter.auth.params.XAuthTwitter;
 import jp.senchan.android.wasatter.setting.TwitterAccount;
@@ -14,7 +12,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpParams;
 
 import android.text.SpannableStringBuilder;
 

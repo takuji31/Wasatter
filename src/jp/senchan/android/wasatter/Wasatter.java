@@ -145,6 +145,7 @@ public class Wasatter {
 			return BitmapFactory.decodeStream(new FileInputStream(path
 					.toString()));
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -160,13 +161,11 @@ public class Wasatter {
 	}
 
 	public static String getImageTempPath() {
-		String sdPath = Environment.getExternalStorageDirectory().getPath();
-		return new SpannableStringBuilder(sdPath).append("/wasatter/")
-				.toString();
+		return getDataPath(".temp_image");
 	}
 
 	public static String getImagePath() {
-		return CONTEXT.getDir("imagecache", Context.MODE_WORLD_READABLE).getAbsolutePath() + "/";
+		return getDataPath("imagecache");
 	}
 
 	public static void deleteImageCache() {

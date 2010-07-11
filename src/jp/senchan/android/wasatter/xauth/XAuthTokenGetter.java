@@ -11,7 +11,6 @@ import java.util.UUID;
 import java.util.Map.Entry;
 
 import jp.senchan.android.wasatter.auth.params.XAuthTwitter;
-import jp.senchan.android.wasatter.setting.TwitterAccount;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;

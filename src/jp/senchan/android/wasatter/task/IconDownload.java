@@ -4,16 +4,12 @@
 package jp.senchan.android.wasatter.task;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 
 import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.activity.Main;
 import jp.senchan.android.wasatter.client.BaseClient;
-import jp.senchan.android.wasatter.client.Wassr;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.os.AsyncTask;
 
 /**
