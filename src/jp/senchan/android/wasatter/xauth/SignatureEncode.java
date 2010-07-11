@@ -10,7 +10,7 @@ public class SignatureEncode {
 		try {
 			bytes = s.getBytes("utf-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO 自動生成された catch ブロック
+			//ありえない
 			e.printStackTrace();
 			return null;
 		}

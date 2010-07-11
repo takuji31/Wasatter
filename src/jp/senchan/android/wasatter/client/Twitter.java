@@ -171,10 +171,9 @@ public class Twitter extends BaseClient {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {
-			// TODO 自動生成された catch ブロック
+			// よくわからない
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 		return false;
@@ -230,7 +229,7 @@ public class Twitter extends BaseClient {
 			}
 			}
 		} catch (JSONException e) {
-			// TODO 自動生成された catch ブロック
+			// FIXME ここでcatchするのはいかがなものか
 		}
 		return items;
 		

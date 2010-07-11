@@ -56,7 +56,6 @@ public class TimelineDownload extends
 						items.addAll(Wassr.parseJSON(jsonString, mode));
 						publishProgress(UPDATE_VIEW);
 					} catch (IOException e) {
-						// TODO 自動生成された catch ブロック
 						e.printStackTrace();
 					}
 				}
@@ -84,7 +83,6 @@ public class TimelineDownload extends
 						items.addAll(Twitter.parseJSON(jsonString, mode));
 						publishProgress(UPDATE_VIEW);
 					} catch (IOException e) {
-						// TODO 自動生成された catch ブロック
 						e.printStackTrace();
 					}
 				}

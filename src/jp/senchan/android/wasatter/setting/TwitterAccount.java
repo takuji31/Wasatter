@@ -34,9 +34,8 @@ public class TwitterAccount extends Setting {
 	public Thread authThread;
 	public Runnable authFailure = new Runnable() {
 
-		
+		//TODO AsyncTaskに書き換える
 		public void run() {
-			// TODO 自動生成されたメソッド・スタブ
 			Toast
 					.makeText(TwitterAccount.this, "認証に失敗しました",
 							Toast.LENGTH_SHORT).show();
@@ -48,7 +47,6 @@ public class TwitterAccount extends Setting {
 
 		
 		public void run() {
-			// TODO 自動生成されたメソッド・スタブ
 			Toast
 					.makeText(TwitterAccount.this, "認証に成功しました",
 							Toast.LENGTH_SHORT).show();
@@ -61,7 +59,6 @@ public class TwitterAccount extends Setting {
 
 	
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.setting_twitter_account);
 

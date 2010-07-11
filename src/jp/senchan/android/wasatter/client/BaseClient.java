@@ -53,10 +53,8 @@ public class BaseClient {
 			return BitmapFactory.decodeByteArray(data, 0, data.length);
 
 		} catch (ClientProtocolException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();

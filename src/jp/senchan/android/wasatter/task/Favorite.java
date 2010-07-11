@@ -51,10 +51,8 @@ public class Favorite extends AsyncTask<Item, Void, Boolean> {
 							.parseLong(item.rid));
 					return st.getText() != null;
 				} catch (NumberFormatException e) {
-					// TODO 自動生成された catch ブロック
 					return false;
 				} catch (TwitterException e) {
-					// TODO 自動生成された catch ブロック
 					return false;
 				}
 			}

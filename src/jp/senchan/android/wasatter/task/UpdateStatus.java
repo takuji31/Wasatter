@@ -54,7 +54,6 @@ public class UpdateStatus extends AsyncTask<String, String, Boolean>{
 				
 				@Override
 				public void onCancel(DialogInterface dialog) {
-					// TODO 自動生成されたメソッド・スタブ
 					UpdateStatus.this.cancel(true);
 				}
 			});

@@ -21,7 +21,6 @@ public class WassrAccount extends Setting {
 
 	
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.setting_wassr_account);
 		// IDとパスワードを入力

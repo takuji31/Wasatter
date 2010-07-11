@@ -90,7 +90,6 @@ public class Update extends Activity {
 		short_button.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				// TODO 自動生成されたメソッド・スタブ
 				EditText status = (EditText) Update.this
 						.findViewById(R.id.post_status_text);
 				String str = status.getText().toString();
