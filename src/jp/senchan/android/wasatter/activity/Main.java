@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.adapter.Timeline;
+import jp.senchan.android.wasatter.client.Wassr;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.SettingRoot;
+import jp.senchan.android.wasatter.task.TimelineDownload;
 import jp.senchan.android.wasatter.util.IntentCode;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,7 +23,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Main extends Activity {
@@ -33,26 +34,6 @@ public class Main extends Activity {
 	public boolean twitterLoad;
 	public boolean wassrLoadComplete = false;
 	public boolean twitterLoadComplete = false;
-
-	/**
-	 * 別スレッドから呼び出すHTTPエラーに対する処理
-	 * @param code エラーコード
-	 * @param message メッセージ
-	 */
-	public void httpError(int code, String message) {
-		// TODO とりあえず表示してるけど、もっとわかりやすいメッセージに変えたい
-		Toast.makeText(this, "HTTP Error! \n" + String.valueOf(code) + message,
-				Toast.LENGTH_SHORT).show();
-	}
-
-	/**
-	 * HTTP以外のエラーが発生した場合のデバッグ用メソッド
-	 * @param e
-	 */
-	public void error(Exception e) {
-		// TODO とりあえず表示してるけど、もっとわかりやすいメッセージに変えたい
-		Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-	}
 
 	/**
 	 * リストビューの表示を更新するメソッド、メインスレッドから呼び出すべし。
@@ -165,6 +146,7 @@ public class Main extends Activity {
 	 * リロードを実行するメソッド
 	 */
 	public void reload() {
+		new TimelineDownload(Wassr.TIMELINE, listView).execute();
 	}
 
 	/**
@@ -226,5 +208,6 @@ public class Main extends Activity {
 				reload();
 			}
 		});
+		updateList();
 	}
 }
