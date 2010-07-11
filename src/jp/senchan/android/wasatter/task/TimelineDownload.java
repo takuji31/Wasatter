@@ -20,7 +20,7 @@ import android.os.AsyncTask;
 import android.widget.ListView;
 
 public class TimelineDownload extends
-		AsyncTask<String, String, ArrayList<Item>> {
+		AsyncTask<Void, String, Void> {
 	protected ListView listview;
 	protected ArrayList<Item> items;
 	protected int mode;
@@ -36,7 +36,7 @@ public class TimelineDownload extends
 	}
 
 	// バックグラウンドで実行する処理
-	protected ArrayList<Item> doInBackground(String... param) {
+	protected Void doInBackground(Void... param) {
 		items = new ArrayList<Item>();
 		publishProgress(PROGRESS,"500");
 		//Wassrへリクエスト
@@ -94,7 +94,7 @@ public class TimelineDownload extends
 			}
 		}
 		publishProgress(PROGRESS,"10000");
-		return items;
+		return null;
 	}
 
 	protected void onProgressUpdate(String... values) {
@@ -129,7 +129,7 @@ public class TimelineDownload extends
 
 	// メインスレッドで実行する処理
 
-	protected void onPostExecute(ArrayList<Item> result) {
+	protected void onPostExecute(Void result) {
 		updateView();
 		new IconDownload(Wasatter.main).execute();
 	}

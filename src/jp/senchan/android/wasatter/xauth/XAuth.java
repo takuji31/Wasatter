@@ -117,4 +117,17 @@ public class XAuth {
 		map.put("oauth_token", token);
 		return map;
 	}
+	
+	protected String createParameters() {
+		if (params == null || params.size() == 0) {
+			return "";
+		}
+		StringBuilder builder = new StringBuilder();
+		for (Map.Entry<String, String> param : params.entrySet()) {
+			builder.append(param.getKey() + "=");
+			builder.append(param.getValue());
+			builder.append("&");
+		}
+		return builder.toString().substring(0, builder.length() -1);
+	}
 }

@@ -16,9 +16,9 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpParams;
 
-public class XAuthClient extends XAuth {
+import android.text.SpannableStringBuilder;
 
-	private HashMap<String, String> params;
+public class XAuthClient extends XAuth {
 
 	public XAuthClient(String url,String method,HashMap<String,String> params){
 		this.token = TwitterAccount.get(TwitterAccount.TOKEN, "");
@@ -40,21 +40,14 @@ public class XAuthClient extends XAuth {
 			DefaultHttpClient client = new DefaultHttpClient();
 			// リクエストの作成
 			HttpUriRequest request;
+			SpannableStringBuilder sb = new SpannableStringBuilder(requestUrl);
+			sb.append("?");
+			sb.append(createParameters());
 			if("POST".endsWith(requestMethod)){
-				request = new HttpPost(requestUrl);
+				request = new HttpPost(sb.toString());
 			}else{
-				request = new HttpGet(requestUrl);
+				request = new HttpGet(sb.toString());
 			}
-			// パラメーターをセットする
-			if (params != null) {
-				HttpParams param = request.getParams();
-				Iterator<Entry<String, String>> it = params.entrySet().iterator();
-				while (it.hasNext()) {
-					Entry<String, String> entry = it.next();
-					param.setParameter(entry.getKey(), entry.getValue());
-				}
-			}
-
 			//認証ヘッダーの付加
 			request.setHeader("Authorization", createAuthorizationValue());
 			return client.execute(request);

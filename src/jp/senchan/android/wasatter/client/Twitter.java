@@ -13,7 +13,6 @@ import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.TwitterAccount;
 import jp.senchan.android.wasatter.xauth.SignatureEncode;
 import jp.senchan.android.wasatter.xauth.XAuthClient;
-import jp.senchan.android.wasatter.xauth.XAuthTokenGetter;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -97,7 +96,7 @@ public class Twitter extends BaseClient {
 	}
 
 	
-	public static boolean update(String status,String imagePath){
+	public static boolean updateTimeline(String status){
 
 		// Twitterが無効なら終了
 		if (!enabled()) {
