@@ -18,6 +18,7 @@ public class UpdateStatus extends AsyncTask<String, String, Boolean>{
 	private static final String MAKE_DIALOG = "make_dialog";
 	private static final String SHOW_DIALOG = "show_dialog";
 	private static final String CLOSE_DIALOG = "close_dialog";
+	private static final String HANDLE_RESPONSE = "handle_response";
 	
 	public UpdateStatus(Update activity,boolean postWassr,boolean postTwitter) {
 		this.postWassr = postWassr;
@@ -33,11 +34,13 @@ public class UpdateStatus extends AsyncTask<String, String, Boolean>{
 		publishProgress(SHOW_DIALOG);
 		//Wassrにポスト
 		if(postWassr){
-			Wassr.updateTimeLine(status, null, null);
+			int resCode = Wassr.updateTimeLine(status, null, null);
+			publishProgress(HANDLE_RESPONSE,String.valueOf(resCode));
 		}
 		
 		if(postTwitter){
-			Twitter.updateTimeline(status);
+			int resCode = Twitter.updateTimeline(status);
+			publishProgress(HANDLE_RESPONSE,String.valueOf(resCode));
 		}
 		publishProgress(CLOSE_DIALOG);
 		return true;
@@ -68,11 +71,18 @@ public class UpdateStatus extends AsyncTask<String, String, Boolean>{
 			pd.dismiss();
 			pd = null;
 		}
+		if(HANDLE_RESPONSE.equals(task)){
+			handleResponse(Integer.parseInt(values[1]));
+		}
 	}
 	
 	@Override
 	protected void onPostExecute(Boolean result) {
 		activity.finish();
+	}
+	
+	private void handleResponse(int errorCode){
+		
 	}
 
 }

@@ -10,11 +10,11 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map.Entry;
 
+import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.WassrAccount;
-import jp.senchan.android.wasatter.R;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -41,7 +41,6 @@ import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Html.ImageGetter;
-import android.util.Log;
 
 /**
  * Version2からのWassrクライアントクラス
@@ -353,9 +352,13 @@ public class Wassr extends BaseClient {
 	 *            返信先のID
 	 * @param image
 	 *            添付する画像
-	 * @return
+	 * @return 結果のHTTPコード、無効な場合は0、不明な場合は-1を返す
 	 */
-	public static boolean updateTimeLine(String status, String rid, String image){
+	public static int updateTimeLine(String status, String rid, String image){
+		int resCode = -1;
+		if(!enabled()){
+			return 0;
+		}
 		try {
 
 			// まずはパラメーターを準備する
@@ -385,16 +388,11 @@ public class Wassr extends BaseClient {
 			HttpPost post = new HttpPost(WassrUrl.UPDATE_TIMELINE);
 			post.setEntity(reqEntity);
 			org.apache.http.HttpResponse response = client.execute(post);
-			HttpEntity resEntity = response.getEntity();
-			if (resEntity != null) {
-				Log.i("RESPONSE", EntityUtils.toString(resEntity));
-				return true;
-			}
+			resCode = response.getStatusLine().getStatusCode();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
 		}
 		//ここまで来ることはまずないけど、きたら失敗
-		return false;
+		return resCode;
 	}
 }

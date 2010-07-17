@@ -96,11 +96,11 @@ public class Twitter extends BaseClient {
 	}
 
 	
-	public static boolean updateTimeline(String status){
-
+	public static int updateTimeline(String status){
+		int resCode = -1;
 		// Twitterが無効なら終了
 		if (!enabled()) {
-			return false;
+			return 0;
 		}
 		// xAuthリクエストの準備
 		//TODO 仮にテキストだけ
@@ -111,26 +111,11 @@ public class Twitter extends BaseClient {
 		try {
 			HttpResponse response = request.request();
 			// HTTPレスポンスステータスを取得
-			final int errorCode = response.getStatusLine().getStatusCode();
-			// 400番台以上の場合、falseを返す
-			if (errorCode >= 400) {
-				return false;
-			}
-			HttpEntity resEntity = response.getEntity();
-			String resString = EntityUtils.toString(resEntity);
-			JSONObject result = new JSONObject(resString);
-			Log.i("Result", result.toString());
-			return true;
-		} catch (ClientProtocolException e1) {
-			// TODO ようわからんけど通信がおかしかったら到達するブロック
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO ネットワークエラー…？
-			e1.printStackTrace();
+			resCode = response.getStatusLine().getStatusCode();
 		} catch (Exception e) {
 			// TODO: ぬるぽとか
 		}		
-		return false;
+		return resCode;
 	}
 	
 	
