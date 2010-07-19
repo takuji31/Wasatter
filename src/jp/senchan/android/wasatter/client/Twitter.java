@@ -58,7 +58,7 @@ public class Twitter extends BaseClient {
 	}
 
 	/**
-	 * APIを経由してデータを取得するメソッド イメージとしてはThreadでこれを呼ぶ、このメソッドはHandlerでメインスレッドで処理をやる
+	 * APIを経由してデータを取得するメソッド
 	 *
 	 * @param mode
 	 *            どのデータを取得するか
