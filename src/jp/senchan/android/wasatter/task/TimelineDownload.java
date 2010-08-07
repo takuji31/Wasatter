@@ -129,6 +129,7 @@ public class TimelineDownload extends
 
 	protected void onPostExecute(Void result) {
 		updateView();
+		Wasatter.main.reloadButton.setClickable(true);
 		new IconDownload(Wasatter.main).execute();
 	}
 	

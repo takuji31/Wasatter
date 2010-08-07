@@ -15,7 +15,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -29,11 +28,8 @@ public class Main extends Activity {
 	public Item selectedItem;
 	public ListView listView;
 	public ArrayList<Item> list;
-	public Handler handler = new Handler();
-	public boolean wassrLoad;
-	public boolean twitterLoad;
-	public boolean wassrLoadComplete = false;
-	public boolean twitterLoadComplete = false;
+	public TimelineDownload reloadTask;
+	public ImageButton reloadButton;
 
 	/**
 	 * リストビューの表示を更新するメソッド、メインスレッドから呼び出すべし。
@@ -65,16 +61,13 @@ public class Main extends Activity {
 	}
 
 	
-	protected void onResume() {
-		// TODO 自動生成されたメソッド・スタブ
-		super.onResume();
-		//Resume時に必要な処理書かないと…。
-	}
-
-	
+	/**
+	 * 他のActivityから戻ってきた時の処理
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		try {
 			if (requestCode == IntentCode.MAIN_ITEMDETAIL) {
+				//詳細から戻ってきたら、イイネの再描画
 				Timeline adapter = (Timeline) this.listView
 						.getAdapter();
 				adapter.updateView();
@@ -146,7 +139,11 @@ public class Main extends Activity {
 	 * リロードを実行するメソッド
 	 */
 	public void reload() {
-		new TimelineDownload(Wassr.TIMELINE, listView).execute();
+		//二重ロード防止
+		reloadButton.setClickable(false);
+		//ロード開始
+		reloadTask = new TimelineDownload(Wassr.TIMELINE, listView);
+		reloadTask.execute();
 	}
 
 	/**
@@ -199,8 +196,8 @@ public class Main extends Activity {
 			}
 		});
 		//新規投稿ボタンにイベント割り当て
-		ImageButton buttonReload = (ImageButton) findViewById(R.id.buttonReload);
-		buttonReload.setOnClickListener(new OnClickListener() {
+		reloadButton = (ImageButton) findViewById(R.id.buttonReload);
+		reloadButton.setOnClickListener(new OnClickListener() {
 
 			
 			public void onClick(View v) {
@@ -209,5 +206,18 @@ public class Main extends Activity {
 			}
 		});
 		updateList();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		//終了時にタスクをキャンセルする
+		if(isFinishing()){
+			try{
+				reloadTask.cancel(true);
+			}catch (Exception e) {
+				// 何もしない
+			}
+		}
 	}
 }
