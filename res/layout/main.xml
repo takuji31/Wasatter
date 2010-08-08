@@ -12,7 +12,7 @@
 		android:layout_height="wrap_content">
 		<ImageButton android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:layout_weight="1"
-			android:src="@drawable/post" android:id="@+id/buttonNew"></ImageButton>
+			android:src="@drawable/post" android:id="@+id/buttonNew"></ImageButton><ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/tl" android:visibility="gone" android:id="@+id/buttonShowTL"></ImageButton>
 		<ImageButton android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:layout_weight="1"
 			android:src="@drawable/my" android:id="@+id/buttonShowMyPage"></ImageButton>
@@ -24,8 +24,7 @@
 			android:layout_height="wrap_content" android:layout_weight="1"
 			android:src="@drawable/odai" android:id="@+id/buttonShowOdai"></ImageButton>
 		<ImageButton android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:src="@drawable/mail"
-			android:layout_weight="1" android:id="@+id/buttonShowChannel"></ImageButton>
+			android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/buttonShowChannel" android:src="@drawable/channel"></ImageButton>
 		<ImageButton android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:layout_weight="1"
 			android:src="@drawable/reload" android:id="@+id/buttonReload"></ImageButton>

@@ -5,16 +5,21 @@ import java.util.ArrayList;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.adapter.Timeline;
+import jp.senchan.android.wasatter.client.BaseClient;
 import jp.senchan.android.wasatter.client.Wassr;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.SettingRoot;
+import jp.senchan.android.wasatter.tag.TagMainButton;
 import jp.senchan.android.wasatter.task.TimelineDownload;
 import jp.senchan.android.wasatter.util.IntentCode;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.opengl.Visibility;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -30,6 +35,14 @@ public class Main extends Activity {
 	public ArrayList<Item> list;
 	public TimelineDownload reloadTask;
 	public ImageButton reloadButton;
+	public ImageButton clickedButton;
+	public int loadTimelineMode;
+	public ImageButton buttonShowTL;
+	public ImageButton buttonShowReply;
+	public ImageButton buttonShowMyPage;
+	public ImageButton buttonShowOdai;
+	public ImageButton buttonShowChannel;
+
 
 	/**
 	 * リストビューの表示を更新するメソッド、メインスレッドから呼び出すべし。
@@ -56,7 +69,8 @@ public class Main extends Activity {
 		list = new ArrayList<Item>();
 		
 		//初期化処理の実行
-		initialize();
+		loadTimelineMode = BaseClient.TIMELINE;
+		initialize(R.id.buttonShowTL);
 		reload();
 	}
 
@@ -142,7 +156,7 @@ public class Main extends Activity {
 		//二重ロード防止
 		reloadButton.setClickable(false);
 		//ロード開始
-		reloadTask = new TimelineDownload(Wassr.TIMELINE, listView);
+		reloadTask = new TimelineDownload(loadTimelineMode, listView);
 		reloadTask.execute();
 	}
 
@@ -169,10 +183,10 @@ public class Main extends Activity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-		initialize();
+		initialize(clickedButton.getId());
 	}
 	
-	public void initialize(){
+	public void initialize(int selectedButtonId){
 		setContentView(R.layout.main);
 		//リストビューを取得
 		listView = (ListView) findViewById(R.id.timeline);
@@ -205,7 +219,44 @@ public class Main extends Activity {
 				reload();
 			}
 		});
+		
+		//各ボタンにイベント割り当て
+		buttonShowTL = (ImageButton) findViewById(R.id.buttonShowTL);
+		buttonShowReply = (ImageButton) findViewById(R.id.buttonShowReply);
+		buttonShowMyPage = (ImageButton) findViewById(R.id.buttonShowMyPage);
+		buttonShowOdai = (ImageButton) findViewById(R.id.buttonShowOdai);
+		buttonShowChannel = (ImageButton) findViewById(R.id.buttonShowChannel);
+		
+		buttonShowTL.setTag(new TagMainButton(BaseClient.TIMELINE,"TimeLine"));
+		buttonShowReply.setTag(new TagMainButton(BaseClient.REPLY,"Mention"));
+		buttonShowMyPage.setTag(new TagMainButton(BaseClient.MYPOST,"My Post"));
+		buttonShowOdai.setTag(new TagMainButton(Wassr.ODAI,"お題ちゃん"));
+		buttonShowChannel.setTag(new TagMainButton(BaseClient.CHANNEL_LIST,"Channel"));
+		
+		buttonShowTL.setOnClickListener(new MainButtonClickListener());
+		buttonShowReply.setOnClickListener(new MainButtonClickListener());
+		buttonShowMyPage.setOnClickListener(new MainButtonClickListener());
+		buttonShowOdai.setOnClickListener(new MainButtonClickListener());
+		buttonShowChannel.setOnClickListener(new MainButtonClickListener());
+
+		//ボタンの選択状態を初期化する
+		clickedButton = (ImageButton) findViewById(selectedButtonId);
+		buttonSelect();
+		
 		updateList();
+	}
+	
+	public void buttonSelect(){
+		buttonShowTL.setVisibility(View.VISIBLE);
+		buttonShowReply.setVisibility(View.VISIBLE);
+		buttonShowMyPage.setVisibility(View.VISIBLE);
+		buttonShowOdai.setVisibility(View.VISIBLE);
+		buttonShowChannel.setVisibility(View.VISIBLE);
+		clickedButton.setVisibility(View.GONE);
+		TagMainButton tag = (TagMainButton)clickedButton.getTag();
+		SpannableStringBuilder title = new SpannableStringBuilder("Wasatter - ");
+		title.append(tag.title);
+		setTitle(title.toString());
 	}
 	
 	@Override
@@ -218,6 +269,18 @@ public class Main extends Activity {
 			}catch (Exception e) {
 				// 何もしない
 			}
+		}
+	}
+	
+	
+	private class MainButtonClickListener implements OnClickListener{
+		@Override
+		public void onClick(View v) {
+			clickedButton = (ImageButton) v;
+			TagMainButton tag = (TagMainButton)v.getTag();
+			loadTimelineMode = tag.mode;
+			buttonSelect();
+			reload();
 		}
 	}
 }

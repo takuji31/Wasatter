@@ -19,15 +19,17 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int EmptyImage=0x7f020008;
-        public static final int mail=0x7f020000;
-        public static final int my=0x7f020001;
-        public static final int odai=0x7f020002;
-        public static final int post=0x7f020003;
-        public static final int reload=0x7f020004;
-        public static final int reply=0x7f020005;
-        public static final int tl=0x7f020006;
-        public static final int wasattericon=0x7f020007;
+        public static final int EmptyImage=0x7f02000a;
+        public static final int channel=0x7f020000;
+        public static final int mail=0x7f020001;
+        public static final int my=0x7f020002;
+        public static final int odai=0x7f020003;
+        public static final int post=0x7f020004;
+        public static final int reload=0x7f020005;
+        public static final int reply=0x7f020006;
+        public static final int timeline=0x7f020007;
+        public static final int tl=0x7f020008;
+        public static final int wasattericon=0x7f020009;
     }
     public static final class id {
         public static final int LinearLayout01=0x7f080010;
@@ -45,12 +47,12 @@ public final class R {
         public static final int auto_shortten=0x7f08002f;
         public static final int bodyMultiline=0x7f080020;
         public static final int buttonNew=0x7f080003;
-        public static final int buttonReload=0x7f080008;
-        public static final int buttonShowChannel=0x7f080007;
-        public static final int buttonShowMyPage=0x7f080004;
-        public static final int buttonShowOdai=0x7f080006;
-        public static final int buttonShowReply=0x7f080005;
-        public static final int buttonTL=0x7f08000a;
+        public static final int buttonReload=0x7f080009;
+        public static final int buttonShowChannel=0x7f080008;
+        public static final int buttonShowMyPage=0x7f080005;
+        public static final int buttonShowOdai=0x7f080007;
+        public static final int buttonShowReply=0x7f080006;
+        public static final int buttonShowTL=0x7f080004;
         public static final int button_favorite=0x7f08001d;
         public static final int cacheIcon=0x7f08001f;
         public static final int cameraResult=0x7f080035;
@@ -68,7 +70,7 @@ public final class R {
         public static final int layout_service=0x7f08002c;
         public static final int layoutbuttons=0x7f08003e;
         public static final int loadIcon=0x7f080023;
-        public static final int main=0x7f080009;
+        public static final int main=0x7f08000a;
         public static final int menu_open_setting=0x7f080044;
         public static final int menu_open_version=0x7f080045;
         public static final int menu_status_reload=0x7f080047;

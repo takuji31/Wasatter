@@ -49,6 +49,8 @@ public class Wasatter {
 	public static String MODE_POSTING = "mode_posting";
 	public static String MODE_DISPLAY = "mode_display";
 	public static String MODE_ERROR = "mode_error";
+	public static final int TAG_TITLE = 0;
+	public static final int TAG_MODE = 1;
 
 	public static ArrayList<String> dlIconUrls = new ArrayList<String>();
 	public static HashMap<String, Bitmap> icons = new HashMap<String, Bitmap>();
