@@ -12,10 +12,8 @@
 		android:layout_height="wrap_content">
 		<ImageButton android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:layout_weight="1"
-			android:src="@drawable/post" android:id="@+id/buttonNew"></ImageButton><ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/tl" android:visibility="gone" android:id="@+id/buttonShowTL"></ImageButton>
-		<ImageButton android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_weight="1"
-			android:src="@drawable/my" android:id="@+id/buttonShowMyPage"></ImageButton>
+			android:src="@drawable/post" android:id="@+id/buttonNew"></ImageButton><ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/tl" android:id="@+id/buttonShowTL" android:visibility="visible"></ImageButton>
+		
 		<ImageButton android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/buttonShowReply"
 			android:layout_weight="1" android:src="@drawable/reply"></ImageButton>

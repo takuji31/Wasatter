@@ -54,13 +54,13 @@ public class Wasatter {
 
 	public static ArrayList<String> dlIconUrls = new ArrayList<String>();
 	public static HashMap<String, Bitmap> icons = new HashMap<String, Bitmap>();
-	
+
 	public static HashMap<String, Item> userWassr = new HashMap<String, Item>();
 	public static HashMap<String, Item> userTwitter = new HashMap<String, Item>();
 
 	/**
 	 * キャッシュの有効期限を取得する
-	 *
+	 * 
 	 * @return キャッシュの有効期限（秒数）
 	 */
 	public static long cacheExpire() {
@@ -103,8 +103,8 @@ public class Wasatter {
 	}
 
 	public static boolean saveTempImage(Bitmap image) {
-		return saveImage(getImageTempPath(), "temp.jpg", image, CompressFormat.JPEG,
-				80);
+		return saveImage(getImageTempPath(), "temp.jpg", image,
+				CompressFormat.JPEG, 80);
 	}
 
 	public static boolean saveImage(String path, String name, Bitmap image,
@@ -171,7 +171,7 @@ public class Wasatter {
 	}
 
 	public static void deleteImageCache() {
-		//TODO JDBM仕様に書き換える
+		// TODO JDBM仕様に書き換える
 		Wasatter.images.clear();
 		SQLiteDatabase rdb = Wasatter.db.getReadableDatabase();
 		Cursor c = rdb.rawQuery("select filename from imagestore", null);
@@ -218,18 +218,21 @@ public class Wasatter {
 			return null;
 		}
 	}
-	
-	public static String getDataPath(String dir,String filename){
-		return getDataPath(dir,filename,Setting.get("use_sd", true));
+
+	public static String getDataPath(String dir, String filename) {
+		return getDataPath(dir, filename, Setting.get("use_sd", true));
 	}
-	public static String getDataPath(String dir){
-		return getDataPath(dir,"",Setting.get("use_sd", true));
+
+	public static String getDataPath(String dir) {
+		return getDataPath(dir, "", Setting.get("use_sd", true));
 	}
-	
-	public static String getDataPath(String dir,String filename,boolean external) {
+
+	public static String getDataPath(String dir, String filename,
+			boolean external) {
 		SpannableStringBuilder sb = new SpannableStringBuilder();
-		if(external){
-			sb.append(Environment.getExternalStorageDirectory().getAbsolutePath());
+		if (external) {
+			sb.append(Environment.getExternalStorageDirectory()
+					.getAbsolutePath());
 		}
 		sb.append(CONTEXT.getFilesDir().getParentFile().getAbsolutePath());
 		sb.append("/");
@@ -239,5 +242,5 @@ public class Wasatter {
 		new File(sb.toString()).mkdirs();
 		return sb.toString();
 	}
-	
+
 }

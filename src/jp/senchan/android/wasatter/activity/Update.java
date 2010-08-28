@@ -35,6 +35,7 @@ public class Update extends Activity {
 	public static final int REQUEST_CAMERA = 1;
 	public static final int SELECT_IMAGE = 2;
 	public static String attachFileName;
+	public boolean isReply;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
@@ -44,6 +45,8 @@ public class Update extends Activity {
 		if (extras != null) {
 			this.ws = (Item) extras.getSerializable(Wasatter.REPLY);
 		}
+		isReply = (ws != null);
+		
 
 		// チェックボックスの設定
 		CheckBox wassr_enable = (CheckBox) this
@@ -55,36 +58,33 @@ public class Update extends Activity {
 		twitter_enable.setChecked(Twitter.enabled());
 		twitter_enable.setClickable(Twitter.enabled());
 		Button post_btn = (Button) this.findViewById(R.id.post_button);
-		if (post_btn != null) {
-			post_btn.setOnClickListener(new OnClickListener() {
+		post_btn.setOnClickListener(new OnClickListener() {
 
-				public void onClick(View v) {
-					EditText status = (EditText) Update.this
-							.findViewById(R.id.post_status_text);
-					CheckBox wassr = (CheckBox) Update.this
-							.findViewById(R.id.check_post_wassr);
-					CheckBox twitter = (CheckBox) Update.this
-							.findViewById(R.id.check_post_twitter);
-					SpannableStringBuilder sb = (SpannableStringBuilder) status
-							.getText();
-					Button update_button = (Button) v;
-					// 未入力チェック
-					if ("".equals(sb.toString())) {
-						AlertDialog.Builder adb = new AlertDialog.Builder(
-								Update.this);
-						adb.setTitle("");
-						adb.setMessage(R.string.notice_message_required);
-						adb.setPositiveButton("OK", null);
-						adb.show();
-						return;
-					}
-					// 二重投稿防止
-					update_button.setClickable(false);
-					UpdateStatus task = new UpdateStatus(Update.this,wassr.isChecked(),twitter.isChecked());
-					task.execute(sb.toString());
+			public void onClick(View v) {
+				EditText status = (EditText) Update.this
+						.findViewById(R.id.post_status_text);
+				CheckBox wassr = (CheckBox) Update.this
+						.findViewById(R.id.check_post_wassr);
+				CheckBox twitter = (CheckBox) Update.this
+						.findViewById(R.id.check_post_twitter);
+				SpannableStringBuilder sb = (SpannableStringBuilder) status
+						.getText();
+				Button update_button = (Button) v;
+				// 未入力チェック
+				if ("".equals(sb.toString())) {
+					AlertDialog.Builder adb = new AlertDialog.Builder(
+							Update.this);
+					adb.setMessage(R.string.notice_message_required);
+					adb.setPositiveButton("OK", null);
+					adb.show();
+					return;
 				}
-			});
-		}
+				// 二重投稿防止
+				update_button.setClickable(false);
+				UpdateStatus task = new UpdateStatus(Update.this,wassr.isChecked(),twitter.isChecked());
+				task.execute(sb.toString());
+			}
+		});
 
 		Button short_button = (Button) this.findViewById(R.id.short_button);
 		short_button.setOnClickListener(new OnClickListener() {

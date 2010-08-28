@@ -331,7 +331,7 @@ public class Wassr extends BaseClient {
 				}
 			}
 		} catch (JSONException e) {
-			//TODO JSONのパースエラー出すべき？
+			// TODO JSONのパースエラー出すべき？
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
@@ -342,10 +342,10 @@ public class Wassr extends BaseClient {
 	public static ArrayList<Item> parseJSON(String jsonStr) {
 		return parseJSON(jsonStr, Wassr.TIMELINE);
 	}
-	
+
 	/**
 	 * Wassrにヒトコトを投げるメソッド、通常タイムラインへの投稿と返信はこのメソッドで行う。
-	 *
+	 * 
 	 * @param status
 	 *            本文
 	 * @param rid
@@ -354,9 +354,9 @@ public class Wassr extends BaseClient {
 	 *            添付する画像
 	 * @return 結果のHTTPコード、無効な場合は0、不明な場合は-1を返す
 	 */
-	public static int updateTimeLine(String status, String rid, String image){
+	public static int updateTimeLine(String status, String rid, String image) {
 		int resCode = -1;
-		if(!enabled()){
+		if (!enabled()) {
 			return 0;
 		}
 		try {
@@ -383,7 +383,7 @@ public class Wassr extends BaseClient {
 			reqEntity.addPart("source", via);
 			reqEntity.addPart("status", st);
 
-			//HttpClientの準備
+			// HttpClientの準備
 			DefaultHttpClient client = getHttpClient();
 			HttpPost post = new HttpPost(WassrUrl.UPDATE_TIMELINE);
 			post.setEntity(reqEntity);
@@ -392,7 +392,7 @@ public class Wassr extends BaseClient {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//ここまで来ることはまずないけど、きたら失敗
+		// ここまで来ることはまずないけど、きたら失敗
 		return resCode;
 	}
 }
