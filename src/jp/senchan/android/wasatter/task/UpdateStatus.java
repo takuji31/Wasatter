@@ -48,9 +48,16 @@ public class UpdateStatus extends AsyncTask<String, String, Boolean>{
 		String status = params[0];
 		publishProgress(MAKE_DIALOG);
 		publishProgress(SHOW_DIALOG);
+		boolean isReply = false;
+		String replyRid = null;
+		try{
+			replyRid = this.activity.ws.rid;
+		}catch (NullPointerException e) {
+			//返信じゃなかったらぬるぽ吐くはず
+		}
 		//Wassrにポスト
 		if(postWassr){
-			int resCode = Wassr.updateTimeLine(status, null, null);
+			int resCode = Wassr.updateTimeLine(status, replyRid, null);
 			publishProgress(HANDLE_RESPONSE,String.valueOf(resCode),String.valueOf(ServiceCode.WASSR));
 		}
 		

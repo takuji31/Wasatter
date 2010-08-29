@@ -87,15 +87,15 @@ public class Timeline extends ArrayAdapter<Item> implements
 				text.setEllipsize(null);
 			}
 			// 返信元の名前をビューにセットする
-			TextView reply_name = (TextView) view.findViewById(R.id.reply_name);
-			if (reply_name != null && !"null".equals(item.replyUserNick)
+			TextView replyUserName = (TextView) view.findViewById(R.id.reply_user_name);
+			if (replyUserName != null && !"null".equals(item.replyUserNick)
 					&& item.replyUserNick != null) {
-				reply_name.setText(new SpannableStringBuilder(">").append(
+				replyUserName.setText(new SpannableStringBuilder(">").append(
 						item.replyUserNick).toString());
-				reply_name.setVisibility(View.VISIBLE);
-			} else if (reply_name != null) {
-				reply_name.setText("");
-				reply_name.setVisibility(View.GONE);
+				replyUserName.setVisibility(View.VISIBLE);
+			} else if (replyUserName != null) {
+				replyUserName.setText("");
+				replyUserName.setVisibility(View.GONE);
 			}
 			// アイコンをロードする。
 			Bitmap image = Wasatter.images.get(item.profileImageUrl);
