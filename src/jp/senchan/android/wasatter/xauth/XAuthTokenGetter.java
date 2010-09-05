@@ -151,11 +151,11 @@ public class XAuthTokenGetter extends XAuth {
 		sb.append("oauth_consumer_key=");
 		sb.append(consumerKey);
 		sb.append("&oauth_nonce=");
-		sb.append(UUID.randomUUID().toString());
+		sb.append(UUID.randomUUID().toString().replace("-", ""));
 		sb.append("&oauth_signature_method=");
 		sb.append(oauthSignatureMethod);
 		sb.append("&oauth_timestamp=");
-		sb.append(Long.toString(System.currentTimeMillis()));
+		sb.append(Long.toString(System.currentTimeMillis()/1000));
 		sb.append("&oauth_version=");
 		sb.append(oauthVersion);
 		return sb.toString();
