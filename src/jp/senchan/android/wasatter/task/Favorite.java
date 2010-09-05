@@ -3,16 +3,12 @@
  */
 package jp.senchan.android.wasatter.task;
 
-import jp.senchan.android.wasatter.Setting;
+import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.activity.Detail;
+import jp.senchan.android.wasatter.client.Twitter;
 import jp.senchan.android.wasatter.client.Wassr;
 import jp.senchan.android.wasatter.item.Item;
-import jp.senchan.android.wasatter.R;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
 import android.os.AsyncTask;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,22 +36,7 @@ public class Favorite extends AsyncTask<Item, Void, Boolean> {
 		} else if (Wasatter.WASSR.equals(item.service)) {
 			return Wassr.favorite(item);
 		} else if (Wasatter.TWITTER.equals(item.service)) {
-			Twitter tw;
-			if (Setting.isTwitterOAuthEnable()) {
-				tw = new TwitterFactory().getInstance();
-				//tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
-				tw.setOAuthAccessToken(new AccessToken(Setting
-						.getTwitterToken(), Setting.getTwitterTokenSecret()));
-				try {
-					twitter4j.Status st = tw.createFavorite(Long
-							.parseLong(item.rid));
-					return st.getText() != null;
-				} catch (NumberFormatException e) {
-					return false;
-				} catch (TwitterException e) {
-					return false;
-				}
-			}
+			Twitter.favorite(item);
 		}
 		return false;
 	}
