@@ -94,7 +94,7 @@ public class Twitter extends BaseClient {
 	}
 
 	
-	public static int updateTimeline(String status){
+	public static int updateTimeline(String status, String rid){
 		int resCode = -1;
 		// Twitterが無効なら終了
 		if (!enabled()) {
@@ -104,6 +104,9 @@ public class Twitter extends BaseClient {
 		//TODO 仮にテキストだけ
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("status", SignatureEncode.encode(status));
+		if(rid != null){
+			params.put("in_reply_to_status_id", rid);
+		}
 		XAuthClient request = new XAuthClient(TwitterUrl.UPDATE_TIMELINE, "POST", params);
 
 		try {
@@ -177,6 +180,8 @@ public class Twitter extends BaseClient {
 
 			for (int i = 0; i < j; i++) {
 				JSONObject obj = result.getJSONObject(i);
+				String test = obj.toString();
+				test.toString();
 				Item item = new Item();
 				item.service = Wasatter.TWITTER;
 				item.html = obj.getString("text");

@@ -74,6 +74,13 @@ public class Update extends Activity {
 			//Replyの場合は返信元の発言を表示する
 			TextView replyMessage = (TextView) findViewById(R.id.reply_message);
 			TextView replyName = (TextView) findViewById(R.id.reply_user_name);
+			
+			//さらにTwitterの場合はデフォルトで@screennameを表示しておく
+			if(enableTwitter){
+				TextView postStatusText = (TextView) findViewById(R.id.post_status_text);
+				SpannableStringBuilder sb = new SpannableStringBuilder("@");
+				postStatusText.setText(sb.append(ws.screenName).append(" ").toString());
+			}
 			//FIXME コピペしてるのでまとめたい
 			CharSequence html = Html.fromHtml(ws.html,
 					new ImageGetter() {

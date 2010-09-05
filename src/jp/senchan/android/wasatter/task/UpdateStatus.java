@@ -48,7 +48,6 @@ public class UpdateStatus extends AsyncTask<String, String, Boolean>{
 		String status = params[0];
 		publishProgress(MAKE_DIALOG);
 		publishProgress(SHOW_DIALOG);
-		boolean isReply = false;
 		String replyRid = null;
 		try{
 			replyRid = this.activity.ws.rid;
@@ -62,7 +61,7 @@ public class UpdateStatus extends AsyncTask<String, String, Boolean>{
 		}
 		
 		if(postTwitter){
-			int resCode = Twitter.updateTimeline(status);
+			int resCode = Twitter.updateTimeline(status, replyRid);
 			publishProgress(HANDLE_RESPONSE,String.valueOf(resCode),String.valueOf(ServiceCode.TWITTER));
 		}
 		publishProgress(CLOSE_DIALOG);
