@@ -19,7 +19,8 @@
 		<activity android:name=".activity.Detail" android:theme="@android:style/Theme.Dialog"></activity>
 		<activity android:name=".setting.DisplaySetting"></activity>
 		<activity android:name=".setting.Data"></activity>
-	</application>
+	<activity android:label="Channel list" android:name=".activity.ChannelSelect" android:theme="@android:style/Theme.Dialog"></activity>
+</application>
 	<uses-sdk android:minSdkVersion="4" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.RESTART_PACKAGES"></uses-permission>

@@ -231,7 +231,7 @@ public class Main extends Activity {
 		buttonShowTL.setOnClickListener(new MainButtonClickListener());
 		buttonShowReply.setOnClickListener(new MainButtonClickListener());
 		buttonShowOdai.setOnClickListener(new MainButtonClickListener());
-		buttonShowChannel.setOnClickListener(new MainButtonClickListener());
+		buttonShowChannel.setOnClickListener(new ChannelButtonClickListener());
 
 		// ボタンの選択状態を初期化する
 		clickedButton = (ImageButton) findViewById(selectedButtonId);
@@ -274,5 +274,16 @@ public class Main extends Activity {
 			buttonSelect();
 			reload();
 		}
+	}
+	
+	private class ChannelButtonClickListener implements OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			// TODO 自動生成されたメソッド・スタブ
+			Intent intent = new Intent(getBaseContext(), ChannelSelect.class);
+			startActivity(intent);
+		}
+		
 	}
 }
