@@ -145,6 +145,7 @@ public class UpdateStatus extends AsyncTask<String, String, Boolean>{
 			ab.setMessage(sb.toString());
 			ab.setPositiveButton("OK", null);
 			ab.show();
+			activity.postButton.setClickable(true);
 		}
 	}
 	

@@ -43,6 +43,7 @@ public class Update extends Activity {
 	public static final int SELECT_IMAGE = 2;
 	public static String attachFileName;
 	public boolean isReply;
+	public Button postButton;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自動生成されたメソッド・スタブ
@@ -103,8 +104,8 @@ public class Update extends Activity {
 			LinearLayout layoutReply = (LinearLayout) findViewById(R.id.layout_reply);
 			layoutReply.setVisibility(View.GONE);
 		}
-		Button post_btn = (Button) this.findViewById(R.id.post_button);
-		post_btn.setOnClickListener(new OnClickListener() {
+		postButton = (Button) this.findViewById(R.id.post_button);
+		postButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				EditText status = (EditText) Update.this
