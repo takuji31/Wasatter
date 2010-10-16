@@ -54,7 +54,7 @@ public class TimelineDownload extends
 						HttpEntity entity = response.getEntity();
 						String jsonString = EntityUtils.toString(entity);
 						items.addAll(Wassr.parseJSON(jsonString, mode));
-						publishProgress(UPDATE_VIEW);
+						//publishProgress(UPDATE_VIEW);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -81,7 +81,7 @@ public class TimelineDownload extends
 						HttpEntity entity = response.getEntity();
 						String jsonString = EntityUtils.toString(entity);
 						items.addAll(Twitter.parseJSON(jsonString, mode));
-						publishProgress(UPDATE_VIEW);
+						//publishProgress(UPDATE_VIEW);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -91,6 +91,7 @@ public class TimelineDownload extends
 				publishProgress(NETWORK_ERROR);
 			}
 		}
+		publishProgress(UPDATE_VIEW);
 		publishProgress(PROGRESS,"10000");
 		return null;
 	}
