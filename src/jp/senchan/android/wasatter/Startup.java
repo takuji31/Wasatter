@@ -9,7 +9,6 @@ import android.os.Bundle;
 public class Startup extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO 自動生成されたメソッド・スタブ
 		super.onCreate(savedInstanceState);
 		//ベースコンテキストをstaticに突っ込む
 		if(Wasatter.CONTEXT == null){
@@ -25,7 +24,8 @@ public class Startup extends Activity {
 		//メモリ内の画像キャッシュを解放
 		Wasatter.images.clear();
 
-		//TODO アップデート確認とかバグ報告とか
+		//TODO バージョンチェック機能
+		//TODO バグ報告機能
 
 
 		//メイン画面を呼び出す
