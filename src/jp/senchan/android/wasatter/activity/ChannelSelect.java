@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 public class ChannelSelect extends Activity {
 
-	public ArrayList<Item> channelList;
+	public static ArrayList<Item> channelList;
 	public ListView listview;
 	
 	@Override
