@@ -22,15 +22,13 @@ public class ChannelListDownload extends
 		AsyncTask<Void, String, Void> {
 	protected ListView listview;
 	protected ArrayList<Item> items;
-	protected int mode;
 	private static final String NETWORK_ERROR = "network_error";
 	private static final String HTTP_ERROR = "http_error";
 	private static final String PROGRESS = "porgress";
 	private static final String UPDATE_VIEW = "update_view";
 
 	// コンストラクタ
-	public ChannelListDownload(int mode_code, ListView list) {
-		mode = mode_code;
+	public ChannelListDownload(ListView list) {
 		listview = list;
 	}
 
@@ -40,7 +38,7 @@ public class ChannelListDownload extends
 		publishProgress(PROGRESS,"500");
 		//Wassrへリクエスト
 		if(Wassr.enabled()){
-			HttpResponse response = Wassr.request(mode, null);
+			HttpResponse response = Wassr.request(Wassr.CHANNEL_LIST, null);
 			// HTTPレスポンスステータスを取得
 			try {
 				int errorCode = response.getStatusLine().getStatusCode();
@@ -52,7 +50,7 @@ public class ChannelListDownload extends
 					try {
 						HttpEntity entity = response.getEntity();
 						String jsonString = EntityUtils.toString(entity);
-						items.addAll(Wassr.parseJSON(jsonString, mode));
+						items.addAll(Wassr.parseJSON(jsonString, Wassr.CHANNEL_LIST));
 						publishProgress(UPDATE_VIEW);
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -109,7 +107,7 @@ public class ChannelListDownload extends
 	protected void updateView(){
 		Wasatter.main.list = items;
 		Timeline adapter = new Timeline(Wasatter.CONTEXT,
-				R.layout.timeline_row, items , (mode == Wassr.CHANNEL));
+				R.layout.timeline_row, items , false);
 		adapter.sort(new ItemComparator());
 		listview.setAdapter(adapter);
 	}

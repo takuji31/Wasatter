@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.item.Item;
+import jp.senchan.android.wasatter.task.ChannelListDownload;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public class ChannelSelect extends Activity {
 	
 	protected void init(){
 		listview = (ListView) findViewById(R.id.channelList);
+		new ChannelListDownload(listview);
 	}
 	protected void reload(){
 		
