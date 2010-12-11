@@ -30,11 +30,11 @@ import android.os.Environment;
 import android.text.SpannableStringBuilder;
 
 public class Wasatter {
-	public static final String AGENT = "Wasatter for Android";
-	public static final String VIA = "Wasatter";
-	public static final String VIA_BETA = "Wasatter BETA";
+	public static final String AGENT = "Wasatter2 for Android";
+	public static final String VIA = "Wasatter2";
 	public static final String WASSR = "Wassr";
 	public static final String TWITTER = "Twitter";
+	//TODO 正規表現見直し
 	private static final String REGEX_URL = "(http://|https://){1}[\\w\\.\\-/:]+";
 	public static final String ODAI_DATE_FORMAT = "yyyy/MM/dd";
 	public static final String REPLY = "reply";

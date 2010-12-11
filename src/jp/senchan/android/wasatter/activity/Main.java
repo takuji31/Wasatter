@@ -247,7 +247,8 @@ public class Main extends Activity {
 		buttonShowChannel.setClickable(true);
 		clickedButton.setClickable(false);
 		TagMainButton tag = (TagMainButton) clickedButton.getTag();
-		SpannableStringBuilder title = new SpannableStringBuilder("Wasatter - ");
+		SpannableStringBuilder title = new SpannableStringBuilder(getBaseContext().getText(R.string.app_name));
+		title.append(" - ");
 		title.append(tag.title);
 		setTitle(title.toString());
 	}
