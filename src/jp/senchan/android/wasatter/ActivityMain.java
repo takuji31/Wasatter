@@ -1,6 +1,6 @@
 package jp.senchan.android.wasatter;
 
-import jp.senchan.android.wasatter.activity.Main;
+import jp.senchan.android.wasatter.setup.SetupMain;
 import jp.senchan.android.wasatter.util.DBHelper;
 import android.app.Activity;
 import android.content.Intent;
@@ -29,7 +29,9 @@ public class ActivityMain extends Activity {
 
 
 		//メイン画面を呼び出す
-		Intent intentMain = new Intent(this, Main.class);
+		//Intent intentMain = new Intent(this, Main.class);
+		//startActivity(intentMain);
+		Intent intentMain = new Intent(this, SetupMain.class);
 		startActivity(intentMain);
 		finish();
 	}
