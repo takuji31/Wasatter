@@ -106,6 +106,20 @@ public class SetupMain extends Activity {
 					}
 				});
 			break;
+			case SetupMain.PAGE_TWITTER_AUTH:
+				//Twitterアカウント設定画面
+				gotoButton.setVisibility(View.VISIBLE);
+				gotoButton.setText(R.string.setup_wizard_button_goto_twitter_account);
+				wizardText.setText(R.string.setup_wizard_text_twitter_account);
+				gotoButton.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Uri wassrAuthUri = Uri.parse(Wassr.AUTH_URL);
+						Intent gotoWassrAuth = new Intent(Intent.ACTION_VIEW,wassrAuthUri);
+						startActivity(gotoWassrAuth);
+					}
+				});
+			break;
 		}
 
 		// どこまで進んだかを設定に保存する
