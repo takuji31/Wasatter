@@ -8,6 +8,7 @@ import jp.senchan.android.wasatter.adapter.Timeline;
 import jp.senchan.android.wasatter.client.BaseClient;
 import jp.senchan.android.wasatter.client.Wassr;
 import jp.senchan.android.wasatter.item.Item;
+import jp.senchan.android.wasatter.setting.Setting;
 import jp.senchan.android.wasatter.setting.SettingRoot;
 import jp.senchan.android.wasatter.tag.TagMainButton;
 import jp.senchan.android.wasatter.task.TimelineDownload;
@@ -110,6 +111,9 @@ public class Main extends Activity {
 			break;
 		case R.id.menu_status_reload:
 			this.reload();
+			break;
+		case R.id.menu_clear_setting:
+			Setting.clear();
 			break;
 		default:
 			break;

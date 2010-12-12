@@ -11,4 +11,5 @@
 		android:icon="@android:drawable/ic_menu_add"></item>
 	<item android:title="@string/menu_title_reload" android:id="@+id/menu_status_reload"
 		android:icon="@android:drawable/ic_menu_rotate"></item>
+<item android:id="@+id/menu_clear_setting" android:title="設定クリア"></item>
 </menu>
