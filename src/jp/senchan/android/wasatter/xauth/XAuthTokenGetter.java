@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.Map.Entry;
 
-import jp.senchan.android.wasatter.auth.params.XAuthTwitter;
+import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
@@ -30,8 +30,8 @@ public class XAuthTokenGetter extends XAuth {
 
 		this.userId = userId;
 		this.password = password;
-		this.consumerKey = XAuthTwitter.CONSUMER_KEY;
-		this.consumerSecret = XAuthTwitter.CONSUMER_SECRET;
+		this.consumerKey = OAuthTwitter.CONSUMER_KEY;
+		this.consumerSecret = OAuthTwitter.CONSUMER_SECRET;
 	}
 
 	/**

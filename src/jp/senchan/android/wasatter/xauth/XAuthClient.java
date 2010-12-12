@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
-import jp.senchan.android.wasatter.auth.params.XAuthTwitter;
+import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import jp.senchan.android.wasatter.setting.TwitterAccount;
 
 import org.apache.http.client.ClientProtocolException;
@@ -20,8 +20,8 @@ public class XAuthClient extends XAuth {
 	public XAuthClient(String url,String method,HashMap<String,String> params){
 		this.token = TwitterAccount.get(TwitterAccount.TOKEN, "");
 		this.tokenSecret = TwitterAccount.get(TwitterAccount.TOKEN_SECRET, "");
-		this.consumerKey = XAuthTwitter.CONSUMER_KEY;
-		this.consumerSecret = XAuthTwitter.CONSUMER_SECRET;
+		this.consumerKey = OAuthTwitter.CONSUMER_KEY;
+		this.consumerSecret = OAuthTwitter.CONSUMER_SECRET;
 		this.requestUrl = url;
 		this.requestMethod = method;
 		this.params = params;
