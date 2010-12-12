@@ -14,6 +14,7 @@ import android.widget.Button;
 public class SetupMain extends Activity {
 	private static final String KEY_PAGE = "SETUP_PAGE";
 	private static final String KEY_COMPLETED = "SETUP_COMPLETED_v_2_0";
+	private static final String KEY_ALREADY_INSTALLED = "ALREADY_INSTALLED";
 	private static final int MAX_PAGE = 5;
 	private int currentPage;
 	private Button prevButton;
@@ -69,5 +70,15 @@ public class SetupMain extends Activity {
 
 		// どこまで進んだかを設定に保存する
 		Setting.set(SetupMain.KEY_PAGE, currentPage);
+	}
+	
+	protected void checkAlreadyInstalled() {
+		boolean alreadyInstalled = Setting.get(SetupMain.KEY_ALREADY_INSTALLED, false);
+		if(!alreadyInstalled){
+			//v1.0以前からのアップグレード、もしくは初期インストールの場合は設定を全部クリアする
+			Setting.clear();
+		}
+		//インストール済みということにする
+		Setting.set(SetupMain.KEY_ALREADY_INSTALLED, true);
 	}
 }
