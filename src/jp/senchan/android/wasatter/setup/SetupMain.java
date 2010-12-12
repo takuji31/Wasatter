@@ -4,6 +4,7 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.activity.Main;
 import jp.senchan.android.wasatter.auth.params.Wassr;
 import jp.senchan.android.wasatter.setting.Setting;
+import jp.senchan.android.wasatter.task.GetTwitterOAuthRequestUrl;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -114,9 +115,8 @@ public class SetupMain extends Activity {
 				gotoButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						Uri wassrAuthUri = Uri.parse(Wassr.AUTH_URL);
-						Intent gotoWassrAuth = new Intent(Intent.ACTION_VIEW,wassrAuthUri);
-						startActivity(gotoWassrAuth);
+						//処理開始
+						new GetTwitterOAuthRequestUrl(SetupMain.this).execute();
 					}
 				});
 			break;

@@ -25,4 +25,5 @@
 
 <string name="notice_message_required">内容が未入力です。</string>
 <string name="message_confirm_clear_oauth_token">OAuthトークンをクリアしてよろしいですか？よろしければOKを押してください。Cancelでキャンセル出来ます。</string>
+<string name="progress_message_get_oauth_request_token">認証用URLを取得しています。しばらくお待ちください…</string>
 </resources>

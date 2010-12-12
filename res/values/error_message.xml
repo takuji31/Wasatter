@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="error_twitter_oauth_network_error">リクエストに失敗しました。\nもう一度やり直してください。</string>
+<string name="error_generic_task_canceled">中止しました</string>
+</resources>
