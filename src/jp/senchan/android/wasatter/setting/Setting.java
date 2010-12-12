@@ -66,5 +66,13 @@ public class Setting extends Activity {
 	public static void set(String key,long value){
 		pref.edit().putLong(key, value).commit();
 	}
+	
+	/**
+	 * 設定を全部クリアするメソッド
+	 * ※デバッグ時と初期セットアップ時以外は使用すべきでない。
+	 */
+	public static void clear() {
+		pref.edit().clear().commit();
+	}
 
 }
