@@ -115,11 +115,13 @@ public class SetupMain extends Activity {
 	protected void checkAlreadyInstalled() {
 		boolean alreadyInstalled = Setting.get(SetupMain.KEY_ALREADY_INSTALLED,
 				false);
-		if (!alreadyInstalled) {
+		boolean setupStarted = Setting.get(SetupMain.KEY_STARTED,
+				false);
+		if (!alreadyInstalled && !setupStarted) {
 			// v1.0以前からのアップグレード、もしくは初期インストールの場合は設定を全部クリアする
 			Setting.clear();
 		}
 		// インストール済みということにする
-		Setting.set(SetupMain.KEY_ALREADY_INSTALLED, true);
+		Setting.set(SetupMain.KEY_STARTED, true);
 	}
 }
