@@ -25,6 +25,15 @@
 			android:theme="@android:style/Theme.Dialog"></activity>
 		<activity android:label="@string/setup_wizard_main_title"
 			android:name=".setup.SetupMain"></activity>
+		<activity android:label="@string/setup_wizard_main_title"
+			android:name=".auth.WassrAuthCallback">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="wasatter" android:host="callback.wassr" />
+            </intent-filter>
+		</activity>
 	</application>
 	<uses-sdk android:minSdkVersion="7" />
 	<uses-permission android:name="android.permission.INTERNET" />
