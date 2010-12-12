@@ -1,6 +1,13 @@
-てすてす。
-
 WasatterはAndroid向けのWassrクライアントです。
 Twitterへのマルチポストにも対応しています。
 
-書いた人がド素人なのでスパゲッティーソースです。
+このままでは動きません。
+package jp.senchan.android.wasatter.auth.params;
+public class OAuthTwitter {
+	public static final String CONSUMER_KEY = "TwitterのConsumer Key";
+	public static final String CONSUMER_SECRET = "TwitterのConsumer Secret";
+}
+public class Wassr {
+	public static final String AUTH_URL = "Wassr認証APIの認証URL";
+}
+の2つを作ってビルドパスに突っ込んでください。
