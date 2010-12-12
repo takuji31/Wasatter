@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="jp.senchan.android.wasatter" android:versionCode="11" android:versionName="1.0">
+	package="jp.senchan.android.wasatter" android:versionCode="11"
+	android:versionName="1.0">
 	<application android:label="@string/app_name" android:icon="@drawable/wasattericon">
 		<activity android:name="ActivityMain">
 			<intent-filter>
@@ -8,7 +9,8 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".activity.Main" android:configChanges="keyboardHidden|orientation"></activity>
+		<activity android:name=".activity.Main"
+			android:configChanges="keyboardHidden|orientation"></activity>
 		<activity android:label="New post" android:name=".activity.Update"></activity>
 		<activity android:name="Setting" android:label="Setting"></activity>
 		<activity android:name=".setting.WassrAccount" android:label="設定 - Wassr"
@@ -19,11 +21,12 @@
 		<activity android:name=".activity.Detail" android:theme="@android:style/Theme.Dialog"></activity>
 		<activity android:name=".setting.DisplaySetting"></activity>
 		<activity android:name=".setting.Data"></activity>
-	<activity android:label="Channel list" android:name=".activity.ChannelSelect" android:theme="@android:style/Theme.Dialog"></activity>
-<activity android:label="@string/setup_wizard_main_title" android:name=".setup.SetupMain"></activity>
-</application>
-	<uses-sdk android:minSdkVersion="7"/>
+		<activity android:label="Channel list" android:name=".activity.ChannelSelect"
+			android:theme="@android:style/Theme.Dialog"></activity>
+		<activity android:label="@string/setup_wizard_main_title"
+			android:name=".setup.SetupMain"></activity>
+	</application>
+	<uses-sdk android:minSdkVersion="7" />
 	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.RESTART_PACKAGES"></uses-permission>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 </manifest>
