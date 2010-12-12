@@ -17,7 +17,8 @@
 	<LinearLayout android:id="@+id/LinearLayout02"
 		android:layout_height="wrap_content" android:layout_gravity="bottom"
 		android:layout_width="fill_parent">
-		<Button android:id="@+id/Button01" android:text="@string/setup_wizard_button_next"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
-	</LinearLayout>
+		<Button android:id="@+id/prevButton" android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="fill_parent" android:text="@string/setup_wizard_button_prev"></Button><Button android:text="@string/setup_wizard_button_next"
+			android:layout_height="wrap_content" android:id="@+id/nextButton" android:layout_weight="1" android:layout_width="fill_parent"></Button>
+	
+</LinearLayout>
 </LinearLayout>
