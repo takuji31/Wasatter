@@ -24,7 +24,7 @@
 		<activity android:label="Channel list" android:name=".activity.ChannelSelect"
 			android:theme="@android:style/Theme.Dialog"></activity>
 		<activity android:label="@string/setup_wizard_main_title"
-			android:name=".setup.SetupMain"></activity>
+			android:name=".setup.SetupMain" android:launchMode="singleInstance"></activity>
 		<activity android:label="@string/setup_wizard_main_title"
 			android:name=".auth.WassrAuthCallback">
             <intent-filter>
