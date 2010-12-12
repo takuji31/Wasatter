@@ -18,6 +18,8 @@ public class WassrAccount extends Setting {
 	public static final String LOAD_TL = "wassr_load_timeline";
 	public static final String LOAD_FAVORITE = "display_load_favorite_image";
 	public static final String POST_ENABLE = "enable_wassr";
+	
+	public static final String TOKEN = "wassr_token";
 
 	
 	protected void onCreate(Bundle savedInstanceState) {

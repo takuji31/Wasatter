@@ -1,12 +1,32 @@
 package jp.senchan.android.wasatter.auth;
 
+import jp.senchan.android.wasatter.setting.Setting;
+import jp.senchan.android.wasatter.setting.WassrAccount;
+import jp.senchan.android.wasatter.setup.SetupMain;
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 public class WassrAuthCallback extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		Intent intent = getIntent();
+		Uri uri = intent.getData();
+		try {
+			String token = uri.getQueryParameter("token");
+			//XXX null判定のために呼ぶ
+			token.length();
+			Setting.set(WassrAccount.TOKEN, token);
+		}catch (NullPointerException e) {
+			//ありえない
+		}
+		if(SetupMain.currentPage == SetupMain.PAGE_WASSR_AUTH) {
+			SetupMain.currentPage++;
+			Intent goBackSetup = new Intent(getBaseContext(),SetupMain.class);
+			startActivity(goBackSetup);
+		}
+		this.finish();
 	}
 }

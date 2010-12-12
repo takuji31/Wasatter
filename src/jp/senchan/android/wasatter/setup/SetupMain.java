@@ -4,7 +4,6 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.activity.Main;
 import jp.senchan.android.wasatter.auth.params.Wassr;
 import jp.senchan.android.wasatter.setting.Setting;
-import jp.senchan.android.wasatter.setting.WassrAccount;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,14 +15,24 @@ import android.widget.TextView;
 
 public class SetupMain extends Activity {
 	private static final String KEY_PAGE = "SETUP_PAGE";
-	private static final String KEY_COMPLETED = "SETUP_COMPLETED_v_2_0";
+	private static final String KEY_COMPLETED = "SETUP_COMPLETED";
+	private static final String KEY_STARTED = "SETUP_STARTED_v_2_0";
 	private static final String KEY_ALREADY_INSTALLED = "ALREADY_INSTALLED";
 	private static final int MAX_PAGE = 5;
-	private int currentPage;
+	public static final int PAGE_MAIN = 1;
+	public static final int PAGE_WASSR_AUTH = 2;
+	public static final int PAGE_TWITTER_AUTH = 3;
+	
+	public static int currentPage;
+	static {
+		currentPage = Setting.get(SetupMain.KEY_PAGE, 1);
+	}
+	
 	private Button prevButton;
 	private Button nextButton;
 	private Button gotoButton;
 	private TextView wizardText;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +43,6 @@ public class SetupMain extends Activity {
 		nextButton = (Button) findViewById(R.id.nextButton);
 		gotoButton = (Button) findViewById(R.id.gotoButton);
 		wizardText = (TextView) findViewById(R.id.wizardText);
-		currentPage = Setting.get(SetupMain.KEY_PAGE, 1);
 		this.progressSetup();
 		nextButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -53,7 +61,15 @@ public class SetupMain extends Activity {
 			}
 		});
 	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		this.progressSetup();
+	}
 
+	
 	protected void progressSetup() {
 		// 最後のページまで進んだか、既に完了していたら終わりにする
 		if (currentPage > SetupMain.MAX_PAGE
@@ -70,12 +86,13 @@ public class SetupMain extends Activity {
 		prevButton.setVisibility(View.VISIBLE);
 		gotoButton.setVisibility(View.GONE);
 		switch (currentPage) {
-			case 1:
+			case SetupMain.PAGE_MAIN:
 				// 初期ページ
 				// 戻るボタンを無効にする
 				prevButton.setVisibility(View.GONE);
+				wizardText.setText(R.string.setup_wizard_main_text);
 			break;
-			case 2:
+			case SetupMain.PAGE_WASSR_AUTH:
 				//Wassrアカウント設定画面
 				gotoButton.setVisibility(View.VISIBLE);
 				gotoButton.setText(R.string.setup_wizard_button_goto_wassr_account);
