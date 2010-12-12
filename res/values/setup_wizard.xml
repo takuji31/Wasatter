@@ -4,4 +4,6 @@
 <string name="setup_wizard_main_text">Wasatter2をインストールしていただき、\nありがとうございます。\nWasatter2の初期設定を開始します。\n\nなお、Wasatterをこれまでご利用\nいただいた方も再度設定していただく\n必要があります。\n\n次へをタップしてください。</string>
 <string name="setup_wizard_button_next">次へ</string>
 <string name="setup_wizard_button_prev">戻る</string>
+<string name="setup_wizard_button_goto_wassr_account">Wassrアカウントの設定</string>
+<string name="setup_wizard_text_wassr_account">Wassrアカウントの設定を行います。\n\nボタンをタップしてブラウザーを開いてください。\n\n次に進む場合は次へをタップしてください。</string>
 </resources>

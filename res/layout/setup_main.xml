@@ -9,11 +9,11 @@
 			android:layout_height="wrap_content" android:layout_width="fill_parent"
 			android:paddingTop="10dip" android:paddingBottom="10dip"
 			android:paddingLeft="5dip" android:textSize="20sp"></TextView>
-		<TextView android:id="@+id/TextView02" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="@string/setup_wizard_main_text"
+		<TextView android:layout_height="wrap_content" android:text="@string/setup_wizard_main_text"
 			android:paddingRight="5dip" android:paddingLeft="5dip"
-			android:textSize="16sp"></TextView>
-	</LinearLayout>
+			android:textSize="16sp" android:layout_width="fill_parent" android:id="@+id/wizardText"></TextView>
+	<Button android:layout_height="wrap_content" android:layout_width="fill_parent" android:text="GotoButton" android:id="@+id/gotoButton"></Button>
+</LinearLayout>
 	<LinearLayout android:id="@+id/LinearLayout02"
 		android:layout_height="wrap_content" android:layout_gravity="bottom"
 		android:layout_width="fill_parent">
