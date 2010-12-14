@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 
 public class WassrAuthCallback extends Activity{
+	
+	public static String id;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -18,6 +21,8 @@ public class WassrAuthCallback extends Activity{
 			String token = uri.getQueryParameter("token");
 			//XXX null判定のために呼ぶ
 			token.length();
+			WassrAuthCallback.id.length();
+			Setting.set(WassrAccount.ID, WassrAuthCallback.id);
 			Setting.set(WassrAccount.TOKEN, token);
 		}catch (NullPointerException e) {
 			//ありえない

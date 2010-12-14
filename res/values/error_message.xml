@@ -2,4 +2,5 @@
 <resources>
 <string name="error_twitter_oauth_network_error">リクエストに失敗しました。\nもう一度やり直してください。</string>
 <string name="error_generic_task_canceled">中止しました</string>
+<string name="error_wassr_auth_empty_id">Wassr IDを入力してください。</string>
 </resources>
