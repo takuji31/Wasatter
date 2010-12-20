@@ -20,6 +20,7 @@ import jp.senchan.android.wasatter.util.DBHelper;
 import org.apache.commons.codec.binary.Base64;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,7 +30,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.os.Environment;
 import android.text.SpannableStringBuilder;
 
-public class Wasatter {
+public class Wasatter extends Application {
 	public static final String AGENT = "Wasatter2 for Android";
 	public static final String VIA = "Wasatter2";
 	public static final String WASSR = "Wassr";
