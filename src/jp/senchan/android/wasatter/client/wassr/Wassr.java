@@ -11,10 +11,10 @@ import java.util.Locale;
 import java.util.Map.Entry;
 
 import jp.senchan.android.wasatter.R;
-import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.client.BaseClient;
 import jp.senchan.android.wasatter.item.Item;
+import jp.senchan.android.wasatter.setting.Setting;
 import jp.senchan.android.wasatter.setting.WassrAccount;
 
 import org.apache.http.HttpEntity;
@@ -62,7 +62,7 @@ public class Wassr extends BaseClient {
 		HttpConnectionParams.setSoTimeout(params, 10000);
 		// 認証のセット
 		Credentials cred = new UsernamePasswordCredentials(
-				Setting.getWassrId(), Setting.getWassrPass());
+				Setting.get(WassrAccount.ID,""), Setting.get(WassrAccount.PASS,""));
 		AuthScope scope = new AuthScope("api.wassr.jp", 80);
 		client.getCredentialsProvider().setCredentials(scope, cred);
 
@@ -174,9 +174,9 @@ public class Wassr extends BaseClient {
 			boolean result = json.getString("status").equalsIgnoreCase("ok");
 			if (result) {
 				if (item.favorited) {
-					item.favorite.remove(Setting.getWassrId());
+					item.favorite.remove(Setting.get(WassrAccount.ID,""));
 				} else {
-					item.favorite.add(Setting.getWassrId());
+					item.favorite.add(Setting.get(WassrAccount.ID,""));
 				}
 				item.favorited = !item.favorited;
 			}
@@ -324,7 +324,7 @@ public class Wassr extends BaseClient {
 						}
 					}
 					item.favorited = item.favorite
-							.indexOf(Setting.getWassrId()) != -1;
+							.indexOf(Setting.get(WassrAccount.ID,"")) != -1;
 					if (items.indexOf(item) == -1) {
 						items.add(0, item);
 					}

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import jp.senchan.android.wasatter.R;
-import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.client.wassr.WassrUrl;
 import jp.senchan.android.wasatter.item.Item;
@@ -100,12 +99,8 @@ public class Timeline extends ArrayAdapter<Item> implements
 			// アイコンをロードする。
 			Bitmap image = Wasatter.images.get(item.profileImageUrl);
 			ImageView icon = (ImageView) view.findViewById(R.id.icon);
-			if (!Setting.isLoadImage()) {
-				icon.setVisibility(View.GONE);
-			} else {
-				icon.setImageBitmap(image);
-				icon.setVisibility(View.VISIBLE);
-			}
+			icon.setImageBitmap(image);
+			icon.setVisibility(View.VISIBLE);
 			// サービス名をビューにセットする
 			TextView service = (TextView) view.findViewById(R.id.service_name);
 			if (service != null) {

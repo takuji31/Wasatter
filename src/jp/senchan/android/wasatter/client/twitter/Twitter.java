@@ -1,35 +1,28 @@
 package jp.senchan.android.wasatter.client.twitter;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.client.BaseClient;
-import jp.senchan.android.wasatter.client.wassr.WassrUrl;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.TwitterAccount;
 import jp.senchan.android.wasatter.xauth.SignatureEncode;
 import jp.senchan.android.wasatter.xauth.XAuthClient;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Version2からのWassrクライアントクラス
+ * Version2からのTwitterクライアントクラス
  *
  * @author takuji
  *
@@ -121,51 +114,6 @@ public class Twitter extends BaseClient {
 		return resCode;
 	}
 	
-	
-	public static boolean favorite(Item item) {
-		JSONObject json = null;
-		try {
-			// HttpClientの準備
-			DefaultHttpClient client = getHttpClient();
-			// URLの設定
-			String url = null;
-			if (!item.favorited) {
-				url = WassrUrl.FAVORITE_ADD.replace("[rid]", item.rid);
-
-			} else {
-				url = WassrUrl.FAVORITE_DEL.replace("[rid]", item.rid);
-			}
-			HttpPost post = new HttpPost(url);
-			HttpResponse response = client.execute(post);
-			HttpEntity entity = response.getEntity();
-			if (entity != null) {
-				String resString = EntityUtils.toString(entity);
-				json = new JSONObject(resString);
-			}
-			// 配列が空なら終了
-			if (json == null || json.length() == 0) {
-				return false;
-			}
-			boolean result = json.getString("status").equalsIgnoreCase("ok");
-			if (result) {
-				if (item.favorited) {
-					item.favorite.remove(Setting.getWassrId());
-				} else {
-					item.favorite.add(Setting.getWassrId());
-				}
-				item.favorited = !item.favorited;
-			}
-			return result;
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
-			// よくわからない
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
 	
 	public static ArrayList<Item> parseJSON(String jsonStr,int mode){
 		

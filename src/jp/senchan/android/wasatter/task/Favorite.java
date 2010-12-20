@@ -36,7 +36,7 @@ public class Favorite extends AsyncTask<Item, Void, Boolean> {
 		} else if (Wasatter.WASSR.equals(item.service)) {
 			return Wassr.favorite(item);
 		} else if (Wasatter.TWITTER.equals(item.service)) {
-			Twitter.favorite(item);
+			//Twitter.favorite(item);
 		}
 		return false;
 	}

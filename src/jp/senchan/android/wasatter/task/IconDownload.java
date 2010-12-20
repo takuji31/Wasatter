@@ -6,7 +6,6 @@ package jp.senchan.android.wasatter.task;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.activity.Main;
 import jp.senchan.android.wasatter.client.BaseClient;
@@ -31,11 +30,6 @@ public class IconDownload extends AsyncTask<Void, Integer, Void> {
 
 	
 	protected void onPreExecute() {
-		// そもそもロードしない設定なら走らせない
-		if (!Setting.isLoadImage()) {
-			this.cancel(true);
-			return;
-		}
 		// ダウンロードするアイコンがあったらプログレスバーを表示、なかったら何もせずに終了
 		if (count == 0) {
 			this.cancel(true);

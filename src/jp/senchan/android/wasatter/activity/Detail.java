@@ -1,8 +1,9 @@
 package jp.senchan.android.wasatter.activity;
 
-import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.item.Item;
+import jp.senchan.android.wasatter.setting.Setting;
+import jp.senchan.android.wasatter.setting.WassrAccount;
 import jp.senchan.android.wasatter.task.Favorite;
 import jp.senchan.android.wasatter.util.ResultCode;
 import jp.senchan.android.wasatter.R;
@@ -108,7 +109,7 @@ public class Detail extends Activity {
 			if (Wasatter.TWITTER.equals(item.service)) {
 				button_favorite.setText(ADD_TWITTER);
 			} else if (item.favorite != null
-					&& item.favorite.indexOf(Setting.getWassrId()) != -1) {
+					&& item.favorite.indexOf(Setting.get(WassrAccount.ID,"")) != -1) {
 				button_favorite.setText(DEL_WASSR);
 			} else {
 				button_favorite.setText(ADD_WASSR);
