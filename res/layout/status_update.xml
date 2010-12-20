@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent" android:orientation="vertical" android:layout_height="fill_parent">
-<LinearLayout android:layout_height="wrap_content" android:id="@+id/layout_reply" android:orientation="vertical" android:layout_width="fill_parent"><TextView android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/reply_message" android:padding="5dip"></TextView><TextView android:layout_height="wrap_content" android:layout_width="fill_parent" android:gravity="right|center_vertical" android:id="@+id/reply_user_name" android:padding="5dip"></TextView>
-</LinearLayout><LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/layout_service"><CheckBox android:layout_height="wrap_content" android:text="Wassr" android:id="@+id/check_post_wassr" android:layout_width="400dip" android:layout_weight="1"></CheckBox><CheckBox android:layout_height="wrap_content" android:id="@+id/check_post_twitter" android:text="Twitter" android:layout_width="400dip" android:layout_weight="1"></CheckBox>
-</LinearLayout><LinearLayout android:id="@+id/LinearLayout01" android:layout_height="wrap_content" android:layout_width="fill_parent"><CheckBox android:layout_height="wrap_content" android:layout_width="400dip" android:layout_weight="1" android:text="自動URL短縮" android:id="@+id/auto_shortten" android:visibility="gone"></CheckBox><Button android:layout_height="wrap_content" android:id="@+id/short_button" android:text="URL短縮" android:layout_width="400dip" android:layout_weight="1"></Button>
-</LinearLayout><TableLayout android:id="@+id/TableLayout01" android:layout_width="fill_parent" android:stretchColumns="1" android:layout_height="fill_parent"><Button android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/post_button" android:text="つぶやく"></Button><EditText android:layout_width="fill_parent" android:id="@+id/post_status_text" android:gravity="top|left" android:layout_height="wrap_content" android:layout_marginTop="10dip" android:layout_marginBottom="10dip" android:layout_marginLeft="5dip" android:layout_marginRight="5dip" android:inputType="text"></EditText>
-
-</TableLayout>
-
-
-
-
-
-
-
-
-
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:orientation="vertical"
+	android:layout_height="fill_parent">
+	<LinearLayout android:layout_height="wrap_content"
+		android:id="@+id/layout_reply" android:orientation="vertical"
+		android:layout_width="fill_parent">
+		<TextView android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:id="@+id/reply_message"
+			android:padding="5dip"></TextView>
+		<TextView android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:gravity="right|center_vertical"
+			android:id="@+id/reply_user_name" android:padding="5dip"></TextView>
+	</LinearLayout>
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_width="fill_parent" android:id="@+id/layout_service">
+		<CheckBox android:layout_height="wrap_content" android:text="Wassr"
+			android:id="@+id/check_post_wassr" android:layout_width="400dip"
+			android:layout_weight="1" android:layout_margin="5dip"></CheckBox>
+		<CheckBox android:layout_height="wrap_content" android:id="@+id/check_post_twitter"
+			android:text="Twitter" android:layout_width="400dip"
+			android:layout_weight="1" android:layout_margin="5dip"></CheckBox>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/LinearLayout01"
+		android:layout_height="wrap_content" android:layout_width="fill_parent">
+		<CheckBox android:layout_height="wrap_content"
+			android:layout_width="400dip" android:layout_weight="1" android:text="自動URL短縮"
+			android:id="@+id/auto_shortten" android:visibility="gone"></CheckBox>
+		<Button android:layout_height="wrap_content" android:id="@+id/short_button"
+			android:text="URL短縮" android:layout_width="400dip"
+			android:layout_weight="1" android:textSize="16sp"
+			android:layout_margin="5dip"></Button>
+	</LinearLayout>
+	<TableLayout android:id="@+id/TableLayout01"
+		android:layout_width="fill_parent" android:stretchColumns="1"
+		android:layout_height="fill_parent">
+		<Button android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:id="@+id/post_button"
+			android:text="つぶやく" android:textSize="16sp" android:layout_margin="5dip"></Button>
+		<EditText android:layout_width="fill_parent" android:id="@+id/post_status_text"
+			android:gravity="top|left" android:layout_height="wrap_content"
+			android:layout_marginTop="10dip" android:layout_marginBottom="10dip"
+			android:layout_marginLeft="5dip" android:layout_marginRight="5dip"
+			android:inputType="text"></EditText>
+	</TableLayout>
 </LinearLayout>
