@@ -78,7 +78,7 @@ public class Wasatter extends Application {
 		return "";
 	}
 
-	public static String makeImageFileName() {
+	public String makeImageFileName() {
 		String names = "abcdefghijklmnopqrstuvwxyz0123456789";
 		SpannableStringBuilder path = new SpannableStringBuilder();
 		path.append(getImagePath());
@@ -99,11 +99,11 @@ public class Wasatter extends Application {
 		}
 	}
 
-	public static boolean saveImage(String name, Bitmap image) {
+	public boolean saveImage(String name, Bitmap image) {
 		return saveImage(getImagePath(), name, image, CompressFormat.PNG, 80);
 	}
 
-	public static boolean saveTempImage(Bitmap image) {
+	public boolean saveTempImage(Bitmap image) {
 		return saveImage(getImageTempPath(), "temp.jpg", image,
 				CompressFormat.JPEG, 80);
 	}
@@ -139,7 +139,7 @@ public class Wasatter extends Application {
 		}
 	}
 
-	public static Bitmap getImage(String name) {
+	public Bitmap getImage(String name) {
 		// ファイル名の生成
 		SpannableStringBuilder path = new SpannableStringBuilder();
 		path.append(getImagePath());
@@ -153,34 +153,33 @@ public class Wasatter extends Application {
 		}
 	}
 
-	public static void deleteImage(String name) {
+	public void deleteImage(String name) {
 		try {
-			File file = new File(new SpannableStringBuilder(Wasatter
-					.getImagePath()).append(name).toString());
+			File file = new File(new SpannableStringBuilder(getImagePath()).append(name).toString());
 			file.delete();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
 
-	public static String getImageTempPath() {
+	public String getImageTempPath() {
 		return getDataPath(".temp_image");
 	}
 
-	public static String getImagePath() {
+	public String getImagePath() {
 		return getDataPath("imagecache");
 	}
 
-	public static void deleteImageCache() {
+	public void deleteImageCache() {
 		// TODO JDBM仕様に書き換える
 		Wasatter.images.clear();
-		SQLiteDatabase rdb = Wasatter.db.getReadableDatabase();
+		SQLiteDatabase rdb = db.getReadableDatabase();
 		Cursor c = rdb.rawQuery("select filename from imagestore", null);
 		c.moveToFirst();
 		int count = c.getCount();
 		for (int i = 0; i < count; i++) {
 			String imageName = c.getString(0);
-			Wasatter.deleteImage(imageName);
+			deleteImage(imageName);
 			c.moveToNext();
 		}
 		c.close();
