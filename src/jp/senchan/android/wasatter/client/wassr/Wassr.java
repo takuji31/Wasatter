@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.client;
+package jp.senchan.android.wasatter.client.wassr;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.client.BaseClient;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.WassrAccount;
 

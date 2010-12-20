@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.client;
+package jp.senchan.android.wasatter.client.twitter;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -9,6 +9,8 @@ import java.util.Locale;
 
 import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.client.BaseClient;
+import jp.senchan.android.wasatter.client.wassr.WassrUrl;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.TwitterAccount;
 import jp.senchan.android.wasatter.xauth.SignatureEncode;

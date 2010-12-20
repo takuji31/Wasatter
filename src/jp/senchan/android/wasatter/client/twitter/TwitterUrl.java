@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.client;
+package jp.senchan.android.wasatter.client.twitter;
 
 public class TwitterUrl {
 	public static final String FRIEND_TIMELINE = "http://api.twitter.com/statuses/home_timeline.json";

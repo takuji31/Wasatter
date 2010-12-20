@@ -7,7 +7,7 @@ import java.util.Date;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
-import jp.senchan.android.wasatter.client.WassrUrl;
+import jp.senchan.android.wasatter.client.wassr.WassrUrl;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.DisplaySetting;
 import android.content.Context;

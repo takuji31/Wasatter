@@ -2,8 +2,8 @@ package jp.senchan.android.wasatter.task;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.activity.Update;
-import jp.senchan.android.wasatter.client.Twitter;
-import jp.senchan.android.wasatter.client.Wassr;
+import jp.senchan.android.wasatter.client.twitter.Twitter;
+import jp.senchan.android.wasatter.client.wassr.Wassr;
 import jp.senchan.android.wasatter.codes.ServiceCode;
 import jp.senchan.android.wasatter.util.ResultCode;
 import android.app.AlertDialog;

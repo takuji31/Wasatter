@@ -6,7 +6,7 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.adapter.Timeline;
 import jp.senchan.android.wasatter.client.BaseClient;
-import jp.senchan.android.wasatter.client.Wassr;
+import jp.senchan.android.wasatter.client.wassr.Wassr;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.Setting;
 import jp.senchan.android.wasatter.setting.SettingRoot;

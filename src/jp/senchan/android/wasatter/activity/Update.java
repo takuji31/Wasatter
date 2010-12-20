@@ -2,8 +2,8 @@ package jp.senchan.android.wasatter.activity;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
-import jp.senchan.android.wasatter.client.Twitter;
-import jp.senchan.android.wasatter.client.Wassr;
+import jp.senchan.android.wasatter.client.twitter.Twitter;
+import jp.senchan.android.wasatter.client.wassr.Wassr;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.task.UpdateStatus;
 import jp.senchan.android.wasatter.util.UrlGetter;

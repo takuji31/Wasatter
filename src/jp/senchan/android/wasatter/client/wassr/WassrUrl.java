@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.client;
+package jp.senchan.android.wasatter.client.wassr;
 
 public class WassrUrl {
 	public static final String FRIEND_TIMELINE = "http://api.wassr.jp/statuses/friends_timeline.json";
