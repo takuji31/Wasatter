@@ -7,6 +7,7 @@ import jp.senchan.android.wasatter.client.wassr.Wassr;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.task.UpdateStatus;
 import jp.senchan.android.wasatter.util.UrlGetter;
+import jp.senchan.android.wasatter.util.image.ImageStore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -199,8 +200,8 @@ public class Update extends Activity {
 			if (image != null) {
 				ImageView image_preview = (ImageView) findViewById(R.id.cameraResult);
 				image_preview.setImageBitmap(image);
-				Wasatter.saveTempImage(image);
-				attachFileName = Wasatter.getImageTempPath() + "temp.jpg";
+				ImageStore.saveTempImage(image);
+				attachFileName = ImageStore.getImageTempPath() + "temp.jpg";
 			}
 		} catch (Throwable e) {
 			// FIXME ここに来るのはまずOutOfMemoryErrorがほぼ100%。如何にして発生しないようにするか。

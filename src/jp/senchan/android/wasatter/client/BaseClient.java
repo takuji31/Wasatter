@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.item.DataStore;
+import jp.senchan.android.wasatter.util.image.ImageStore;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -67,11 +68,11 @@ public class BaseClient {
 		try {
 			String name = (String) DataStore.icon.get(url);
 			if(name != null){
-				bmp = Wasatter.getImage(name);
+				bmp = ImageStore.getImage(name);
 			}else{
 				bmp = getImage(url);
-				String filename = Wasatter.makeImageFileName();
-				Wasatter.saveImage(filename, bmp);
+				String filename = ImageStore.makeImageFileName();
+				ImageStore.saveImage(filename, bmp);
 				DataStore.icon.put(url, filename);
 				DataStore.commit();
 			}

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import jp.senchan.android.wasatter.R;
-import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.item.Item;
+import jp.senchan.android.wasatter.util.wassr.WassrUtils;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +41,7 @@ public class Odai extends ArrayAdapter implements WasatterAdapter{
 				text.setText(item.html);
 			}
 			TextView date = (TextView) view.findViewById(R.id.odai_date);
-			date.setText(new SimpleDateFormat(Wasatter.ODAI_DATE_FORMAT)
+			date.setText(new SimpleDateFormat(WassrUtils.ODAI_DATE_FORMAT)
 					.format(new Date(item.epoch * 1000)));
 		}
 		return view;
