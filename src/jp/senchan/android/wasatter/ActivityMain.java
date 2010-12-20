@@ -326,14 +326,6 @@ public class ActivityMain extends Activity {
 		ad.show();
 	}
 
-	@Override
-	protected void onDestroy() {
-		// TODO 自動生成されたメソッド・スタブ
-		ActivityManager am = (ActivityManager) this
-				.getSystemService(ACTIVITY_SERVICE);
-		am.restartPackage(this.getPackageName());
-	}
-
 	public void loadCache() {
 		SQLiteHelperImageStore imageStore = Wasatter.imageStore;
 		SQLiteDatabase db = imageStore.getReadableDatabase();
