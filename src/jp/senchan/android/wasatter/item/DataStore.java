@@ -47,19 +47,19 @@ public class DataStore {
 
 	static {
 		Properties pt = new Properties();
-		try {
-			recman = RecordManagerFactory.createRecordManager(Wasatter
-					.getDataPath("data","datastore"), pt);
-			//各レコードをロードする
-			statusWassr = load(KEY_STATUS_WASSR);
-			statusTwitter = load(KEY_STATUS_TWITTER);
-			userWassr = load(KEY_USER_WASSR);
-			userTwitter = load(KEY_USER_TWITTER);
-			icon = load(KEY_ICON);
-			icon_loaded = load(KEY_ICON_LOADED);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			recman = RecordManagerFactory.createRecordManager(Wasatter
+//					.getDataPath("data","datastore"), pt);
+//			//各レコードをロードする
+//			statusWassr = load(KEY_STATUS_WASSR);
+//			statusTwitter = load(KEY_STATUS_TWITTER);
+//			userWassr = load(KEY_USER_WASSR);
+//			userTwitter = load(KEY_USER_TWITTER);
+//			icon = load(KEY_ICON);
+//			icon_loaded = load(KEY_ICON_LOADED);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public static HTree load(String key) throws IOException{

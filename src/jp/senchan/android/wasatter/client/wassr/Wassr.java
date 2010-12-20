@@ -254,7 +254,7 @@ public class Wassr extends BaseClient {
 							// 必要な画像のURLをあらかじめ取得
 							Bitmap bmp = Wasatter.images.get(source);
 							if (bmp == null) {
-								Wassr.getImageWithCache(source);
+								//Wassr.getImageWithCache(source);
 							}
 							return null;
 						}

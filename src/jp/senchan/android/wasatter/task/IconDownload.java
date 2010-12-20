@@ -47,9 +47,10 @@ public class IconDownload extends AsyncTask<Void, Integer, Void> {
 		//TODO:イテレーターを使わないように書き換える
 		Iterator<String> it = urls.iterator();
 		try {
+			Wasatter c = (Wasatter) activity.getApplication();
 			while (it.hasNext()) {
 				String url = it.next();
-				if(BaseClient.getImageWithCache(url)){
+				if(BaseClient.getImageWithCache(c,url)){
 					it.remove();
 				}
 				publishProgress(200);

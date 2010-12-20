@@ -196,11 +196,12 @@ public class Update extends Activity {
 			}
 
 			// 画像がセットされたら一時パスに保存する
+			Wasatter c = (Wasatter) getApplication();
 			if (image != null) {
 				ImageView image_preview = (ImageView) findViewById(R.id.cameraResult);
 				image_preview.setImageBitmap(image);
-				Wasatter.saveTempImage(image);
-				attachFileName = Wasatter.getImageTempPath() + "temp.jpg";
+				c.saveTempImage(image);
+				attachFileName = c.getImageTempPath() + "temp.jpg";
 			}
 		} catch (Throwable e) {
 			// FIXME ここに来るのはまずOutOfMemoryErrorがほぼ100%。如何にして発生しないようにするか。

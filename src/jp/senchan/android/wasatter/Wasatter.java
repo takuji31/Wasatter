@@ -183,7 +183,7 @@ public class Wasatter extends Application {
 			c.moveToNext();
 		}
 		c.close();
-		SQLiteDatabase wdb = Wasatter.db.getWritableDatabase();
+		SQLiteDatabase wdb = db.getWritableDatabase();
 		wdb.execSQL("delete from imagestore");
 	}
 

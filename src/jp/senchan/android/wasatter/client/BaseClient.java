@@ -62,16 +62,16 @@ public class BaseClient {
 		return null;
 	}
 
-	public static boolean getImageWithCache(String url) {
+	public static boolean getImageWithCache(Wasatter c,String url) {
 		Bitmap bmp = null;
 		try {
 			String name = (String) DataStore.icon.get(url);
 			if(name != null){
-				bmp = Wasatter.getImage(name);
+				bmp = c.getImage(name);
 			}else{
 				bmp = getImage(url);
-				String filename = Wasatter.makeImageFileName();
-				Wasatter.saveImage(filename, bmp);
+				String filename = c.makeImageFileName();
+				c.saveImage(filename, bmp);
 				DataStore.icon.put(url, filename);
 				DataStore.commit();
 			}
