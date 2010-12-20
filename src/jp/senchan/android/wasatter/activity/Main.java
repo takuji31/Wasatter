@@ -1,10 +1,24 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.activity;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import jp.senchan.android.wasatter.ActivityItemDetail;
+import jp.senchan.android.wasatter.ActivityUpdateStatus;
+import jp.senchan.android.wasatter.AdapterOdai;
+import jp.senchan.android.wasatter.AdapterTimeline;
+import jp.senchan.android.wasatter.IntentCode;
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.SQLiteHelperImageStore;
+import jp.senchan.android.wasatter.Setting;
+import jp.senchan.android.wasatter.TaskImageDownloadWithCache;
+import jp.senchan.android.wasatter.TaskReloadTimeline;
+import jp.senchan.android.wasatter.TaskReloadTodo;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterAdapter;
+import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.WassrTodo;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,7 +41,7 @@ import android.widget.ToggleButton;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class ActivityMain extends Activity {
+public class Main extends Activity {
 	public ListView ls;
 	public ArrayList<WasatterItem> list_timeline;
 	public ArrayList<WasatterItem> list_reply;
@@ -373,16 +387,16 @@ public class ActivityMain extends Activity {
 	private class TimelineButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			ActivityMain.this.mode = TaskReloadTimeline.MODE_TIMELINE;
-			ActivityMain.this.buttonSelect(v.getId());
-			if (ActivityMain.this.list_timeline == null) {
-				ActivityMain.this.getTimeLine();
+			Main.this.mode = TaskReloadTimeline.MODE_TIMELINE;
+			Main.this.buttonSelect(v.getId());
+			if (Main.this.list_timeline == null) {
+				Main.this.getTimeLine();
 			} else {
 				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
-						R.id.timeline_list, ActivityMain.this.list_timeline,
+						R.id.timeline_list, Main.this.list_timeline,
 						false);
-				ActivityMain.this.ls.setAdapter(adapter);
-				ActivityMain.this.ls.requestFocus();
+				Main.this.ls.setAdapter(adapter);
+				Main.this.ls.requestFocus();
 			}
 		}
 	}
@@ -390,15 +404,15 @@ public class ActivityMain extends Activity {
 	private class ReplyButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			ActivityMain.this.mode = TaskReloadTimeline.MODE_REPLY;
-			ActivityMain.this.buttonSelect(v.getId());
-			if (ActivityMain.this.list_reply == null) {
-				ActivityMain.this.getReply();
+			Main.this.mode = TaskReloadTimeline.MODE_REPLY;
+			Main.this.buttonSelect(v.getId());
+			if (Main.this.list_reply == null) {
+				Main.this.getReply();
 			} else {
 				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
-						R.id.timeline_list, ActivityMain.this.list_reply, false);
-				ActivityMain.this.ls.setAdapter(adapter);
-				ActivityMain.this.ls.requestFocus();
+						R.id.timeline_list, Main.this.list_reply, false);
+				Main.this.ls.setAdapter(adapter);
+				Main.this.ls.requestFocus();
 			}
 		}
 	}
@@ -406,16 +420,16 @@ public class ActivityMain extends Activity {
 	private class MyPostButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			ActivityMain.this.mode = TaskReloadTimeline.MODE_MYPOST;
-			ActivityMain.this.buttonSelect(v.getId());
-			if (ActivityMain.this.list_mypost == null) {
-				ActivityMain.this.getMyPost();
+			Main.this.mode = TaskReloadTimeline.MODE_MYPOST;
+			Main.this.buttonSelect(v.getId());
+			if (Main.this.list_mypost == null) {
+				Main.this.getMyPost();
 			} else {
 				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
-						R.id.timeline_list, ActivityMain.this.list_mypost,
+						R.id.timeline_list, Main.this.list_mypost,
 						false);
-				ActivityMain.this.ls.setAdapter(adapter);
-				ActivityMain.this.ls.requestFocus();
+				Main.this.ls.setAdapter(adapter);
+				Main.this.ls.requestFocus();
 			}
 		}
 	}
@@ -423,15 +437,15 @@ public class ActivityMain extends Activity {
 	private class OdaiButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			ActivityMain.this.mode = TaskReloadTimeline.MODE_ODAI;
-			ActivityMain.this.buttonSelect(v.getId());
-			if (ActivityMain.this.list_odai == null) {
-				ActivityMain.this.getOdai();
+			Main.this.mode = TaskReloadTimeline.MODE_ODAI;
+			Main.this.buttonSelect(v.getId());
+			if (Main.this.list_odai == null) {
+				Main.this.getOdai();
 			} else {
 				AdapterOdai adapter = new AdapterOdai(getBaseContext(),
-						R.id.timeline_list, ActivityMain.this.list_odai);
-				ActivityMain.this.ls.setAdapter(adapter);
-				ActivityMain.this.ls.requestFocus();
+						R.id.timeline_list, Main.this.list_odai);
+				Main.this.ls.setAdapter(adapter);
+				Main.this.ls.requestFocus();
 			}
 
 		}
@@ -440,18 +454,18 @@ public class ActivityMain extends Activity {
 	private class ChannelButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			ActivityMain.this.mode = TaskReloadTimeline.MODE_CHANNEL_LIST;
-			ActivityMain.this.buttonSelect(v.getId());
-			if (ActivityMain.this.list_channel_list == null) {
-				ActivityMain.this.getChannelList();
+			Main.this.mode = TaskReloadTimeline.MODE_CHANNEL_LIST;
+			Main.this.buttonSelect(v.getId());
+			if (Main.this.list_channel_list == null) {
+				Main.this.getChannelList();
 			}
 			// チャンネルの内容取ってたら表示する。
-			if (ActivityMain.this.list_channel != null) {
+			if (Main.this.list_channel != null) {
 				AdapterTimeline adapter = new AdapterTimeline(
-						ActivityMain.this.ls.getContext(),
-						R.layout.timeline_row, ActivityMain.this.list_channel,
+						Main.this.ls.getContext(),
+						R.layout.timeline_row, Main.this.list_channel,
 						true);
-				ActivityMain.this.ls.setAdapter(adapter);
+				Main.this.ls.setAdapter(adapter);
 			}
 		}
 	}
@@ -459,7 +473,7 @@ public class ActivityMain extends Activity {
 	private class ChannelReloadButtonClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			ActivityMain.this.getChannelList();
+			Main.this.getChannelList();
 		}
 	}
 
@@ -473,7 +487,7 @@ public class ActivityMain extends Activity {
 			DialogInterface.OnClickListener {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
-			ActivityMain.this.openSetting();
+			Main.this.openSetting();
 		}
 	}
 
@@ -489,11 +503,11 @@ public class ActivityMain extends Activity {
 				long id) {
 			ListView listView = (ListView) parent;
 			// 選択されたアイテムを取得します
-			ActivityMain.this.selectedItem = (WasatterItem) listView
+			Main.this.selectedItem = (WasatterItem) listView
 					.getAdapter().getItem(position);
-			Intent intent_detail = new Intent(ActivityMain.this,
+			Intent intent_detail = new Intent(Main.this,
 					ActivityItemDetail.class);
-			ActivityMain.this.startActivityForResult(intent_detail,
+			Main.this.startActivityForResult(intent_detail,
 					IntentCode.MAIN_ITEMDETAIL);
 		}
 	}
@@ -506,8 +520,8 @@ public class ActivityMain extends Activity {
 			Spinner spinner = (Spinner) parent;
 			WasatterItem item = (WasatterItem) spinner.getAdapter().getItem(
 					position);
-			ActivityMain.this.getChannel(item.id);
-			ActivityMain.this.selected_channel = item.id;
+			Main.this.getChannel(item.id);
+			Main.this.selected_channel = item.id;
 
 		}
 
