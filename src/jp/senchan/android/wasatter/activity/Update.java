@@ -1,5 +1,11 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.activity;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Setting;
+import jp.senchan.android.wasatter.TaskUpdate;
+import jp.senchan.android.wasatter.UrlGetter;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterItem;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -16,7 +22,7 @@ import android.widget.TextView;
  * @author Senka/Takuji
  *
  */
-public class ActivityUpdateStatus extends Activity {
+public class Update extends Activity {
 	protected WasatterItem ws;
 	protected boolean reply;
 	protected boolean channel;
@@ -94,11 +100,11 @@ public class ActivityUpdateStatus extends Activity {
 			post_btn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					EditText status = (EditText) ActivityUpdateStatus.this
+					EditText status = (EditText) Update.this
 							.findViewById(R.id.post_status_text);
-					CheckBox wassr = (CheckBox) ActivityUpdateStatus.this
+					CheckBox wassr = (CheckBox) Update.this
 							.findViewById(R.id.check_post_wassr);
-					CheckBox twitter = (CheckBox) ActivityUpdateStatus.this
+					CheckBox twitter = (CheckBox) Update.this
 							.findViewById(R.id.check_post_twitter);
 					SpannableStringBuilder sb = (SpannableStringBuilder) status
 							.getText();
@@ -106,7 +112,7 @@ public class ActivityUpdateStatus extends Activity {
 					// 未入力チェック
 					if ("".equals(sb.toString())) {
 						AlertDialog.Builder adb = new AlertDialog.Builder(
-								ActivityUpdateStatus.this);
+								Update.this);
 						adb.setTitle("");
 						adb.setMessage(R.string.notice_message_required);
 						adb.setPositiveButton("OK", null);
@@ -116,14 +122,14 @@ public class ActivityUpdateStatus extends Activity {
 					// 二重投稿防止
 					update_button.setClickable(false);
 					TaskUpdate ut = new TaskUpdate(
-							ActivityUpdateStatus.this.reply, wassr.isChecked(),
-							twitter.isChecked(),ActivityUpdateStatus.this.channel);
+							Update.this.reply, wassr.isChecked(),
+							twitter.isChecked(),Update.this.channel);
 					ut
 							.execute(
 									sb.toString(),
-									ActivityUpdateStatus.this.reply ? ActivityUpdateStatus.this.ws.rid
-											: null,ActivityUpdateStatus.this.channelId);
-					ActivityUpdateStatus.this.finish();
+									Update.this.reply ? Update.this.ws.rid
+											: null,Update.this.channelId);
+					Update.this.finish();
 				}
 			});
 		}
@@ -133,7 +139,7 @@ public class ActivityUpdateStatus extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO 自動生成されたメソッド・スタブ
-				EditText status = (EditText) ActivityUpdateStatus.this
+				EditText status = (EditText) Update.this
 						.findViewById(R.id.post_status_text);
 				String str = status.getText().toString();
 				String replace;

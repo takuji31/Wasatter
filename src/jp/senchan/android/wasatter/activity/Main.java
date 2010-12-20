@@ -3,8 +3,6 @@ package jp.senchan.android.wasatter.activity;
 import java.io.File;
 import java.util.ArrayList;
 
-import jp.senchan.android.wasatter.ActivityItemDetail;
-import jp.senchan.android.wasatter.ActivityUpdateStatus;
 import jp.senchan.android.wasatter.AdapterOdai;
 import jp.senchan.android.wasatter.AdapterTimeline;
 import jp.senchan.android.wasatter.IntentCode;
@@ -308,7 +306,7 @@ public class Main extends Activity {
 	 * 投稿ウィンドウを開くメソッド
 	 */
 	public void openNewPost() {
-		Intent intent_status = new Intent(this, ActivityUpdateStatus.class);
+		Intent intent_status = new Intent(this, Update.class);
 		this.startActivity(intent_status);
 	}
 
@@ -506,7 +504,7 @@ public class Main extends Activity {
 			Main.this.selectedItem = (WasatterItem) listView
 					.getAdapter().getItem(position);
 			Intent intent_detail = new Intent(Main.this,
-					ActivityItemDetail.class);
+					Detail.class);
 			Main.this.startActivityForResult(intent_detail,
 					IntentCode.MAIN_ITEMDETAIL);
 		}
