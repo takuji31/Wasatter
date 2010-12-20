@@ -16,7 +16,6 @@ import jp.senchan.android.wasatter.client.BaseClient;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.Setting;
 import jp.senchan.android.wasatter.setting.WassrAccount;
-import jp.senchan.android.wasatter.util.wassr.WassrUtils;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -380,7 +379,7 @@ public class Wassr extends BaseClient {
 			}
 
 			// その他のパラメータ
-			StringBody via = new StringBody(WassrUtils.VIA);
+			StringBody via = new StringBody(Wasatter.VIA);
 			StringBody st = new StringBody(status);
 			reqEntity.addPart("source", via);
 			reqEntity.addPart("status", st);
