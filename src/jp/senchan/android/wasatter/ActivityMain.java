@@ -14,11 +14,6 @@ public class ActivityMain extends Activity {
 		if(Wasatter.CONTEXT == null){
 			Wasatter.CONTEXT = this.getBaseContext();
 		}
-		//データベースアクセスヘルパーをstaticに放り込む
-		if(Wasatter.db == null){
-			Wasatter.db = new DBHelper(Wasatter.CONTEXT);
-		}
-
 		//ダウンロード待ちURLを解放
 		Wasatter.downloadWaitUrls.clear();
 		//メモリ内の画像キャッシュを解放

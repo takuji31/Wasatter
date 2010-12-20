@@ -30,7 +30,7 @@ public class Wasatter extends Application {
 	public static Context CONTEXT;
 	public static ArrayList<String> downloadWaitUrls = new ArrayList<String>();
 	public static HashMap<String, Bitmap> images = new HashMap<String, Bitmap>();
-	public static DBHelper db;
+	public DBHelper db;
 	public static final int FILENAME_LENGTH = 5;
 	public static Main main;
 	private static String ERROR_AUTH = "401";
@@ -89,15 +89,16 @@ public class Wasatter extends Application {
 		}
 	}
 
-	public static String getDataPath(String dir, String filename) {
-		return getDataPath(dir, filename, Setting.get("use_sd", true));
+	
+	//ここからインスタンスメソッド
+	//ここより上は廃止、移動すべき
+	
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		db = new DBHelper(this);
 	}
-
-	public static String getDataPath(String dir) {
-		return getDataPath(dir, "", Setting.get("use_sd", true));
-	}
-
-	public static String getDataPath(String dir, String filename,
+	public String getDataPath(String dir, String filename,
 			boolean external) {
 		SpannableStringBuilder sb = new SpannableStringBuilder();
 		if (external) {
@@ -112,5 +113,13 @@ public class Wasatter extends Application {
 		new File(sb.toString()).mkdirs();
 		return sb.toString();
 	}
+	public String getDataPath(String dir, String filename) {
+		return getDataPath(dir, filename, Setting.get("use_sd", true));
+	}
+	public String getDataPath(String dir) {
+		return getDataPath(dir, "", Setting.get("use_sd", true));
+	}
+
+	
 
 }
