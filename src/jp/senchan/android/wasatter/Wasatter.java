@@ -13,9 +13,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import jp.senchan.android.wasatter.activity.Main;
+import jp.senchan.android.wasatter.db.DBHelper;
 import jp.senchan.android.wasatter.item.Item;
 import jp.senchan.android.wasatter.setting.Setting;
-import jp.senchan.android.wasatter.util.DBHelper;
 
 import org.apache.commons.codec.binary.Base64;
 
