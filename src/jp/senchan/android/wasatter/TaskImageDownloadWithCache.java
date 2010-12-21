@@ -72,8 +72,8 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		Iterator<String> it = urls.iterator();
 		// キャッシュの期限は5日にしておこう。
 		st.bindLong(1, new Date().getTime() / 1000 - 5 * 24 * 60 * 60);
-		st = db
-				.compileStatement("insert into imagestore(url,filename,created) values(?,?,?)");
+		st.execute();
+		st = db.compileStatement("insert into imagestore(url,filename,created) values(?,?,?)");
 		try {
 			while (it.hasNext()) {
 				// for (int i=0;i<count;i++) {
