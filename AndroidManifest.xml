@@ -9,11 +9,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<activity android:name="ActivityUpdateStatus" android:label="New post" android:configChanges="orientation"></activity>
+<activity android:name=".activity.Update" android:label="New post" android:configChanges="orientation"></activity>
 <activity android:name="Setting" android:label="Setting" android:configChanges="orientation"></activity>
-<activity android:name="ActivityItemDetail" android:label="Status" android:configChanges="orientation"></activity>
-<activity android:name="ActivityTodoDetail" android:label="TODO" android:configChanges="orientation"></activity>
-<activity android:name="ActivityOAuthToken" android:label="Get OAuth token" android:configChanges="orientation"></activity>
+<activity android:name=".activity.Detail" android:label="Status" android:configChanges="orientation"></activity>
+<activity android:name=".activity.Todo" android:label="TODO" android:configChanges="orientation"></activity>
+<activity android:name=".activity.OAuthToken" android:label="Get OAuth token" android:configChanges="orientation"></activity>
 </application>
     <uses-sdk android:minSdkVersion="4" />
 <uses-permission android:name="android.permission.INTERNET" />

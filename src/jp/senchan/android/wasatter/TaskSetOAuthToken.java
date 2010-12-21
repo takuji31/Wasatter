@@ -3,6 +3,7 @@
  */
 package jp.senchan.android.wasatter;
 
+import jp.senchan.android.wasatter.activity.OAuthToken;
 import twitter4j.TwitterException;
 import twitter4j.http.AccessToken;
 import android.os.AsyncTask;
@@ -12,9 +13,9 @@ import android.os.AsyncTask;
  * 
  */
 public class TaskSetOAuthToken extends AsyncTask<String, Void, Boolean> {
-	public ActivityOAuthToken target;
+	public OAuthToken target;
 
-	public TaskSetOAuthToken(ActivityOAuthToken target) {
+	public TaskSetOAuthToken(OAuthToken target) {
 		this.target = target;
 	}
 

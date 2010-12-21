@@ -49,9 +49,9 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 			this.cancel(true);
 			return;
 		}
-		progress_text_count.setText(new SpannableStringBuilder("0/").append(
-				String.valueOf(count)).toString());
 		if (count != 0) {
+			progress_text_count.setText(new SpannableStringBuilder("0/").append(
+					String.valueOf(count)).toString());
 			layout_progress.setVisibility(View.VISIBLE);
 		}
 	}

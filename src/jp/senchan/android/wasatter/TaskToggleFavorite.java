@@ -3,6 +3,7 @@
  */
 package jp.senchan.android.wasatter;
 
+import jp.senchan.android.wasatter.activity.Detail;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -17,10 +18,10 @@ import android.widget.TextView;
  */
 public class TaskToggleFavorite extends AsyncTask<WasatterItem, Void, Boolean> {
 
-	private ActivityItemDetail detail;
+	private Detail detail;
 	private WasatterItem item;
 	private String status;
-	public TaskToggleFavorite(ActivityItemDetail detail) {
+	public TaskToggleFavorite(Detail detail) {
 		this.detail = detail;
 		detail.favoriteButton.setClickable(false);
 	}
@@ -66,9 +67,9 @@ public class TaskToggleFavorite extends AsyncTask<WasatterItem, Void, Boolean> {
 		if (!isWassr) {
 			text = result ? "お気に入りに追加しました。" : "お気に入りに追加できませんでした。";
 			if(favorited){
-				button.setText(ActivityItemDetail.DEL_TWITTER);
+				button.setText(Detail.DEL_TWITTER);
 			}else{
-				button.setText(ActivityItemDetail.ADD_TWITTER);
+				button.setText(Detail.ADD_TWITTER);
 			}
 
 		} else if(favorited){
@@ -77,9 +78,9 @@ public class TaskToggleFavorite extends AsyncTask<WasatterItem, Void, Boolean> {
 			text = result ? "イイネ！を取り消しました。" : "イイネ！できませんでした。";
 		}
 		if(favorited && isWassr){
-			button.setText(ActivityItemDetail.DEL_WASSR);
+			button.setText(Detail.DEL_WASSR);
 		}else if(isWassr){
-			button.setText(ActivityItemDetail.ADD_WASSR);
+			button.setText(Detail.ADD_WASSR);
 		}
 		text_result.setText(text);
 		detail.favoriteButton.setClickable(true);

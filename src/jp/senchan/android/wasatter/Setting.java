@@ -3,6 +3,7 @@
  */
 package jp.senchan.android.wasatter;
 
+import jp.senchan.android.wasatter.activity.OAuthToken;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -153,7 +154,7 @@ public class Setting extends PreferenceActivity {
 		public boolean onPreferenceClick(Preference preference) {
 			// TODO 自動生成されたメソッド・スタブ
 			Intent intent = new Intent(Setting.this.getBaseContext(),
-					ActivityOAuthToken.class);
+					OAuthToken.class);
 			Setting.this.startActivity(intent);
 			return true;
 			// return false;
