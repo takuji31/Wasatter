@@ -7,6 +7,6 @@
 <string name="setup_wizard_button_goto_wassr_account">Wassrアカウントの設定</string><string name="setup_wizard_button_goto_twitter_account">Twitterアカウントの設定</string>
 <string name="setup_wizard_text_wassr_account">Wassrアカウントの設定を行います。\n\nボタンをタップしてブラウザーを開いてください。\n\n次に進む場合は次へをタップしてください。</string>
 <string name="setup_wizard_text_twitter_account">Twitterアカウントの設定を行います。\n\nボタンをタップしてブラウザーを開いてください。\n\n次に進む場合は次へをタップしてください。</string>
-
-<string name="setup_wizard_hint_wassr_id">WassrIDを入力（必須）</string>
+<string name="setup_wizard_hint_wassr_id">WassrIDを入力</string>
+<string name="setup_wizard_hint_wassr_pass">パスワードを入力</string>
 </resources>
