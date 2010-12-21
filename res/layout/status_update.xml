@@ -40,7 +40,6 @@
 		<EditText android:layout_width="fill_parent" android:id="@+id/post_status_text"
 			android:gravity="top|left" android:layout_height="wrap_content"
 			android:layout_marginTop="10dip" android:layout_marginBottom="10dip"
-			android:layout_marginLeft="5dip" android:layout_marginRight="5dip"
-			android:inputType="text"></EditText>
+			android:layout_marginLeft="5dip" android:layout_marginRight="5dip" android:minLines="2"></EditText>
 	</TableLayout>
 </LinearLayout>
