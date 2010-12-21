@@ -8,5 +8,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Wasatter/lib/twitter4j-core-2.1.1-SNAPSHOT-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/WasatterOAuthParams"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

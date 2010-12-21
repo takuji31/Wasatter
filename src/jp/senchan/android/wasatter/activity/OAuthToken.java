@@ -1,8 +1,13 @@
 /**
  *
  */
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.activity;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Setting;
+import jp.senchan.android.wasatter.TaskGetOAuthRequestUrl;
+import jp.senchan.android.wasatter.TaskSetOAuthToken;
+import jp.senchan.android.wasatter.Wasatter;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.http.RequestToken;
@@ -19,7 +24,7 @@ import android.widget.TextView;
  * @author Senka/Takuji
  * 
  */
-public class ActivityOAuthToken extends Activity {
+public class OAuthToken extends Activity {
 	public Twitter twitter;
 	public RequestToken request;
 
@@ -47,7 +52,7 @@ public class ActivityOAuthToken extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
-			ActivityOAuthToken.this.finish();
+			OAuthToken.this.finish();
 		}
 	}
 
@@ -55,9 +60,9 @@ public class ActivityOAuthToken extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
-			TextView pin = (TextView) ActivityOAuthToken.this
+			TextView pin = (TextView) OAuthToken.this
 					.findViewById(R.id.text_token);
-			new TaskSetOAuthToken(ActivityOAuthToken.this).execute(pin
+			new TaskSetOAuthToken(OAuthToken.this).execute(pin
 					.getText().toString());
 		}
 	}
@@ -68,7 +73,7 @@ public class ActivityOAuthToken extends Activity {
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
 			AlertDialog.Builder ad = new AlertDialog.Builder(
-					ActivityOAuthToken.this);
+					OAuthToken.this);
 			ad.setMessage(R.string.message_confirm_clear_oauth_token);
 			ad.setPositiveButton("OK", new ClearTokenOkButtonClickListener());
 			ad.setNegativeButton("Cancel", null);
@@ -87,7 +92,7 @@ public class ActivityOAuthToken extends Activity {
 			Setting.setTwitterTokenSecret("");
 			// Wasatter.makeToast("OAuthトークンをクリアしました。");
 			AlertDialog.Builder ad = new AlertDialog.Builder(
-					ActivityOAuthToken.this);
+					OAuthToken.this);
 			ad.setMessage("OAuthトークンを削除しました。");
 			ad.setPositiveButton("OK", null);
 			ad.show();

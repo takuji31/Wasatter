@@ -1,8 +1,12 @@
 /**
  *
  */
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.activity;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WassrClient;
+import jp.senchan.android.wasatter.WassrTodo;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +19,7 @@ import android.widget.Toast;
  * @author takuji
  * 
  */
-public class ActivityTodoDetail extends Activity {
+public class Todo extends Activity {
 	public WassrTodo status;
 
 	@Override
@@ -47,12 +51,12 @@ public class ActivityTodoDetail extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Todo関連処理のオール非同期化
-			if (WassrClient.startTodo(ActivityTodoDetail.this.status.rid)) {
-				Toast.makeText(ActivityTodoDetail.this,
+			if (WassrClient.startTodo(Todo.this.status.rid)) {
+				Toast.makeText(Todo.this,
 						R.string.notice_message_todo_start_success,
 						Toast.LENGTH_LONG).show();
 			} else {
-				Toast.makeText(ActivityTodoDetail.this,
+				Toast.makeText(Todo.this,
 						R.string.notice_message_todo_start_failure,
 						Toast.LENGTH_LONG).show();
 			}
@@ -63,12 +67,12 @@ public class ActivityTodoDetail extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
-			if (WassrClient.stopTodo(ActivityTodoDetail.this.status.rid)) {
-				Toast.makeText(ActivityTodoDetail.this,
+			if (WassrClient.stopTodo(Todo.this.status.rid)) {
+				Toast.makeText(Todo.this,
 						R.string.notice_message_todo_stop_success,
 						Toast.LENGTH_LONG).show();
 			} else {
-				Toast.makeText(ActivityTodoDetail.this,
+				Toast.makeText(Todo.this,
 						R.string.notice_message_todo_stop_failure,
 						Toast.LENGTH_LONG).show();
 			}
@@ -79,12 +83,12 @@ public class ActivityTodoDetail extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
-			if (WassrClient.completeTodo(ActivityTodoDetail.this.status.rid)) {
-				Toast.makeText(ActivityTodoDetail.this,
+			if (WassrClient.completeTodo(Todo.this.status.rid)) {
+				Toast.makeText(Todo.this,
 						R.string.notice_message_todo_complete_success,
 						Toast.LENGTH_LONG).show();
 			} else {
-				Toast.makeText(ActivityTodoDetail.this,
+				Toast.makeText(Todo.this,
 						R.string.notice_message_todo_complete_failure,
 						Toast.LENGTH_LONG).show();
 			}
@@ -95,16 +99,16 @@ public class ActivityTodoDetail extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO 自動生成されたメソッド・スタブ
-			if (WassrClient.deleteTodo(ActivityTodoDetail.this.status.rid)) {
-				Toast.makeText(ActivityTodoDetail.this,
+			if (WassrClient.deleteTodo(Todo.this.status.rid)) {
+				Toast.makeText(Todo.this,
 						R.string.notice_message_todo_delete_success,
 						Toast.LENGTH_LONG).show();
 			} else {
-				Toast.makeText(ActivityTodoDetail.this,
+				Toast.makeText(Todo.this,
 						R.string.notice_message_todo_delete_failure,
 						Toast.LENGTH_LONG).show();
 			}
-			ActivityTodoDetail.this.finish();
+			Todo.this.finish();
 		}
 	}
 }
