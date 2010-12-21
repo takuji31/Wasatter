@@ -1,39 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-    
-    
-    
-    
-    <string name="key_setting_display_load_image">display_load_image</string>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <string name="reload_complete">リロードしました。</string>
-    <string name="app_name">Wasatter</string>
-
-
-
-
-
-<string name="service_twitter">Twitter</string>
-<string name="service_wassr">Wassr</string>
-
-<string name="app_title_version">Wasatter 1.01</string><string name="message_post_twitter_success">投稿しました。(Twitter)</string><string name="message_post_twitter_failure">投稿出来ませんでした。(Twitter)</string><string name="message_post_wassr_success">投稿しました。(Wassr)</string><string name="message_post_wassr_failure">投稿出来ませんでした。(Wassr)</string>
-
-
-
-<string name="message_private_message">Private message</string>
-
+	<string name="key_setting_display_load_image">display_load_image</string>
+	<string name="reload_complete">リロードしました。</string>
+	<string name="app_name">Wasatter</string>
+	<string name="service_twitter">Twitter</string>
+	<string name="service_wassr">Wassr</string>
+	<string name="app_title_version">Wasatter 1.02</string>
+	<string name="message_post_twitter_success">投稿しました。(Twitter)</string>
+	<string name="message_post_twitter_failure">投稿出来ませんでした。(Twitter)</string>
+	<string name="message_post_wassr_success">投稿しました。(Wassr)</string>
+	<string name="message_post_wassr_failure">投稿出来ませんでした。(Wassr)</string>
+	<string name="message_private_message">Private message</string>
 </resources>
