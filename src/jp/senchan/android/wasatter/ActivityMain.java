@@ -60,7 +60,7 @@ public class ActivityMain extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Wasatter.CONTEXT = this.getBaseContext();
+		Wasatter.CONTEXT = this.getApplicationContext();
 		this.setTitle(R.string.app_title_version);
 		this.setContentView(R.layout.main);
 		Wasatter.imageStore = new SQLiteHelperImageStore(Wasatter.CONTEXT);
