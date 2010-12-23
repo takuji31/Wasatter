@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.activity.Detail;
 import jp.senchan.android.wasatter.activity.Update;
+import jp.senchan.android.wasatter.adapter.Odai;
+import jp.senchan.android.wasatter.adapter.Timeline;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -359,7 +361,7 @@ public class ActivityMain extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == IntentCode.MAIN_ITEMDETAIL) {
 			try {
-				AdapterTimeline adapter = (AdapterTimeline) this.ls
+				Timeline adapter = (Timeline) this.ls
 						.getAdapter();
 				adapter.updateView();
 			} catch (ClassCastException e) {
@@ -380,7 +382,7 @@ public class ActivityMain extends Activity {
 			if (ActivityMain.this.list_timeline == null) {
 				ActivityMain.this.getTimeLine();
 			} else {
-				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
+				Timeline adapter = new Timeline(getBaseContext(),
 						R.id.timeline_list, ActivityMain.this.list_timeline,
 						false);
 				ActivityMain.this.ls.setAdapter(adapter);
@@ -397,7 +399,7 @@ public class ActivityMain extends Activity {
 			if (ActivityMain.this.list_reply == null) {
 				ActivityMain.this.getReply();
 			} else {
-				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
+				Timeline adapter = new Timeline(getBaseContext(),
 						R.id.timeline_list, ActivityMain.this.list_reply, false);
 				ActivityMain.this.ls.setAdapter(adapter);
 				ActivityMain.this.ls.requestFocus();
@@ -413,7 +415,7 @@ public class ActivityMain extends Activity {
 			if (ActivityMain.this.list_mypost == null) {
 				ActivityMain.this.getMyPost();
 			} else {
-				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
+				Timeline adapter = new Timeline(getBaseContext(),
 						R.id.timeline_list, ActivityMain.this.list_mypost,
 						false);
 				ActivityMain.this.ls.setAdapter(adapter);
@@ -430,7 +432,7 @@ public class ActivityMain extends Activity {
 			if (ActivityMain.this.list_odai == null) {
 				ActivityMain.this.getOdai();
 			} else {
-				AdapterOdai adapter = new AdapterOdai(getBaseContext(),
+				Odai adapter = new Odai(getBaseContext(),
 						R.id.timeline_list, ActivityMain.this.list_odai);
 				ActivityMain.this.ls.setAdapter(adapter);
 				ActivityMain.this.ls.requestFocus();
@@ -449,7 +451,7 @@ public class ActivityMain extends Activity {
 			}
 			// チャンネルの内容取ってたら表示する。
 			if (ActivityMain.this.list_channel != null) {
-				AdapterTimeline adapter = new AdapterTimeline(
+				Timeline adapter = new Timeline(
 						ActivityMain.this.ls.getContext(),
 						R.layout.timeline_row, ActivityMain.this.list_channel,
 						true);

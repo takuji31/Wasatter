@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import jp.senchan.android.wasatter.adapter.Timeline;
+
 import twitter4j.TwitterException;
 import twitter4j.http.HttpClient;
 import twitter4j.http.HttpResponse;
@@ -124,7 +126,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		}
 		progress_text_count.setText(sb.toString());
 		try {
-			AdapterTimeline adapter = (AdapterTimeline) Wasatter.main.ls
+			Timeline adapter = (Timeline) Wasatter.main.ls
 					.getAdapter();
 			if(adapter != null){
 				adapter.updateView();
@@ -139,7 +141,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onPostExecute(result);
 		try {
-			AdapterTimeline adapter = (AdapterTimeline) Wasatter.main.ls
+			Timeline adapter = (Timeline) Wasatter.main.ls
 					.getAdapter();
 			adapter.updateView();
 		} catch (ClassCastException e) {

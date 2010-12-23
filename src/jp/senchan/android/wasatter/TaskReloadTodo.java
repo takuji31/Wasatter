@@ -2,6 +2,8 @@ package jp.senchan.android.wasatter;
 
 import java.util.ArrayList;
 
+import jp.senchan.android.wasatter.adapter.Todo;
+
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ListView;
@@ -37,7 +39,7 @@ public class TaskReloadTodo extends AsyncTask<Void, Void, ArrayList<WassrTodo>> 
 	protected void onPostExecute(ArrayList<WassrTodo> result) {
 		// 取得結果の代入
 		Wasatter.main.list_todo = result;
-		AdapterTodo adapter_todo = new AdapterTodo(this.listview.getContext(),
+		Todo adapter_todo = new Todo(this.listview.getContext(),
 				R.layout.todo_row, result);
 		this.listview.setAdapter(adapter_todo);
 		this.listview.requestFocus();

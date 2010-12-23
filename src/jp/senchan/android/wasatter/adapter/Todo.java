@@ -1,9 +1,9 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.adapter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.WassrTodo;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-@SuppressWarnings("unchecked")
-public class AdapterOdai extends ArrayAdapter {
+public class Todo extends ArrayAdapter<WassrTodo> {
 
-	private ArrayList items;
+	private ArrayList<WassrTodo> items;
 	private LayoutInflater inflater;
 
-	public AdapterOdai(Context context, int textViewResourceId, ArrayList items) {
+	public Todo(Context context, int textViewResourceId, ArrayList<WassrTodo> items) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 		this.inflater = (LayoutInflater) context
@@ -27,19 +26,16 @@ public class AdapterOdai extends ArrayAdapter {
 	public View getView(int position, View view, ViewGroup parent) {
 		if (view == null) {
 			// 受け取ったビューがnullなら新しくビューを生成
-			view = this.inflater.inflate(R.layout.odai_row, null);
+			view = this.inflater.inflate(R.layout.todo_row, null);
 		}
 		// データの取得
-		WasatterItem item = (WasatterItem) this.items.get(position);
+		WassrTodo item = this.items.get(position);
 		if (item != null) {
-			TextView text = (TextView) view.findViewById(R.id.status);
+			TextView text = (TextView) view.findViewById(R.id.todo_text);
 			// テキストをビューにセットする
 			if (text != null) {
-				text.setText(item.text);
+				text.setText(item.body);
 			}
-			TextView date = (TextView) view.findViewById(R.id.odai_date);
-			date.setText(new SimpleDateFormat(Wasatter.ODAI_DATE_FORMAT)
-					.format(new Date(item.epoch * 1000)));
 		}
 		return view;
 	}
