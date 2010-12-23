@@ -6,7 +6,7 @@ import jp.senchan.android.wasatter.adapter.Odai;
 import jp.senchan.android.wasatter.adapter.Timeline;
 
 import twitter4j.TwitterException;
-import twitter4j.org.json.JSONException;
+import twitter4j.internal.org.json.JSONException;
 import android.os.AsyncTask;
 import android.text.SpannableStringBuilder;
 import android.view.View;

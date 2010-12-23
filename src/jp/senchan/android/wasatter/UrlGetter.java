@@ -4,10 +4,10 @@
 package jp.senchan.android.wasatter;
 
 import twitter4j.TwitterException;
-import twitter4j.http.HttpClientWrapper;
-import twitter4j.http.HttpResponse;
-import twitter4j.org.json.JSONException;
-import twitter4j.org.json.JSONObject;
+import twitter4j.internal.http.HttpClientWrapper;
+import twitter4j.internal.http.HttpResponse;
+import twitter4j.internal.org.json.JSONException;
+import twitter4j.internal.org.json.JSONObject;
 
 /**
  * bit.ly/j.mpの短縮URL

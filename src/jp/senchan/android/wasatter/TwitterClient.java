@@ -14,13 +14,13 @@ import twitter4j.conf.ConfigurationContext;
 import twitter4j.http.AccessToken;
 import twitter4j.http.Authorization;
 import twitter4j.http.BasicAuthorization;
-import twitter4j.http.HTMLEntity;
-import twitter4j.http.HttpClientWrapper;
-import twitter4j.http.HttpResponse;
 import twitter4j.http.OAuthAuthorization;
-import twitter4j.org.json.JSONArray;
-import twitter4j.org.json.JSONException;
-import twitter4j.org.json.JSONObject;
+import twitter4j.internal.http.HTMLEntity;
+import twitter4j.internal.http.HttpClientWrapper;
+import twitter4j.internal.http.HttpResponse;
+import twitter4j.internal.org.json.JSONArray;
+import twitter4j.internal.org.json.JSONException;
+import twitter4j.internal.org.json.JSONObject;
 
 import android.text.SpannableStringBuilder;
 

@@ -9,12 +9,12 @@ import java.util.Locale;
 import twitter4j.TwitterException;
 import twitter4j.http.Authorization;
 import twitter4j.http.BasicAuthorization;
-import twitter4j.http.HTMLEntity;
-import twitter4j.http.HttpClientWrapper;
-import twitter4j.http.HttpResponse;
-import twitter4j.org.json.JSONArray;
-import twitter4j.org.json.JSONException;
-import twitter4j.org.json.JSONObject;
+import twitter4j.internal.http.HTMLEntity;
+import twitter4j.internal.http.HttpClientWrapper;
+import twitter4j.internal.http.HttpResponse;
+import twitter4j.internal.org.json.JSONArray;
+import twitter4j.internal.org.json.JSONException;
+import twitter4j.internal.org.json.JSONObject;
 import android.text.SpannableStringBuilder;
 
 /**
