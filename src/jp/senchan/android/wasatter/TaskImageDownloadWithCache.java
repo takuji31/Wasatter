@@ -60,10 +60,6 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 	protected Void doInBackground(Void... params) {
 		// 画像のダウンロードを行うサービス
 		HttpClient http = new HttpClient();
-		/*
-		 * http.setConnectionTimeout(5000); http.setReadTimeout(10000);
-		 * http.setRetryCount(1);
-		 */
 		SQLiteDatabase db = Wasatter.imageStore.getWritableDatabase();
 		ArrayList<String> urls = Wasatter.downloadWaitUrls;
 		db.beginTransaction();
@@ -76,8 +72,6 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		st = db.compileStatement("insert into imagestore(url,filename,created) values(?,?,?)");
 		try {
 			while (it.hasNext()) {
-				// for (int i=0;i<count;i++) {
-				// String url = urls.get(i);
 				String url = it.next();
 				try {
 					HttpResponse res = http.get(url);
