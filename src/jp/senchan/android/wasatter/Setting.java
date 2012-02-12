@@ -29,12 +29,12 @@ public class Setting extends PreferenceActivity {
 		this.addPreferencesFromResource(R.xml.setting);
 		PreferenceScreen pc = (PreferenceScreen) this.getPreferenceScreen()
 				.getPreference(1);
-		OAuthPreference pf = new OAuthPreference(Wasatter.CONTEXT);
+		OAuthPreference pf = new OAuthPreference(this);
 		pf.setOnPreferenceClickListener(new OAuthGetTokenListener());
 		pc.addPreference(pf);
 		PreferenceScreen pc2 = (PreferenceScreen) this.getPreferenceScreen()
 				.getPreference(2);
-		Preference pf2 = new Preference(Wasatter.CONTEXT);
+		Preference pf2 = new Preference(this);
 		pf2.setTitle("キャッシュの消去");
 		pf2.setSummary("画像のキャッシュを削除します。");
 		pf2.setOnPreferenceClickListener(new CacheClearListener());
