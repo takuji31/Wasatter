@@ -1,10 +1,8 @@
 package jp.senchan.android.wasatter;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +26,7 @@ public class Wasatter extends Application {
 	public static final String ITEM_DETAIL = "item_detail";
 	public static final String SERVICE_WASSR = "Wassr";
 	public static final String SERVICE_TWITTER = "Twitter";
-	private static final String REGEX_URL = "(http://|https://){1}[\\w\\.\\-/:]+";
+	private static final String REGEX_URL = "https?://[^\\s]+";
 	public static final String ODAI_DATE_FORMAT = "yyyy/MM/dd";
 	public static final String REPLY = "reply";
 	public static final String OAUTH_KEY = "5WURvsXWy6pwsFyJvR7Yw";
