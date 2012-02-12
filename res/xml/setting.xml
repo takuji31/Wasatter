@@ -24,17 +24,6 @@
 		<CheckBoxPreference android:title="@string/title_setting_account_enabled"
 			android:defaultValue="false" android:key="enable_twitter"
 			android:summary="@string/summary_setting_account_twitter_enabled"></CheckBoxPreference><CheckBoxPreference android:defaultValue="true" android:summaryOn="@string/summary_setting_load_timeline_enable" android:summaryOff="@string/summary_setting_load_timeline_disable" android:title="@string/title_setting_load_timeline" android:key="@string/key_setting_twitter_load_timeline"></CheckBoxPreference>
-		<EditTextPreference android:key="twitter_id"
-			android:summary="ログインID" android:dialogMessage="@string/message_setting_login_id"
-			android:dialogTitle="@string/title_setting_login_id" android:title="@string/title_setting_login_id" />
-		<EditTextPreference android:key="twitter_pass"
-			android:summary="パスワード" android:password="true"
-			android:dialogMessage="@string/message_setting_password"
-			android:dialogTitle="@string/title_setting_password" android:title="@string/title_setting_password" />
-		<CheckBoxPreference android:key="@string/key_setting_twitter_oauth_enable"
-			android:defaultValue="false" android:title="@string/title_setting_twitter_use_oauth"
-			android:summaryOff="@string/summary_setting_twitter_use_oauth_disable"
-			android:summaryOn="@string/summary_setting_twitter_use_oauth_enable"></CheckBoxPreference>
 	</PreferenceScreen>
 
 	<PreferenceScreen android:title="@string/title_setting_category_display"
