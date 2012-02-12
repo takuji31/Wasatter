@@ -1,7 +1,15 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.task;
 
 import java.util.ArrayList;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.StatusItemComparator;
+import jp.senchan.android.wasatter.TwitterClient;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.WassrClient;
+import jp.senchan.android.wasatter.R.id;
+import jp.senchan.android.wasatter.R.layout;
 import jp.senchan.android.wasatter.adapter.Odai;
 import jp.senchan.android.wasatter.adapter.Timeline;
 

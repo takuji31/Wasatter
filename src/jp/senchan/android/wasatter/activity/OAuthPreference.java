@@ -1,8 +1,10 @@
 /**
  *
  */
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.activity;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.R.string;
 import android.content.Context;
 import android.preference.Preference;
 import android.util.AttributeSet;

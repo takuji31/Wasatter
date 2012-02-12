@@ -1,13 +1,17 @@
 /**
  *
  */
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.task;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.R.id;
+import jp.senchan.android.wasatter.activity.Setting;
 import jp.senchan.android.wasatter.adapter.Timeline;
 
 import twitter4j.TwitterException;

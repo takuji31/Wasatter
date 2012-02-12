@@ -10,7 +10,7 @@
             </intent-filter>
         </activity>
 <activity android:name=".activity.Update" android:label="New post" android:configChanges="orientation"></activity>
-<activity android:name="Setting" android:label="Setting" android:configChanges="orientation"></activity>
+<activity android:name=".activity.Setting" android:label="Setting" android:configChanges="orientation"></activity>
 <activity android:name=".activity.Detail" android:label="Status" android:configChanges="orientation"></activity>
 <activity android:name=".activity.Todo" android:label="TODO" android:configChanges="orientation"></activity>
 <activity android:name=".activity.OAuthToken" android:label="Get OAuth token" android:configChanges="orientation"></activity>

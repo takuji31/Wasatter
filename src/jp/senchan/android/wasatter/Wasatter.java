@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,7 +22,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.SpannableStringBuilder;
 
-public class Wasatter {
+public class Wasatter extends Application {
 	public static final String AGENT = "Wasatter for Android";
 	public static final String VIA = "Wasatter";
 	public static final String ITEM_DETAIL = "item_detail";

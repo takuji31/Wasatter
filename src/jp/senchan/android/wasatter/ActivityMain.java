@@ -5,9 +5,13 @@ import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.activity.Detail;
+import jp.senchan.android.wasatter.activity.Setting;
 import jp.senchan.android.wasatter.activity.Update;
 import jp.senchan.android.wasatter.adapter.Odai;
 import jp.senchan.android.wasatter.adapter.Timeline;
+import jp.senchan.android.wasatter.task.TaskImageDownloadWithCache;
+import jp.senchan.android.wasatter.task.TaskReloadTimeline;
+import jp.senchan.android.wasatter.task.TaskReloadTodo;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;

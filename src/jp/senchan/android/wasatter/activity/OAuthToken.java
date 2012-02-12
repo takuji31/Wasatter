@@ -4,10 +4,9 @@
 package jp.senchan.android.wasatter.activity;
 
 import jp.senchan.android.wasatter.R;
-import jp.senchan.android.wasatter.Setting;
-import jp.senchan.android.wasatter.TaskGetOAuthRequestUrl;
-import jp.senchan.android.wasatter.TaskSetOAuthToken;
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.task.TaskGetOAuthRequestUrl;
+import jp.senchan.android.wasatter.task.TaskSetOAuthToken;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.http.RequestToken;

@@ -2,10 +2,9 @@ package jp.senchan.android.wasatter.activity;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.ResultCode;
-import jp.senchan.android.wasatter.Setting;
-import jp.senchan.android.wasatter.TaskToggleFavorite;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.task.TaskToggleFavorite;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;

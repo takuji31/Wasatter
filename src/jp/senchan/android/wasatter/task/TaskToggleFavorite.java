@@ -1,9 +1,15 @@
 /**
  *
  */
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.task;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.WassrClient;
+import jp.senchan.android.wasatter.R.id;
 import jp.senchan.android.wasatter.activity.Detail;
+import jp.senchan.android.wasatter.activity.Setting;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;

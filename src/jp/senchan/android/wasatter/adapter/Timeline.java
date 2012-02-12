@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import jp.senchan.android.wasatter.R;
-import jp.senchan.android.wasatter.Setting;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterAdapter;
 import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.WassrClient;
+import jp.senchan.android.wasatter.activity.Setting;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.SpannableStringBuilder;

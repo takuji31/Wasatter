@@ -1,11 +1,10 @@
 package jp.senchan.android.wasatter.activity;
 
 import jp.senchan.android.wasatter.R;
-import jp.senchan.android.wasatter.Setting;
-import jp.senchan.android.wasatter.TaskUpdate;
 import jp.senchan.android.wasatter.UrlGetter;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.task.TaskUpdate;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
