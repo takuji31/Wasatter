@@ -15,7 +15,6 @@ import twitter4j.TwitterException;
 import twitter4j.conf.ConfigurationContext;
 import twitter4j.http.AccessToken;
 import twitter4j.http.Authorization;
-import twitter4j.http.BasicAuthorization;
 import twitter4j.http.OAuthAuthorization;
 import twitter4j.internal.http.HTMLEntity;
 import twitter4j.internal.http.HttpClientWrapper;

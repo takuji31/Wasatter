@@ -1,7 +1,6 @@
 package jp.senchan.android.wasatter.activity;
 
 import jp.senchan.android.wasatter.R;
-import jp.senchan.android.wasatter.UrlGetter;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.task.TaskUpdate;

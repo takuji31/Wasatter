@@ -34,7 +34,6 @@ public class WassrClient {
 	private static final String MYPOST_URL = "http://api.wassr.jp/statuses/user_timeline.json";
 	private static final String ODAI_URL = "http://api.wassr.jp/statuses/user_timeline.json?id=odai";
 	private static final String CHANNEL_LIST_URL = "http://api.wassr.jp/channel_user/user_list.json";
-	private static final String TODO_STATUS_URL = "http://api.wassr.jp/todo/";
 	private static final String UPDATE_TIMELINE_URL = "http://api.wassr.jp/statuses/update.json";
 	private static final String UPDATE_CHANNEL_URL = "http://api.wassr.jp/channel_message/update.json?name_en=[channel]";
 	private static final String FAVORITE_URL = "http://api.wassr.jp/favorites/create/[rid].json";

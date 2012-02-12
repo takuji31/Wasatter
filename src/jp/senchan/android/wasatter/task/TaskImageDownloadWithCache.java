@@ -10,7 +10,6 @@ import java.util.Iterator;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
-import jp.senchan.android.wasatter.R.id;
 import jp.senchan.android.wasatter.activity.Setting;
 import jp.senchan.android.wasatter.adapter.Timeline;
 

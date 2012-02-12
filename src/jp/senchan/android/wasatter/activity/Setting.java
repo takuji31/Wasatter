@@ -5,8 +5,6 @@ package jp.senchan.android.wasatter.activity;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
-import jp.senchan.android.wasatter.R.string;
-import jp.senchan.android.wasatter.R.xml;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;

@@ -14,13 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-@SuppressWarnings("unchecked")
-public class Odai extends ArrayAdapter {
+public class Odai extends ArrayAdapter<WasatterItem> {
 
-	private ArrayList items;
+	private ArrayList<WasatterItem> items;
 	private LayoutInflater inflater;
 
-	public Odai(Context context, int textViewResourceId, ArrayList items) {
+	public Odai(Context context, int textViewResourceId, ArrayList<WasatterItem> items) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 		this.inflater = (LayoutInflater) context
@@ -33,7 +32,7 @@ public class Odai extends ArrayAdapter {
 			view = this.inflater.inflate(R.layout.odai_row, null);
 		}
 		// データの取得
-		WasatterItem item = (WasatterItem) this.items.get(position);
+		WasatterItem item = this.items.get(position);
 		if (item != null) {
 			TextView text = (TextView) view.findViewById(R.id.status);
 			// テキストをビューにセットする
