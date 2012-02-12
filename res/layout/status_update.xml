@@ -26,10 +26,6 @@
 		<CheckBox android:layout_height="wrap_content"
 			android:layout_width="400dip" android:layout_weight="1" android:text="自動URL短縮"
 			android:id="@+id/auto_shortten" android:visibility="gone"></CheckBox>
-		<Button android:layout_height="wrap_content" android:id="@+id/short_button"
-			android:text="URL短縮" android:layout_width="400dip"
-			android:layout_weight="1" android:textSize="16sp"
-			android:layout_margin="5dip"></Button>
 	</LinearLayout>
 	<TableLayout android:id="@+id/TableLayout01"
 		android:layout_width="fill_parent" android:stretchColumns="1"

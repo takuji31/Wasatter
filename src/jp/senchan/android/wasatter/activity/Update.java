@@ -133,24 +133,5 @@ public class Update extends Activity {
 			});
 		}
 
-		Button short_button = (Button) this.findViewById(R.id.short_button);
-		short_button.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO 自動生成されたメソッド・スタブ
-				EditText status = (EditText) Update.this
-						.findViewById(R.id.post_status_text);
-				String str = status.getText().toString();
-				String replace;
-				String url = Wasatter.getUrl(str);
-				String short_url = UrlGetter.bitly(url, UrlGetter.JMP);
-				if (!"".equals(short_url)) {
-					replace = str.replace(url, short_url);
-				} else {
-					replace = str;
-				}
-				status.setText(replace);
-			}
-		});
 	}
 }
