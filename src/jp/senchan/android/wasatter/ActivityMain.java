@@ -11,7 +11,6 @@ import jp.senchan.android.wasatter.adapter.Odai;
 import jp.senchan.android.wasatter.adapter.Timeline;
 import jp.senchan.android.wasatter.task.TaskImageDownloadWithCache;
 import jp.senchan.android.wasatter.task.TaskReloadTimeline;
-import jp.senchan.android.wasatter.task.TaskReloadTodo;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -43,7 +42,6 @@ public class ActivityMain extends Activity {
 	public ArrayList<WasatterItem> list_odai;
 	public ArrayList<WasatterItem> list_channel_list;
 	public ArrayList<WasatterItem> list_channel;
-	public ArrayList<WassrTodo> list_todo;
 	public Button button_reload_channel_list;
 	public ToggleButton button_timeline;
 	public ToggleButton button_reply;
@@ -196,11 +194,6 @@ public class ActivityMain extends Activity {
 		TaskReloadTimeline rt = new TaskReloadTimeline(this.ls,
 				TaskReloadTimeline.MODE_CHANNEL);
 		rt.execute(channel);
-	}
-
-	public void getTodo() {
-		TaskReloadTodo rt = new TaskReloadTodo(this.ls);
-		rt.execute();
 	}
 
 	public void doReloadTask(int mode) {

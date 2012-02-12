@@ -33,7 +33,6 @@ public class WassrClient {
 	private static final String REPLY_URL = "http://api.wassr.jp/statuses/replies.json";
 	private static final String MYPOST_URL = "http://api.wassr.jp/statuses/user_timeline.json";
 	private static final String ODAI_URL = "http://api.wassr.jp/statuses/user_timeline.json?id=odai";
-	private static final String TODO_URL = "http://api.wassr.jp/todo/list.json";
 	private static final String CHANNEL_LIST_URL = "http://api.wassr.jp/channel_user/user_list.json";
 	private static final String TODO_STATUS_URL = "http://api.wassr.jp/todo/";
 	private static final String UPDATE_TIMELINE_URL = "http://api.wassr.jp/statuses/update.json";
@@ -42,10 +41,6 @@ public class WassrClient {
 	private static final String FAVORITE_DEL_URL = "http://api.wassr.jp/favorites/destroy/[rid].json";
 	private static final String FAVORITE_CHANNEL_URL = "http://api.wassr.jp/channel_favorite/toggle.json?channel_message_rid=[rid]";
 	public static final String FAVORITE_ICON_URL = "http://wassr.jp/user/[user]/profile_img.png.16";
-	private static final String TODO_START = "start";
-	private static final String TODO_STOP = "stop";
-	private static final String TODO_COMP = "done";
-	private static final String TODO_DEL = "delete";
 	private static HttpClientWrapper http = new HttpClientWrapper();
 
 	public static ArrayList<WasatterItem> getTimeLine() throws TwitterException {
@@ -162,33 +157,6 @@ public class WassrClient {
 		return ret;
 	}
 
-	public static ArrayList<WassrTodo> getTodo() {
-		ArrayList<WassrTodo> ret = new ArrayList<WassrTodo>();
-		if (!Setting.isWassrEnabled()) {
-			return ret;
-		}
-		JSONArray result;
-		try {
-			result = http.post(WassrClient.TODO_URL, getAuthorization())
-					.asJSONArray();
-			int j = result.length();
-			for (int i = 0; i < j; i++) {
-				try {
-					JSONObject obj = result.getJSONObject(i);
-					WassrTodo ws = new WassrTodo();
-					ws.rid = obj.getString("todo_rid");
-					ws.body = obj.getString("body");
-					ret.add(ws);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (TwitterException e1) {
-			// TODO 自動生成された catch ブロック
-			e1.printStackTrace();
-		}
-		return ret;
-	}
 
 	public static ArrayList<WasatterItem> getChannelList()
 			throws TwitterException {
@@ -308,47 +276,6 @@ public class WassrClient {
 			e.printStackTrace();
 		}
 		return "NG";
-	}
-
-	public static boolean startTodo(String rid) {
-		return WassrClient.todo(rid, WassrClient.TODO_START);
-	}
-
-	public static boolean stopTodo(String rid) {
-		return WassrClient.todo(rid, WassrClient.TODO_STOP);
-	}
-
-	public static boolean completeTodo(String rid) {
-		return WassrClient.todo(rid, WassrClient.TODO_COMP);
-	}
-
-	public static boolean deleteTodo(String rid) {
-		return WassrClient.todo(rid, WassrClient.TODO_DEL);
-	}
-
-	public static boolean todo(String rid, String mode) {
-		SpannableStringBuilder sb = new SpannableStringBuilder(
-				WassrClient.TODO_STATUS_URL);
-		sb.append(mode);
-		sb.append(".json");
-		sb.append("?todo_rid=");
-		sb.append(rid);
-		try {
-			JSONObject json = http.post(sb.toString(), getAuthorization())
-					.asJSONObject();
-			;
-			if (WassrClient.TODO_DEL.equals(mode)) {
-				return "ok.removed."
-						.equalsIgnoreCase(json.getString("message"));
-			}
-			return "ok".equalsIgnoreCase(json.getString("message"));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (TwitterException e) {
-			e.printStackTrace();
-		}
-		return false;
-
 	}
 
 	public static Authorization getAuthorization() {
