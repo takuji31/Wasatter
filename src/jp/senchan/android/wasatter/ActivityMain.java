@@ -15,6 +15,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
@@ -65,7 +67,6 @@ public class ActivityMain extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Wasatter.CONTEXT = this.getApplicationContext();
-		this.setTitle(R.string.app_title_version);
 		this.setContentView(R.layout.main);
 		Wasatter.imageStore = new SQLiteHelperImageStore(Wasatter.CONTEXT);
 		this.ls = (ListView) this.findViewById(R.id.timeline_list);
@@ -318,7 +319,15 @@ public class ActivityMain extends Activity {
 	public void openVersion() {
 		AlertDialog.Builder ad = new AlertDialog.Builder(this);
 		ad.setTitle(R.string.menu_title_version);
-		ad.setMessage(R.string.app_title_version);
+		SpannableStringBuilder sb = new SpannableStringBuilder(getString(R.string.app_name));
+		sb.append(" ");
+		try {
+			sb.append(getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_META_DATA).versionName);
+		} catch (NameNotFoundException e) {
+			//ありえない
+			e.printStackTrace();
+		}
+		ad.setMessage(sb.toString());
 		ad.setPositiveButton("OK", null);
 		ad.show();
 	}

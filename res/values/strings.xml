@@ -5,7 +5,6 @@
 	<string name="app_name">Wasatter</string>
 	<string name="service_twitter">Twitter</string>
 	<string name="service_wassr">Wassr</string>
-	<string name="app_title_version">Wasatter 1.02</string>
 	<string name="message_post_twitter_success">投稿しました。(Twitter)</string>
 	<string name="message_post_twitter_failure">投稿出来ませんでした。(Twitter)</string>
 	<string name="message_post_wassr_success">投稿しました。(Wassr)</string>
