@@ -16,6 +16,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -43,6 +45,8 @@ public class OAuthToken extends Activity {
 		this.twitter = new TwitterFactory().getInstance();
 		this.twitter
 				.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
+		WebView webview = (WebView) findViewById(R.id.web);
+		webview.setWebViewClient(new WebViewClient());
 		new TaskGetOAuthRequestUrl(this).execute();
 
 	}
