@@ -136,11 +136,7 @@ public class ActivityMain extends Activity {
 				&& (!Setting.isWassrEnabled());
 		boolean wassr_empty = (Setting.isWassrEnabled() && ("".equals(Setting
 				.getWassrId()) || "".equals(Setting.getWassrPass())));
-		boolean twitter_empty = Setting.isTwitterEnabled()
-				&& ("".equals(Setting.getTwitterId()) || "".equals(Setting
-						.getTwitterPass())) && !Setting.isTwitterOAuthEnable();
 		boolean twitter_oauth_empty = Setting.isTwitterEnabled()
-				&& Setting.isTwitterOAuthEnable()
 				&& ("".equals(Setting.getTwitterToken()) || "".equals(Setting
 						.getTwitterTokenSecret()));
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -149,7 +145,7 @@ public class ActivityMain extends Activity {
 			adb.setTitle(R.string.notice_title_no_enable);
 			adb.setPositiveButton("OK", new OpenSettingClickListener());
 			adb.show();
-		} else if (wassr_empty || twitter_empty) {
+		} else if (wassr_empty) {
 			adb.setMessage(R.string.notice_message_no_value);
 			adb.setTitle(R.string.notice_title_no_value);
 			adb.setPositiveButton("OK", new OpenSettingClickListener());

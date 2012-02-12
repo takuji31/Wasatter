@@ -137,16 +137,10 @@ public class TwitterClient {
 	}
 
 	public static Authorization getAuthorization() {
-		if (Setting.isTwitterOAuthEnable()) {
-			return new OAuthAuthorization(ConfigurationContext.getInstance(),
-					Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET, new AccessToken(
-							Setting.getTwitterToken(), Setting
-									.getTwitterTokenSecret()));
-		} else {
-			return new BasicAuthorization(Setting.getTwitterId(), Setting
-					.getTwitterPass());
-		}
-
+		return new OAuthAuthorization(ConfigurationContext.getInstance(),
+				Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET, new AccessToken(
+						Setting.getTwitterToken(),
+						Setting.getTwitterTokenSecret()));
 	}
 
 }

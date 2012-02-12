@@ -88,12 +88,6 @@ public class Setting extends PreferenceActivity {
 				"wassr_pass", "");
 	}
 
-	public static boolean isTwitterOAuthEnable() {
-		Context con = Wasatter.CONTEXT;
-		return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-				"twitter_oauth_enable", false);
-	}
-
 	public static String getTwitterId() {
 		Context con = Wasatter.CONTEXT;
 		return PreferenceManager.getDefaultSharedPreferences(con).getString(

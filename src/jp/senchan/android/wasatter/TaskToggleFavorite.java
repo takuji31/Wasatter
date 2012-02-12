@@ -36,22 +36,20 @@ public class TaskToggleFavorite extends AsyncTask<WasatterItem, Void, Boolean> {
 			return WassrClient.favorite(item);
 		} else if (Wasatter.SERVICE_TWITTER.equals(item.service)) {
 			Twitter tw;
-			if (Setting.isTwitterOAuthEnable()) {
-				tw = new TwitterFactory().getInstance();
-				tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
-				tw.setOAuthAccessToken(new AccessToken(Setting
-						.getTwitterToken(), Setting.getTwitterTokenSecret()));
-				try {
-					twitter4j.Status st = tw.createFavorite(Long
-							.parseLong(item.rid));
-					return st.getText() != null;
-				} catch (NumberFormatException e) {
-					// TODO 自動生成された catch ブロック
-					return false;
-				} catch (TwitterException e) {
-					// TODO 自動生成された catch ブロック
-					return false;
-				}
+			tw = new TwitterFactory().getInstance();
+			tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
+			tw.setOAuthAccessToken(new AccessToken(Setting
+					.getTwitterToken(), Setting.getTwitterTokenSecret()));
+			try {
+				twitter4j.Status st = tw.createFavorite(Long
+						.parseLong(item.rid));
+				return st.getText() != null;
+			} catch (NumberFormatException e) {
+				// TODO 自動生成された catch ブロック
+				return false;
+			} catch (TwitterException e) {
+				// TODO 自動生成された catch ブロック
+				return false;
 			}
 		}
 		return false;
