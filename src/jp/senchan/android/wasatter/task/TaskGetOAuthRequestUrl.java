@@ -15,39 +15,39 @@ import android.widget.Button;
  * 
  */
 public class TaskGetOAuthRequestUrl extends AsyncTask<Void, Void, Void> {
-	private OAuthToken target;
-	private Button btn;
+    private OAuthToken target;
+    private Button btn;
 
-	public TaskGetOAuthRequestUrl(OAuthToken target) {
-		// TODO 自動生成されたコンストラクター・スタブ
-		this.target = target;
-	}
+    public TaskGetOAuthRequestUrl(OAuthToken target) {
+        // TODO 自動生成されたコンストラクター・スタブ
+        this.target = target;
+    }
 
-	@Override
-	protected void onPreExecute() {
-		// TODO 自動生成されたメソッド・スタブ
-		btn = (Button) this.target.findViewById(R.id.button_set_token);
-		btn.setClickable(false);
-	}
+    @Override
+    protected void onPreExecute() {
+        // TODO 自動生成されたメソッド・スタブ
+        btn = (Button) this.target.findViewById(R.id.button_set_token);
+        btn.setClickable(false);
+    }
 
-	@Override
-	protected Void doInBackground(Void... params) {
-		// TODO 自動生成されたメソッド・スタブ
-		try {
-			this.target.request = this.target.twitter.getOAuthRequestToken();
-		} catch (TwitterException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		return null;
-	}
+    @Override
+    protected Void doInBackground(Void... params) {
+        // TODO 自動生成されたメソッド・スタブ
+        try {
+            this.target.request = this.target.twitter.getOAuthRequestToken();
+        } catch (TwitterException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-	@Override
-	protected void onPostExecute(Void result) {
-		// TODO 自動生成されたメソッド・スタブ
-		WebView wv = (WebView) this.target.findViewById(R.id.web);
-		wv.loadUrl(this.target.request.getAuthenticationURL());
-		wv.requestFocus();
-		btn.setClickable(true);
-	}
+    @Override
+    protected void onPostExecute(Void result) {
+        // TODO 自動生成されたメソッド・スタブ
+        WebView wv = (WebView) this.target.findViewById(R.id.web);
+        wv.loadUrl(this.target.request.getAuthenticationURL());
+        wv.requestFocus();
+        btn.setClickable(true);
+    }
 }

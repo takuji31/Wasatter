@@ -10,10 +10,10 @@ import java.util.Comparator;
  * 
  */
 public class StatusItemComparator implements Comparator<WasatterItem> {
-	@Override
-	public int compare(WasatterItem object1, WasatterItem object2) {
-		// TODO 自動生成されたメソッド・スタブ
-		return object1.epoch > object2.epoch ? -1 : 1;
-	}
+    @Override
+    public int compare(WasatterItem object1, WasatterItem object2) {
+        // TODO 自動生成されたメソッド・スタブ
+        return object1.epoch > object2.epoch ? -1 : 1;
+    }
 
 }
