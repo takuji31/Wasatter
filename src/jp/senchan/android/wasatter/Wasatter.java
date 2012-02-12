@@ -111,8 +111,6 @@ public class Wasatter extends Application {
 	}
 
 	public static Bitmap getImage(String name) {
-		InputStream in = null;
-		ByteArrayOutputStream out = null;
 		// ファイル名の生成
 		SpannableStringBuilder path = new SpannableStringBuilder();
 		path.append(getImagePath());
@@ -121,13 +119,6 @@ public class Wasatter extends Application {
 			return BitmapFactory.decodeStream(new FileInputStream(path
 					.toString()));
 		} catch (Exception e) {
-			try {
-				if (in != null)
-					in.close();
-				if (out != null)
-					out.close();
-			} catch (Exception e2) {
-			}
 			return null;
 		}
 	}
@@ -166,6 +157,7 @@ public class Wasatter extends Application {
 		wdb.execSQL("delete from imagestore");
 	}
 
+	//TODO リソース外出し、というかそもそもこんなにエラー詳しくないほうがよいのではないか
 	public static void displayHttpError(String error, String service) {
 		String message;
 		if (ERROR_TMP.equals(error) && Wasatter.SERVICE_WASSR.equals(service)) {
