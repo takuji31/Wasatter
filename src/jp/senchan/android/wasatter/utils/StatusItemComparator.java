@@ -1,9 +1,11 @@
 /**
  *
  */
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.utils;
 
 import java.util.Comparator;
+
+import jp.senchan.android.wasatter.WasatterItem;
 
 /**
  * @author Senka/Takuji

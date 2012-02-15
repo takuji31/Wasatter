@@ -11,6 +11,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jp.senchan.android.wasatter.utils.SQLiteHelperImageStore;
+
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;

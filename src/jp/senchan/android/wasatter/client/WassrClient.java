@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.client;
 
 import java.net.URLEncoder;
 import java.text.ParseException;
@@ -6,6 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.R.string;
 import jp.senchan.android.wasatter.activity.Setting;
 
 import twitter4j.TwitterException;

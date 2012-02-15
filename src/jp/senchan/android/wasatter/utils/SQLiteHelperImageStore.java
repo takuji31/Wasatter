@@ -1,7 +1,7 @@
 /**
  *
  */
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.utils;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
