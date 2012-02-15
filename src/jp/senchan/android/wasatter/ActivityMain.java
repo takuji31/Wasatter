@@ -13,7 +13,6 @@ import jp.senchan.android.wasatter.ui.Detail;
 import jp.senchan.android.wasatter.ui.Setting;
 import jp.senchan.android.wasatter.ui.Update;
 import jp.senchan.android.wasatter.utils.SQLiteHelperImageStore;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,7 +37,7 @@ import android.widget.ToggleButton;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class ActivityMain extends Activity {
+public class ActivityMain extends WasatterActivity {
     public ListView ls;
     public ArrayList<WasatterItem> list_timeline;
     public ArrayList<WasatterItem> list_reply;
@@ -68,9 +67,7 @@ public class ActivityMain extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Wasatter.CONTEXT = this.getApplicationContext();
         this.setContentView(R.layout.main);
-        Wasatter.imageStore = new SQLiteHelperImageStore(Wasatter.CONTEXT);
         this.ls = (ListView) this.findViewById(R.id.timeline_list);
         this.progress_image = (ProgressBar) this
                 .findViewById(R.id.load_image_progress);
@@ -119,7 +116,6 @@ public class ActivityMain extends Activity {
         button_reload.setOnClickListener(new ButtonReloadListener());
         this.spinner_channel_list
                 .setOnItemSelectedListener(new ChannelListClickListener());
-        // 色んなところからいじれるように、Static変数に突っ込む
         Wasatter.main = this;
     }
 
@@ -128,21 +124,22 @@ public class ActivityMain extends Activity {
         // TODO 自動生成されたメソッド・スタブ
         super.onResume();
         // ボタンの表示設定
+        Wasatter app = app();
         LinearLayout layout_buttons = (LinearLayout) this
                 .findViewById(R.id.layout_buttons);
-        if (Setting.isDisplayButtons()) {
+        if (app.isDisplayButtons()) {
             layout_buttons.setVisibility(View.VISIBLE);
         } else {
             layout_buttons.setVisibility(View.GONE);
         }
         // テーマの設定
         // TwitterもしくはWassrが有効になっているかチェックする
-        boolean enable = (!Setting.isTwitterEnabled())
-                && (!Setting.isWassrEnabled());
-        boolean wassr_empty = (Setting.isWassrEnabled() && ("".equals(Setting
-                .getWassrId()) || "".equals(Setting.getWassrPass())));
-        boolean twitter_oauth_empty = Setting.isTwitterEnabled()
-                && ("".equals(Setting.getTwitterToken()) || "".equals(Setting
+        boolean enable = (!app.isTwitterEnabled())
+                && (!app.isWassrEnabled());
+        boolean wassr_empty = (app.isWassrEnabled() && ("".equals(app
+                .getWassrId()) || "".equals(app.getWassrPass())));
+        boolean twitter_oauth_empty = app.isTwitterEnabled()
+                && ("".equals(app.getTwitterToken()) || "".equals(app
                         .getTwitterTokenSecret()));
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         if (enable) {
@@ -194,7 +191,7 @@ public class ActivityMain extends Activity {
     public void getChannel(String channel) {
         this.ls.setAdapter(null);
         this.first_load = false;
-        TaskReloadTimeline rt = new TaskReloadTimeline(this.ls,
+        TaskReloadTimeline rt = new TaskReloadTimeline(this, this.ls,
                 TaskReloadTimeline.MODE_CHANNEL);
         rt.execute(channel);
     }
@@ -202,12 +199,12 @@ public class ActivityMain extends Activity {
     public void doReloadTask(int mode) {
         this.ls.setAdapter(null);
         this.first_load = false;
-        TaskReloadTimeline rt = new TaskReloadTimeline(this.ls, mode);
+        TaskReloadTimeline rt = new TaskReloadTimeline(this, this.ls, mode);
         rt.execute();
     }
 
     public void startImageDownload() {
-        new TaskImageDownloadWithCache().execute();
+        new TaskImageDownloadWithCache(app()).execute();
     }
 
     // メニューが生成される際に起動される。
@@ -269,7 +266,7 @@ public class ActivityMain extends Activity {
     }
 
     public int checkWassrEnabled(int id) {
-        boolean wassr = Setting.isWassrEnabled();
+        boolean wassr = app().isWassrEnabled();
         this.button_odai.setEnabled(wassr);
         this.button_channel.setEnabled(wassr);
         ArrayList<Integer> wassr_function_list = new ArrayList<Integer>();
@@ -337,7 +334,7 @@ public class ActivityMain extends Activity {
     }
 
     public void loadCache() {
-        SQLiteHelperImageStore imageStore = Wasatter.imageStore;
+        SQLiteHelperImageStore imageStore = app().imageStore;
         SQLiteDatabase db = imageStore.getReadableDatabase();
         SQLiteDatabase dbw = imageStore.getWritableDatabase();
         Cursor c = db.rawQuery("select * from imagestore", null);
@@ -348,14 +345,14 @@ public class ActivityMain extends Activity {
             String imageName = c.getString(1);
             long created = c.getLong(2);
             if (created > Wasatter.cacheExpire()) {
-                Wasatter.images.put(url, Wasatter.getImage(imageName));
+                Wasatter.images.put(url, app().getImage(imageName));
             } else {
                 SQLiteStatement st = dbw
                         .compileStatement("delete from imagestore where url=?");
                 st.bindString(1, url);
                 st.execute();
                 File file = new File(new SpannableStringBuilder(
-                        Wasatter.getImagePath()).append(imageName).toString());
+                        app().getImagePath()).append(imageName).toString());
                 file.delete();
             }
             c.moveToNext();

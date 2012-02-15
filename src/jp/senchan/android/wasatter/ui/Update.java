@@ -2,6 +2,7 @@ package jp.senchan.android.wasatter.ui;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.task.TaskUpdate;
 import android.app.Activity;
@@ -20,7 +21,7 @@ import android.widget.TextView;
  * @author Senka/Takuji
  * 
  */
-public class Update extends Activity {
+public class Update extends WasatterActivity {
     protected WasatterItem ws;
     protected boolean reply;
     protected boolean channel;
@@ -37,15 +38,16 @@ public class Update extends Activity {
             this.ws = (WasatterItem) extras.getSerializable(Wasatter.REPLY);
         }
 
+        Wasatter app = app();
         // チェックボックスの設定
         CheckBox wassr_enable = (CheckBox) this
                 .findViewById(R.id.check_post_wassr);
         CheckBox twitter_enable = (CheckBox) this
                 .findViewById(R.id.check_post_twitter);
-        wassr_enable.setChecked(Setting.isWassrEnabled());
-        wassr_enable.setClickable(Setting.isWassrEnabled());
-        twitter_enable.setChecked(Setting.isTwitterEnabled());
-        twitter_enable.setClickable(Setting.isTwitterEnabled());
+        wassr_enable.setChecked(app.isWassrEnabled());
+        wassr_enable.setClickable(app.isWassrEnabled());
+        twitter_enable.setChecked(app.isTwitterEnabled());
+        twitter_enable.setClickable(app.isTwitterEnabled());
         if (channel) {
             twitter_enable.setChecked(false);
             twitter_enable.setClickable(false);
@@ -119,7 +121,7 @@ public class Update extends Activity {
                     }
                     // 二重投稿防止
                     update_button.setClickable(false);
-                    TaskUpdate ut = new TaskUpdate(Update.this.reply, wassr
+                    TaskUpdate ut = new TaskUpdate(Update.this, Update.this.reply, wassr
                             .isChecked(), twitter.isChecked(),
                             Update.this.channel);
                     ut.execute(sb.toString(),

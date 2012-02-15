@@ -3,6 +3,7 @@
  */
 package jp.senchan.android.wasatter.task;
 
+import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.ui.OAuthToken;
 import jp.senchan.android.wasatter.ui.Setting;
 import twitter4j.TwitterException;
@@ -24,14 +25,19 @@ public class TaskSetOAuthToken extends AsyncTask<String, Void, Boolean> {
     protected void onPreExecute() {
         this.target.finish();
     }
+    
+    private Wasatter app () {
+    	return target.app();
+    }
 
     @Override
     protected Boolean doInBackground(String... params) {
         try {
             AccessToken access_token = this.target.twitter.getOAuthAccessToken(
                     this.target.request, params[0]);
-            Setting.setTwitterToken(access_token.getToken());
-            Setting.setTwitterTokenSecret(access_token.getTokenSecret());
+            Wasatter app = app();
+            app.setTwitterToken(access_token.getToken());
+            app.setTwitterTokenSecret(access_token.getTokenSecret());
         } catch (TwitterException e) {
             // TODO 自動生成された catch ブロック
             e.printStackTrace();

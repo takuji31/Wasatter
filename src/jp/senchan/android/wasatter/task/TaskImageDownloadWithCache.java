@@ -35,8 +35,10 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
     public FrameLayout layout_progress;
     public TextView progress_text_count;
     private int errorCount;
+    
+    private Wasatter mApp;
 
-    public TaskImageDownloadWithCache() {
+    public TaskImageDownloadWithCache(Wasatter app) {
         // TODO 自動生成されたコンストラクター・スタブ
         count = Wasatter.downloadWaitUrls.size();
         layout_progress = (FrameLayout) Wasatter.main
@@ -44,13 +46,14 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
         progress_text_count = (TextView) Wasatter.main
                 .findViewById(R.id.load_image_count);
         this.errorCount = 0;
+        mApp = app;
     }
 
     @Override
     protected void onPreExecute() {
         Wasatter.main.progress_image.setMax(count);
         // そもそもロードしない設定なら走らせない
-        if (!Setting.isLoadImage()) {
+        if (!mApp.isLoadImage()) {
             this.cancel(true);
             return;
         }
@@ -60,12 +63,16 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
             layout_progress.setVisibility(View.VISIBLE);
         }
     }
+    
+    private Wasatter app() {
+    	return mApp;
+    }
 
     @Override
     protected Void doInBackground(Void... params) {
         // 画像のダウンロードを行うサービス
         HttpClientWrapper http = new HttpClientWrapper();
-        SQLiteDatabase db = Wasatter.imageStore.getWritableDatabase();
+        SQLiteDatabase db = app().imageStore.getWritableDatabase();
         ArrayList<String> urls = Wasatter.downloadWaitUrls;
         db.beginTransaction();
         SQLiteStatement st = db
@@ -85,9 +92,9 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
                     if (bmp != null) {
                         ByteArrayOutputStream out = new ByteArrayOutputStream();
                         bmp.compress(Bitmap.CompressFormat.PNG, 80, out);
-                        String filename = Wasatter.makeImageFileName();
+                        String filename = app().makeImageFileName();
                         image = out.toByteArray();
-                        if (Wasatter.saveImage(filename, image)) {
+                        if (app().saveImage(filename, image)) {
                             st.bindString(1, url);
                             st.bindString(2, filename);
                             // 取得した時間（秒単位）を入れておく

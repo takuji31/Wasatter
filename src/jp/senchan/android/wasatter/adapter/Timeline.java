@@ -56,13 +56,18 @@ public class Timeline extends ArrayAdapter<WasatterItem> implements
             if (text != null) {
                 text.setText(item.text);
             }
+            
             // テキストの行数を決定する。
-            text.setSingleLine(!Setting.isDisplayBodyMultiLine());
+            //TODO 設定可能にすべき？
+            //text.setSingleLine(!Setting.isDisplayBodyMultiLine());
+            text.setSingleLine(false);
+            /*
             if (!Setting.isDisplayBodyMultiLine()) {
                 text.setEllipsize(TruncateAt.MARQUEE);
             } else {
+            */
                 text.setEllipsize(null);
-            }
+            //}
             // 返信元の名前をビューにセットする
             TextView reply_name = (TextView) view.findViewById(R.id.reply_name);
             if (reply_name != null && !"null".equals(item.replyUserNick)
@@ -77,12 +82,14 @@ public class Timeline extends ArrayAdapter<WasatterItem> implements
             // アイコンをロードする。
             Bitmap image = Wasatter.images.get(item.profileImageUrl);
             ImageView icon = (ImageView) view.findViewById(R.id.icon);
+            /*
             if (!Setting.isLoadImage()) {
                 icon.setVisibility(View.GONE);
             } else {
+            */
                 icon.setImageBitmap(image);
                 icon.setVisibility(View.VISIBLE);
-            }
+            //}
             // サービス名をビューにセットする
             TextView service = (TextView) view.findViewById(R.id.service_name);
             if (service != null) {
@@ -105,7 +112,7 @@ public class Timeline extends ArrayAdapter<WasatterItem> implements
                 layout_favorite_icons.removeAllViews();
                 layout_favorite_icons.addView(tv);
                 layout_favorite_list.setVisibility(View.VISIBLE);
-                if (Setting.isLoadFavoriteImage()) {
+                //if (Setting.isLoadFavoriteImage()) {
                     for (int i = 0; i < count; i++) {
                         ImageView add_icon = new ImageView(view.getContext());
                         add_icon.setImageBitmap(Wasatter.images
@@ -115,7 +122,7 @@ public class Timeline extends ArrayAdapter<WasatterItem> implements
                         add_icon.setPadding(2, 2, 2, 2);
                         layout_favorite_icons.addView(add_icon);
                     }
-                }
+                //}
             }
 
             // 投稿日時表示するぜヒャッハー

@@ -20,22 +20,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.Update"
+            android:name=".ui.Update"
             android:configChanges="orientation"
             android:label="New post" >
         </activity>
         <activity
-            android:name=".activity.Setting"
+            android:name=".ui.Setting"
             android:configChanges="orientation"
             android:label="Setting" >
         </activity>
         <activity
-            android:name=".activity.Detail"
+            android:name=".ui.Detail"
             android:configChanges="orientation"
             android:label="Status" >
         </activity>
         <activity
-            android:name=".activity.OAuthToken"
+            android:name=".ui.OAuthToken"
             android:configChanges="orientation"
             android:label="Get OAuth token" >
         </activity>

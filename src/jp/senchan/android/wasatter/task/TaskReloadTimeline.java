@@ -2,8 +2,11 @@ package jp.senchan.android.wasatter.task;
 
 import java.util.ArrayList;
 
+import javax.crypto.Mac;
+
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.adapter.Odai;
 import jp.senchan.android.wasatter.adapter.Timeline;
@@ -33,11 +36,21 @@ public class TaskReloadTimeline extends
     public static final int MODE_CHANNEL = 7;
     public static final String[] msg = new String[] { "Timeline", "Reply",
             "My post", "Odai", "TODO", "Channel list", "Channel status" };
+    
+    private WasatterActivity mActivity;
 
     // コンストラクタ
-    public TaskReloadTimeline(ListView lv, int mode) {
+    public TaskReloadTimeline(WasatterActivity activity, ListView lv, int mode) {
         this.listview = lv;
         this.mode = mode;
+        mActivity = activity;
+    }
+    
+    private WassrClient wassrClient () {
+    	return mActivity.app().wassrClient;
+    }
+    private TwitterClient twitterClient () {
+    	return mActivity.app().twitterClient;
     }
 
     // バックグラウンドで実行する処理
@@ -46,14 +59,14 @@ public class TaskReloadTimeline extends
         switch (this.mode) {
         case TaskReloadTimeline.MODE_TIMELINE:
             try {
-                ret = WassrClient.getTimeLine();
+                ret = wassrClient().getTimeLine();
             } catch (TwitterException e) {
                 publishProgress(Wasatter.SERVICE_WASSR,
                         String.valueOf(e.getStatusCode()));
             }
 
             try {
-                ret.addAll(TwitterClient.getTimeLine());
+                ret.addAll(twitterClient().getTimeLine());
             } catch (TwitterException e) {
                 publishProgress(Wasatter.SERVICE_TWITTER,
                         String.valueOf(e.getStatusCode()));
@@ -61,14 +74,14 @@ public class TaskReloadTimeline extends
             break;
         case TaskReloadTimeline.MODE_REPLY:
             try {
-                ret = WassrClient.getReply();
+                ret = wassrClient().getReply();
             } catch (TwitterException e) {
                 publishProgress(Wasatter.SERVICE_WASSR,
                         String.valueOf(e.getStatusCode()));
             }
 
             try {
-                ret.addAll(TwitterClient.getReply());
+                ret.addAll(twitterClient().getReply());
             } catch (TwitterException e) {
                 publishProgress(Wasatter.SERVICE_TWITTER,
                         String.valueOf(e.getStatusCode()));
@@ -77,14 +90,14 @@ public class TaskReloadTimeline extends
             break;
         case TaskReloadTimeline.MODE_MYPOST:
             try {
-                ret = WassrClient.getMyPost();
+                ret = wassrClient().getMyPost();
             } catch (TwitterException e) {
                 publishProgress(Wasatter.SERVICE_WASSR,
                         String.valueOf(e.getStatusCode()));
             }
 
             try {
-                ret.addAll(TwitterClient.getMyPost());
+                ret.addAll(twitterClient().getMyPost());
             } catch (TwitterException e) {
                 publishProgress(Wasatter.SERVICE_TWITTER,
                         String.valueOf(e.getStatusCode()));
@@ -93,7 +106,7 @@ public class TaskReloadTimeline extends
             break;
         case TaskReloadTimeline.MODE_ODAI:
             try {
-                ret = WassrClient.getOdai();
+                ret = wassrClient().getOdai();
             } catch (TwitterException e) {
                 publishProgress(Wasatter.SERVICE_WASSR,
                         String.valueOf(e.getStatusCode()));
@@ -102,7 +115,7 @@ public class TaskReloadTimeline extends
             break;
         case TaskReloadTimeline.MODE_CHANNEL_LIST:
             try {
-                ret = WassrClient.getChannelList();
+                ret = wassrClient().getChannelList();
             } catch (TwitterException e) {
                 publishProgress(Wasatter.SERVICE_WASSR,
                         String.valueOf(e.getStatusCode()));
@@ -110,7 +123,7 @@ public class TaskReloadTimeline extends
             break;
         case TaskReloadTimeline.MODE_CHANNEL:
             try {
-                ret = WassrClient.getChannel(param[0]);
+                ret = wassrClient().getChannel(param[0]);
             } catch (TwitterException e) {
                 e.printStackTrace();
                 String cause;
@@ -131,17 +144,20 @@ public class TaskReloadTimeline extends
         // まず、何が起こってここに飛んできたか判定
         String service = values[0];
         String error = values[1];
-        Wasatter.displayHttpError(error, service);
+        mActivity.app().displayHttpError(error, service);
     }
 
     // 進行中に出す処理
     protected void onPreExecute() {
+    	//TODO ローディングの処理
+    	/*
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append("Loading ");
         sb.append(TaskReloadTimeline.msg[this.mode - 1]);
         sb.append("...");
         Wasatter.main.loading_timeline_text.setText(sb.toString());
         Wasatter.main.layout_progress_timeline.setVisibility(View.VISIBLE);
+        */
     };
 
     // メインスレッドで実行する処理

@@ -42,107 +42,6 @@ public class Setting extends PreferenceActivity {
         pc2.addPreference(pf2);
     }
 
-    // アカウント設定
-    public static boolean isWassrEnabled() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-                "enable_wassr", false);
-    }
-
-    public static boolean isTwitterEnabled() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-                "enable_twitter", false);
-    }
-
-    public static boolean isDisplayBodyMultiLine() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-                "display_body_multi_line", false);
-    }
-
-    public static boolean isLoadWassrTimeline() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-                con.getString(R.string.key_setting_wassr_load_timeline), true);
-    }
-
-    public static boolean isLoadTwitterTimeline() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager
-                .getDefaultSharedPreferences(con)
-                .getBoolean(
-                        con.getString(R.string.key_setting_twitter_load_timeline),
-                        true);
-    }
-
-    public static String getWassrId() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getString(
-                "wassr_id", "");
-    }
-
-    public static String getWassrPass() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getString(
-                "wassr_pass", "");
-    }
-
-    public static String getTwitterId() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getString(
-                "twitter_id", "");
-    }
-
-    public static String getTwitterPass() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getString(
-                "twitter_pass", "");
-    }
-
-    public static boolean setTwitterToken(String token) {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).edit()
-                .putString("twitter_token", token).commit();
-    }
-
-    public static String getTwitterToken() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getString(
-                "twitter_token", "");
-    }
-
-    public static boolean setTwitterTokenSecret(String token) {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).edit()
-                .putString("twitter_token_secret", token).commit();
-    }
-
-    public static String getTwitterTokenSecret() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getString(
-                "twitter_token_secret", "");
-    }
-
-    // 表示設定
-    public static boolean isLoadImage() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-                "display_load_image", true);
-    }
-
-    public static boolean isLoadFavoriteImage() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-                "display_load_favorite_image", false);
-    }
-
-    public static boolean isDisplayButtons() {
-        Context con = Wasatter.CONTEXT;
-        return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-                con.getString(R.string.key_setting_display_buttons), true);
-    }
-
     private class OAuthGetTokenListener implements OnPreferenceClickListener {
         @Override
         public boolean onPreferenceClick(Preference preference) {
@@ -173,8 +72,9 @@ public class Setting extends PreferenceActivity {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             // TODO 自動生成されたメソッド・スタブ
-            Wasatter.deleteImageCache();
-            Wasatter.main.first_load = Setting.isLoadImage();
+            Wasatter app = (Wasatter) getApplication();
+            app.deleteImageCache();
+            Wasatter.main.first_load = app.isLoadImage();
         }
     }
 }

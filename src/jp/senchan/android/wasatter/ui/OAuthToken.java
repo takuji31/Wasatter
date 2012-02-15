@@ -5,6 +5,7 @@ package jp.senchan.android.wasatter.ui;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.task.TaskGetOAuthRequestUrl;
 import jp.senchan.android.wasatter.task.TaskSetOAuthToken;
 import twitter4j.Twitter;
@@ -25,7 +26,7 @@ import android.widget.TextView;
  * @author Senka/Takuji
  * 
  */
-public class OAuthToken extends Activity {
+public class OAuthToken extends WasatterActivity {
     public Twitter twitter;
     public RequestToken request;
 
@@ -89,9 +90,9 @@ public class OAuthToken extends Activity {
 
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            // TODO 自動生成されたメソッド・スタブ
-            Setting.setTwitterToken("");
-            Setting.setTwitterTokenSecret("");
+        	Wasatter app = app();
+            app.setTwitterToken("");
+            app.setTwitterTokenSecret("");
             // Wasatter.makeToast("OAuthトークンをクリアしました。");
             AlertDialog.Builder ad = new AlertDialog.Builder(OAuthToken.this);
             ad.setMessage("OAuthトークンを削除しました。");

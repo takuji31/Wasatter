@@ -35,17 +35,18 @@ public class TaskToggleFavorite extends AsyncTask<WasatterItem, Void, Boolean> {
     @Override
     protected Boolean doInBackground(WasatterItem... params) {
         item = params[0];
+        Wasatter app = detail.app();
         if (item.channel) {
-            status = WassrClient.channelFavorite(item);
+            status = detail.app().wassrClient.channelFavorite(item);
             return !"NG".equalsIgnoreCase(status);
         } else if (Wasatter.SERVICE_WASSR.equals(item.service)) {
-            return WassrClient.favorite(item);
+            return detail.app().wassrClient.favorite(item);
         } else if (Wasatter.SERVICE_TWITTER.equals(item.service)) {
             Twitter tw;
             tw = new TwitterFactory().getInstance();
             tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
-            tw.setOAuthAccessToken(new AccessToken(Setting.getTwitterToken(),
-                    Setting.getTwitterTokenSecret()));
+            tw.setOAuthAccessToken(new AccessToken(app.getTwitterToken(),
+                    app.getTwitterTokenSecret()));
             try {
                 twitter4j.Status st = tw.createFavorite(Long
                         .parseLong(item.rid));

@@ -11,8 +11,6 @@ import java.util.Locale;
 
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterItem;
-import jp.senchan.android.wasatter.ui.Setting;
-
 import twitter4j.TwitterException;
 import twitter4j.conf.ConfigurationContext;
 import twitter4j.http.AccessToken;
@@ -38,29 +36,36 @@ public class TwitterClient {
     private static final String UPDATE_TIMELINE_URL = "http://twitter.com/statuses/update.json";
     private static final String PERMA_LINK = "http://twitter.com/[id]/status/[rid]";
     private static HttpClientWrapper http = new HttpClientWrapper();
+    
+    private Wasatter app;
+    
+    public TwitterClient(Wasatter app) {
+		// TODO Auto-generated constructor stub
+    	this.app = app;
+	}
 
     /*
      * (非 Javadoc)
      * 
      * @see jp.senchan.android.wasatter.WasatterClient#getTimeLine(int)
      */
-    public static ArrayList<WasatterItem> getTimeLine() throws TwitterException {
-        return TwitterClient.getItems(TwitterClient.FRIEND_TIMELINE_URL);
+    public  ArrayList<WasatterItem> getTimeLine() throws TwitterException {
+        return this.getItems(FRIEND_TIMELINE_URL);
     }
 
-    public static ArrayList<WasatterItem> getReply() throws TwitterException {
-        return TwitterClient.getItems(TwitterClient.REPLY_URL);
+    public  ArrayList<WasatterItem> getReply() throws TwitterException {
+        return this.getItems(REPLY_URL);
     }
 
-    public static ArrayList<WasatterItem> getMyPost() throws TwitterException {
-        return TwitterClient.getItems(TwitterClient.MYPOST_URL);
+    public  ArrayList<WasatterItem> getMyPost() throws TwitterException {
+        return this.getItems(MYPOST_URL);
     }
 
-    public static ArrayList<WasatterItem> getItems(String url)
+    public  ArrayList<WasatterItem> getItems(String url)
             throws TwitterException {
         ArrayList<WasatterItem> ret = new ArrayList<WasatterItem>();
-        if (!Setting.isTwitterEnabled()
-                || (!Setting.isLoadTwitterTimeline() && TwitterClient.FRIEND_TIMELINE_URL
+        if (!app.isTwitterEnabled()
+                || (!app.isLoadTwitterTimeline() && FRIEND_TIMELINE_URL
                         .equals(url))) {
             return ret;
         }
@@ -79,7 +84,7 @@ public class TwitterClient {
                 ws.name = obj.getJSONObject("user").getString("screen_name");
                 ws.id = ws.name;
                 ws.rid = obj.getString("id");
-                ws.link = TwitterClient.PERMA_LINK.replace("[id]", ws.id)
+                ws.link = PERMA_LINK.replace("[id]", ws.id)
                         .replace("[rid]", ws.rid);
                 String profile = obj.getJSONObject("user").getString(
                         "profile_image_url");
@@ -102,8 +107,8 @@ public class TwitterClient {
 
     }
 
-    public static boolean updateTimeLine(String status) {
-        return TwitterClient.updateTimeLine(status, null);
+    public  boolean updateTimeLine(String status) {
+        return this.updateTimeLine(status, null);
     }
 
     /*
@@ -113,9 +118,9 @@ public class TwitterClient {
      * jp.senchan.android.wasatter.WasatterClient#updateTimeLine(java.lang.String
      * , java.lang.String)
      */
-    public static boolean updateTimeLine(String status, String rid) {
+    public  boolean updateTimeLine(String status, String rid) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(TwitterClient.UPDATE_TIMELINE_URL);
+        sb.append(UPDATE_TIMELINE_URL);
         sb.append("?source=");
         sb.append(URLEncoder.encode(Wasatter.VIA));
         sb.append("&status=");
@@ -139,11 +144,11 @@ public class TwitterClient {
         return false;
     }
 
-    public static Authorization getAuthorization() {
+    public  Authorization getAuthorization() {
         return new OAuthAuthorization(ConfigurationContext.getInstance(),
                 Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET, new AccessToken(
-                        Setting.getTwitterToken(),
-                        Setting.getTwitterTokenSecret()));
+                        app.getTwitterToken(),
+                        app.getTwitterTokenSecret()));
     }
 
 }

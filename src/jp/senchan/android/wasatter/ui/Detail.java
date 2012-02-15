@@ -3,6 +3,7 @@ package jp.senchan.android.wasatter.ui;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.ResultCode;
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.task.TaskToggleFavorite;
 import android.app.Activity;
@@ -25,7 +26,7 @@ import android.widget.TextView;
  * @author Senka/Takuji
  * 
  */
-public class Detail extends Activity {
+public class Detail extends WasatterActivity {
     protected WasatterItem ws;
     public static String ADD_WASSR = "イイネ！する";
     public static String DEL_WASSR = "イイネ！を消す";
@@ -38,7 +39,7 @@ public class Detail extends Activity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.wasatter_detail);
         favoriteButton = (Button) findViewById(R.id.button_favorite);
-        this.ws = Wasatter.main.selectedItem;
+        this.ws = app().selected;
         if (this.ws != null) {
             WasatterItem wss = this.ws;
             // サービス名/チャンネル名をセット
@@ -55,7 +56,7 @@ public class Detail extends Activity {
             // 画像をセット
             ImageView icon = (ImageView) this.findViewById(R.id.icon);
             Bitmap bmp = Wasatter.images.get(wss.profileImageUrl);
-            if (bmp != null && Setting.isLoadImage()) {
+            if (bmp != null && app().isLoadImage()) {
                 icon.setImageBitmap(bmp);
                 icon.setVisibility(View.VISIBLE);
             } else {
@@ -126,7 +127,7 @@ public class Detail extends Activity {
             if (Wasatter.SERVICE_TWITTER.equals(wss.service)) {
                 button_favorite.setText(ADD_TWITTER);
             } else if (wss.favorite != null
-                    && wss.favorite.indexOf(Setting.getWassrId()) != -1) {
+                    && wss.favorite.indexOf(app().getWassrId()) != -1) {
                 button_favorite.setText(DEL_WASSR);
             } else {
                 button_favorite.setText(ADD_WASSR);

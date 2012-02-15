@@ -44,41 +44,47 @@ public class WassrClient {
     private static final String FAVORITE_DEL_URL = "http://api.wassr.jp/favorites/destroy/[rid].json";
     private static final String FAVORITE_CHANNEL_URL = "http://api.wassr.jp/channel_favorite/toggle.json?channel_message_rid=[rid]";
     public static final String FAVORITE_ICON_URL = "http://wassr.jp/user/[user]/profile_img.png.16";
-    private static HttpClientWrapper http = new HttpClientWrapper();
+    private HttpClientWrapper httpClient = new HttpClientWrapper();
+    private Wasatter app;
+    
+    public WassrClient(Wasatter app) {
+	    httpClient = new HttpClientWrapper();
+	    this.app = app;
+	}
 
-    public static ArrayList<WasatterItem> getTimeLine() throws TwitterException {
-        return WassrClient.getItems(WassrClient.FRIEND_TIMELINE_URL, false);
+    public ArrayList<WasatterItem> getTimeLine() throws TwitterException {
+        return getItems(WassrClient.FRIEND_TIMELINE_URL, false);
     }
 
-    public static ArrayList<WasatterItem> getReply() throws TwitterException {
-        return WassrClient.getItems(WassrClient.REPLY_URL, false);
+    public ArrayList<WasatterItem> getReply() throws TwitterException {
+        return getItems(WassrClient.REPLY_URL, false);
     }
 
-    public static ArrayList<WasatterItem> getMyPost() throws TwitterException {
-        return WassrClient.getItems(WassrClient.MYPOST_URL, false);
+    public ArrayList<WasatterItem> getMyPost() throws TwitterException {
+        return getItems(WassrClient.MYPOST_URL, false);
     }
 
-    public static ArrayList<WasatterItem> getOdai() throws TwitterException {
-        return WassrClient.getItems(WassrClient.ODAI_URL, false);
+    public ArrayList<WasatterItem> getOdai() throws TwitterException {
+        return getItems(WassrClient.ODAI_URL, false);
     }
 
-    public static ArrayList<WasatterItem> getChannel(String name)
+    public ArrayList<WasatterItem> getChannel(String name)
             throws TwitterException {
-        return WassrClient.getItems(
+        return getItems(
                 CHANNEL_TIMELINE_URL.replace("[name]", name), true);
     }
 
-    public static ArrayList<WasatterItem> getItems(String url, boolean channel)
+    public ArrayList<WasatterItem> getItems(String url, boolean channel)
             throws TwitterException {
         ArrayList<WasatterItem> ret = new ArrayList<WasatterItem>();
-        if (!Setting.isWassrEnabled()
-                || (!Setting.isLoadWassrTimeline() && WassrClient.FRIEND_TIMELINE_URL
+        if (!app.isWassrEnabled()
+                || (!app.isLoadWassrTimeline() && WassrClient.FRIEND_TIMELINE_URL
                         .equals(url))) {
             return ret;
         }
         JSONArray result;
         try {
-            HttpResponse res = http.get(url, getAuthorization());
+            HttpResponse res = httpClient.get(url, getAuthorization());
             result = res.asJSONArray();
             int j = result.length();
             SimpleDateFormat sdf = new SimpleDateFormat(
@@ -135,8 +141,7 @@ public class WassrClient {
                 }
                 ws.profileImageUrl = profile;
                 if ("null".equalsIgnoreCase(ws.replyMessage)) {
-                    ws.replyMessage = Wasatter.CONTEXT
-                            .getString(R.string.message_private_message);
+                    ws.replyMessage = this.app.getString(R.string.message_private_message);
                 }
                 JSONArray favorites = obj.getJSONArray("favorites");
                 // お題のイイネは取得しない。
@@ -151,7 +156,7 @@ public class WassrClient {
                         Wasatter.downloadWaitUrls.add(icon_url);
                     }
                 }
-                ws.favorited = ws.favorite.indexOf(Setting.getWassrId()) != -1;
+                ws.favorited = ws.favorite.indexOf(app.getWassrId()) != -1;
                 ret.add(ws);
             }
         } catch (JSONException e) {
@@ -160,15 +165,15 @@ public class WassrClient {
         return ret;
     }
 
-    public static ArrayList<WasatterItem> getChannelList()
+    public ArrayList<WasatterItem> getChannelList()
             throws TwitterException {
         ArrayList<WasatterItem> ret = new ArrayList<WasatterItem>();
-        if (!Setting.isWassrEnabled()) {
+        if (!app.isWassrEnabled()) {
             return ret;
         }
         JSONArray result;
         try {
-            result = http.get(WassrClient.CHANNEL_LIST_URL, getAuthorization())
+            result = httpClient.get(WassrClient.CHANNEL_LIST_URL, getAuthorization())
                     .asJSONObject().getJSONArray("channels");
             int j = result.length();
             for (int i = 0; i < j; i++) {
@@ -189,11 +194,11 @@ public class WassrClient {
         return ret;
     }
 
-    public static boolean updateTimeLine(String status) throws TwitterException {
-        return WassrClient.updateTimeLine(status, null);
+    public boolean updateTimeLine(String status) throws TwitterException {
+        return updateTimeLine(status, null);
     }
 
-    public static boolean updateTimeLine(String status, String rid)
+    public boolean updateTimeLine(String status, String rid)
             throws TwitterException {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(UPDATE_TIMELINE_URL);
@@ -206,7 +211,7 @@ public class WassrClient {
             sb.append(rid);
         }
         JSONObject res;
-        res = http.post(sb.toString(), getAuthorization()).asJSONObject();
+        res = httpClient.post(sb.toString(), getAuthorization()).asJSONObject();
         try {
             return res.getString("text") != null;
         } catch (JSONException e) {
@@ -215,7 +220,7 @@ public class WassrClient {
         return false;
     }
 
-    public static boolean updateChannel(String channelId, String status,
+    public boolean updateChannel(String channelId, String status,
             String rid) throws TwitterException {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(UPDATE_CHANNEL_URL.replace("[channel]", channelId));
@@ -226,7 +231,7 @@ public class WassrClient {
             sb.append(rid);
         }
         JSONObject res;
-        res = http.post(sb.toString(), getAuthorization()).asJSONObject();
+        res = httpClient.post(sb.toString(), getAuthorization()).asJSONObject();
         try {
             return res.getString("text") != null
                     && "null".equals(res.getString("error"));
@@ -237,23 +242,23 @@ public class WassrClient {
         return false;
     }
 
-    public static boolean favorite(WasatterItem item) {
+    public boolean favorite(WasatterItem item) {
         JSONObject json;
         try {
             if (!item.favorited) {
-                json = http.post(FAVORITE_URL.replace("[rid]", item.rid),
+                json = httpClient.post(FAVORITE_URL.replace("[rid]", item.rid),
                         getAuthorization()).asJSONObject();
 
             } else {
-                json = http.post(FAVORITE_DEL_URL.replace("[rid]", item.rid),
+                json = httpClient.post(FAVORITE_DEL_URL.replace("[rid]", item.rid),
                         getAuthorization()).asJSONObject();
             }
             boolean result = json.getString("status").equalsIgnoreCase("ok");
             if (result) {
                 if (item.favorited) {
-                    item.favorite.remove(Setting.getWassrId());
+                    item.favorite.remove(app.getWassrId());
                 } else {
-                    item.favorite.add(Setting.getWassrId());
+                    item.favorite.add(app.getWassrId());
                 }
                 item.favorited = !item.favorited;
             }
@@ -266,10 +271,10 @@ public class WassrClient {
         return false;
     }
 
-    public static String channelFavorite(WasatterItem item) {
+    public String channelFavorite(WasatterItem item) {
         JSONObject json;
         try {
-            json = http.post(FAVORITE_CHANNEL_URL.replace("[rid]", item.rid),
+            json = httpClient.post(FAVORITE_CHANNEL_URL.replace("[rid]", item.rid),
                     getAuthorization()).asJSONObject();
             return json.getString("message");
         } catch (TwitterException e1) {
@@ -280,10 +285,10 @@ public class WassrClient {
         return "NG";
     }
 
-    public static Authorization getAuthorization() {
+    public Authorization getAuthorization() {
 
-        return new BasicAuthorization(Setting.getWassrId(),
-                Setting.getWassrPass());
+        return new BasicAuthorization(app.getWassrId(),
+                app.getWassrPass());
 
     }
 }
