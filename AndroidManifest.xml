@@ -35,11 +35,6 @@
             android:label="Status" >
         </activity>
         <activity
-            android:name=".activity.Todo"
-            android:configChanges="orientation"
-            android:label="TODO" >
-        </activity>
-        <activity
             android:name=".activity.OAuthToken"
             android:configChanges="orientation"
             android:label="Get OAuth token" >

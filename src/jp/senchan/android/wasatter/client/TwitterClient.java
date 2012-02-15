@@ -11,7 +11,7 @@ import java.util.Locale;
 
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterItem;
-import jp.senchan.android.wasatter.activity.Setting;
+import jp.senchan.android.wasatter.ui.Setting;
 
 import twitter4j.TwitterException;
 import twitter4j.conf.ConfigurationContext;

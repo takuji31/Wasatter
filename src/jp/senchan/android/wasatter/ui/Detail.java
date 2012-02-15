@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.activity;
+package jp.senchan.android.wasatter.ui;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.ResultCode;
