@@ -15,6 +15,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/WasatterOAuthParams"/>
-	<classpathentry kind="lib" path="/SenchanLib/lib/android-support-v13.jar"/>
+	<classpathentry kind="lib" path="/SenchanLib/lib/android-support-v4.jar" sourcepath="/SenchanLib/lib/src/java"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
