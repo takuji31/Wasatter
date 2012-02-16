@@ -10,9 +10,8 @@
 	<string name="progress_message_get_timeline">しばらくお待ちください…</string>
 	<string name="notice_message_no_enable">1つ以上のサービスを有効にしてください。OKボタンを押すと設定を開きます。</string>
 	<string name="notice_title_no_enable"></string>
-	<string name="notice_message_no_value">有効になっているサービスはIDとパスワードを入力してください。OKボタンを押すと設定を開きます。
-	</string><string name="notice_message_no_twitter_oauth_token">TwitterでOAuthを使用する場合はトークンを設定してください。OKボタンを押すと設定を開きます。
-	</string>
+	<string name="notice_message_no_value">有効になっているサービスはIDとパスワードを入力してください。OKボタンを押すと設定を開きます。</string>
+    <string name="notice_message_no_twitter_oauth_token">TwitterでOAuthを使用する場合はトークンを設定してください。OKボタンを押すと設定を開きます。</string>
 	<string name="notice_title_no_value"></string>
 	<string name="notice_message_todo_start_success">TODOを開始しました。</string>
 	<string name="notice_message_todo_start_failure">TODOを開始出来ませんでした。</string>
@@ -25,4 +24,5 @@
 
 <string name="notice_message_required">内容が未入力です。</string>
 <string name="message_confirm_clear_oauth_token">OAuthトークンをクリアしてよろしいですか？よろしければOKを押してください。Cancelでキャンセル出来ます。</string>
+<string name="progress_message_get_oauth_request_token">認証用URLを取得しています。しばらくお待ちください…</string>
 </resources>

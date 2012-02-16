@@ -3,41 +3,63 @@
     package="jp.senchan.android.wasatter"
     android:versionCode="12"
     android:versionName="1.1.0a" >
+
     <uses-sdk
         android:minSdkVersion="4"
         android:targetSdkVersion="15" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:icon="@drawable/wasattericon"
-        android:label="@string/app_name" android:name=".Wasatter">
+        android:label="@string/app_name"
+        android:name=".Wasatter"
+        android:theme="@android:style/Theme.DeviceDefault">
         <activity
-            android:name=".ActivityMain"
-            android:configChanges="orientation" >
-            <intent-filter>
+            android:configChanges="orientation"
+            android:name=".ActivityMain" >
+            <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.Update"
             android:configChanges="orientation"
-            android:label="New post" >
+            android:name=".ui.TimelineActivity" >
         </activity>
         <activity
-            android:name=".ui.Setting"
             android:configChanges="orientation"
-            android:label="Setting" >
+            android:label="New post"
+            android:name=".ui.Update" >
         </activity>
         <activity
-            android:name=".ui.Detail"
             android:configChanges="orientation"
-            android:label="Status" >
+            android:label="Setting"
+            android:name=".ui.Setting" >
         </activity>
         <activity
-            android:name=".ui.OAuthToken"
             android:configChanges="orientation"
-            android:label="Get OAuth token" >
+            android:label="Status"
+            android:name=".ui.Detail" >
+        </activity>
+        <activity
+            android:configChanges="orientation"
+            android:label="Get OAuth token"
+            android:name=".ui.OAuthToken" >
+        </activity>
+        <activity android:name=".ui.oauth.twitter.OAuthCallback" >
+            <intent-filter >
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="callback.twitter"
+                    android:scheme="wasatter" />
+            </intent-filter>
         </activity>
     </application>
+
 </manifest>

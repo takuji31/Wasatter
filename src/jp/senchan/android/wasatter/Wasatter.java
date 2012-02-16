@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import jp.senchan.android.wasatter.client.TwitterClient;
 import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.ui.TimelineActivity;
 import jp.senchan.android.wasatter.utils.SQLiteHelperImageStore;
 import jp.senchan.lib.BaseApp;
 
@@ -22,7 +23,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.preference.PreferenceManager;
 import android.text.SpannableStringBuilder;
 
 public class Wasatter extends BaseApp {
@@ -45,7 +45,7 @@ public class Wasatter extends BaseApp {
 	public static String MODE_POSTING = "mode_posting";
 	public static String MODE_DISPLAY = "mode_display";
 	public static String MODE_ERROR = "mode_error";
-	public static ActivityMain main;
+	public static TimelineActivity main;
 
 	private static final int PREF_VERSION = 1;
 
