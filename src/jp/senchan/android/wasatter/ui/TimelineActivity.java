@@ -4,14 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.IntentCode;
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter3.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterItem;
-import jp.senchan.android.wasatter.R.id;
-import jp.senchan.android.wasatter.R.layout;
-import jp.senchan.android.wasatter.R.menu;
-import jp.senchan.android.wasatter.R.string;
 import jp.senchan.android.wasatter.adapter.Odai;
 import jp.senchan.android.wasatter.adapter.Timeline;
 import jp.senchan.android.wasatter.adapter.WasatterAdapter;

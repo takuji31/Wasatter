@@ -15,6 +15,7 @@ import jp.senchan.android.wasatter.client.TwitterClient;
 import jp.senchan.android.wasatter.client.WassrClient;
 import jp.senchan.android.wasatter.ui.TimelineActivity;
 import jp.senchan.android.wasatter.utils.SQLiteHelperImageStore;
+import jp.senchan.android.wasatter3.R;
 import jp.senchan.lib.BaseApp;
 
 import android.app.AlertDialog;

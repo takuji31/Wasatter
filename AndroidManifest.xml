@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jp.senchan.android.wasatter"
+    package="jp.senchan.android.wasatter3"
     android:versionCode="12"
     android:versionName="1.1.0a" >
 
@@ -13,11 +13,11 @@
     <application
         android:icon="@drawable/wasattericon"
         android:label="@string/app_name"
-        android:name="Wasatter"
+        android:name="jp.senchan.android.wasatter.Wasatter"
         android:theme="@android:style/Theme.DeviceDefault">
         <activity
             android:configChanges="orientation"
-            android:name=".ActivityMain" >
+            android:name="jp.senchan.android.wasatter.ActivityMain" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,29 +26,29 @@
         </activity>
         <activity
             android:configChanges="orientation"
-            android:name=".ui.TimelineActivity" >
+            android:name="jp.senchan.android.wasatter.ui.TimelineActivity" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="New post"
-            android:name=".ui.Update" >
+            android:name="jp.senchan.android.wasatter.ui.Update" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="Setting"
-            android:name=".ui.Setting" >
+            android:name="jp.senchan.android.wasatter.ui.Setting" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="Status"
-            android:name=".ui.Detail" >
+            android:name="jp.senchan.android.wasatter.ui.Detail" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="Get OAuth token"
-            android:name=".ui.OAuthToken" >
+            android:name="jp.senchan.android.wasatter.ui.OAuthToken" >
         </activity>
-        <activity android:name=".ui.oauth.twitter.OAuthCallback" >
+        <activity android:name="jp.senchan.android.wasatter.ui.oauth.twitter.OAuthCallback" >
             <intent-filter >
                 <action android:name="android.intent.action.VIEW" />
 

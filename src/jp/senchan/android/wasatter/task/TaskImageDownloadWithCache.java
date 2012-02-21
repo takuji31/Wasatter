@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter3.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.adapter.Timeline;
 import jp.senchan.android.wasatter.ui.Setting;

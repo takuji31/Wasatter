@@ -1,6 +1,7 @@
 package jp.senchan.android.wasatter;
 
 import jp.senchan.android.wasatter.ui.TimelineActivity;
+import jp.senchan.android.wasatter3.R;
 import android.content.Intent;
 import android.os.Bundle;
 
