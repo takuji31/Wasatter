@@ -13,8 +13,8 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Wasatter/lib/twitter4j-media-support-2.1.9-SNAPSHOT-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/WasatterOAuthParams"/>
 	<classpathentry kind="lib" path="/SenchanLib/lib/android-support-v4.jar" sourcepath="/SenchanLib/lib/src/java"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
