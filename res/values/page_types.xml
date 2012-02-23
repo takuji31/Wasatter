@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="page_types_name">
+        <item>投稿</item>
+        <item>ホーム</item>
+        <item>返信</item>
+        <item>プロフィール</item>
+        <item>DM(Twitter)</item>
+        <item>チャンネル(Wassr)</item>
+        <item>お題ちゃん(Wassr)</item>
+        <item>ユーザー指定</item>
+    </string-array>
+    <string-array name="page_types">
+        <item>post</item>
+        <item>home</item>
+        <item>reply</item>
+        <item>profile</item>
+        <item>message</item>
+        <item>channel</item>
+        <item>odai</item>
+        <item>user</item>
+    </string-array>
+    <!-- 
+    	0：全サービス(単体)
+    	1：全サービス(複数)
+    	2：Wassr
+    	3：Twitter
+    	4：Facebook
+     -->
+    <integer-array name="page_types_service_type">
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>3</item>
+        <item>2</item>
+        <item>2</item>
+        <item>0</item>
+    </integer-array>
+    <!--
+		設定の配列の所在(ID)    
+    -->
+    <integer-array name="page_types_configs">
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>3</item>
+        <item>2</item>
+        <item>2</item>
+        <item>0</item>
+    </integer-array>
+</resources>
