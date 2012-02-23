@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
@@ -20,6 +21,7 @@ import jp.senchan.lib.BaseApp;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -54,6 +56,10 @@ public class Wasatter extends BaseApp {
 	public WassrClient wassrClient;
 	public TwitterClient twitterClient;
 	public WasatterItem selected;
+	
+	public ArrayList<String> pageTypeNames;
+	public ArrayList<String> pageTypes;
+
 
 	@Override
 	public void onCreate() {
@@ -61,6 +67,10 @@ public class Wasatter extends BaseApp {
 		imageStore = new SQLiteHelperImageStore(this);
 		wassrClient = new WassrClient(this);
 		twitterClient = new TwitterClient(this);
+		
+		Resources res = getResources();
+		pageTypeNames = (ArrayList<String>) Arrays.asList(res.getStringArray(R.array.page_types_name));
+		pageTypes = (ArrayList<String>) Arrays.asList(res.getStringArray(R.array.page_types));
 	}
 
 	public static long cacheExpire() {

@@ -10,7 +10,11 @@ public class ActivityMain extends WasatterActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Intent intent = new Intent(getApplicationContext(), TimelineActivity.class);
+		Wasatter app = app();
+		Intent intent = new Intent(app, TimelineActivity.class);
+		if(app.isDebugMode()) {
+			intent = new Intent(app, TimelineActivity.class);
+		}
 		startActivity(intent);
 		finish();
 	}
