@@ -86,7 +86,7 @@ public class TimelineActivity extends WasatterActivity {
                 .setOnClickListener(new ChannelReloadButtonClickListener());
         // トグルボタンを代入
         this.button_timeline = (ToggleButton) this
-                .findViewById(R.id.toggle_button_timeline);
+                .findViewById(R.id.toggle_button_home);
         this.button_reply = (ToggleButton) this
                 .findViewById(R.id.toggle_button_reply);
         this.button_mypost = (ToggleButton) this
@@ -106,7 +106,7 @@ public class TimelineActivity extends WasatterActivity {
                 .setOnClickListener(new ChannelButtonClickListener());
 
         // トグルボタンの初期値をタイムラインに設定
-        this.buttonSelect(R.id.toggle_button_timeline);
+        this.buttonSelect(R.id.toggle_button_home);
         // ボタンにイベントを割り当て
         Button button_new = (Button) this.findViewById(R.id.button_new_post);
         button_new.setOnClickListener(new ButtonNewPostListener());
@@ -274,7 +274,7 @@ public class TimelineActivity extends WasatterActivity {
         wassr_function_list.add(R.id.toggle_button_channel);
         wassr_function_list.add(R.id.toggle_button_odai);
         if (wassr_function_list.indexOf(Integer.valueOf(id)) != -1 && !wassr) {
-            id = R.id.toggle_button_timeline;
+            id = R.id.toggle_button_home;
         }
         return id;
     }
@@ -472,9 +472,9 @@ public class TimelineActivity extends WasatterActivity {
 
     /**
      * ダイアログから設定画面を開くOnClickListener
-     * 
+     *
      * @author takuji
-     * 
+     *
      */
     private class OpenSettingClickListener implements
             DialogInterface.OnClickListener {
@@ -486,9 +486,9 @@ public class TimelineActivity extends WasatterActivity {
 
     /**
      * タイムラインをクリックした時のOnClickListener
-     * 
+     *
      * @author takuji
-     * 
+     *
      */
     private class TimelineItemClickListener implements OnItemClickListener {
         @Override
