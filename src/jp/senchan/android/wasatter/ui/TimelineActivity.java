@@ -68,7 +68,7 @@ public class TimelineActivity extends WasatterActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.main);
+        this.setContentView(R.layout.old_timeline);
         this.ls = (ListView) this.findViewById(R.id.timeline_list);
         this.progress_image = (ProgressBar) this
                 .findViewById(R.id.load_image_progress);
