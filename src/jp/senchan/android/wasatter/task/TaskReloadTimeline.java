@@ -194,7 +194,7 @@ public class TaskReloadTimeline extends
             switch (this.mode) {
             case TaskReloadTimeline.MODE_ODAI:
                 Odai adapter_odai = new Odai(this.listview.getContext(),
-                        R.layout.odai_row, result);
+                        R.layout.old_odai_row, result);
                 this.listview.setAdapter(adapter_odai);
                 break;
             case TaskReloadTimeline.MODE_CHANNEL_LIST:
@@ -210,7 +210,7 @@ public class TaskReloadTimeline extends
             default:
                 boolean channel = this.mode == TaskReloadTimeline.MODE_CHANNEL;
                 Timeline adapter = new Timeline(this.listview.getContext(),
-                        R.layout.timeline_row, result, channel);
+                        R.layout.old_timeline_row, result, channel);
                 if (!channel) {
                     adapter.sort(new StatusItemComparator());
                 }

@@ -30,7 +30,7 @@ public class Odai extends ArrayAdapter<WasatterItem> {
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null) {
             // 受け取ったビューがnullなら新しくビューを生成
-            view = this.inflater.inflate(R.layout.odai_row, null);
+            view = this.inflater.inflate(R.layout.old_odai_row, null);
         }
         // データの取得
         WasatterItem item = this.items.get(position);

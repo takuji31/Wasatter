@@ -1,5 +1,6 @@
 package jp.senchan.android.wasatter.next.ui.activity;
 
+import jp.senchan.android.wasatter.ui.TimelineActivity;
 import jp.senchan.android.wasatter3.R;
 import jp.senchan.lib.ui.BaseActivity;
 import android.content.Intent;
@@ -13,7 +14,7 @@ public class DebugMenuActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.debug_menu);
         Button accountList = (Button) findViewById(R.id.button_account_list);
         accountList.setOnClickListener(new OnClickListener() {
 			
@@ -41,6 +42,16 @@ public class DebugMenuActivity extends BaseActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(DebugMenuActivity.this, ConfigHomeActivity.class);
+				startActivity(intent);
+			}
+		});
+        Button gotoOriginal = (Button) findViewById(R.id.button_goto_original);
+        gotoOriginal.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(DebugMenuActivity.this, TimelineActivity.class);
 				startActivity(intent);
 			}
 		});

@@ -456,7 +456,7 @@ public class TimelineActivity extends WasatterActivity {
             if (TimelineActivity.this.list_channel != null) {
                 Timeline adapter = new Timeline(
                         TimelineActivity.this.ls.getContext(),
-                        R.layout.timeline_row, TimelineActivity.this.list_channel,
+                        R.layout.old_timeline_row, TimelineActivity.this.list_channel,
                         true);
                 TimelineActivity.this.ls.setAdapter(adapter);
             }

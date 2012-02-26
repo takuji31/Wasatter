@@ -37,7 +37,7 @@ public class Detail extends WasatterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.wasatter_detail);
+        this.setContentView(R.layout.old_detail);
         favoriteButton = (Button) findViewById(R.id.button_favorite);
         this.ws = app().selected;
         if (this.ws != null) {

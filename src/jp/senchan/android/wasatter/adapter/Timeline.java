@@ -37,7 +37,7 @@ public class Timeline extends ArrayAdapter<WasatterItem> implements
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null) {
             // 受け取ったビューがnullなら新しくビューを生成
-            view = this.inflater.inflate(R.layout.timeline_row, null);
+            view = this.inflater.inflate(R.layout.old_timeline_row, null);
         }
         // データの取得
         WasatterItem item = (WasatterItem) this.items.get(position);

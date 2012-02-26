@@ -31,7 +31,7 @@ public class Update extends WasatterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO 自動生成されたメソッド・スタブ
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.status_update);
+        this.setContentView(R.layout.old_status_update);
         Bundle extras = this.getIntent().getExtras();
         this.channel = Wasatter.main.button_channel.isChecked();
         if (extras != null) {
