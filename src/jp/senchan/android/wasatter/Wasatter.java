@@ -72,6 +72,15 @@ public class Wasatter extends BaseApp {
 		Resources res = getResources();
 		pageTypeNames = Arrays.asList(res.getStringArray(R.array.page_types_name));
 		pageTypes = Arrays.asList(res.getStringArray(R.array.page_types));
+		if(getPrefVersion() == 0) {
+		    //TODO バージョンアップに必要な処理
+		    //イメージストアのDBファイル削除
+		    //画像キャッシュ全部削除
+		    //アカウント設定削除
+		    //セットアップウィザード表示
+		    
+		    //updatePrefVersion();
+		}
 	}
 
 	public static long cacheExpire() {
