@@ -2,8 +2,6 @@ package jp.senchan.android.wasatter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import jp.senchan.android.wasatter3.R;
-
 import android.text.SpannableStringBuilder;
 
 /**

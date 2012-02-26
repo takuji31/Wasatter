@@ -5,7 +5,6 @@ import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.task.TaskUpdate;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;

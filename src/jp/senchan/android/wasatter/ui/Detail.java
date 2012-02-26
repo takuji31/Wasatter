@@ -6,7 +6,6 @@ import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.task.TaskToggleFavorite;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;

@@ -11,7 +11,6 @@ import jp.senchan.android.wasatter.task.TaskSetOAuthToken;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.http.RequestToken;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;

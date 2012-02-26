@@ -6,13 +6,11 @@ package jp.senchan.android.wasatter.ui;
 import jp.senchan.android.wasatter3.R;
 import jp.senchan.android.wasatter.Wasatter;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceClickListener;
 

@@ -15,6 +15,6 @@ public class ConfigPageFragment extends BaseFragment {
 
 		View v = inflater.inflate(R.layout.config_page_type, null);
 
-		return null;
+		return v;
 	}
 }
