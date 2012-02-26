@@ -28,23 +28,23 @@
 		android:layout_width="fill_parent" android:layout_gravity="bottom"
 		android:layout_height="wrap_content">
 		<ToggleButton android:layout_height="wrap_content"
-			android:id="@+id/toggle_button_timeline" android:textOff="@string/title_button_timeline"
-			android:textOn="@string/title_button_timeline" android:layout_weight="1"
-			android:layout_width="420dip"></ToggleButton>
+			android:id="@+id/toggle_button_home" android:textOff="@string/title_button_home"
+			android:textOn="@string/title_button_home" android:layout_weight="1"
+			android:layout_width="0dip"></ToggleButton>
 		<ToggleButton android:layout_height="wrap_content"
 			android:id="@+id/toggle_button_reply" android:textOff="@string/title_button_reply"
-			android:textOn="@string/title_button_reply" android:layout_width="400dip"
+			android:textOn="@string/title_button_reply" android:layout_width="0dip"
 			android:layout_weight="1"></ToggleButton>
 		<ToggleButton android:text="@+id/ToggleButton01"
 			android:layout_height="wrap_content" android:textOff="@string/title_button_mypost"
 			android:textOn="@string/title_button_mypost" android:id="@+id/toggle_button_mypost"
-			android:layout_width="400dip" android:layout_weight="1"></ToggleButton>
+			android:layout_width="0dip" android:layout_weight="1"></ToggleButton>
 		<ToggleButton android:layout_height="wrap_content"
 			android:textOff="@string/title_button_odai" android:textOn="@string/title_button_odai"
-			android:id="@+id/toggle_button_odai" android:layout_width="400dip"
+			android:id="@+id/toggle_button_odai" android:layout_width="0dip"
 			android:layout_weight="1"></ToggleButton>
 		<ToggleButton android:layout_height="wrap_content"
-			android:layout_width="400dip" android:layout_weight="1" android:textOn="@string/title_button_channel" android:textOff="@string/title_button_channel" android:id="@+id/toggle_button_channel"></ToggleButton>
+			android:layout_width="0dip" android:layout_weight="1" android:textOn="@string/title_button_channel" android:textOff="@string/title_button_channel" android:id="@+id/toggle_button_channel"></ToggleButton>
 	</LinearLayout>
 
 
