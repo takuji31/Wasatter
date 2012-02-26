@@ -34,7 +34,7 @@ public class OAuthToken extends WasatterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO 自動生成されたメソッド・スタブ
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.oauth_dialog);
+        this.setContentView(R.layout.old_oauth_dialog);
         Button cancel_button = (Button) this.findViewById(R.id.button_cancel);
         cancel_button.setOnClickListener(new CancelButtonClickListener());
         Button set_button = (Button) this.findViewById(R.id.button_set_token);
