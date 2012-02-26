@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_name_wassr">Wassr</string>
+    <string name="service_name_twitter">Twitter</string>
+    <string name="service_name_facebook">Facebook</string>
+</resources>

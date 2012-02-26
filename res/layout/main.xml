@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/TableLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <Button
+        android:id="@+id/button_account_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account" />
+
+    <Button
+        android:id="@+id/button_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home" />
+    <Button
+        android:id="@+id/button_config_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ConfigHome" />
+
+</TableLayout>
