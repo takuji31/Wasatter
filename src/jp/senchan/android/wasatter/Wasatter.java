@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,8 +58,8 @@ public class Wasatter extends BaseApp {
 	public TwitterClient twitterClient;
 	public WasatterItem selected;
 	
-	public ArrayList<String> pageTypeNames;
-	public ArrayList<String> pageTypes;
+	public List<String> pageTypeNames;
+	public List<String> pageTypes;
 
 
 	@Override
@@ -69,8 +70,8 @@ public class Wasatter extends BaseApp {
 		twitterClient = new TwitterClient(this);
 		
 		Resources res = getResources();
-		pageTypeNames = (ArrayList<String>) Arrays.asList(res.getStringArray(R.array.page_types_name));
-		pageTypes = (ArrayList<String>) Arrays.asList(res.getStringArray(R.array.page_types));
+		pageTypeNames = Arrays.asList(res.getStringArray(R.array.page_types_name));
+		pageTypes = Arrays.asList(res.getStringArray(R.array.page_types));
 	}
 
 	public static long cacheExpire() {
