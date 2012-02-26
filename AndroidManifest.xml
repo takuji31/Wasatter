@@ -60,6 +60,10 @@
                     android:scheme="wasatter" />
             </intent-filter>
         </activity>
+        <activity android:name="jp.senchan.android.wasatter.next.ui.activity.AccountListActivity"></activity>
+        <activity android:name="jp.senchan.android.wasatter.next.ui.activity.ConfigHomeActivity"></activity>
+        <activity android:name="jp.senchan.android.wasatter.next.ui.activity.DebugMenuActivity"></activity>
+        <activity android:name="jp.senchan.android.wasatter.next.ui.activity.HomeActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package jp.senchan.android.wasatter;
 
+import jp.senchan.android.wasatter.next.ui.activity.DebugMenuActivity;
 import jp.senchan.android.wasatter.ui.TimelineActivity;
 import jp.senchan.android.wasatter3.R;
 import android.content.Intent;
@@ -13,7 +14,7 @@ public class ActivityMain extends WasatterActivity {
 		Wasatter app = app();
 		Intent intent = new Intent(app, TimelineActivity.class);
 		if(app.isDebugMode()) {
-			intent = new Intent(app, TimelineActivity.class);
+			intent = new Intent(app, DebugMenuActivity.class);
 		}
 		startActivity(intent);
 		finish();
