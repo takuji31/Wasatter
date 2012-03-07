@@ -1,8 +1,5 @@
 package jp.senchan.android.wasatter.next.model;
 
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -10,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -63,7 +59,7 @@ public class BaseModel {
     public BaseModel(Context c) {
         mDB = new DBHelper(c);
     }
-    
+
     public SQLiteDatabase getReadableDatabase() {
         return mDB.getReadableDatabase();
     }
