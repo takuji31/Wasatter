@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class WasadroidBaseAdapter extends ArrayAdapter {
 
     protected LayoutInflater inflater;
@@ -18,13 +18,13 @@ public class WasadroidBaseAdapter extends ArrayAdapter {
 		super(context, textViewResourceId, objects);
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
-	
+
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
 		return 30;
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		return inflater.inflate(R.layout.account_list_row, null);

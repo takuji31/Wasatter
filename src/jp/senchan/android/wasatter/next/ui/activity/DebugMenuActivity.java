@@ -17,7 +17,7 @@ public class DebugMenuActivity extends BaseActivity {
         setContentView(R.layout.debug_menu);
         Button accountList = (Button) findViewById(R.id.button_account_list);
         accountList.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -27,7 +27,7 @@ public class DebugMenuActivity extends BaseActivity {
 		});
         Button home = (Button) findViewById(R.id.button_home);
         home.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -37,7 +37,7 @@ public class DebugMenuActivity extends BaseActivity {
 		});
         Button configHome = (Button) findViewById(R.id.button_config_home);
         configHome.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -47,7 +47,7 @@ public class DebugMenuActivity extends BaseActivity {
 		});
         Button gotoOriginal = (Button) findViewById(R.id.button_goto_original);
         gotoOriginal.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
