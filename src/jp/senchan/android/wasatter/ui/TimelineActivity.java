@@ -3,6 +3,9 @@ package jp.senchan.android.wasatter.ui;
 import java.io.File;
 import java.util.ArrayList;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import jp.senchan.android.wasatter.IntentCode;
 import jp.senchan.android.wasatter3.R;
 import jp.senchan.android.wasatter.Wasatter;
@@ -24,7 +27,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -67,6 +69,7 @@ public class TimelineActivity extends WasatterActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_Sherlock);
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.old_timeline);
         this.ls = (ListView) this.findViewById(R.id.timeline_list);
@@ -211,10 +214,10 @@ public class TimelineActivity extends WasatterActivity {
     // メニューが生成される際に起動される。
     // この中でメニューのアイテムを追加したりする。
     @Override
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         // メニューインフレーターを取得
-        this.getMenuInflater().inflate(R.menu.main, menu);
+        getSupportMenuInflater().inflate(R.menu.main, menu);
         // できたらtrueを返す
         return true;
     }
