@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <string name="menu_title_display">表示</string><string name="menu_title_setting_account">アカウント</string><string name="menu_title_reload">Reload</string><string name="menu_title_status">つぶやく</string><string name="menu_title_version">バージョン情報</string><string name="menu_title_reply">Reply</string><string name="menu_title_setting">設定</string>
+<string name="menu_title_add">追加</string>
 </resources>

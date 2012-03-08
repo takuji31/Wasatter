@@ -2,6 +2,10 @@ package jp.senchan.android.wasatter.next.ui.fragment;
 
 import java.util.List;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +19,14 @@ import jp.senchan.lib.ui.BaseFragment;
 
 public class AccountListFragment extends BaseFragment {
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        // TODO 自動生成されたメソッド・スタブ
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -24,4 +36,21 @@ public class AccountListFragment extends BaseFragment {
 		listAccountList.setAdapter(new AccountListAdapter(getActivity(), accountList));
 		return v;
 	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	    inflater.inflate(R.menu.account_list, menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    int id = item.getItemId();
+	    switch (id) {
+            case R.id.menu_add_account:
+                //TODO アカウント追加画面
+            break;
+        }
+	    return true;
+	}
+
 }
