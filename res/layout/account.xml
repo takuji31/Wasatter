@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/fragment1"
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="jp.senchan.android.wasatter.next.ui.fragment.AccountListFragment" >
-    </fragment>
+        android:orientation="vertical" >
+
+    </LinearLayout>
 
 </LinearLayout>

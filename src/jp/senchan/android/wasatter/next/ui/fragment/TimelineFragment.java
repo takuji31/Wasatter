@@ -1,7 +1,7 @@
 package jp.senchan.android.wasatter.next.ui.fragment;
 
-import android.support.v4.app.ListFragment;
+import jp.senchan.lib.ui.BaseListFragment;
 
-public class TimelineFragment extends ListFragment {
+public class TimelineFragment extends BaseListFragment {
 	
 }

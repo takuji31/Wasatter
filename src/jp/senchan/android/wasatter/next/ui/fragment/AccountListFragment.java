@@ -11,13 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import jp.senchan.android.wasatter.next.listener.OnAddAccountButtonClickListener;
 import jp.senchan.android.wasatter.next.model.Account;
 import jp.senchan.android.wasatter.next.model.dataobject.AccountData;
 import jp.senchan.android.wasatter.next.ui.adapter.AccountListAdapter;
 import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.WasatterFragment;
 import jp.senchan.lib.ui.BaseFragment;
 
-public class AccountListFragment extends BaseFragment {
+public class AccountListFragment extends WasatterFragment {
 
 
     @Override
@@ -48,6 +50,8 @@ public class AccountListFragment extends BaseFragment {
 	    switch (id) {
             case R.id.menu_add_account:
                 //TODO アカウント追加画面
+            	OnAddAccountButtonClickListener listener = (OnAddAccountButtonClickListener) getActivity();
+            	listener.onAddAccountButtonClicked();
             break;
         }
 	    return true;

@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import jp.senchan.android.wasatter.R;
-import jp.senchan.lib.ui.BaseFragment;
+import jp.senchan.android.wasatter.WasatterFragment;
 
-public class ConfigPageFragment extends BaseFragment {
+public class ConfigPageFragment extends WasatterFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

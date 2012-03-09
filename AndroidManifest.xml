@@ -63,6 +63,7 @@
         <activity android:name=".next.ui.activity.ConfigHomeActivity"></activity>
         <activity android:name=".next.ui.activity.DebugMenuActivity"></activity>
         <activity android:name=".next.ui.activity.HomeActivity"></activity>
+        <activity android:name=".next.ui.activity.AddAccountActivity"></activity>
     </application>
 
 </manifest>

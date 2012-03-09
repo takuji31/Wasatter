@@ -2,10 +2,12 @@
 <resources>
     <string name="service_name_wassr">Wassr</string>
     <string name="service_name_twitter">Twitter</string>
-    <string name="service_name_facebook">Facebook</string>
-    <string-array name="service_names">
+    <string name="service_name_facebook">Facebook</string><string-array name="service_names">
         <item>@string/service_name_wassr</item>
         <item>@string/service_name_twitter</item>
         <item>@string/service_name_facebook</item>
     </string-array>
+    <item name="service_id_wassr" type="integer">0</item>
+    <item name="service_id_twitter" type="integer">1</item>
+    <item name="service_id_facebook" type="integer">2</item>
 </resources>

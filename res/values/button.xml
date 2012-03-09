@@ -3,6 +3,7 @@
     <string name="button_add_account">Add account</string>
     <string name="button_save">保存</string>
     <string name="button_cancel">キャンセル</string>
+    <string name="button_login">ログイン</string>
 
     
 </resources>
