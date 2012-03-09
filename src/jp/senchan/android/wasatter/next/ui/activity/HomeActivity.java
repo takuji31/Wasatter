@@ -3,7 +3,7 @@ package jp.senchan.android.wasatter.next.ui.activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import jp.senchan.android.wasatter.next.ui.adapter.HomePagerAdapter;
-import jp.senchan.android.wasatter3.R;
+import jp.senchan.android.wasatter.R;
 import jp.senchan.lib.ui.BaseActivity;
 
 public class HomeActivity extends BaseActivity {

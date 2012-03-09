@@ -1,6 +1,6 @@
 package jp.senchan.android.wasatter.task;
 
-import jp.senchan.android.wasatter3.R;
+import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.auth.TwitterOAuth;
 import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import twitter4j.TwitterException;

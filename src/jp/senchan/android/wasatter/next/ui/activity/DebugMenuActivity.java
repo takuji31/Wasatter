@@ -1,7 +1,7 @@
 package jp.senchan.android.wasatter.next.ui.activity;
 
 import jp.senchan.android.wasatter.ui.TimelineActivity;
-import jp.senchan.android.wasatter3.R;
+import jp.senchan.android.wasatter.R;
 import jp.senchan.lib.ui.BaseActivity;
 import android.content.Intent;
 import android.os.Bundle;

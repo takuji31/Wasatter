@@ -14,7 +14,7 @@ import android.widget.ListView;
 import jp.senchan.android.wasatter.next.model.Account;
 import jp.senchan.android.wasatter.next.model.dataobject.AccountData;
 import jp.senchan.android.wasatter.next.ui.adapter.AccountListAdapter;
-import jp.senchan.android.wasatter3.R;
+import jp.senchan.android.wasatter.R;
 import jp.senchan.lib.ui.BaseFragment;
 
 public class AccountListFragment extends BaseFragment {

@@ -1,7 +1,7 @@
 package jp.senchan.android.wasatter.next.ui.activity;
 
 import android.os.Bundle;
-import jp.senchan.android.wasatter3.R;
+import jp.senchan.android.wasatter.R;
 import jp.senchan.lib.ui.BaseActivity;
 
 public class AccountListActivity extends BaseActivity {

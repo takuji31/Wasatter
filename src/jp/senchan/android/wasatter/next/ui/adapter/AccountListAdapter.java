@@ -3,7 +3,7 @@ package jp.senchan.android.wasatter.next.ui.adapter;
 import java.util.List;
 
 import jp.senchan.android.wasatter.next.model.dataobject.AccountData;
-import jp.senchan.android.wasatter3.R;
+import jp.senchan.android.wasatter.R;
 
 import android.content.Context;
 import android.view.View;

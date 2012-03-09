@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import jp.senchan.android.wasatter.next.listener.OnPageTypeSelectListener;
 import jp.senchan.android.wasatter.next.ui.fragment.ConfigPageFragment;
 import jp.senchan.android.wasatter.next.ui.fragment.PageTypesFragment;
-import jp.senchan.android.wasatter3.R;
+import jp.senchan.android.wasatter.R;
 import jp.senchan.lib.ui.BaseActivity;
 
 public class ConfigHomeActivity extends BaseActivity implements OnPageTypeSelectListener {
