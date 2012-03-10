@@ -1,8 +1,6 @@
 package jp.senchan.android.wasatter.next.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import jp.senchan.android.wasatter.R;
@@ -13,13 +11,14 @@ import jp.senchan.android.wasatter.next.ui.fragment.dialog.AccountTypeSelectDial
 import jp.senchan.lib.ui.BaseActivity;
 
 public class AccountListActivity extends BaseActivity implements OnAddAccountButtonClickListener, OnServiceSelectedListener {
+	private static final String TAG_LIST = "account_list";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.account);
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-		ft.replace(R.id.container, new AccountListFragment());
+		ft.replace(R.id.container, new AccountListFragment(), TAG_LIST);
 		ft.commit();
 	}
 	
@@ -32,8 +31,8 @@ public class AccountListActivity extends BaseActivity implements OnAddAccountBut
 
 	@Override
 	public void onServiceSelected(int serviceId) {
-		Intent intent = new Intent(this, AddAccountActivity.class);
-		intent.putExtra("service", serviceId);
-		startActivity(intent);
+		AccountListFragment f = (AccountListFragment) getSupportFragmentManager().findFragmentByTag(TAG_LIST);
+		f.onServiceSelected(serviceId);
 	}
+	
 }

@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.next.ui.adapter;
+package jp.senchan.android.wasatter.next.adapter;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public abstract class WasadroidBaseAdapter<T> extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-	    if(convertView != null) {
+	    if(convertView == null) {
 	        convertView = inflater.inflate(getViewLayoutId(), null);
 	    }
         return createView(getItem(position), convertView);

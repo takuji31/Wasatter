@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import jp.senchan.android.wasatter.Wasatter;
+
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -55,9 +57,11 @@ public class BaseModel {
     }
 
     private DBHelper mDB;
+    protected Wasatter mApplication;
 
-    public BaseModel(Context c) {
-        mDB = new DBHelper(c);
+    public BaseModel(Wasatter app) {
+        mDB = new DBHelper(app);
+        mApplication = app;
     }
 
     public SQLiteDatabase getReadableDatabase() {

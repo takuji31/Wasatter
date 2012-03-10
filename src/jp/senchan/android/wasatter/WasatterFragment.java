@@ -9,7 +9,7 @@ public class WasatterFragment extends BaseFragment {
 	}
 	
 	public Wasatter app() {
-		return activity().app();
+		return (Wasatter) super.app();
 	}
 
 }

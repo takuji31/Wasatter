@@ -2,6 +2,8 @@ package jp.senchan.android.wasatter.next.model;
 
 import java.util.ArrayList;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.next.model.dataobject.AccountData;
 
 import android.content.ContentValues;
@@ -13,8 +15,8 @@ public class Account extends BaseModel {
     
     public static final String TABLE_NAME = "accounts";
 
-    public Account(Context c) {
-        super(c);
+    public Account(Wasatter app) {
+        super(app);
     }
 
     public ArrayList<AccountData> getAccountList() {
@@ -50,6 +52,10 @@ public class Account extends BaseModel {
         }
         db.close();
         return resultData;
+    }
+    
+    public AccountData createWassrAccount(String id, String password) {
+    		return insert(mApplication.getInteger(R.integer.service_id_wassr), id, id, password);
     }
 
 }

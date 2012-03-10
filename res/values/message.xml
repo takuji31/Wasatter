@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_input_login_id_and_password">ログインIDとパスワードを入力してください</string>
+    <string name="message_something_wrong">何かがおかしいです、やり直してください</string>
+    
+</resources>

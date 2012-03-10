@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.next.ui.adapter;
+package jp.senchan.android.wasatter.next.adapter;
 
 import jp.senchan.android.wasatter.next.ui.fragment.TimelineFragment;
 import android.support.v4.app.Fragment;
