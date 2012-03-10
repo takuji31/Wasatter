@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="dialog_title_select_service">サービスを選択</string>
+	<string name="dialog_title_has_been_prepared">準備しています</string>
 </resources>
