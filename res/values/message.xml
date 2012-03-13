@@ -2,6 +2,6 @@
 <resources>
     <string name="message_input_login_id_and_password">ログインIDとパスワードを入力してください</string>
     <string name="message_something_wrong">何かがおかしいです、やり直してください</string>
-    <string name="message_please_wait">しばらくお待ちください...</string>
+    <string name="message_please_wait">しばらくお待ちください&#8230;</string>
     
 </resources>
