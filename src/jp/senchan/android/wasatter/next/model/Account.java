@@ -2,6 +2,8 @@ package jp.senchan.android.wasatter.next.model;
 
 import java.util.ArrayList;
 
+import twitter4j.auth.AccessToken;
+
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.next.model.dataobject.AccountData;
@@ -55,7 +57,11 @@ public class Account extends BaseModel {
     }
     
     public AccountData createWassrAccount(String id, String password) {
-    		return insert(mApplication.getInteger(R.integer.service_id_wassr), id, id, password);
+    		return insert(getInteger(R.integer.service_id_wassr), id, id, password);
+    }
+
+    public AccountData createTwitterAccount(AccessToken token) {
+    		return insert(getInteger(R.integer.service_id_twitter), "", token.getToken(), token.getTokenSecret());
     }
 
 }

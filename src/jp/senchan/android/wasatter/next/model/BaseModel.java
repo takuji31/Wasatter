@@ -71,5 +71,9 @@ public class BaseModel {
     public SQLiteDatabase getWritableDatabase() {
         return mDB.getWritableDatabase();
     }
+    
+    public int getInteger(int id) {
+    	return mApplication.getInteger(id);
+    }
 
 }

@@ -1,5 +1,9 @@
 package jp.senchan.android.wasatter.next.ui.fragment;
 
+import com.actionbarsherlock.app.SherlockDialogFragment;
+
+import twitter4j.auth.AccessToken;
+import android.app.Activity;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,16 +16,20 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.ResultCode;
 import jp.senchan.android.wasatter.WasatterFragment;
 import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import jp.senchan.android.wasatter.next.client.NewTwitterOAuthClient;
-import jp.senchan.android.wasatter.next.listener.OnCallbackReceivedListener;
+import jp.senchan.android.wasatter.next.listener.OnAccessTokenReceivedListener;
 import jp.senchan.android.wasatter.next.listener.OnURLCreatedListener;
+import jp.senchan.android.wasatter.next.model.Account;
+import jp.senchan.android.wasatter.next.task.GetTwitterOAuthAccessTokenTask;
 import jp.senchan.android.wasatter.next.task.GetTwitterOAuthRequestURLTask;
 import jp.senchan.android.wasatter.next.ui.fragment.dialog.CreateAuthenticationURLProgressDialogFragment;
 
-public class AddTwitterAccountFragment extends WasatterFragment implements OnURLCreatedListener, OnCallbackReceivedListener {
+public class AddTwitterAccountFragment extends WasatterFragment implements OnURLCreatedListener, OnAccessTokenReceivedListener {
 	
+	private static final String TAG_DIALOG = "dialog";
 	NewTwitterOAuthClient mClient;
 	private WebView mWebView;
 
@@ -39,7 +47,7 @@ public class AddTwitterAccountFragment extends WasatterFragment implements OnURL
 				Uri uri = Uri.parse(url);
 				//TODO ホスト名外出し
 				if(TextUtils.equals(uri.getAuthority(), OAuthTwitter.CALLBACK_HOST)) {
-					onCallbackReceived(uri);
+					getAccessToken(uri);
 					return true;
 				}
 				return false;
@@ -56,16 +64,22 @@ public class AddTwitterAccountFragment extends WasatterFragment implements OnURL
 	}
 	
 	public void runGetAuthorizationURLTask() {
+		showDialogFragment(new CreateAuthenticationURLProgressDialogFragment());
+		new GetTwitterOAuthRequestURLTask(this, mClient).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+	}
+	
+	private void showDialogFragment(SherlockDialogFragment fragment) {
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-		new CreateAuthenticationURLProgressDialogFragment().show(ft, "dialog");
-		new GetTwitterOAuthRequestURLTask(this, mClient).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		fragment.show(ft, TAG_DIALOG);
 	}
 	
 	public void dismissDialog () {
 		FragmentManager fm = getFragmentManager();
-		CreateAuthenticationURLProgressDialogFragment f = (CreateAuthenticationURLProgressDialogFragment) fm.findFragmentByTag("dialog");
-		f.dismiss();
+		SherlockDialogFragment f = (SherlockDialogFragment) fm.findFragmentByTag(TAG_DIALOG);
+		if(f != null) {
+			f.dismiss();
+		}
 	}
 	
 	@Override
@@ -74,8 +88,9 @@ public class AddTwitterAccountFragment extends WasatterFragment implements OnURL
 		mWebView.loadUrl(url);
 	}
 	
-	public void saveToken() {
-		//TODO 認証データーの保存
+	public void getAccessToken(Uri uri) {
+		//TODO ダイアログ表示
+		new GetTwitterOAuthAccessTokenTask(this, mClient).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
 	}
 
 	@Override
@@ -83,8 +98,19 @@ public class AddTwitterAccountFragment extends WasatterFragment implements OnURL
 		dismissDialog();
 		toast(R.string.message_something_wrong).show();
 	}
+	
+	@Override
+	public void onAccessTokenReceiveFailure() {
+		dismissDialog();
+		toast(R.string.message_something_wrong).show();
+	}
 
 	@Override
-	public void onCallbackReceived(Uri uri) {
+	public void onAccessTokenReceived(AccessToken token) {
+		//TODO スクリーン名取得してうんぬん
+		new Account(app()).createTwitterAccount(token);
+		Activity activity = getActivity();
+		activity.setResult(ResultCode.OK);
+		activity.finish();
 	}
 }
