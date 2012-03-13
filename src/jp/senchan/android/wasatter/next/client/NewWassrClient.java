@@ -1,6 +1,5 @@
 package jp.senchan.android.wasatter.next.client;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.next.exception.WassrException;
@@ -10,11 +9,11 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
+
+import twitter4j.internal.org.json.JSONArray;
 
 import android.net.Uri;
 
