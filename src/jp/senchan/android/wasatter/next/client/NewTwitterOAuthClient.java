@@ -2,9 +2,9 @@ package jp.senchan.android.wasatter.next.client;
 
 import android.net.Uri;
 import twitter4j.TwitterException;
-import twitter4j.http.AccessToken;
-import twitter4j.http.OAuthAuthorization;
-import twitter4j.http.RequestToken;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.OAuthAuthorization;
+import twitter4j.auth.RequestToken;
 
 public class NewTwitterOAuthClient  extends NewBaseTwitterClient {
 	
@@ -21,8 +21,7 @@ public class NewTwitterOAuthClient  extends NewBaseTwitterClient {
 		return mRequestToken.getAuthorizationURL();
 	}
 	
-	public AccessToken getAccessTokenFromURL (String uriString) throws TwitterException {
-		Uri uri = Uri.parse(uriString);
+	public AccessToken getAccessTokenFromURL (Uri uri) throws TwitterException {
 		String verifier = uri.getQueryParameter("oauth_verifier");
 		return mOAuth.getOAuthAccessToken(mRequestToken, verifier);
 	}

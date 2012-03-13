@@ -6,7 +6,7 @@ import jp.senchan.android.wasatter.client.WassrClient;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 import android.os.AsyncTask;
 
 public class TaskUpdate extends AsyncTask<String, String, Void> {

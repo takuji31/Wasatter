@@ -14,8 +14,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-
-import twitter4j.internal.org.json.JSONArray;
+import org.json.JSONArray;
 
 import android.net.Uri;
 

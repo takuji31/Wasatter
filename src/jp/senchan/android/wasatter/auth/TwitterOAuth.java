@@ -1,7 +1,7 @@
 package jp.senchan.android.wasatter.auth;
 
-import twitter4j.http.OAuthAuthorization;
-import twitter4j.http.RequestToken;
+import twitter4j.auth.OAuthAuthorization;
+import twitter4j.auth.RequestToken;
 
 public class TwitterOAuth {
 

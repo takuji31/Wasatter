@@ -10,7 +10,7 @@ import jp.senchan.android.wasatter.task.TaskGetOAuthRequestUrl;
 import jp.senchan.android.wasatter.task.TaskSetOAuthToken;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
-import twitter4j.http.RequestToken;
+import twitter4j.auth.RequestToken;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;

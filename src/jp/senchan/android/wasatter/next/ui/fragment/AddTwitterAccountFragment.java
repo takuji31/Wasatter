@@ -1,7 +1,5 @@
 package jp.senchan.android.wasatter.next.ui.fragment;
 
-import twitter4j.TwitterException;
-import twitter4j.http.AccessToken;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,16 +12,17 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import jp.senchan.android.wasatter.R;
-import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterFragment;
+import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import jp.senchan.android.wasatter.next.client.NewTwitterOAuthClient;
+import jp.senchan.android.wasatter.next.listener.OnCallbackReceivedListener;
 import jp.senchan.android.wasatter.next.listener.OnURLCreatedListener;
 import jp.senchan.android.wasatter.next.task.GetTwitterOAuthRequestURL;
 import jp.senchan.android.wasatter.next.ui.fragment.dialog.CreateAuthenticationURLProgressDialogFragment;
 
-public class AddTwitterAccountFragment extends WasatterFragment implements OnURLCreatedListener{
+public class AddTwitterAccountFragment extends WasatterFragment implements OnURLCreatedListener, OnCallbackReceivedListener {
 	
-	private NewTwitterOAuthClient mClient;
+	NewTwitterOAuthClient mClient;
 	private WebView mWebView;
 
 	@Override
@@ -39,13 +38,8 @@ public class AddTwitterAccountFragment extends WasatterFragment implements OnURL
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				Uri uri = Uri.parse(url);
 				//TODO ホスト名外出し
-				if(TextUtils.equals(uri.getAuthority(), "callback.senchan.jp")) {
-					try {
-						AccessToken token = new NewTwitterOAuthClient().getAccessTokenFromURL(url);
-					} catch (TwitterException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				if(TextUtils.equals(uri.getAuthority(), OAuthTwitter.CALLBACK_HOST)) {
+					onCallbackReceived(uri);
 					return true;
 				}
 				return false;
@@ -56,9 +50,8 @@ public class AddTwitterAccountFragment extends WasatterFragment implements OnURL
 		return mWebView;
 	}
 	
-	@Override
-	public void onStart() {
-		super.onStart();
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		runGetAuthorizationURLTask();
 	}
 	
@@ -89,5 +82,9 @@ public class AddTwitterAccountFragment extends WasatterFragment implements OnURL
 	public void onURLCreateFailure() {
 		dismissDialog();
 		toast(R.string.message_something_wrong).show();
+	}
+
+	@Override
+	public void onCallbackReceived(Uri uri) {
 	}
 }

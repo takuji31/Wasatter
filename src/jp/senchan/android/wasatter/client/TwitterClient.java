@@ -12,17 +12,17 @@ import java.util.Locale;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterItem;
 import twitter4j.TwitterException;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.Authorization;
+import twitter4j.auth.OAuthAuthorization;
+import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.conf.ConfigurationContext;
-import twitter4j.http.AccessToken;
-import twitter4j.http.Authorization;
-import twitter4j.http.OAuthAuthorization;
 import twitter4j.internal.http.HTMLEntity;
 import twitter4j.internal.http.HttpClientWrapper;
 import twitter4j.internal.http.HttpResponse;
 import twitter4j.internal.org.json.JSONArray;
 import twitter4j.internal.org.json.JSONException;
 import twitter4j.internal.org.json.JSONObject;
-
 import android.text.SpannableStringBuilder;
 
 /**
@@ -145,10 +145,12 @@ public class TwitterClient {
     }
 
     public  Authorization getAuthorization() {
-        return new OAuthAuthorization(ConfigurationContext.getInstance(),
-                Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET, new AccessToken(
-                        app.getTwitterToken(),
-                        app.getTwitterTokenSecret()));
+    	ConfigurationBuilder builder = new ConfigurationBuilder();
+    	builder.setOAuthConsumerKey(Wasatter.OAUTH_KEY);
+    	builder.setOAuthConsumerSecret(Wasatter.OAUTH_SECRET);
+    	builder.setOAuthAccessToken(app.getTwitterToken());
+    	builder.setOAuthAccessTokenSecret(app.getTwitterTokenSecret());
+        return new OAuthAuthorization(builder.build());
     }
 
 }

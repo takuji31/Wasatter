@@ -10,7 +10,7 @@ import jp.senchan.android.wasatter.ui.Detail;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 import android.os.AsyncTask;
 import android.widget.Button;
 import android.widget.TextView;
