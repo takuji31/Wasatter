@@ -3,6 +3,7 @@ package jp.senchan.android.wasatter.next.client;
 import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -19,5 +20,9 @@ public class NewBaseTwitterClient {
 	
 	public Twitter getClient() {
 		return new TwitterFactory(conf).getInstance();
+	}
+	
+	public Twitter getClient(AccessToken token) {
+		return new TwitterFactory(conf).getInstance(token);
 	}
 }
