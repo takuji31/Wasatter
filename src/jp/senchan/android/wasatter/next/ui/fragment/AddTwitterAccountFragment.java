@@ -17,7 +17,7 @@ import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import jp.senchan.android.wasatter.next.client.NewTwitterOAuthClient;
 import jp.senchan.android.wasatter.next.listener.OnCallbackReceivedListener;
 import jp.senchan.android.wasatter.next.listener.OnURLCreatedListener;
-import jp.senchan.android.wasatter.next.task.GetTwitterOAuthRequestURL;
+import jp.senchan.android.wasatter.next.task.GetTwitterOAuthRequestURLTask;
 import jp.senchan.android.wasatter.next.ui.fragment.dialog.CreateAuthenticationURLProgressDialogFragment;
 
 public class AddTwitterAccountFragment extends WasatterFragment implements OnURLCreatedListener, OnCallbackReceivedListener {
@@ -59,7 +59,7 @@ public class AddTwitterAccountFragment extends WasatterFragment implements OnURL
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		new CreateAuthenticationURLProgressDialogFragment().show(ft, "dialog");
-		new GetTwitterOAuthRequestURL(this, mClient).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		new GetTwitterOAuthRequestURLTask(this, mClient).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 	
 	public void dismissDialog () {

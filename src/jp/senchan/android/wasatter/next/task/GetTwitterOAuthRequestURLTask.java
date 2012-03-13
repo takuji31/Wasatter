@@ -6,35 +6,14 @@ import twitter4j.TwitterException;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
-public class GetTwitterOAuthRequestURL extends AsyncTask<Void, TwitterException, String>{
+public class GetTwitterOAuthRequestURLTask extends AsyncTask<Void, TwitterException, String>{
 
 	private OnURLCreatedListener mListener;
 	private NewTwitterOAuthClient mClient;
 	
-	public GetTwitterOAuthRequestURL(OnURLCreatedListener listener, NewTwitterOAuthClient client) {
+	public GetTwitterOAuthRequestURLTask(OnURLCreatedListener listener, NewTwitterOAuthClient client) {
 		mClient = client;
 		mListener = listener;
-	}
-	
-	@Override
-	protected void onPreExecute() {
-		super.onPreExecute();
-		//プログレスダイアログを表示する
-		/*
-		dialog = new ProgressDialog(mActivity);
-		dialog.setMessage(mActivity.getText(R.string.progress_message_get_oauth_request_token));
-		dialog.setIndeterminate(false);
-		dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		dialog.setOnCancelListener(new OnCancelListener() {
-			
-			@Override
-			public void onCancel(DialogInterface dialog) {
-				//ダイアログを閉じたらこのタスクをキャンセル
-				cancel(true);
-			}
-		});
-		dialog.show();
-		*/
 	}
 	
 	@Override
