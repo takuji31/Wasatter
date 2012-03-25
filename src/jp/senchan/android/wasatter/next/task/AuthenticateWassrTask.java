@@ -3,12 +3,13 @@ package jp.senchan.android.wasatter.next.task;
 import jp.senchan.android.wasatter.next.client.NewWassrClient;
 import jp.senchan.android.wasatter.next.exception.WassrException;
 import jp.senchan.android.wasatter.next.listener.OnAuthenticationResultListener;
+import jp.senchan.lib.os.AsyncTaskCompat;
 import android.os.AsyncTask;
 
-public class AuthenticateWassrTask extends AsyncTask<String, Integer, Boolean> {
-	
+public class AuthenticateWassrTask extends AsyncTaskCompat<String, Integer, Boolean> {
+
 	private OnAuthenticationResultListener listener;
-	
+
 	public AuthenticateWassrTask(OnAuthenticationResultListener listener) {
 		this.listener = listener;
 	}
@@ -17,9 +18,9 @@ public class AuthenticateWassrTask extends AsyncTask<String, Integer, Boolean> {
 	protected Boolean doInBackground(String... params) {
 		String loginId = params[0];
 		String password = params[1];
-		
+
 		NewWassrClient client = new NewWassrClient(loginId, password);
-		
+
 		//FriendTimelineを見てちゃんと認証できてるか確認
 		try {
 			client.friendTimeline(1);
@@ -29,7 +30,7 @@ public class AuthenticateWassrTask extends AsyncTask<String, Integer, Boolean> {
 			return false;
 		}
 	}
-	
+
 	@Override
 	protected void onPostExecute(Boolean result) {
 		listener.onAuthenticationResult(result);

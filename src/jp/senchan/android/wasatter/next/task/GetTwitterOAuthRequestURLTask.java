@@ -2,20 +2,21 @@ package jp.senchan.android.wasatter.next.task;
 
 import jp.senchan.android.wasatter.next.client.NewTwitterOAuthClient;
 import jp.senchan.android.wasatter.next.listener.OnURLCreatedListener;
+import jp.senchan.lib.os.AsyncTaskCompat;
 import twitter4j.TwitterException;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
-public class GetTwitterOAuthRequestURLTask extends AsyncTask<Void, TwitterException, String>{
+public class GetTwitterOAuthRequestURLTask extends AsyncTaskCompat<Void, TwitterException, String>{
 
 	private OnURLCreatedListener mListener;
 	private NewTwitterOAuthClient mClient;
-	
+
 	public GetTwitterOAuthRequestURLTask(OnURLCreatedListener listener, NewTwitterOAuthClient client) {
 		mClient = client;
 		mListener = listener;
 	}
-	
+
 	@Override
 	protected String doInBackground(Void... params) {
 		try {
@@ -26,7 +27,7 @@ public class GetTwitterOAuthRequestURLTask extends AsyncTask<Void, TwitterExcept
 		}
 		return null;
 	}
-	
+
 	@Override
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
