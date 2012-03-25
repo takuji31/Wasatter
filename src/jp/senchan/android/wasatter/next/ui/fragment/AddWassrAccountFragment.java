@@ -18,23 +18,23 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class AddWassrAccountFragment extends WasatterFragment implements OnAuthenticationResultListener {
-	
+
 	private AuthenticateWassrTask currentTask;
-	
+
 	private EditText editTextLoginId;
 	private EditText editTextPassword;
 	private Button buttonLogin;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.login_wassr, null);
-		
+
 		editTextLoginId = (EditText) v.findViewById(R.id.edit_text_login_id);
 		editTextPassword = (EditText) v.findViewById(R.id.edit_text_password);
 		buttonLogin = (Button) v.findViewById(R.id.button_login);
 		buttonLogin.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				saveAccount();
@@ -42,13 +42,13 @@ public class AddWassrAccountFragment extends WasatterFragment implements OnAuthe
 		});
 		return v;
 	}
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		activity.setTitle(R.string.service_name_wassr);
 	}
-	
+
 	public void saveAccount() {
 		String id = editTextLoginId.getText().toString();
 		String password = editTextPassword.getText().toString();
@@ -60,7 +60,7 @@ public class AddWassrAccountFragment extends WasatterFragment implements OnAuthe
 		editTextLoginId.setEnabled(false);
 		editTextPassword.setEnabled(false);
 		currentTask = new AuthenticateWassrTask(this);
-		currentTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, id, password);
+		currentTask.threadExecute(id, password);
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class AddWassrAccountFragment extends WasatterFragment implements OnAuthe
 			String password = editTextPassword.getText().toString();
 			new Account(app()).createWassrAccount(id, password);
 			getActivity().setResult(ResultCode.OK);
-			getActivity().finish();	
+			getActivity().finish();
 		} else {
 			toast(R.string.message_something_wrong).show();
 			buttonLogin.setClickable(true);
