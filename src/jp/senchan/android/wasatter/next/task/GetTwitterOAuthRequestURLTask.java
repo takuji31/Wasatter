@@ -4,7 +4,6 @@ import jp.senchan.android.wasatter.next.client.NewTwitterOAuthClient;
 import jp.senchan.android.wasatter.next.listener.OnURLCreatedListener;
 import jp.senchan.lib.os.AsyncTaskCompat;
 import twitter4j.TwitterException;
-import android.os.AsyncTask;
 import android.text.TextUtils;
 
 public class GetTwitterOAuthRequestURLTask extends AsyncTaskCompat<Void, TwitterException, String>{

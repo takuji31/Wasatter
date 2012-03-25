@@ -4,7 +4,6 @@ import jp.senchan.android.wasatter.next.client.NewWassrClient;
 import jp.senchan.android.wasatter.next.exception.WassrException;
 import jp.senchan.android.wasatter.next.listener.OnAuthenticationResultListener;
 import jp.senchan.lib.os.AsyncTaskCompat;
-import android.os.AsyncTask;
 
 public class AuthenticateWassrTask extends AsyncTaskCompat<String, Integer, Boolean> {
 

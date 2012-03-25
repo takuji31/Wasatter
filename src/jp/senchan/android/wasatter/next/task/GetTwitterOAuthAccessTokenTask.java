@@ -6,7 +6,6 @@ import jp.senchan.lib.os.AsyncTaskCompat;
 import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
 import android.net.Uri;
-import android.os.AsyncTask;
 
 public class GetTwitterOAuthAccessTokenTask extends AsyncTaskCompat<Uri, TwitterException, AccessToken>{
 
