@@ -9,7 +9,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-public class AccountListAdapter extends WasadroidBaseAdapter<AccountData> {
+public class AccountListAdapter extends WasatterBaseAdapter<AccountData> {
 
     public AccountListAdapter(Context context, List<AccountData> list) {
         super(context, list);
