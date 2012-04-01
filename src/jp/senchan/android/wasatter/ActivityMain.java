@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 public class ActivityMain extends WasatterActivity {
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Wasatter app = app();
 		Intent intent = new Intent(app, TimelineActivity.class);
-		if(app.isDebugMode()) {
+		if(BuildConfig.DEBUG) {
 			intent = new Intent(app, DebugMenuActivity.class);
 		}
 		startActivity(intent);
