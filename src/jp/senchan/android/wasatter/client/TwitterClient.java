@@ -3,11 +3,16 @@
  */
 package jp.senchan.android.wasatter.client;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterItem;
@@ -18,14 +23,11 @@ import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.internal.http.HTMLEntity;
 import twitter4j.internal.http.HttpClientWrapper;
 import twitter4j.internal.http.HttpResponse;
-import twitter4j.internal.org.json.JSONArray;
-import twitter4j.internal.org.json.JSONException;
-import twitter4j.internal.org.json.JSONObject;
 import android.text.SpannableStringBuilder;
 
 /**
  * @author Senka/Takuji
- * 
+ *
  */
 public class TwitterClient {
     private static final String FRIEND_TIMELINE_URL = "http://twitter.com/statuses/home_timeline.json";
@@ -34,9 +36,9 @@ public class TwitterClient {
     private static final String UPDATE_TIMELINE_URL = "http://twitter.com/statuses/update.json";
     private static final String PERMA_LINK = "http://twitter.com/[id]/status/[rid]";
     private static HttpClientWrapper http = new HttpClientWrapper();
-    
+
     private Wasatter app;
-    
+
     public TwitterClient(Wasatter app) {
 		// TODO Auto-generated constructor stub
     	this.app = app;
@@ -44,7 +46,7 @@ public class TwitterClient {
 
     /*
      * (非 Javadoc)
-     * 
+     *
      * @see jp.senchan.android.wasatter.WasatterClient#getTimeLine(int)
      */
     public  ArrayList<WasatterItem> getTimeLine() throws TwitterException {
@@ -111,7 +113,7 @@ public class TwitterClient {
 
     /*
      * (非 Javadoc)
-     * 
+     *
      * @see
      * jp.senchan.android.wasatter.WasatterClient#updateTimeLine(java.lang.String
      * , java.lang.String)
@@ -120,9 +122,14 @@ public class TwitterClient {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(UPDATE_TIMELINE_URL);
         sb.append("?source=");
-        sb.append(URLEncoder.encode(Wasatter.VIA));
-        sb.append("&status=");
-        sb.append(URLEncoder.encode(status));
+        try {
+            sb.append(URLEncoder.encode(Wasatter.VIA, "UTF-8"));
+            sb.append("&status=");
+            sb.append(URLEncoder.encode(status, "UTF-8"));
+        } catch (UnsupportedEncodingException e2) {
+            // TODO 自動生成された catch ブロック
+            e2.printStackTrace();
+        }
         if (rid != null) {
             sb.append("&in_reply_to_status_id=");
             sb.append(rid);

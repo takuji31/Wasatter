@@ -1,10 +1,15 @@
 package jp.senchan.android.wasatter.client;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
@@ -15,17 +20,14 @@ import twitter4j.auth.BasicAuthorization;
 import twitter4j.internal.http.HTMLEntity;
 import twitter4j.internal.http.HttpClientWrapper;
 import twitter4j.internal.http.HttpResponse;
-import twitter4j.internal.org.json.JSONArray;
-import twitter4j.internal.org.json.JSONException;
-import twitter4j.internal.org.json.JSONObject;
 import android.text.SpannableStringBuilder;
 
 /**
  * Wassrクラス<br>
  * Wassrとの通信及び、データの入出力を行う。
- * 
+ *
  * @author Senka/Takuji
- * 
+ *
  */
 public class WassrClient {
     private static final String FRIEND_TIMELINE_URL = "http://api.wassr.jp/statuses/friends_timeline.json";
@@ -43,7 +45,7 @@ public class WassrClient {
     public static final String FAVORITE_ICON_URL = "http://wassr.jp/user/[user]/profile_img.png.16";
     private HttpClientWrapper httpClient = new HttpClientWrapper();
     private Wasatter app;
-    
+
     public WassrClient(Wasatter app) {
 	    httpClient = new HttpClientWrapper();
 	    this.app = app;
@@ -200,9 +202,14 @@ public class WassrClient {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(UPDATE_TIMELINE_URL);
         sb.append("?source=");
-        sb.append(URLEncoder.encode(Wasatter.VIA));
-        sb.append("&status=");
-        sb.append(URLEncoder.encode(status));
+        try {
+            sb.append(URLEncoder.encode(Wasatter.VIA, "UTF-8"));
+            sb.append("&status=");
+            sb.append(URLEncoder.encode(status, "UTF-8"));
+        } catch (UnsupportedEncodingException e1) {
+            // TODO 自動生成された catch ブロック
+            e1.printStackTrace();
+        }
         if (rid != null) {
             sb.append("&reply_status_rid=");
             sb.append(rid);
@@ -222,7 +229,12 @@ public class WassrClient {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(UPDATE_CHANNEL_URL.replace("[channel]", channelId));
         sb.append("&body=");
-        sb.append(URLEncoder.encode(status));
+        try {
+            sb.append(URLEncoder.encode(status, "UTF-8"));
+        } catch (UnsupportedEncodingException e1) {
+            // TODO 自動生成された catch ブロック
+            e1.printStackTrace();
+        }
         if (rid != null) {
             sb.append("&reply_channel_message_rid=");
             sb.append(rid);
