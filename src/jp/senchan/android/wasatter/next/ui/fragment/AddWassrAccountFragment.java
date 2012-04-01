@@ -53,7 +53,7 @@ public class AddWassrAccountFragment extends WasatterFragment implements OnAuthe
 		String id = editTextLoginId.getText().toString();
 		String password = editTextPassword.getText().toString();
 		if(TextUtils.isEmpty(id) || TextUtils.isEmpty(password)) {
-			toast(R.string.message_input_login_id_and_password).show();
+			app().toast(R.string.message_input_login_id_and_password).show();
 			return;
 		}
 		buttonLogin.setClickable(false);
@@ -73,7 +73,7 @@ public class AddWassrAccountFragment extends WasatterFragment implements OnAuthe
 			getActivity().setResult(ResultCode.OK);
 			getActivity().finish();
 		} else {
-			toast(R.string.message_something_wrong).show();
+			app().toast(R.string.message_something_wrong).show();
 			buttonLogin.setClickable(true);
 			editTextLoginId.setEnabled(true);
 			editTextPassword.setEnabled(true);

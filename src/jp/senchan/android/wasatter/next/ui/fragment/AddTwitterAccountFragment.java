@@ -5,7 +5,6 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import twitter4j.auth.AccessToken;
 import android.app.Activity;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -96,13 +95,13 @@ public class AddTwitterAccountFragment extends WasatterFragment implements OnURL
 	@Override
 	public void onURLCreateFailure() {
 		dismissDialog();
-		toast(R.string.message_something_wrong).show();
+		app().toast(R.string.message_something_wrong).show();
 	}
 
 	@Override
 	public void onAccessTokenReceiveFailure() {
 		dismissDialog();
-		toast(R.string.message_something_wrong).show();
+		app().toast(R.string.message_something_wrong).show();
 	}
 
 	@Override
