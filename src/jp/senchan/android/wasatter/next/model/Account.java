@@ -2,14 +2,11 @@ package jp.senchan.android.wasatter.next.model;
 
 import java.util.ArrayList;
 
-import twitter4j.auth.AccessToken;
-
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.next.model.dataobject.AccountData;
-
+import twitter4j.auth.AccessToken;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
