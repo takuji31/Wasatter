@@ -55,5 +55,15 @@ public class DebugMenuActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
+        Button gotoPost = (Button) findViewById(R.id.button_goto_post);
+        gotoPost.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO 自動生成されたメソッド・スタブ
+ 				Intent intent = new Intent(DebugMenuActivity.this, PostActivity.class);
+				startActivity(intent);
+            }
+        });
     }
 }

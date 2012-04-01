@@ -28,4 +28,10 @@
         android:layout_height="wrap_content"
         android:text="GotoOriginal" />
 
+    <Button
+        android:id="@+id/button_goto_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GotoPost" />
+
 </TableLayout>

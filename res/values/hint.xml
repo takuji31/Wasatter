@@ -2,5 +2,6 @@
 <resources>
     <string name="hint_login_id">ログインID</string>
     <string name="hint_password">パスワード</string>
+    <string name="hint_status">投稿する内容を入力</string>
     
 </resources>
