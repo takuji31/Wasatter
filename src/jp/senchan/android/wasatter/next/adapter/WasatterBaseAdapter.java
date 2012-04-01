@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public abstract class WasadroidBaseAdapter<T> extends BaseAdapter {
+public abstract class WasatterBaseAdapter<T> extends BaseAdapter {
 
     protected LayoutInflater inflater;
     protected List<T> mList;
     protected Context mContext;
     
-	public WasadroidBaseAdapter(Context context, List<T> list) {
+	public WasatterBaseAdapter(Context context, List<T> list) {
 		super();
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mList = list;
