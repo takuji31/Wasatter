@@ -12,8 +12,7 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-
-import twitter4j.internal.org.json.JSONArray;
+import org.json.JSONArray;
 
 import android.net.Uri;
 
@@ -21,7 +20,7 @@ public class NewWassrClient {
 
 	private static final String HOST = "api.wassr.jp";
 	private static final int PORT = 80;
-	
+
 	private static final String FRIEND_TIMELINE = "/statuses/friends_timeline.json";
 
 	private String mLoginId;
@@ -40,7 +39,7 @@ public class NewWassrClient {
 				new UsernamePasswordCredentials(mLoginId, mPassword));
 		return client;
 	}
-	
+
 	public Uri.Builder getRequestUriBuilder(String path) {
 		Uri.Builder builder = new Uri.Builder();
 		builder.scheme("http");
@@ -48,7 +47,7 @@ public class NewWassrClient {
 		builder.path(path);
 		return builder;
 	}
-	
+
 	public ArrayList<WassrStatus> friendTimeline(int page) throws WassrException {
 		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
 		builder.appendQueryParameter("page", String.valueOf(page));

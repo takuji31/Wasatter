@@ -2,6 +2,8 @@ package jp.senchan.android.wasatter.task;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
+
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
@@ -12,7 +14,6 @@ import jp.senchan.android.wasatter.client.TwitterClient;
 import jp.senchan.android.wasatter.client.WassrClient;
 import jp.senchan.android.wasatter.utils.StatusItemComparator;
 import twitter4j.TwitterException;
-import twitter4j.internal.org.json.JSONException;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -32,7 +33,7 @@ public class TaskReloadTimeline extends
     public static final int MODE_CHANNEL = 7;
     public static final String[] msg = new String[] { "Timeline", "Reply",
             "My post", "Odai", "TODO", "Channel list", "Channel status" };
-    
+
     private WasatterActivity mActivity;
 
     // コンストラクタ
@@ -41,7 +42,7 @@ public class TaskReloadTimeline extends
         this.mode = mode;
         mActivity = activity;
     }
-    
+
     private WassrClient wassrClient () {
     	return mActivity.app().wassrClient;
     }
