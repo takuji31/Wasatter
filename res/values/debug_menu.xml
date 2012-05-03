@@ -2,9 +2,13 @@
 <resources>
     <string-array name="debug_menu_label">
         <item >Post</item>
+        <item >Original</item>
+        <item >Account</item>
     </string-array>
     <string-array name="debug_menu_class">
-        <item >PostActivity</item>
+        <item >.next.ui.activity.PostActivity</item>
+        <item >.ui.TimelineActivity</item>
+        <item >.next.ui.activity.AccountListActivity</item>
     </string-array>
     
 </resources>

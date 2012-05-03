@@ -29,6 +29,6 @@ public class PostFragment extends WasatterFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(0, menu);
+        inflater.inflate(R.menu.post, menu);
     }
 }

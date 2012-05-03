@@ -2,6 +2,7 @@ package jp.senchan.android.wasatter.next.ui.fragment;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.ResultCode;
+import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterFragment;
 import jp.senchan.android.wasatter.next.listener.OnAuthenticationResultListener;
 import jp.senchan.android.wasatter.next.model.Account;
@@ -16,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class AddWassrAccountFragment extends WasatterFragment implements OnAuthenticationResultListener {
+public class SetWassrAccountFragment extends WasatterFragment implements OnAuthenticationResultListener {
 
 	private AuthenticateWassrTask currentTask;
 
@@ -65,10 +66,11 @@ public class AddWassrAccountFragment extends WasatterFragment implements OnAuthe
 	@Override
 	public void onAuthenticationResult(boolean result) {
 		if(result) {
-			//TODO 非同期
 			String id = editTextLoginId.getText().toString();
 			String password = editTextPassword.getText().toString();
-			new Account(app()).createWassrAccount(id, password);
+			Wasatter app = app();
+			app.setWassrId(id);
+			app.setWassrPass(password);
 			getActivity().setResult(ResultCode.OK);
 			getActivity().finish();
 		} else {

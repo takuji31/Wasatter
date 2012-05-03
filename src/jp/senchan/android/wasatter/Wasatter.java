@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 import jp.senchan.android.wasatter.client.TwitterClient;
 import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.next.PrefKey;
 import jp.senchan.android.wasatter.ui.TimelineActivity;
 import jp.senchan.android.wasatter.utils.SQLiteHelperImageStore;
 import jp.senchan.android.wasatter.R;
@@ -242,22 +243,6 @@ public class Wasatter extends BaseApp {
 				true);
 	}
 
-	public String getWassrId() {
-		return getPref("wassr_id", "");
-	}
-
-	public String getWassrPass() {
-		return getPref("wassr_pass", "");
-	}
-
-	public String getTwitterId() {
-		return getPref("twitter_id", "");
-	}
-
-	public String getTwitterPass() {
-		return getPref("twitter_pass", "");
-	}
-
 	public void setTwitterToken(String token) {
 		setPref("twitter_token", token);
 	}
@@ -286,5 +271,25 @@ public class Wasatter extends BaseApp {
 	public boolean isDisplayButtons() {
 		return getPref(getString(R.string.key_setting_display_buttons), true);
 	}
+
+	/*
+	 * ここから下は次期バージョンで使うよ
+	 */
+	public String getWassrId() {
+		return getPref(PrefKey.WASSR_ID, "");
+	}
+
+	public void setWassrId(String value) {
+		setPref(PrefKey.WASSR_ID, value);
+	}
+	
+	public String getWassrPass() {
+		return getPref(PrefKey.WASSR_PASS, "");
+	}
+
+	public void setWassrPass(String value) {
+		setPref(PrefKey.WASSR_PASS, value);
+	}
+	
 
 }

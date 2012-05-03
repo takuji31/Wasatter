@@ -1,69 +1,17 @@
 package jp.senchan.android.wasatter.next.ui.activity;
 
-import jp.senchan.android.wasatter.ui.TimelineActivity;
-import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.WasatterActivity;
-import android.content.Intent;
+import jp.senchan.android.wasatter.next.ui.fragment.DebugMenuListFragment;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.support.v4.app.FragmentTransaction;
 
 public class DebugMenuActivity extends WasatterActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.debug_menu);
-        Button accountList = (Button) findViewById(R.id.button_account_list);
-        accountList.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(DebugMenuActivity.this, AccountListActivity.class);
-				startActivity(intent);
-			}
-		});
-        Button home = (Button) findViewById(R.id.button_home);
-        home.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(DebugMenuActivity.this, HomeActivity.class);
-				startActivity(intent);
-			}
-		});
-        Button configHome = (Button) findViewById(R.id.button_config_home);
-        configHome.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(DebugMenuActivity.this, ConfigHomeActivity.class);
-				startActivity(intent);
-			}
-		});
-        Button gotoOriginal = (Button) findViewById(R.id.button_goto_original);
-        gotoOriginal.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(DebugMenuActivity.this, TimelineActivity.class);
-				startActivity(intent);
-			}
-		});
-        Button gotoPost = (Button) findViewById(R.id.button_goto_post);
-        gotoPost.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO 自動生成されたメソッド・スタブ
- 				Intent intent = new Intent(DebugMenuActivity.this, PostActivity.class);
-				startActivity(intent);
-            }
-        });
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(android.R.id.content, new DebugMenuListFragment());
+        ft.commit();
     }
 }
