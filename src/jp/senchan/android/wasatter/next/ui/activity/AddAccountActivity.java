@@ -25,6 +25,10 @@ public class AddAccountActivity extends WasatterActivity {
 			f = new SetWassrAccountFragment();
 		} else if (app().getInteger(R.integer.service_id_twitter) == service) {
 			f = new SetTwitterAccountFragment();
+		} else if (app().getInteger(R.integer.service_id_facebook) == service) {
+			app().toast("未実装なり").show();
+			finish();
+			return;
 		}
 		
 		ft.replace(android.R.id.content, f);
