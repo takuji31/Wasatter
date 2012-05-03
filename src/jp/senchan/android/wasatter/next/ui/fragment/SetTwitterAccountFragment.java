@@ -21,12 +21,11 @@ import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import jp.senchan.android.wasatter.next.client.NewTwitterOAuthClient;
 import jp.senchan.android.wasatter.next.listener.OnAccessTokenReceivedListener;
 import jp.senchan.android.wasatter.next.listener.OnURLCreatedListener;
-import jp.senchan.android.wasatter.next.model.Account;
 import jp.senchan.android.wasatter.next.task.GetTwitterOAuthAccessTokenTask;
 import jp.senchan.android.wasatter.next.task.GetTwitterOAuthRequestURLTask;
 import jp.senchan.android.wasatter.next.ui.fragment.dialog.CreateAuthenticationURLProgressDialogFragment;
 
-public class AddTwitterAccountFragment extends WasatterFragment implements OnURLCreatedListener, OnAccessTokenReceivedListener {
+public class SetTwitterAccountFragment extends WasatterFragment implements OnURLCreatedListener, OnAccessTokenReceivedListener {
 
 	private static final String TAG_DIALOG = "dialog";
 	NewTwitterOAuthClient mClient;
@@ -106,8 +105,7 @@ public class AddTwitterAccountFragment extends WasatterFragment implements OnURL
 
 	@Override
 	public void onAccessTokenReceived(AccessToken token) {
-		//TODO スクリーン名取得してうんぬん
-		new Account(app()).createTwitterAccount(token);
+		app().setTwitterAccessToken(token);
 		Activity activity = getActivity();
 		activity.setResult(ResultCode.OK);
 		activity.finish();

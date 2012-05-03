@@ -6,6 +6,7 @@ package jp.senchan.android.wasatter.task;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import jp.senchan.android.wasatter.ui.Detail;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -42,7 +43,7 @@ public class TaskToggleFavorite extends AsyncTask<WasatterItem, Void, Boolean> {
         } else if (Wasatter.SERVICE_TWITTER.equals(item.service)) {
             Twitter tw;
             tw = new TwitterFactory().getInstance();
-            tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
+            tw.setOAuthConsumer(OAuthTwitter.CONSUMER_KEY, OAuthTwitter.CONSUMER_SECRET);
             tw.setOAuthAccessToken(new AccessToken(app.getTwitterToken(),
                     app.getTwitterTokenSecret()));
             try {

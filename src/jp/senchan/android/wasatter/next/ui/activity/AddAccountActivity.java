@@ -2,7 +2,7 @@ package jp.senchan.android.wasatter.next.ui.activity;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.WasatterActivity;
-import jp.senchan.android.wasatter.next.ui.fragment.AddTwitterAccountFragment;
+import jp.senchan.android.wasatter.next.ui.fragment.SetTwitterAccountFragment;
 import jp.senchan.android.wasatter.next.ui.fragment.SetWassrAccountFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,7 +24,7 @@ public class AddAccountActivity extends WasatterActivity {
 		if (app().getInteger(R.integer.service_id_wassr) == service) {
 			f = new SetWassrAccountFragment();
 		} else if (app().getInteger(R.integer.service_id_twitter) == service) {
-			f = new AddTwitterAccountFragment();
+			f = new SetTwitterAccountFragment();
 		}
 		
 		ft.replace(android.R.id.content, f);

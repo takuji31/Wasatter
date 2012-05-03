@@ -2,6 +2,7 @@ package jp.senchan.android.wasatter.task;
 
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
+import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import jp.senchan.android.wasatter.client.WassrClient;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -63,7 +64,7 @@ public class TaskUpdate extends AsyncTask<String, String, Void> {
         if (this.twitter) {
             Twitter tw;
             tw = new TwitterFactory().getInstance();
-            tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
+            tw.setOAuthConsumer(OAuthTwitter.CONSUMER_KEY, OAuthTwitter.CONSUMER_SECRET);
             tw.setOAuthAccessToken(new AccessToken(app().getTwitterToken(),
                     app().getTwitterTokenSecret()));
             try {

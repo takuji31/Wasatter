@@ -6,6 +6,7 @@ package jp.senchan.android.wasatter.ui;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
+import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import jp.senchan.android.wasatter.task.TaskGetOAuthRequestUrl;
 import jp.senchan.android.wasatter.task.TaskSetOAuthToken;
 import twitter4j.Twitter;
@@ -44,7 +45,7 @@ public class OAuthToken extends WasatterActivity {
 
         this.twitter = new TwitterFactory().getInstance();
         this.twitter
-                .setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
+                .setOAuthConsumer(OAuthTwitter.CONSUMER_KEY, OAuthTwitter.CONSUMER_SECRET);
         WebView webview = (WebView) findViewById(R.id.web);
         webview.setWebViewClient(new WebViewClient());
         new TaskGetOAuthRequestUrl(this).execute();

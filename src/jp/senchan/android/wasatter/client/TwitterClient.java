@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import twitter4j.TwitterException;
 import twitter4j.auth.Authorization;
 import twitter4j.auth.OAuthAuthorization;
@@ -151,8 +152,8 @@ public class TwitterClient {
 
     public  Authorization getAuthorization() {
     	ConfigurationBuilder builder = new ConfigurationBuilder();
-    	builder.setOAuthConsumerKey(Wasatter.OAUTH_KEY);
-    	builder.setOAuthConsumerSecret(Wasatter.OAUTH_SECRET);
+    	builder.setOAuthConsumerKey(OAuthTwitter.CONSUMER_KEY);
+    	builder.setOAuthConsumerSecret(OAuthTwitter.CONSUMER_SECRET);
     	builder.setOAuthAccessToken(app.getTwitterToken());
     	builder.setOAuthAccessTokenSecret(app.getTwitterTokenSecret());
         return new OAuthAuthorization(builder.build());

@@ -13,6 +13,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import twitter4j.auth.AccessToken;
+
 import jp.senchan.android.wasatter.client.TwitterClient;
 import jp.senchan.android.wasatter.client.WassrClient;
 import jp.senchan.android.wasatter.next.PrefKey;
@@ -39,8 +41,6 @@ public class Wasatter extends BaseApp {
 	private static final String REGEX_URL = "https?://[^\\s]+";
 	public static final String ODAI_DATE_FORMAT = "yyyy/MM/dd";
 	public static final String REPLY = "reply";
-	public static final String OAUTH_KEY = "5WURvsXWy6pwsFyJvR7Yw";
-	public static final String OAUTH_SECRET = "Ya9SKf2G0iPDRzrGeFrwTVe4eIgsjO8t4chCQl62vs";
 	public static final String WASSR_OAUTH_REQUEST = "http://wassr.jp/auth/?app_key=9jJkQds39nOUjHFPZ6LgpbE8cuXVoJOS&sig=bed07c761de34c88af1a3cf1fd03b60ce1235715";
 	public static ArrayList<String> downloadWaitUrls = new ArrayList<String>();
 	public static HashMap<String, Bitmap> images = new HashMap<String, Bitmap>();
@@ -247,16 +247,8 @@ public class Wasatter extends BaseApp {
 		setPref("twitter_token", token);
 	}
 
-	public String getTwitterToken() {
-		return getPref("twitter_token", "");
-	}
-
 	public void setTwitterTokenSecret(String token) {
 		setPref("twitter_token_secret", token);
-	}
-
-	public String getTwitterTokenSecret() {
-		return getPref("twitter_token_secret", "");
 	}
 
 	// 表示設定
@@ -291,5 +283,18 @@ public class Wasatter extends BaseApp {
 		setPref(PrefKey.WASSR_PASS, value);
 	}
 	
+	public String getTwitterToken() {
+		return getPref(PrefKey.TWITTER_TOKEN, "");
+	}
+
+	public String getTwitterTokenSecret() {
+		return getPref(PrefKey.TWITTER_TOKEN_SECRET, "");
+	}
+	
+	public void setTwitterAccessToken(AccessToken token) {
+		setPref(PrefKey.TWITTER_TOKEN, token.getToken());
+		setPref(PrefKey.TWITTER_TOKEN_SECRET, token.getTokenSecret());
+	}
+
 
 }
