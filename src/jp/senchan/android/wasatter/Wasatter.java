@@ -1,10 +1,8 @@
 package jp.senchan.android.wasatter;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,13 +20,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.SpannableStringBuilder;
 
-public class Wasatter {
+public class Wasatter extends Application {
 	public static final String AGENT = "Wasatter for Android";
 	public static final String VIA = "Wasatter";
 	public static final String ITEM_DETAIL = "item_detail";
 	public static final String SERVICE_WASSR = "Wassr";
 	public static final String SERVICE_TWITTER = "Twitter";
-	private static final String REGEX_URL = "(http://|https://){1}[\\w\\.\\-/:]+";
+	private static final String REGEX_URL = "https?://[^\\s]+";
 	public static final String ODAI_DATE_FORMAT = "yyyy/MM/dd";
 	public static final String REPLY = "reply";
 	public static final String OAUTH_KEY = "5WURvsXWy6pwsFyJvR7Yw";
@@ -110,8 +109,6 @@ public class Wasatter {
 	}
 
 	public static Bitmap getImage(String name) {
-		InputStream in = null;
-		ByteArrayOutputStream out = null;
 		// ファイル名の生成
 		SpannableStringBuilder path = new SpannableStringBuilder();
 		path.append(getImagePath());
@@ -120,13 +117,6 @@ public class Wasatter {
 			return BitmapFactory.decodeStream(new FileInputStream(path
 					.toString()));
 		} catch (Exception e) {
-			try {
-				if (in != null)
-					in.close();
-				if (out != null)
-					out.close();
-			} catch (Exception e2) {
-			}
 			return null;
 		}
 	}
@@ -165,6 +155,7 @@ public class Wasatter {
 		wdb.execSQL("delete from imagestore");
 	}
 
+	//TODO リソース外出し、というかそもそもこんなにエラー詳しくないほうがよいのではないか
 	public static void displayHttpError(String error, String service) {
 		String message;
 		if (ERROR_TMP.equals(error) && Wasatter.SERVICE_WASSR.equals(service)) {

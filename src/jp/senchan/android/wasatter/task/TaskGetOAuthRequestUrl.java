@@ -1,8 +1,10 @@
 /**
  *
  */
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.task;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.activity.OAuthToken;
 import twitter4j.TwitterException;
 import android.os.AsyncTask;
 import android.webkit.WebView;
@@ -13,10 +15,10 @@ import android.widget.Button;
  * 
  */
 public class TaskGetOAuthRequestUrl extends AsyncTask<Void, Void, Void> {
-	private ActivityOAuthToken target;
+	private OAuthToken target;
 	private Button btn;
 
-	public TaskGetOAuthRequestUrl(ActivityOAuthToken target) {
+	public TaskGetOAuthRequestUrl(OAuthToken target) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.target = target;
 	}

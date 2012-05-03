@@ -3,11 +3,20 @@ package jp.senchan.android.wasatter;
 import java.io.File;
 import java.util.ArrayList;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.activity.Detail;
+import jp.senchan.android.wasatter.activity.Setting;
+import jp.senchan.android.wasatter.activity.Update;
+import jp.senchan.android.wasatter.adapter.Odai;
+import jp.senchan.android.wasatter.adapter.Timeline;
+import jp.senchan.android.wasatter.task.TaskImageDownloadWithCache;
+import jp.senchan.android.wasatter.task.TaskReloadTimeline;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
@@ -35,7 +44,6 @@ public class ActivityMain extends Activity {
 	public ArrayList<WasatterItem> list_odai;
 	public ArrayList<WasatterItem> list_channel_list;
 	public ArrayList<WasatterItem> list_channel;
-	public ArrayList<WassrTodo> list_todo;
 	public Button button_reload_channel_list;
 	public ToggleButton button_timeline;
 	public ToggleButton button_reply;
@@ -58,8 +66,7 @@ public class ActivityMain extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Wasatter.CONTEXT = this.getBaseContext();
-		this.setTitle(R.string.app_title_version);
+		Wasatter.CONTEXT = this.getApplicationContext();
 		this.setContentView(R.layout.main);
 		Wasatter.imageStore = new SQLiteHelperImageStore(Wasatter.CONTEXT);
 		this.ls = (ListView) this.findViewById(R.id.timeline_list);
@@ -132,11 +139,7 @@ public class ActivityMain extends Activity {
 				&& (!Setting.isWassrEnabled());
 		boolean wassr_empty = (Setting.isWassrEnabled() && ("".equals(Setting
 				.getWassrId()) || "".equals(Setting.getWassrPass())));
-		boolean twitter_empty = Setting.isTwitterEnabled()
-				&& ("".equals(Setting.getTwitterId()) || "".equals(Setting
-						.getTwitterPass())) && !Setting.isTwitterOAuthEnable();
 		boolean twitter_oauth_empty = Setting.isTwitterEnabled()
-				&& Setting.isTwitterOAuthEnable()
 				&& ("".equals(Setting.getTwitterToken()) || "".equals(Setting
 						.getTwitterTokenSecret()));
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -145,7 +148,7 @@ public class ActivityMain extends Activity {
 			adb.setTitle(R.string.notice_title_no_enable);
 			adb.setPositiveButton("OK", new OpenSettingClickListener());
 			adb.show();
-		} else if (wassr_empty || twitter_empty) {
+		} else if (wassr_empty) {
 			adb.setMessage(R.string.notice_message_no_value);
 			adb.setTitle(R.string.notice_title_no_value);
 			adb.setPositiveButton("OK", new OpenSettingClickListener());
@@ -192,11 +195,6 @@ public class ActivityMain extends Activity {
 		TaskReloadTimeline rt = new TaskReloadTimeline(this.ls,
 				TaskReloadTimeline.MODE_CHANNEL);
 		rt.execute(channel);
-	}
-
-	public void getTodo() {
-		TaskReloadTodo rt = new TaskReloadTodo(this.ls);
-		rt.execute();
 	}
 
 	public void doReloadTask(int mode) {
@@ -294,7 +292,7 @@ public class ActivityMain extends Activity {
 	 * 投稿ウィンドウを開くメソッド
 	 */
 	public void openNewPost() {
-		Intent intent_status = new Intent(this, ActivityUpdateStatus.class);
+		Intent intent_status = new Intent(this, Update.class);
 		this.startActivity(intent_status);
 	}
 
@@ -321,7 +319,15 @@ public class ActivityMain extends Activity {
 	public void openVersion() {
 		AlertDialog.Builder ad = new AlertDialog.Builder(this);
 		ad.setTitle(R.string.menu_title_version);
-		ad.setMessage(R.string.app_title_version);
+		SpannableStringBuilder sb = new SpannableStringBuilder(getString(R.string.app_name));
+		sb.append(" ");
+		try {
+			sb.append(getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_META_DATA).versionName);
+		} catch (NameNotFoundException e) {
+			//ありえない
+			e.printStackTrace();
+		}
+		ad.setMessage(sb.toString());
 		ad.setPositiveButton("OK", null);
 		ad.show();
 	}
@@ -357,7 +363,7 @@ public class ActivityMain extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == IntentCode.MAIN_ITEMDETAIL) {
 			try {
-				AdapterTimeline adapter = (AdapterTimeline) this.ls
+				Timeline adapter = (Timeline) this.ls
 						.getAdapter();
 				adapter.updateView();
 			} catch (ClassCastException e) {
@@ -378,7 +384,7 @@ public class ActivityMain extends Activity {
 			if (ActivityMain.this.list_timeline == null) {
 				ActivityMain.this.getTimeLine();
 			} else {
-				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
+				Timeline adapter = new Timeline(getBaseContext(),
 						R.id.timeline_list, ActivityMain.this.list_timeline,
 						false);
 				ActivityMain.this.ls.setAdapter(adapter);
@@ -395,7 +401,7 @@ public class ActivityMain extends Activity {
 			if (ActivityMain.this.list_reply == null) {
 				ActivityMain.this.getReply();
 			} else {
-				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
+				Timeline adapter = new Timeline(getBaseContext(),
 						R.id.timeline_list, ActivityMain.this.list_reply, false);
 				ActivityMain.this.ls.setAdapter(adapter);
 				ActivityMain.this.ls.requestFocus();
@@ -411,7 +417,7 @@ public class ActivityMain extends Activity {
 			if (ActivityMain.this.list_mypost == null) {
 				ActivityMain.this.getMyPost();
 			} else {
-				AdapterTimeline adapter = new AdapterTimeline(getBaseContext(),
+				Timeline adapter = new Timeline(getBaseContext(),
 						R.id.timeline_list, ActivityMain.this.list_mypost,
 						false);
 				ActivityMain.this.ls.setAdapter(adapter);
@@ -428,7 +434,7 @@ public class ActivityMain extends Activity {
 			if (ActivityMain.this.list_odai == null) {
 				ActivityMain.this.getOdai();
 			} else {
-				AdapterOdai adapter = new AdapterOdai(getBaseContext(),
+				Odai adapter = new Odai(getBaseContext(),
 						R.id.timeline_list, ActivityMain.this.list_odai);
 				ActivityMain.this.ls.setAdapter(adapter);
 				ActivityMain.this.ls.requestFocus();
@@ -447,7 +453,7 @@ public class ActivityMain extends Activity {
 			}
 			// チャンネルの内容取ってたら表示する。
 			if (ActivityMain.this.list_channel != null) {
-				AdapterTimeline adapter = new AdapterTimeline(
+				Timeline adapter = new Timeline(
 						ActivityMain.this.ls.getContext(),
 						R.layout.timeline_row, ActivityMain.this.list_channel,
 						true);
@@ -492,7 +498,7 @@ public class ActivityMain extends Activity {
 			ActivityMain.this.selectedItem = (WasatterItem) listView
 					.getAdapter().getItem(position);
 			Intent intent_detail = new Intent(ActivityMain.this,
-					ActivityItemDetail.class);
+					Detail.class);
 			ActivityMain.this.startActivityForResult(intent_detail,
 					IntentCode.MAIN_ITEMDETAIL);
 		}

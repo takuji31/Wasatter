@@ -1,5 +1,10 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.activity;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.ResultCode;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.task.TaskToggleFavorite;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -20,7 +25,7 @@ import android.widget.TextView;
  * @author Senka/Takuji
  *
  */
-public class ActivityItemDetail extends Activity {
+public class Detail extends Activity {
 	protected WasatterItem ws;
 	public static String ADD_WASSR = "イイネ！する";
 	public static String DEL_WASSR = "イイネ！を消す";
@@ -85,7 +90,7 @@ public class ActivityItemDetail extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
-					String permalink = ActivityItemDetail.this.ws.link;
+					String permalink = Detail.this.ws.link;
 					Intent intent_parmalink = new Intent(Intent.ACTION_VIEW,
 							Uri.parse(permalink));
 					startActivity(intent_parmalink);
@@ -99,7 +104,7 @@ public class ActivityItemDetail extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
-					String text = ActivityItemDetail.this.ws.text;
+					String text = Detail.this.ws.text;
 					String url = Wasatter.getUrl(text);
 					if (!"".equals(url)) {
 						Intent intent_url = new Intent(Intent.ACTION_VIEW, Uri
@@ -107,7 +112,7 @@ public class ActivityItemDetail extends Activity {
 						startActivity(intent_url);
 					} else {
 						AlertDialog.Builder ad = new AlertDialog.Builder(
-								ActivityItemDetail.this);
+								Detail.this);
 						// ad.setTitle(R.string.notice_title_no_url);
 						ad.setMessage(R.string.notice_message_no_url);
 						ad.setPositiveButton("OK", null);
@@ -130,8 +135,8 @@ public class ActivityItemDetail extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					new TaskToggleFavorite(ActivityItemDetail.this)
-							.execute(ActivityItemDetail.this.ws);
+					new TaskToggleFavorite(Detail.this)
+							.execute(Detail.this.ws);
 				}
 			});
 			// Replyボタンにイベント割り当て
@@ -141,10 +146,10 @@ public class ActivityItemDetail extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO 自動生成されたメソッド・スタブ
-					Intent intent_reply = new Intent(ActivityItemDetail.this,
-							ActivityUpdateStatus.class);
+					Intent intent_reply = new Intent(Detail.this,
+							Update.class);
 					intent_reply.putExtra(Wasatter.REPLY,
-							ActivityItemDetail.this.ws);
+							Detail.this.ws);
 					startActivity(intent_reply);
 				}
 			});

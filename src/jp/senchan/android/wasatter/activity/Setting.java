@@ -1,8 +1,12 @@
 /**
  *
  */
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.activity;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.R.string;
+import jp.senchan.android.wasatter.R.xml;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,12 +32,12 @@ public class Setting extends PreferenceActivity {
 		this.addPreferencesFromResource(R.xml.setting);
 		PreferenceScreen pc = (PreferenceScreen) this.getPreferenceScreen()
 				.getPreference(1);
-		OAuthPreference pf = new OAuthPreference(Wasatter.CONTEXT);
+		OAuthPreference pf = new OAuthPreference(this);
 		pf.setOnPreferenceClickListener(new OAuthGetTokenListener());
 		pc.addPreference(pf);
 		PreferenceScreen pc2 = (PreferenceScreen) this.getPreferenceScreen()
 				.getPreference(2);
-		Preference pf2 = new Preference(Wasatter.CONTEXT);
+		Preference pf2 = new Preference(this);
 		pf2.setTitle("キャッシュの消去");
 		pf2.setSummary("画像のキャッシュを削除します。");
 		pf2.setOnPreferenceClickListener(new CacheClearListener());
@@ -85,12 +89,6 @@ public class Setting extends PreferenceActivity {
 		Context con = Wasatter.CONTEXT;
 		return PreferenceManager.getDefaultSharedPreferences(con).getString(
 				"wassr_pass", "");
-	}
-
-	public static boolean isTwitterOAuthEnable() {
-		Context con = Wasatter.CONTEXT;
-		return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-				"twitter_oauth_enable", false);
 	}
 
 	public static String getTwitterId() {
@@ -153,7 +151,7 @@ public class Setting extends PreferenceActivity {
 		public boolean onPreferenceClick(Preference preference) {
 			// TODO 自動生成されたメソッド・スタブ
 			Intent intent = new Intent(Setting.this.getBaseContext(),
-					ActivityOAuthToken.class);
+					OAuthToken.class);
 			Setting.this.startActivity(intent);
 			return true;
 			// return false;

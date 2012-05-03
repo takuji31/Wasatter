@@ -1,5 +1,10 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.task;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WassrClient;
+import jp.senchan.android.wasatter.R.id;
+import jp.senchan.android.wasatter.activity.Setting;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -51,16 +56,10 @@ public class TaskUpdate extends AsyncTask<String, String, Void> {
 		}
 		if (this.twitter) {
 			Twitter tw;
-			if (Setting.isTwitterOAuthEnable()) {
-				tw = new TwitterFactory().getInstance();
-				tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
-				tw.setOAuthAccessToken(new AccessToken(Setting
-						.getTwitterToken(), Setting.getTwitterTokenSecret()));
-
-			} else {
-				tw = new TwitterFactory().getInstance(Setting.getTwitterId(),
-						Setting.getTwitterPass());
-			}
+			tw = new TwitterFactory().getInstance();
+			tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET);
+			tw.setOAuthAccessToken(new AccessToken(Setting
+					.getTwitterToken(), Setting.getTwitterTokenSecret()));
 			try {
 				publishProgress(Wasatter.MODE_POSTING, Wasatter.SERVICE_TWITTER);
 				tw.updateStatus(params[0]);

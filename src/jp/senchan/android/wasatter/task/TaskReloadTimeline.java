@@ -1,9 +1,20 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.task;
 
 import java.util.ArrayList;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.StatusItemComparator;
+import jp.senchan.android.wasatter.TwitterClient;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.WassrClient;
+import jp.senchan.android.wasatter.R.id;
+import jp.senchan.android.wasatter.R.layout;
+import jp.senchan.android.wasatter.adapter.Odai;
+import jp.senchan.android.wasatter.adapter.Timeline;
+
 import twitter4j.TwitterException;
-import twitter4j.org.json.JSONException;
+import twitter4j.internal.org.json.JSONException;
 import android.os.AsyncTask;
 import android.text.SpannableStringBuilder;
 import android.view.View;
@@ -172,7 +183,7 @@ public class TaskReloadTimeline extends
 		if (set) {
 			switch (this.mode) {
 			case TaskReloadTimeline.MODE_ODAI:
-				AdapterOdai adapter_odai = new AdapterOdai(this.listview
+				Odai adapter_odai = new Odai(this.listview
 						.getContext(), R.layout.odai_row, result);
 				this.listview.setAdapter(adapter_odai);
 				break;
@@ -188,7 +199,7 @@ public class TaskReloadTimeline extends
 				break;
 			default:
 				boolean channel = this.mode == TaskReloadTimeline.MODE_CHANNEL;
-				AdapterTimeline adapter = new AdapterTimeline(this.listview
+				Timeline adapter = new Timeline(this.listview
 						.getContext(), R.layout.timeline_row, result, channel);
 				if (!channel) {
 					adapter.sort(new StatusItemComparator());

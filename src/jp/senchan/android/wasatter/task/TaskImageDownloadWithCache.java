@@ -1,16 +1,22 @@
 /**
  *
  */
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.task;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.R.id;
+import jp.senchan.android.wasatter.activity.Setting;
+import jp.senchan.android.wasatter.adapter.Timeline;
+
 import twitter4j.TwitterException;
-import twitter4j.http.HttpClient;
-import twitter4j.http.HttpResponse;
+import twitter4j.internal.http.HttpClientWrapper;
+import twitter4j.internal.http.HttpResponse;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
@@ -49,9 +55,9 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 			this.cancel(true);
 			return;
 		}
-		progress_text_count.setText(new SpannableStringBuilder("0/").append(
-				String.valueOf(count)).toString());
 		if (count != 0) {
+			progress_text_count.setText(new SpannableStringBuilder("0/").append(
+					String.valueOf(count)).toString());
 			layout_progress.setVisibility(View.VISIBLE);
 		}
 	}
@@ -59,11 +65,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 		// 画像のダウンロードを行うサービス
-		HttpClient http = new HttpClient();
-		/*
-		 * http.setConnectionTimeout(5000); http.setReadTimeout(10000);
-		 * http.setRetryCount(1);
-		 */
+		HttpClientWrapper http = new HttpClientWrapper();
 		SQLiteDatabase db = Wasatter.imageStore.getWritableDatabase();
 		ArrayList<String> urls = Wasatter.downloadWaitUrls;
 		db.beginTransaction();
@@ -72,12 +74,10 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		Iterator<String> it = urls.iterator();
 		// キャッシュの期限は5日にしておこう。
 		st.bindLong(1, new Date().getTime() / 1000 - 5 * 24 * 60 * 60);
-		st = db
-				.compileStatement("insert into imagestore(url,filename,created) values(?,?,?)");
+		st.execute();
+		st = db.compileStatement("insert into imagestore(url,filename,created) values(?,?,?)");
 		try {
 			while (it.hasNext()) {
-				// for (int i=0;i<count;i++) {
-				// String url = urls.get(i);
 				String url = it.next();
 				try {
 					HttpResponse res = http.get(url);
@@ -130,7 +130,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		}
 		progress_text_count.setText(sb.toString());
 		try {
-			AdapterTimeline adapter = (AdapterTimeline) Wasatter.main.ls
+			Timeline adapter = (Timeline) Wasatter.main.ls
 					.getAdapter();
 			if(adapter != null){
 				adapter.updateView();
@@ -145,7 +145,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onPostExecute(result);
 		try {
-			AdapterTimeline adapter = (AdapterTimeline) Wasatter.main.ls
+			Timeline adapter = (Timeline) Wasatter.main.ls
 					.getAdapter();
 			adapter.updateView();
 		} catch (ClassCastException e) {

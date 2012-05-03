@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="jp.senchan.android.wasatter"
-      android:versionCode="10" android:versionName="1.02">
-    <application android:label="@string/app_name" android:icon="@drawable/wasattericon" android:debuggable="true">
-        <activity android:name=".ActivityMain" android:configChanges="orientation">
+    package="jp.senchan.android.wasatter"
+    android:versionCode="12"
+    android:versionName="1.1.0a" >
+    <uses-sdk
+        android:minSdkVersion="4"
+        android:targetSdkVersion="15" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:icon="@drawable/wasattericon"
+        android:label="@string/app_name" android:name="Wasatter">
+        <activity
+            android:name=".ActivityMain"
+            android:configChanges="orientation" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-    
-<activity android:name="ActivityUpdateStatus" android:label="New post" android:configChanges="orientation"></activity>
-<activity android:name="Setting" android:label="Setting" android:configChanges="orientation"></activity>
-<activity android:name="ActivityItemDetail" android:label="Status" android:configChanges="orientation"></activity>
-<activity android:name="ActivityTodoDetail" android:label="TODO" android:configChanges="orientation"></activity>
-<activity android:name="ActivityOAuthToken" android:label="Get OAuth token" android:configChanges="orientation"></activity>
-
-</application>
-    <uses-sdk android:minSdkVersion="4" />
-<uses-permission android:name="android.permission.INTERNET" />
-
-
-
-
-
-</manifest> 
+        <activity
+            android:name=".activity.Update"
+            android:configChanges="orientation"
+            android:label="New post" >
+        </activity>
+        <activity
+            android:name=".activity.Setting"
+            android:configChanges="orientation"
+            android:label="Setting" >
+        </activity>
+        <activity
+            android:name=".activity.Detail"
+            android:configChanges="orientation"
+            android:label="Status" >
+        </activity>
+        <activity
+            android:name=".activity.Todo"
+            android:configChanges="orientation"
+            android:label="TODO" >
+        </activity>
+        <activity
+            android:name=".activity.OAuthToken"
+            android:configChanges="orientation"
+            android:label="Get OAuth token" >
+        </activity>
+    </application>
+</manifest>

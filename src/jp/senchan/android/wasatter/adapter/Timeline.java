@@ -1,9 +1,15 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.adapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterAdapter;
+import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.WassrClient;
+import jp.senchan.android.wasatter.activity.Setting;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.SpannableStringBuilder;
@@ -17,13 +23,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class AdapterTimeline extends ArrayAdapter<WasatterItem> implements
+public class Timeline extends ArrayAdapter<WasatterItem> implements
 		WasatterAdapter {
 
 	private ArrayList<WasatterItem> items;
 	private LayoutInflater inflater;
 
-	public AdapterTimeline(Context context, int textViewResourceId,
+	public Timeline(Context context, int textViewResourceId,
 			ArrayList<WasatterItem> items, boolean channel) {
 		super(context, textViewResourceId, items);
 		this.items = items;

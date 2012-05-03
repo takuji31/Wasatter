@@ -1,9 +1,12 @@
-package jp.senchan.android.wasatter;
+package jp.senchan.android.wasatter.adapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterItem;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 @SuppressWarnings("unchecked")
-public class AdapterOdai extends ArrayAdapter {
+public class Odai extends ArrayAdapter {
 
 	private ArrayList items;
 	private LayoutInflater inflater;
 
-	public AdapterOdai(Context context, int textViewResourceId, ArrayList items) {
+	public Odai(Context context, int textViewResourceId, ArrayList items) {
 		super(context, textViewResourceId, items);
 		this.items = items;
 		this.inflater = (LayoutInflater) context
