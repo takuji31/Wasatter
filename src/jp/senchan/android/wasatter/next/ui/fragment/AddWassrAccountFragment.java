@@ -7,7 +7,6 @@ import jp.senchan.android.wasatter.next.listener.OnAuthenticationResultListener;
 import jp.senchan.android.wasatter.next.model.Account;
 import jp.senchan.android.wasatter.next.task.AuthenticateWassrTask;
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;

@@ -21,7 +21,6 @@ import android.preference.Preference.OnPreferenceClickListener;
  *
  */
 public class Setting extends PreferenceActivity {
-    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO 自動生成されたメソッド・スタブ

@@ -8,9 +8,9 @@ import jp.senchan.android.wasatter.next.listener.OnPageTypeSelectListener;
 import jp.senchan.android.wasatter.next.ui.fragment.ConfigPageFragment;
 import jp.senchan.android.wasatter.next.ui.fragment.PageTypesFragment;
 import jp.senchan.android.wasatter.R;
-import jp.senchan.lib.ui.BaseActivity;
+import jp.senchan.android.wasatter.WasatterActivity;
 
-public class ConfigHomeActivity extends BaseActivity implements OnPageTypeSelectListener {
+public class ConfigHomeActivity extends WasatterActivity implements OnPageTypeSelectListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

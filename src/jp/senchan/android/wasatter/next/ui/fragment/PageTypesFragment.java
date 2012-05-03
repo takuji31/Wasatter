@@ -5,10 +5,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterListFragment;
 import jp.senchan.android.wasatter.next.listener.OnPageTypeSelectListener;
-import jp.senchan.lib.ui.BaseListFragment;
 
-public class PageTypesFragment extends BaseListFragment{
+public class PageTypesFragment extends WasatterListFragment{
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {

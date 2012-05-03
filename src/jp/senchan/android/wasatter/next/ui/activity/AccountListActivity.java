@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.next.listener.OnAddAccountButtonClickListener;
 import jp.senchan.android.wasatter.next.listener.OnServiceSelectedListener;
 import jp.senchan.android.wasatter.next.ui.fragment.AccountListFragment;
 import jp.senchan.android.wasatter.next.ui.fragment.dialog.AccountTypeSelectDialog;
-import jp.senchan.lib.ui.BaseActivity;
 
-public class AccountListActivity extends BaseActivity implements OnAddAccountButtonClickListener, OnServiceSelectedListener {
+public class AccountListActivity extends WasatterActivity implements OnAddAccountButtonClickListener, OnServiceSelectedListener {
 	private static final String TAG_LIST = "account_list";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

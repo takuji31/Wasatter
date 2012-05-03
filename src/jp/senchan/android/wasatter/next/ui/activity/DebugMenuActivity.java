@@ -2,14 +2,14 @@ package jp.senchan.android.wasatter.next.ui.activity;
 
 import jp.senchan.android.wasatter.ui.TimelineActivity;
 import jp.senchan.android.wasatter.R;
-import jp.senchan.lib.ui.BaseActivity;
+import jp.senchan.android.wasatter.WasatterActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class DebugMenuActivity extends BaseActivity {
+public class DebugMenuActivity extends WasatterActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
