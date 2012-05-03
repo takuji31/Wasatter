@@ -1,16 +1,15 @@
 package jp.senchan.android.wasatter.next.ui.fragment.dialog;
 
 import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.WasatterDialogFragment;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 public class CreateAuthenticationURLProgressDialogFragment extends
-		SherlockDialogFragment {
+		WasatterDialogFragment {
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
