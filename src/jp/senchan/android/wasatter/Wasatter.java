@@ -41,7 +41,6 @@ public class Wasatter extends BaseApp {
 	private static final String REGEX_URL = "https?://[^\\s]+";
 	public static final String ODAI_DATE_FORMAT = "yyyy/MM/dd";
 	public static final String REPLY = "reply";
-	public static final String WASSR_OAUTH_REQUEST = "http://wassr.jp/auth/?app_key=9jJkQds39nOUjHFPZ6LgpbE8cuXVoJOS&sig=bed07c761de34c88af1a3cf1fd03b60ce1235715";
 	public static ArrayList<String> downloadWaitUrls = new ArrayList<String>();
 	public static HashMap<String, Bitmap> images = new HashMap<String, Bitmap>();
 	public static final int FILENAME_LENGTH = 5;
@@ -77,7 +76,8 @@ public class Wasatter extends BaseApp {
 		    //TODO バージョンアップに必要な処理
 		    //イメージストアのDBファイル削除
 		    //画像キャッシュ全部削除
-		    //アカウント設定削除
+		    //全設定削除
+			//clearPref();
 		    //セットアップウィザード表示
 		    
 		    //updatePrefVersion();
