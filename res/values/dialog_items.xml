@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="image_sources">
+        <item >ギャラリーから</item>
+        <item >カメラで撮影</item>
+    </string-array>
+    
+</resources>

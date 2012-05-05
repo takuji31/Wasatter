@@ -14,4 +14,5 @@ public class PostActivity extends WasatterActivity {
         ft.replace(android.R.id.content, new PostFragment());
         ft.commit();
     }
+    
 }

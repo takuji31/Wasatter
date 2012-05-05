@@ -2,4 +2,5 @@
 <resources>
 	<string name="dialog_title_select_service">サービスを選択</string>
 	<string name="dialog_title_has_been_prepared">準備しています</string>
+	<string name="dialog_title_select_image_source">画像の取得方法を選択</string>
 </resources>
