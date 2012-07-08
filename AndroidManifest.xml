@@ -64,7 +64,7 @@
         <activity android:name=".next.ui.activity.DebugMenuActivity"></activity>
         <activity android:name=".next.ui.activity.HomeActivity"></activity>
         <activity android:name=".next.ui.activity.AddAccountActivity"></activity>
-        <activity android:name=".next.ui.activity.PostActivity" android:uiOptions="splitActionBarWhenNarrow"></activity>
+        <activity android:name=".next.ui.activity.PostActivity"></activity>
     </application>
 
 </manifest>
