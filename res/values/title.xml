@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_timeline">Timeline</string>
+    <string name="title_reply">Reply</string>
+    <string name="title_odai">Odai-chan</string>
+    <string name="title_channel">Channel</string>
+    
+</resources>
