@@ -58,10 +58,6 @@ public class Wasatter extends BaseApp {
 	public TwitterClient twitterClient;
 	public WasatterItem selected;
 	
-	public List<String> pageTypeNames;
-	public List<String> pageTypes;
-
-
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -70,8 +66,6 @@ public class Wasatter extends BaseApp {
 		twitterClient = new TwitterClient(this);
 		
 		Resources res = getResources();
-		pageTypeNames = Arrays.asList(res.getStringArray(R.array.page_types_name));
-		pageTypes = Arrays.asList(res.getStringArray(R.array.page_types));
 		if(getPrefVersion() == 0) {
 		    //TODO バージョンアップに必要な処理
 		    //イメージストアのDBファイル削除
