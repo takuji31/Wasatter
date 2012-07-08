@@ -4,5 +4,6 @@
     <string name="title_reply">Reply</string>
     <string name="title_odai">Odai-chan</string>
     <string name="title_channel">Channel</string>
-    
+    <string name="title_post">投稿</string>
+    <string name="title_select_image">画像を選択</string>
 </resources>
