@@ -158,7 +158,9 @@ public class SlideMenu {
 		items[0].icon = R.drawable.ic_action_profile;
 		items[1].label = "Timeline";
 		items[2].label = "Reply";
+		items[2].icon = R.drawable.ic_action_reply;
 		items[3].label = "Odai";
+		items[3].icon = R.drawable.ic_action_odai;
 		items[4].label = "Channel";
 		SlideMenuAdapter adap = new SlideMenuAdapter(act, items);
 		list.setAdapter(adap);
