@@ -63,7 +63,7 @@ public class SetTwitterAccountFragment extends WasatterFragment implements OnURL
 
 	public void runGetAuthorizationURLTask() {
 		showDialogFragment(new CreateAuthenticationURLProgressDialogFragment());
-		new GetTwitterOAuthRequestURLTask(this, mClient).threadExecute();
+		new GetTwitterOAuthRequestURLTask(this, mClient).supportExecute();
 	}
 
 	private void showDialogFragment(SherlockDialogFragment fragment) {
@@ -88,7 +88,7 @@ public class SetTwitterAccountFragment extends WasatterFragment implements OnURL
 
 	public void getAccessToken(Uri uri) {
 		//TODO ダイアログ表示
-		new GetTwitterOAuthAccessTokenTask(this, mClient).threadExecute(uri);
+		new GetTwitterOAuthAccessTokenTask(this, mClient).supportExecute(uri);
 	}
 
 	@Override

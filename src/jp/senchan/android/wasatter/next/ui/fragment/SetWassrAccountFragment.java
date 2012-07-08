@@ -60,7 +60,7 @@ public class SetWassrAccountFragment extends WasatterFragment implements OnAuthe
 		editTextLoginId.setEnabled(false);
 		editTextPassword.setEnabled(false);
 		currentTask = new AuthenticateWassrTask(this);
-		currentTask.threadExecute(id, password);
+		currentTask.supportExecute(id, password);
 	}
 
 	@Override
