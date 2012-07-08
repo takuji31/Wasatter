@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="debug_menu_label">
-        <item >Post</item>
-        <item >Original</item>
-        <item >Account</item>
+        <item>Post</item>
+        <item>Original</item>
+        <item>Account</item>
+        <item>Home</item>
     </string-array>
     <string-array name="debug_menu_class">
-        <item >.next.ui.activity.PostActivity</item>
-        <item >.ui.TimelineActivity</item>
-        <item >.next.ui.activity.AccountListActivity</item>
+        <item>.next.ui.activity.PostActivity</item>
+        <item>.ui.TimelineActivity</item>
+        <item>.next.ui.activity.AccountListActivity</item>
+        <item>.next.ui.activity.HomeActivity</item>
     </string-array>
-    
+
 </resources>
