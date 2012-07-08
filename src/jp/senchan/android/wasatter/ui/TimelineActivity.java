@@ -69,7 +69,6 @@ public class TimelineActivity extends WasatterActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.Theme_Sherlock);
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.old_timeline);
         this.ls = (ListView) this.findViewById(R.id.timeline_list);
