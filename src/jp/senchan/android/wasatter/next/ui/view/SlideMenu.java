@@ -137,10 +137,12 @@ public class SlideMenu {
 		Functions.enableDisableViewGroup(
 				(LinearLayout) parent.findViewById(android.R.id.content)
 						.getParent(), false);
+		/*
 		((ExtendedViewPager) act.findViewById(R.id.pager))
 				.setPagingEnabled(false);
 		((ExtendedPagerTabStrip) act.findViewById(R.id.tabStrip))
 				.setNavEnabled(false);
+		*/
 		menuShown = true;
 		this.fill();
 	}
@@ -182,10 +184,12 @@ public class SlideMenu {
 		Functions.enableDisableViewGroup(
 				(LinearLayout) parent.findViewById(android.R.id.content)
 						.getParent(), true);
+		/*
 		((ExtendedViewPager) act.findViewById(R.id.pager))
 				.setPagingEnabled(true);
 		((ExtendedPagerTabStrip) act.findViewById(R.id.tabStrip))
 				.setNavEnabled(true);
+		*/
 		menuShown = false;
 	}
 }
