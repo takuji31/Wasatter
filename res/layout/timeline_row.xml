@@ -9,7 +9,7 @@
         android:id="@+id/textViewServiceName"
         android:layout_width="68dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageViewIcon"
+        android:layout_below="@+id/imageViewIcon"
         android:layout_marginBottom="5dp"
         android:gravity="center"
         android:text="Wasatter"
@@ -22,6 +22,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:contentDescription="Profile icon for this user"
         android:src="@drawable/ic_default_user_icon" />
 
     <TextView
@@ -49,6 +50,37 @@
         android:layout_alignLeft="@+id/textViewName"
         android:layout_below="@+id/textViewName"
         android:text="idididididididididididididididididid"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <RatingBar
+        android:id="@+id/ratingBarFavStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:max="1"
+        android:numStars="1"
+        android:rating="0"
+        android:stepSize="1" />
+
+    <TextView
+        android:id="@+id/textViewVia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/ratingBarFavStar"
+        android:layout_toRightOf="@+id/textViewServiceName"
+        android:text="via VIAVIAVIAVIAVIAVIAVIAVIAVIA"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textViewVia"
+        android:layout_toLeftOf="@+id/ratingBarFavStar"
+        android:layout_toRightOf="@+id/textViewServiceName"
+        android:text="2011/01/01 00:00:00"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
