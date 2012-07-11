@@ -22,11 +22,15 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 
 import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Base64;
 
 public class NewWassrClient {
 
 	private static final String HOST = "api.wassr.jp";
 	private static final int PORT = 80;
+	private static final String sAuthHeaderName = "Authorization";
+	private static final String sAuthHeaderValue = "Basic %s";
 
 	private static final String FRIEND_TIMELINE = "/statuses/friends_timeline.json";
 
@@ -77,7 +81,7 @@ public class NewWassrClient {
 	public void friendTimeline(int page, AQuery aq, final APICallback<ArrayList<WassrStatus>> callback) {
 		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
 		builder.appendQueryParameter("page", String.valueOf(page));
-		aq.ajax(builder.build().toString(), JSONArray.class, new AjaxCallback<JSONArray>(){
+		AjaxCallback<JSONArray> cb = new AjaxCallback<JSONArray>(){
 			@Override
 			public void callback(String url, JSONArray object, AjaxStatus status) {
 				ArrayList<WassrStatus> results = new ArrayList<WassrStatus>();
@@ -94,6 +98,12 @@ public class NewWassrClient {
 				}
 				callback.callback(url, results, status);
 			}
-		});
+		};
+		cb.header(sAuthHeaderName, getBasicAuthHeaderString());
+		aq.ajax(builder.build().toString(), JSONArray.class, cb);
+	}
+	
+	public String getBasicAuthHeaderString() {
+		return String.format(sAuthHeaderValue, Base64.encodeToString(String.format("%s:%s", mLoginId, mPassword).getBytes(), Base64.DEFAULT));
 	}
 }
