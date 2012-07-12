@@ -1,5 +1,7 @@
 package jp.senchan.android.wasatter.next.ui.activity;
 
+import com.androidquery.util.AQUtility;
+
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.next.ui.fragment.DebugMenuListFragment;
 import android.os.Bundle;
@@ -13,5 +15,6 @@ public class DebugMenuActivity extends WasatterActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(android.R.id.content, new DebugMenuListFragment());
         ft.commit();
+        AQUtility.setDebug(true);
     }
 }
