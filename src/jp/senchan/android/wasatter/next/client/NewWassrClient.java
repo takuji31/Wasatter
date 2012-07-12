@@ -32,8 +32,6 @@ public class NewWassrClient {
 
 	private static final String HOST = "api.wassr.jp";
 	private static final int PORT = 80;
-	private static final String sAuthHeaderName = "Authorization";
-	private static final String sAuthHeaderValue = "Basic %s";
 
 	private static final String FRIEND_TIMELINE = "/statuses/friends_timeline.json";
 
@@ -103,7 +101,7 @@ public class NewWassrClient {
 				callback.callback(url, results, status);
 			}
 		};
-		cb.auth(new BasicHandle(mLoginId, mPassword));
+		aq.auth(new BasicHandle(mLoginId, mPassword));
 		AjaxCallback.setTimeout(10000);
 		aq.ajax(builder.build().toString(), JSONArray.class, cb);
 	}
