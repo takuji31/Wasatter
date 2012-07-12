@@ -1,5 +1,7 @@
 package jp.senchan.android.wasatter.next.model.api;
 
+import jp.senchan.android.wasatter.Wasatter;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,7 +11,7 @@ import android.text.Html.ImageGetter;
 import android.text.Spannable;
 import android.text.Spanned;
 
-public class WassrStatus {
+public class WassrStatus implements WasatterStatus {
 	public static final String KEY_RID = "rid";
 	public static final String KEY_LOGIN_ID = "user_login_id";
 	public static final String KEY_USER = "user";

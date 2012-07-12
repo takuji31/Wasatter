@@ -2,6 +2,7 @@ package jp.senchan.android.wasatter.next.client;
 
 import java.util.ArrayList;
 
+import jp.senchan.android.wasatter.BuildConfig;
 import jp.senchan.android.wasatter.next.exception.WassrException;
 import jp.senchan.android.wasatter.next.listener.APICallback;
 import jp.senchan.android.wasatter.next.model.api.WasatterStatus;
@@ -18,12 +19,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.androidquery.AQuery;
+import com.androidquery.auth.BasicHandle;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 
 public class NewWassrClient {
 
@@ -78,19 +81,20 @@ public class NewWassrClient {
 		return null;
 	}
 
-	public void friendTimeline(int page, AQuery aq, final APICallback<ArrayList<WassrStatus>> callback) {
+	public void friendTimeline(int page, AQuery aq, final APICallback<ArrayList<WasatterStatus>> callback) {
 		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
 		builder.appendQueryParameter("page", String.valueOf(page));
 		AjaxCallback<JSONArray> cb = new AjaxCallback<JSONArray>(){
 			@Override
 			public void callback(String url, JSONArray object, AjaxStatus status) {
-				ArrayList<WassrStatus> results = new ArrayList<WassrStatus>();
+				ArrayList<WasatterStatus> results = new ArrayList<WasatterStatus>();
 				if (object != null) {
 					//TODO JSON解析
 					int length = object.length();
 					for (int i = 0; i < length; i++) {
 						try {
 							WassrStatus s = new WassrStatus(object.getJSONObject(i));
+							results.add(s);
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
@@ -99,11 +103,9 @@ public class NewWassrClient {
 				callback.callback(url, results, status);
 			}
 		};
-		cb.header(sAuthHeaderName, getBasicAuthHeaderString());
+		cb.auth(new BasicHandle(mLoginId, mPassword));
+		AjaxCallback.setTimeout(10000);
 		aq.ajax(builder.build().toString(), JSONArray.class, cb);
 	}
 	
-	public String getBasicAuthHeaderString() {
-		return String.format(sAuthHeaderValue, Base64.encodeToString(String.format("%s:%s", mLoginId, mPassword).getBytes(), Base64.DEFAULT));
-	}
 }

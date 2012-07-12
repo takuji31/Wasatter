@@ -28,15 +28,15 @@ public class TimelineFragment extends WasatterListFragment {
 		if (mTimeline == null) {
 			final Wasatter app = app();
 			
-			new NewWassrClient(app.getWassrId(), app.getWassrPass()).friendTimeline(1, mAquery, new APICallback<ArrayList<WassrStatus>>() {
+			new NewWassrClient(app.getWassrId(), app.getWassrPass()).friendTimeline(1, mAquery, new APICallback<ArrayList<WasatterStatus>>() {
 				
 				@Override
-				public void callback(String url, ArrayList<WassrStatus> result,
+				public void callback(String url, ArrayList<WasatterStatus> result,
 						AjaxStatus status) {
 					if (status.getCode() != 200) {
 						app.toast(R.string.message_something_wrong).show();
 					}
-					mAdapter = new TimelineAdapter(getActivity(), mTimeline);
+					mAdapter = new TimelineAdapter(getActivity(), result);
 					setListAdapter(mAdapter);
 				}
 			});
