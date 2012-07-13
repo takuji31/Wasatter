@@ -30,7 +30,8 @@ public class TimelineAdapter extends ArrayListAdapter<WasatterStatus> {
 		
 		WassrStatus st = (WassrStatus) item;
 		AQuery aq = new AQuery(v);
-		aq.id(R.id.textViewName).text(st.user.screenName);
+		aq.id(R.id.textViewName).text(st.user.name);
+		aq.id(R.id.textViewId).text(st.screenName());
 		aq.id(R.id.textViewServiceName).text(Wasatter.SERVICE_WASSR);
 		aq.id(R.id.textViewBody).text(st.body);
 		aq.id(R.id.imageViewIcon).image(R.drawable.ic_default_user_icon).image(st.user.profileImageUrl);

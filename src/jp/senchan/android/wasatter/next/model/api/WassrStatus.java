@@ -11,7 +11,7 @@ import android.text.Html.ImageGetter;
 import android.text.Spannable;
 import android.text.Spanned;
 
-public class WassrStatus implements WasatterStatus {
+public class WassrStatus extends WasatterStatus {
 	public static final String KEY_RID = "rid";
 	public static final String KEY_LOGIN_ID = "user_login_id";
 	public static final String KEY_USER = "user";
@@ -35,5 +35,15 @@ public class WassrStatus implements WasatterStatus {
 				return null;
 			}
 		}, null);
+	}
+
+	@Override
+	public String name() {
+		return user.name;
+	}
+
+	@Override
+	public String screenName() {
+		return String.format("@%s", user.screenName);
 	}
 }
