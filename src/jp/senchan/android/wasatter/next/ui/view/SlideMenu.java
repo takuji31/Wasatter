@@ -8,65 +8,15 @@ import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class SlideMenu {
-	// just a simple adapter
-	public static class SlideMenuAdapter extends
-			ArrayAdapter<SlideMenu.SlideMenuAdapter.MenuDesc> {
-		Activity act;
-		SlideMenu.SlideMenuAdapter.MenuDesc[] items;
-
-		class MenuItem {
-			public TextView label;
-			public ImageView icon;
-		}
-
-		static class MenuDesc {
-			public int icon;
-			public String label;
-		}
-
-		public SlideMenuAdapter(Activity act,
-				SlideMenu.SlideMenuAdapter.MenuDesc[] items) {
-			super(act, R.id.menu_label, items);
-			this.act = act;
-			this.items = items;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View rowView = convertView;
-			if (rowView == null) {
-				LayoutInflater inflater = act.getLayoutInflater();
-				rowView = inflater.inflate(R.layout.menu_listitem, null);
-				MenuItem viewHolder = new MenuItem();
-				viewHolder.label = (TextView) rowView
-						.findViewById(R.id.menu_label);
-				viewHolder.icon = (ImageView) rowView
-						.findViewById(R.id.menu_icon);
-				rowView.setTag(viewHolder);
-			}
-
-			MenuItem holder = (MenuItem) rowView.getTag();
-			String s = items[position].label;
-			holder.label.setText(s);
-			holder.icon.setImageResource(items[position].icon);
-
-			return rowView;
-		}
-	}
-
 	private static boolean menuShown = false;
 	private static View menu;
 	private static LinearLayout content;
@@ -149,21 +99,23 @@ public class SlideMenu {
 
 	public void fill() {
 		ListView list = (ListView) act.findViewById(R.id.menu_listview);
-		SlideMenuAdapter.MenuDesc[] items = new SlideMenuAdapter.MenuDesc[5];
+		MenuDesc[] items = new MenuDesc[5];
 		// fill the menu-items here
-		items[0] = new SlideMenuAdapter.MenuDesc();
-		items[1] = new SlideMenuAdapter.MenuDesc();
-		items[2] = new SlideMenuAdapter.MenuDesc();
-		items[3] = new SlideMenuAdapter.MenuDesc();
-		items[4] = new SlideMenuAdapter.MenuDesc();
+		items[0] = new MenuDesc();
+		items[1] = new MenuDesc();
+		items[2] = new MenuDesc();
+		items[3] = new MenuDesc();
+		items[4] = new MenuDesc();
 		items[0].label = "Profile";
 		items[0].icon = R.drawable.ic_action_profile;
 		items[1].label = "Timeline";
+		items[1].icon = R.drawable.ic_action_timeline;
 		items[2].label = "Reply";
 		items[2].icon = R.drawable.ic_action_reply;
 		items[3].label = "Odai";
 		items[3].icon = R.drawable.ic_action_odai;
 		items[4].label = "Channel";
+		items[4].icon = R.drawable.ic_action_channel;
 		SlideMenuAdapter adap = new SlideMenuAdapter(act, items);
 		list.setAdapter(adap);
 	}
