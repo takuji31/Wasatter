@@ -3,25 +3,19 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
     android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/textViewServiceName"
-        android:layout_width="68dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageViewIcon"
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:text="Wasatter"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <ImageView
         android:id="@+id/imageViewIcon"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="Profile icon for this user"
         android:src="@drawable/ic_default_user_icon" />
 
@@ -29,18 +23,23 @@
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageViewIcon"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_toRightOf="@+id/imageViewIcon"
         android:text="NameNameName"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textViewBody"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewServiceName"
+        android:layout_width="68dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textViewName"
-        android:layout_centerVertical="true"
-        android:text="BodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBody"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageViewIcon"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:text="Wasatter"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -48,39 +47,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewName"
+        android:layout_alignRight="@+id/textViewName"
         android:layout_below="@+id/textViewName"
+        android:layout_marginTop="5dp"
         android:text="idididididididididididididididididid"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <RatingBar
-        android:id="@+id/ratingBarFavStar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:max="1"
-        android:numStars="1"
-        android:rating="0"
-        android:stepSize="1" />
-
     <TextView
-        android:id="@+id/textViewVia"
+        android:id="@+id/textViewBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/ratingBarFavStar"
-        android:layout_toRightOf="@+id/textViewServiceName"
-        android:text="via VIAVIAVIAVIAVIAVIAVIAVIAVIA"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textViewVia"
-        android:layout_toLeftOf="@+id/ratingBarFavStar"
-        android:layout_toRightOf="@+id/textViewServiceName"
-        android:text="2011/01/01 00:00:00"
+        android:layout_alignLeft="@+id/textViewId"
+        android:layout_alignRight="@+id/textViewId"
+        android:layout_below="@+id/textViewId"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="10dp"
+        android:text="BodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBody"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
