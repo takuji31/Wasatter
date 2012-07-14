@@ -5,7 +5,6 @@ import jp.senchan.android.wasatter.ResultCode;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterFragment;
 import jp.senchan.android.wasatter.next.listener.OnAuthenticationResultListener;
-import jp.senchan.android.wasatter.next.model.Account;
 import jp.senchan.android.wasatter.next.task.AuthenticateWassrTask;
 import android.app.Activity;
 import android.os.Bundle;
