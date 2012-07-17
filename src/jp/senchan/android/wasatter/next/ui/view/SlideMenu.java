@@ -23,32 +23,32 @@ public class SlideMenu {
 	private static FrameLayout parent;
 	private static int menuSize;
 	private static int statusHeight = 0;
-	private Activity act;
+	private Activity mActivity;
 
-	public SlideMenu(Activity act) {
-		this.act = act;
+	public SlideMenu(Activity activity) {
+		mActivity = activity;
 	}
 
 	// call this in your onCreate() for screen rotation
 	public void checkEnabled() {
 		if (menuShown)
-			this.show(false);
+			show(false);
 	}
 
 	public void show() {
 		// get the height of the status bar
 		if (statusHeight == 0) {
 			Rect rectgle = new Rect();
-			Window window = act.getWindow();
+			Window window = mActivity.getWindow();
 			window.getDecorView().getWindowVisibleDisplayFrame(rectgle);
 			statusHeight = rectgle.top;
 		}
-		this.show(true);
+		show(true);
 	}
 
 	public void show(boolean animate) {
-		menuSize = Functions.dpToPx(250, act);
-		content = ((LinearLayout) act.findViewById(android.R.id.content)
+		menuSize = Functions.dpToPx(250, mActivity);
+		content = ((LinearLayout) mActivity.findViewById(android.R.id.content)
 				.getParent());
 		FrameLayout.LayoutParams parm = (FrameLayout.LayoutParams) content
 				.getLayoutParams();
@@ -60,14 +60,14 @@ public class SlideMenu {
 		if (animate)
 			content.startAnimation(ta);
 		parent = (FrameLayout) content.getParent();
-		LayoutInflater inflater = (LayoutInflater) act
+		LayoutInflater inflater = (LayoutInflater) mActivity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		menu = inflater.inflate(R.layout.menu, null);
 		FrameLayout.LayoutParams lays = new FrameLayout.LayoutParams(-1, -1, 3);
 		lays.setMargins(0, statusHeight, 0, 0);
 		menu.setLayoutParams(lays);
 		parent.addView(menu);
-		ListView list = (ListView) act.findViewById(R.id.menu_listview);
+		ListView list = (ListView) mActivity.findViewById(R.id.menu_listview);
 		list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -81,7 +81,7 @@ public class SlideMenu {
 				new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						SlideMenu.this.hide();
+						hide();
 					}
 				});
 		Functions.enableDisableViewGroup(
@@ -94,11 +94,11 @@ public class SlideMenu {
 				.setNavEnabled(false);
 		*/
 		menuShown = true;
-		this.fill();
+		fill();
 	}
 
 	public void fill() {
-		ListView list = (ListView) act.findViewById(R.id.menu_listview);
+		ListView list = (ListView) mActivity.findViewById(R.id.menu_listview);
 		MenuDesc[] items = new MenuDesc[5];
 		// fill the menu-items here
 		items[0] = new MenuDesc();
@@ -116,7 +116,7 @@ public class SlideMenu {
 		items[3].icon = R.drawable.ic_action_odai;
 		items[4].label = "Channel";
 		items[4].icon = R.drawable.ic_action_channel;
-		SlideMenuAdapter adap = new SlideMenuAdapter(act, items);
+		SlideMenuAdapter adap = new SlideMenuAdapter(mActivity, items);
 		list.setAdapter(adap);
 	}
 
