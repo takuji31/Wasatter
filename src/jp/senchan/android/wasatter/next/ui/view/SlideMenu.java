@@ -17,12 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class SlideMenu {
-	private static boolean menuShown = false;
-	private static View menu;
-	private static LinearLayout content;
-	private static FrameLayout parent;
-	private static int menuSize;
-	private static int statusHeight = 0;
+	private static boolean sMenuShown = false;
+	private static View sMenu;
+	private static LinearLayout sContent;
+	private static FrameLayout sParent;
+	private static int sMenuSize;
+	private static int sStatusHeight = 0;
 	private Activity mActivity;
 
 	public SlideMenu(Activity activity) {
@@ -31,42 +31,42 @@ public class SlideMenu {
 
 	// call this in your onCreate() for screen rotation
 	public void checkEnabled() {
-		if (menuShown)
+		if (sMenuShown)
 			show(false);
 	}
 
 	public void show() {
 		// get the height of the status bar
-		if (statusHeight == 0) {
+		if (sStatusHeight == 0) {
 			Rect rectgle = new Rect();
 			Window window = mActivity.getWindow();
 			window.getDecorView().getWindowVisibleDisplayFrame(rectgle);
-			statusHeight = rectgle.top;
+			sStatusHeight = rectgle.top;
 		}
 		show(true);
 	}
 
 	public void show(boolean animate) {
-		menuSize = Functions.dpToPx(250, mActivity);
-		content = ((LinearLayout) mActivity.findViewById(android.R.id.content)
+		sMenuSize = Functions.dpToPx(250, mActivity);
+		sContent = ((LinearLayout) mActivity.findViewById(android.R.id.content)
 				.getParent());
-		FrameLayout.LayoutParams parm = (FrameLayout.LayoutParams) content
+		FrameLayout.LayoutParams parm = (FrameLayout.LayoutParams) sContent
 				.getLayoutParams();
-		parm.setMargins(menuSize, 0, -menuSize, 0);
-		content.setLayoutParams(parm);
+		parm.setMargins(sMenuSize, 0, -sMenuSize, 0);
+		sContent.setLayoutParams(parm);
 		// animation for smooth slide-out
-		TranslateAnimation ta = new TranslateAnimation(-menuSize, 0, 0, 0);
+		TranslateAnimation ta = new TranslateAnimation(-sMenuSize, 0, 0, 0);
 		ta.setDuration(500);
 		if (animate)
-			content.startAnimation(ta);
-		parent = (FrameLayout) content.getParent();
+			sContent.startAnimation(ta);
+		sParent = (FrameLayout) sContent.getParent();
 		LayoutInflater inflater = (LayoutInflater) mActivity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		menu = inflater.inflate(R.layout.menu, null);
+		sMenu = inflater.inflate(R.layout.menu, null);
 		FrameLayout.LayoutParams lays = new FrameLayout.LayoutParams(-1, -1, 3);
-		lays.setMargins(0, statusHeight, 0, 0);
-		menu.setLayoutParams(lays);
-		parent.addView(menu);
+		lays.setMargins(0, sStatusHeight, 0, 0);
+		sMenu.setLayoutParams(lays);
+		sParent.addView(sMenu);
 		ListView list = (ListView) mActivity.findViewById(R.id.menu_listview);
 		list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -76,8 +76,8 @@ public class SlideMenu {
 			}
 		});
 		if (animate)
-			menu.startAnimation(ta);
-		menu.findViewById(R.id.overlay).setOnClickListener(
+			sMenu.startAnimation(ta);
+		sMenu.findViewById(R.id.overlay).setOnClickListener(
 				new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -85,7 +85,7 @@ public class SlideMenu {
 					}
 				});
 		Functions.enableDisableViewGroup(
-				(LinearLayout) parent.findViewById(android.R.id.content)
+				(LinearLayout) sParent.findViewById(android.R.id.content)
 						.getParent(), false);
 		/*
 		((ExtendedViewPager) act.findViewById(R.id.pager))
@@ -93,7 +93,7 @@ public class SlideMenu {
 		((ExtendedPagerTabStrip) act.findViewById(R.id.tabStrip))
 				.setNavEnabled(false);
 		*/
-		menuShown = true;
+		sMenuShown = true;
 		fill();
 	}
 
@@ -121,20 +121,20 @@ public class SlideMenu {
 	}
 
 	public void hide() {
-		TranslateAnimation ta = new TranslateAnimation(0, -menuSize, 0, 0);
+		TranslateAnimation ta = new TranslateAnimation(0, -sMenuSize, 0, 0);
 		ta.setDuration(500);
-		menu.startAnimation(ta);
-		parent.removeView(menu);
+		sMenu.startAnimation(ta);
+		sParent.removeView(sMenu);
 
-		TranslateAnimation tra = new TranslateAnimation(menuSize, 0, 0, 0);
+		TranslateAnimation tra = new TranslateAnimation(sMenuSize, 0, 0, 0);
 		tra.setDuration(500);
-		content.startAnimation(tra);
-		FrameLayout.LayoutParams parm = (FrameLayout.LayoutParams) content
+		sContent.startAnimation(tra);
+		FrameLayout.LayoutParams parm = (FrameLayout.LayoutParams) sContent
 				.getLayoutParams();
 		parm.setMargins(0, 0, 0, 0);
-		content.setLayoutParams(parm);
+		sContent.setLayoutParams(parm);
 		Functions.enableDisableViewGroup(
-				(LinearLayout) parent.findViewById(android.R.id.content)
+				(LinearLayout) sParent.findViewById(android.R.id.content)
 						.getParent(), true);
 		/*
 		((ExtendedViewPager) act.findViewById(R.id.pager))
@@ -142,6 +142,6 @@ public class SlideMenu {
 		((ExtendedPagerTabStrip) act.findViewById(R.id.tabStrip))
 				.setNavEnabled(true);
 		*/
-		menuShown = false;
+		sMenuShown = false;
 	}
 }
