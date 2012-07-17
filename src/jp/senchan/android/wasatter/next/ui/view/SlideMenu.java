@@ -31,8 +31,9 @@ public class SlideMenu {
 
 	// call this in your onCreate() for screen rotation
 	public void checkEnabled() {
-		if (sMenuShown)
+		if (sMenuShown) {
 			show(false);
+		}
 	}
 
 	public void show() {
@@ -57,8 +58,9 @@ public class SlideMenu {
 		// animation for smooth slide-out
 		TranslateAnimation ta = new TranslateAnimation(-sMenuSize, 0, 0, 0);
 		ta.setDuration(500);
-		if (animate)
+		if (animate) {
 			sContent.startAnimation(ta);
+		}
 		sParent = (FrameLayout) sContent.getParent();
 		LayoutInflater inflater = (LayoutInflater) mActivity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -75,8 +77,9 @@ public class SlideMenu {
 				// handle your menu-click
 			}
 		});
-		if (animate)
+		if (animate) {
 			sMenu.startAnimation(ta);
+		}
 		sMenu.findViewById(R.id.overlay).setOnClickListener(
 				new OnClickListener() {
 					@Override
