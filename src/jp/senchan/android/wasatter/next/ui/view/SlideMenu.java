@@ -119,6 +119,11 @@ public class SlideMenu {
 		SlideMenuAdapter adap = new SlideMenuAdapter(mActivity, items);
 		list.setAdapter(adap);
 	}
+	
+	public void setAdapter(SlideMenuAdapter adapter) {
+		ListView list = (ListView) mActivity.findViewById(R.id.menu_listview);
+		list.setAdapter(adapter);
+	}
 
 	public void hide() {
 		TranslateAnimation ta = new TranslateAnimation(0, -sMenuSize, 0, 0);
