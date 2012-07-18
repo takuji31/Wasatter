@@ -1,6 +1,6 @@
 package jp.senchan.android.wasatter.next.ui.view;
 
-class MenuDesc {
+class MenuItem {
 	public int icon;
 	public String label;
 }

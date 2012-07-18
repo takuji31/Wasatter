@@ -102,13 +102,13 @@ public class SlideMenu {
 
 	public void fill() {
 		ListView list = (ListView) mActivity.findViewById(R.id.menu_listview);
-		MenuDesc[] items = new MenuDesc[5];
+		MenuItem[] items = new MenuItem[5];
 		// fill the menu-items here
-		items[0] = new MenuDesc();
-		items[1] = new MenuDesc();
-		items[2] = new MenuDesc();
-		items[3] = new MenuDesc();
-		items[4] = new MenuDesc();
+		items[0] = new MenuItem();
+		items[1] = new MenuItem();
+		items[2] = new MenuItem();
+		items[3] = new MenuItem();
+		items[4] = new MenuItem();
 		items[0].label = "Profile";
 		items[0].icon = R.drawable.ic_action_profile;
 		items[1].label = "Timeline";

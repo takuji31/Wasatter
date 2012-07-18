@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 // just a simple adapter
 public class SlideMenuAdapter extends
-		ArrayAdapter<MenuDesc> {
+		ArrayAdapter<MenuItem> {
 	Activity act;
-	MenuDesc[] items;
+	MenuItem[] items;
 
 	static class ViewHolder {
 		public TextView label;
@@ -21,7 +21,7 @@ public class SlideMenuAdapter extends
 	}
 
 	public SlideMenuAdapter(Activity act,
-			MenuDesc[] items) {
+			MenuItem[] items) {
 		super(act, R.id.menu_label, items);
 		this.act = act;
 		this.items = items;
