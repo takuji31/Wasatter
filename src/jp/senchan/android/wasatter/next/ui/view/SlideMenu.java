@@ -24,6 +24,7 @@ public class SlideMenu {
 	private static int sMenuSize;
 	private static int sStatusHeight = 0;
 	private Activity mActivity;
+	private SlideMenuAdapter mAdapter;
 
 	public SlideMenu(Activity activity) {
 		mActivity = activity;
@@ -97,35 +98,11 @@ public class SlideMenu {
 				.setNavEnabled(false);
 		*/
 		sMenuShown = true;
-		fill();
+		list.setAdapter(mAdapter);
 	}
 
-	public void fill() {
-		ListView list = (ListView) mActivity.findViewById(R.id.menu_listview);
-		MenuItem[] items = new MenuItem[5];
-		// fill the menu-items here
-		items[0] = new MenuItem();
-		items[1] = new MenuItem();
-		items[2] = new MenuItem();
-		items[3] = new MenuItem();
-		items[4] = new MenuItem();
-		items[0].label = "Profile";
-		items[0].icon = R.drawable.ic_action_profile;
-		items[1].label = "Timeline";
-		items[1].icon = R.drawable.ic_action_timeline;
-		items[2].label = "Reply";
-		items[2].icon = R.drawable.ic_action_reply;
-		items[3].label = "Odai";
-		items[3].icon = R.drawable.ic_action_odai;
-		items[4].label = "Channel";
-		items[4].icon = R.drawable.ic_action_channel;
-		SlideMenuAdapter adap = new SlideMenuAdapter(mActivity, items);
-		list.setAdapter(adap);
-	}
-	
 	public void setAdapter(SlideMenuAdapter adapter) {
-		ListView list = (ListView) mActivity.findViewById(R.id.menu_listview);
-		list.setAdapter(adapter);
+		mAdapter = adapter;
 	}
 
 	public void hide() {

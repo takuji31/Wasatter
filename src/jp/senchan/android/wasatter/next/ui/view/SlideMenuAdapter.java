@@ -1,51 +1,46 @@
 package jp.senchan.android.wasatter.next.ui.view;
 
+import java.util.ArrayList;
+
 import jp.senchan.android.wasatter.R;
-import android.app.Activity;
-import android.view.LayoutInflater;
+import jp.senchan.lib.view.ArrayListAdapter;
+import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 // just a simple adapter
-public class SlideMenuAdapter extends
-		ArrayAdapter<MenuItem> {
-	Activity act;
-	MenuItem[] items;
+public class SlideMenuAdapter extends ArrayListAdapter<SlideMenuItem> {
+
+	public SlideMenuAdapter(Context context, ArrayList<SlideMenuItem> list) {
+		super(context, list);
+	}
 
 	static class ViewHolder {
 		public TextView label;
 		public ImageView icon;
 	}
 
-	public SlideMenuAdapter(Activity act,
-			MenuItem[] items) {
-		super(act, R.id.menu_label, items);
-		this.act = act;
-		this.items = items;
+	@Override
+	public int getViewLayoutId(int position) {
+		// TODO Auto-generated method stub
+		return R.layout.menu_listitem;
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		View rowView = convertView;
-		if (rowView == null) {
-			LayoutInflater inflater = act.getLayoutInflater();
-			rowView = inflater.inflate(R.layout.menu_listitem, null);
-			ViewHolder viewHolder = new ViewHolder();
-			viewHolder.label = (TextView) rowView
+	public View createView(int position, SlideMenuItem item, View v) {
+		ViewHolder holder = (ViewHolder) v.getTag();
+		if (holder == null) {
+			holder = new ViewHolder();
+			holder.label = (TextView) v
 					.findViewById(R.id.menu_label);
-			viewHolder.icon = (ImageView) rowView
+			holder.icon = (ImageView) v
 					.findViewById(R.id.menu_icon);
-			rowView.setTag(viewHolder);
+			v.setTag(holder);
 		}
-
-		ViewHolder holder = (ViewHolder) rowView.getTag();
-		String s = items[position].label;
+		String s = item.label;
 		holder.label.setText(s);
-		holder.icon.setImageResource(items[position].icon);
-
-		return rowView;
+		holder.icon.setImageResource(item.icon);
+		return v;
 	}
 }

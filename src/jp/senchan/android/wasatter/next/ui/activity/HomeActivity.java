@@ -1,5 +1,10 @@
 package jp.senchan.android.wasatter.next.ui.activity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -9,6 +14,8 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.next.ui.fragment.TimelineFragment;
 import jp.senchan.android.wasatter.next.ui.view.SlideMenu;
+import jp.senchan.android.wasatter.next.ui.view.SlideMenuAdapter;
+import jp.senchan.android.wasatter.next.ui.view.SlideMenuItem;
 
 public class HomeActivity extends WasatterActivity {
 
@@ -19,7 +26,29 @@ public class HomeActivity extends WasatterActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 		mMenu = new SlideMenu(this);
+		//TODO 後でちゃんと書く
+		SlideMenuItem[] items = new SlideMenuItem[5];
+		// fill the menu-items here
+		items[0] = new SlideMenuItem();
+		items[1] = new SlideMenuItem();
+		items[2] = new SlideMenuItem();
+		items[3] = new SlideMenuItem();
+		items[4] = new SlideMenuItem();
+		items[0].label = "Profile";
+		items[0].icon = R.drawable.ic_action_profile;
+		items[1].label = "Timeline";
+		items[1].icon = R.drawable.ic_action_timeline;
+		items[2].label = "Reply";
+		items[2].icon = R.drawable.ic_action_reply;
+		items[3].label = "Odai";
+		items[3].icon = R.drawable.ic_action_odai;
+		items[4].label = "Channel";
+		items[4].icon = R.drawable.ic_action_channel;
+		ArrayList<SlideMenuItem> item = new ArrayList<SlideMenuItem>(Arrays.asList(items));
+		SlideMenuAdapter adapter = new SlideMenuAdapter(this, item);
+		mMenu.setAdapter(adapter);
 		mMenu.checkEnabled();
+		
 		ActionBar ab = getSupportActionBar();
 		ab.setHomeButtonEnabled(true);
 		ab.setDisplayHomeAsUpEnabled(true);
