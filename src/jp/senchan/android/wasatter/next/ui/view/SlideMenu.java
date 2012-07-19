@@ -25,6 +25,7 @@ public class SlideMenu {
 	private static int sStatusHeight = 0;
 	private Activity mActivity;
 	private SlideMenuAdapter mAdapter;
+	private OnItemClickListener mItemClickListener;
 
 	public SlideMenu(Activity activity) {
 		mActivity = activity;
@@ -71,13 +72,7 @@ public class SlideMenu {
 		sMenu.setLayoutParams(lays);
 		sParent.addView(sMenu);
 		ListView list = (ListView) mActivity.findViewById(R.id.menu_listview);
-		list.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// handle your menu-click
-			}
-		});
+		list.setOnItemClickListener(mItemClickListener);
 		if (animate) {
 			sMenu.startAnimation(ta);
 		}
@@ -103,6 +98,10 @@ public class SlideMenu {
 
 	public void setAdapter(SlideMenuAdapter adapter) {
 		mAdapter = adapter;
+	}
+	
+	public void setOnItemClickListener(OnItemClickListener listener) {
+		mItemClickListener = listener;
 	}
 
 	public void hide() {
