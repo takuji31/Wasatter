@@ -210,7 +210,7 @@ public class TaskReloadTimeline extends
                 break;
             default:
                 boolean channel = this.mode == TaskReloadTimeline.MODE_CHANNEL;
-                Timeline adapter = new Timeline(this.listview.getContext(),
+                Timeline adapter = new Timeline(mActivity,
                         R.layout.old_timeline_row, result, channel);
                 if (!channel) {
                     adapter.sort(new StatusItemComparator());
@@ -221,6 +221,5 @@ public class TaskReloadTimeline extends
             this.listview.requestFocus();
         }
         Wasatter.main.layout_progress_timeline.setVisibility(View.GONE);
-        Wasatter.main.startImageDownload();
     }
 }

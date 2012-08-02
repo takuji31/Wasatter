@@ -14,7 +14,6 @@ import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.adapter.Odai;
 import jp.senchan.android.wasatter.adapter.Timeline;
 import jp.senchan.android.wasatter.adapter.WasatterAdapter;
-import jp.senchan.android.wasatter.task.TaskImageDownloadWithCache;
 import jp.senchan.android.wasatter.task.TaskReloadTimeline;
 import jp.senchan.android.wasatter.utils.SQLiteHelperImageStore;
 import android.app.AlertDialog;
@@ -206,10 +205,6 @@ public class TimelineActivity extends WasatterActivity {
         rt.execute();
     }
 
-    public void startImageDownload() {
-        new TaskImageDownloadWithCache(app()).execute();
-    }
-
     // メニューが生成される際に起動される。
     // この中でメニューのアイテムを追加したりする。
     @Override
@@ -387,7 +382,7 @@ public class TimelineActivity extends WasatterActivity {
             if (TimelineActivity.this.list_timeline == null) {
                 TimelineActivity.this.getTimeLine();
             } else {
-                Timeline adapter = new Timeline(getBaseContext(),
+                Timeline adapter = new Timeline(TimelineActivity.this,
                         R.id.timeline_list, TimelineActivity.this.list_timeline,
                         false);
                 TimelineActivity.this.ls.setAdapter(adapter);
@@ -404,7 +399,7 @@ public class TimelineActivity extends WasatterActivity {
             if (TimelineActivity.this.list_reply == null) {
                 TimelineActivity.this.getReply();
             } else {
-                Timeline adapter = new Timeline(getBaseContext(),
+                Timeline adapter = new Timeline(TimelineActivity.this,
                         R.id.timeline_list, TimelineActivity.this.list_reply, false);
                 TimelineActivity.this.ls.setAdapter(adapter);
                 TimelineActivity.this.ls.requestFocus();
@@ -420,7 +415,7 @@ public class TimelineActivity extends WasatterActivity {
             if (TimelineActivity.this.list_mypost == null) {
                 TimelineActivity.this.getMyPost();
             } else {
-                Timeline adapter = new Timeline(getBaseContext(),
+                Timeline adapter = new Timeline(TimelineActivity.this,
                         R.id.timeline_list, TimelineActivity.this.list_mypost,
                         false);
                 TimelineActivity.this.ls.setAdapter(adapter);
@@ -457,7 +452,7 @@ public class TimelineActivity extends WasatterActivity {
             // チャンネルの内容取ってたら表示する。
             if (TimelineActivity.this.list_channel != null) {
                 Timeline adapter = new Timeline(
-                        TimelineActivity.this.ls.getContext(),
+                		TimelineActivity.this,
                         R.layout.old_timeline_row, TimelineActivity.this.list_channel,
                         true);
                 TimelineActivity.this.ls.setAdapter(adapter);

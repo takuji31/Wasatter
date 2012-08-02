@@ -4,10 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.androidquery.AQuery;
+
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.next.Functions;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.SpannableStringBuilder;
@@ -25,17 +29,22 @@ public class Timeline extends ArrayAdapter<WasatterItem> implements
 
     private ArrayList<WasatterItem> items;
     private LayoutInflater inflater;
+    private WasatterActivity mActivity;
 
-    public Timeline(Context context, int textViewResourceId,
+    public Timeline(WasatterActivity context, int textViewResourceId,
             ArrayList<WasatterItem> items, boolean channel) {
         super(context, textViewResourceId, items);
+        mActivity = context;
         this.items = items;
         this.inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public View getView(int position, View view, ViewGroup parent) {
-        if (view == null) {
+
+    	Wasatter app = mActivity.app();
+    	
+    	if (view == null) {
             // 受け取ったビューがnullなら新しくビューを生成
             view = this.inflater.inflate(R.layout.old_timeline_row, null);
         }
@@ -78,16 +87,13 @@ public class Timeline extends ArrayAdapter<WasatterItem> implements
                 reply_name.setVisibility(View.GONE);
             }
             // アイコンをロードする。
-            Bitmap image = Wasatter.images.get(item.profileImageUrl);
-            ImageView icon = (ImageView) view.findViewById(R.id.icon);
-            /*
-            if (!Setting.isLoadImage()) {
-                icon.setVisibility(View.GONE);
+            AQuery aq = new AQuery(view);
+            aq.id(R.id.icon);
+            if (app.isImageLoadEnabled()) {
+            	aq.image(item.profileImageUrl, true, true, 0, R.drawable.ic_default_user_icon);
             } else {
-            */
-                icon.setImageBitmap(image);
-                icon.setVisibility(View.VISIBLE);
-            //}
+                aq.image(R.drawable.ic_default_user_icon);
+            }
             // サービス名をビューにセットする
             TextView service = (TextView) view.findViewById(R.id.service_name);
             if (service != null) {
@@ -110,17 +116,18 @@ public class Timeline extends ArrayAdapter<WasatterItem> implements
                 layout_favorite_icons.removeAllViews();
                 layout_favorite_icons.addView(tv);
                 layout_favorite_list.setVisibility(View.VISIBLE);
-                //if (Setting.isLoadFavoriteImage()) {
+                int favoriteIconSize = Functions.dpToPx(16, mActivity);
+                int mergin = 2;
+                if (app.isLoadFavoriteImage()) {
                     for (int i = 0; i < count; i++) {
                         ImageView add_icon = new ImageView(view.getContext());
-                        add_icon.setImageBitmap(Wasatter.images
-                                .get(WassrClient.FAVORITE_ICON_URL.replace(
-                                        "[user]", favorites.get(i))));
-                        add_icon.setLayoutParams(new LayoutParams(28, 28));
-                        add_icon.setPadding(2, 2, 2, 2);
+                        AQuery icon_aq = new AQuery(add_icon);
+                        add_icon.setLayoutParams(new LayoutParams(favoriteIconSize, favoriteIconSize));
+                        add_icon.setPadding(mergin, mergin, mergin, mergin);
+                        icon_aq.image(WassrClient.FAVORITE_ICON_URL.replace("[user]", favorites.get(i)), true, false);
                         layout_favorite_icons.addView(add_icon);
                     }
-                //}
+                }
             }
 
             // 投稿日時表示するぜヒャッハー

@@ -289,6 +289,10 @@ public class Wasatter extends BaseApp {
 		setPref(PrefKey.TWITTER_TOKEN, token.getToken());
 		setPref(PrefKey.TWITTER_TOKEN_SECRET, token.getTokenSecret());
 	}
+	
+	public boolean isImageLoadEnabled() {
+		return getPref(PrefKey.IMAGE_LOAD_ENABLED, true);
+	}
 
 
 }
