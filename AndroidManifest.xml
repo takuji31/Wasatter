@@ -26,39 +26,27 @@
         </activity>
         <activity
             android:configChanges="orientation"
-            android:name=".ui.TimelineActivity" >
+            android:name=".app.TimelineActivity" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="New post"
-            android:name=".ui.Update" >
+            android:name=".app.Update" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="Setting"
-            android:name=".ui.Setting" >
+            android:name=".app.Setting" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="Status"
-            android:name=".ui.Detail" >
+            android:name=".app.Detail" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="Get OAuth token"
-            android:name=".ui.OAuthToken" >
-        </activity>
-        <activity android:name=".ui.oauth.twitter.OAuthCallback" >
-            <intent-filter >
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="callback.twitter"
-                    android:scheme="wasatter" />
-            </intent-filter>
+            android:name=".app.OAuthToken" >
         </activity>
         <activity android:name=".next.ui.activity.AccountListActivity"></activity>
         <activity android:name=".next.ui.activity.ConfigHomeActivity"></activity>

@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.ui;
+package jp.senchan.android.wasatter.app;
 
 import com.androidquery.AQuery;
 

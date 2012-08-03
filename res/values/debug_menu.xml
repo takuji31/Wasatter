@@ -9,7 +9,7 @@
     </string-array>
     <string-array name="debug_menu_class">
         <item>.next.ui.activity.PostActivity</item>
-        <item>.ui.TimelineActivity</item>
+        <item>.app.TimelineActivity</item>
         <item>.next.ui.activity.AccountListActivity</item>
         <item>.next.ui.activity.HomeActivity</item>
     </string-array>

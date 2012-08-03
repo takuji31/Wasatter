@@ -1,7 +1,7 @@
 /**
  *
  */
-package jp.senchan.android.wasatter.ui;
+package jp.senchan.android.wasatter.app;
 
 import jp.senchan.android.wasatter.R;
 import android.content.Intent;

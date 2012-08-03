@@ -5,10 +5,10 @@ import java.util.regex.Pattern;
 
 import twitter4j.auth.AccessToken;
 
+import jp.senchan.android.wasatter.app.TimelineActivity;
 import jp.senchan.android.wasatter.client.TwitterClient;
 import jp.senchan.android.wasatter.client.WassrClient;
 import jp.senchan.android.wasatter.next.PrefKey;
-import jp.senchan.android.wasatter.ui.TimelineActivity;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.lib.BaseApp;
 
