@@ -54,6 +54,6 @@ public class PostFragment extends WasatterFragment implements OnImagePickedLisnt
 	public void onImagePicked(Bitmap image) {
 		// TODO 画像をpickした後の処理
 		AQuery aq = new AQuery(activity(), getView());
-		aq.id(R.id.previewImageView).image(image);
+		aq.id(R.id.imageViewPreview).image(image);
 	}
 }

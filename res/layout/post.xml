@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editTextBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:ems="10"
-        android:inputType="textMultiLine" android:minLines="3" android:hint="@string/hint_status">
+        android:hint="@string/hint_status"
+        android:inputType="textMultiLine"
+        android:minLines="3" >
 
         <requestFocus />
     </EditText>
 
+    <TextView
+        android:id="@+id/textViewLabelPostTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editTextBody"
+        android:layout_marginLeft="5dp"
+        android:text="Post to:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textViewPostTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewLabelPostTo"
+        android:layout_alignBottom="@+id/textViewLabelPostTo"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/textViewLabelPostTo"
+        android:text="Wassr,Twitter"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <ImageView
-        android:id="@+id/previewImageView"
+        android:id="@+id/imageViewPreview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+</RelativeLayout>

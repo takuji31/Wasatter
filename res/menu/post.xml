@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/menu_post" android:showAsAction="ifRoom" android:title="@string/title_post" android:icon="@android:drawable/ic_menu_send"></item>
-    <item android:id="@+id/menu_image" android:showAsAction="ifRoom" android:icon="@android:drawable/ic_menu_gallery" android:title="@string/title_select_image"></item>
+    
+    <item android:id="@+id/menu_post" android:showAsAction="ifRoom" android:title="@string/title_post" android:icon="@android:drawable/ic_menu_send"></item><item android:id="@+id/menu_image" android:icon="@android:drawable/ic_menu_gallery" android:title="@string/title_attach_image"></item><item android:id="@+id/menu_service" android:title="@string/title_service" android:icon="@drawable/ic_action_service"></item>
+    
     
 
 </menu>
