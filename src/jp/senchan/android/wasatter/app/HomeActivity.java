@@ -62,6 +62,7 @@ public class HomeActivity extends WasatterActivity {
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		if (android.R.id.home == item.getItemId()) {
 			mMenu.show();
+			return true;
 		}
 		return super.onMenuItemSelected(featureId, item);
 	}
