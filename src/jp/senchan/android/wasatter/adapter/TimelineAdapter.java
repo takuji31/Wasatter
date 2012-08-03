@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.next.ui.adapter;
+package jp.senchan.android.wasatter.adapter;
 
 import java.util.ArrayList;
 
