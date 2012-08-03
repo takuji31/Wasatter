@@ -1,5 +1,7 @@
 package jp.senchan.android.wasatter.ui;
 
+import com.androidquery.AQuery;
+
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.ResultCode;
 import jp.senchan.android.wasatter.Wasatter;
@@ -53,13 +55,12 @@ public class Detail extends WasatterActivity {
             TextView status = (TextView) this.findViewById(R.id.status);
             status.setText(wss.text);
             // 画像をセット
-            ImageView icon = (ImageView) this.findViewById(R.id.icon);
-            Bitmap bmp = Wasatter.images.get(wss.profileImageUrl);
-            if (bmp != null && app().isLoadImage()) {
-                icon.setImageBitmap(bmp);
-                icon.setVisibility(View.VISIBLE);
+            AQuery aq = new AQuery(this);
+            aq.id(R.id.icon);
+            if (app().isLoadImage()) {
+            	aq.image(wss.profileImageUrl, true, true, 0, R.drawable.ic_default_user_icon);
             } else {
-                icon.setVisibility(View.GONE);
+            	aq.image(R.drawable.ic_default_user_icon);
             }
             // 返信であるかどうか判定
             if (wss.replyUserNick != null && !wss.replyUserNick.equals("null")) {
