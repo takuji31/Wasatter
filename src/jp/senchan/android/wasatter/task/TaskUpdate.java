@@ -3,7 +3,7 @@ package jp.senchan.android.wasatter.task;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
-import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.client.OldWassrClient;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -27,7 +27,7 @@ public class TaskUpdate extends AsyncTask<String, String, Void> {
         mActivity = activity;
     }
     
-    private WassrClient client (){
+    private OldWassrClient client (){
     	return mActivity.app().wassrClient;
     }
 

@@ -7,7 +7,7 @@ import twitter4j.auth.AccessToken;
 
 import jp.senchan.android.wasatter.app.TimelineActivity;
 import jp.senchan.android.wasatter.client.TwitterClient;
-import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.client.OldWassrClient;
 import jp.senchan.android.wasatter.next.PrefKey;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.lib.BaseApp;
@@ -33,14 +33,14 @@ public class Wasatter extends BaseApp {
 
 	private static final int PREF_VERSION = 1;
 
-	public WassrClient wassrClient;
+	public OldWassrClient wassrClient;
 	public TwitterClient twitterClient;
 	public WasatterItem selected;
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		wassrClient = new WassrClient(this);
+		wassrClient = new OldWassrClient(this);
 		twitterClient = new TwitterClient(this);
 		
 		if(getPrefVersion() == 0) {

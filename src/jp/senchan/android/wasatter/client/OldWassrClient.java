@@ -29,7 +29,7 @@ import android.text.SpannableStringBuilder;
  * @author Senka/Takuji
  *
  */
-public class WassrClient {
+public class OldWassrClient {
     private static final String FRIEND_TIMELINE_URL = "http://api.wassr.jp/statuses/friends_timeline.json";
     private static final String CHANNEL_TIMELINE_URL = "http://api.wassr.jp/channel_message/list.json?name_en=[name]";
     private static final String CHANNEL_PERMA_LINK = "http://wassr.jp/channel/[name]/messages/[rid]";
@@ -46,25 +46,25 @@ public class WassrClient {
     private HttpClientWrapper httpClient = new HttpClientWrapper();
     private Wasatter app;
 
-    public WassrClient(Wasatter app) {
+    public OldWassrClient(Wasatter app) {
 	    httpClient = new HttpClientWrapper();
 	    this.app = app;
 	}
 
     public ArrayList<WasatterItem> getTimeLine() throws TwitterException {
-        return getItems(WassrClient.FRIEND_TIMELINE_URL, false);
+        return getItems(OldWassrClient.FRIEND_TIMELINE_URL, false);
     }
 
     public ArrayList<WasatterItem> getReply() throws TwitterException {
-        return getItems(WassrClient.REPLY_URL, false);
+        return getItems(OldWassrClient.REPLY_URL, false);
     }
 
     public ArrayList<WasatterItem> getMyPost() throws TwitterException {
-        return getItems(WassrClient.MYPOST_URL, false);
+        return getItems(OldWassrClient.MYPOST_URL, false);
     }
 
     public ArrayList<WasatterItem> getOdai() throws TwitterException {
-        return getItems(WassrClient.ODAI_URL, false);
+        return getItems(OldWassrClient.ODAI_URL, false);
     }
 
     public ArrayList<WasatterItem> getChannel(String name)
@@ -77,7 +77,7 @@ public class WassrClient {
             throws TwitterException {
         ArrayList<WasatterItem> ret = new ArrayList<WasatterItem>();
         if (!app.isWassrEnabled()
-                || (!app.isLoadWassrTimeline() && WassrClient.FRIEND_TIMELINE_URL
+                || (!app.isLoadWassrTimeline() && OldWassrClient.FRIEND_TIMELINE_URL
                         .equals(url))) {
             return ret;
         }
@@ -161,7 +161,7 @@ public class WassrClient {
         }
         JSONArray result;
         try {
-            result = httpClient.get(WassrClient.CHANNEL_LIST_URL, getAuthorization())
+            result = httpClient.get(OldWassrClient.CHANNEL_LIST_URL, getAuthorization())
                     .asJSONObject().getJSONArray("channels");
             int j = result.length();
             for (int i = 0; i < j; i++) {

@@ -8,7 +8,7 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterItem;
-import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.client.OldWassrClient;
 import jp.senchan.android.wasatter.next.Functions;
 import android.content.Context;
 import android.text.SpannableStringBuilder;
@@ -123,7 +123,7 @@ public class Timeline extends ArrayAdapter<WasatterItem> implements
                         AQuery icon_aq = new AQuery(add_icon);
                         add_icon.setLayoutParams(new LayoutParams(favoriteIconSize, favoriteIconSize));
                         add_icon.setPadding(mergin, mergin, mergin, mergin);
-                        icon_aq.image(WassrClient.FAVORITE_ICON_URL.replace("[user]", favorites.get(i)), true, false);
+                        icon_aq.image(OldWassrClient.FAVORITE_ICON_URL.replace("[user]", favorites.get(i)), true, false);
                         layout_favorite_icons.addView(add_icon);
                     }
                 }
