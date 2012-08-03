@@ -10,7 +10,7 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterListFragment;
 import jp.senchan.android.wasatter.adapter.TimelineAdapter;
-import jp.senchan.android.wasatter.next.client.NewWassrClient;
+import jp.senchan.android.wasatter.client.NewWassrClient;
 import jp.senchan.android.wasatter.next.listener.APICallback;
 import jp.senchan.android.wasatter.next.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.next.model.api.WassrStatus;

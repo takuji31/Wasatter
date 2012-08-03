@@ -1,6 +1,6 @@
 package jp.senchan.android.wasatter.next.task;
 
-import jp.senchan.android.wasatter.next.client.NewWassrClient;
+import jp.senchan.android.wasatter.client.NewWassrClient;
 import jp.senchan.android.wasatter.next.exception.WassrException;
 import jp.senchan.android.wasatter.next.listener.OnAuthenticationResultListener;
 import jp.senchan.lib.os.AsyncTaskCompat;
