@@ -10,7 +10,7 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterListFragment;
 import jp.senchan.android.wasatter.adapter.TimelineAdapter;
-import jp.senchan.android.wasatter.client.NewWassrClient;
+import jp.senchan.android.wasatter.client.WassrClient;
 import jp.senchan.android.wasatter.next.listener.APICallback;
 import jp.senchan.android.wasatter.next.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.next.model.api.WassrStatus;
@@ -28,7 +28,7 @@ public class TimelineFragment extends WasatterListFragment {
 		if (mTimeline == null) {
 			final Wasatter app = app();
 			
-			new NewWassrClient(app.getWassrId(), app.getWassrPass()).friendTimeline(1, mAquery, new APICallback<ArrayList<WasatterStatus>>() {
+			new WassrClient(app.getWassrId(), app.getWassrPass()).friendTimeline(1, mAquery, new APICallback<ArrayList<WasatterStatus>>() {
 				
 				@Override
 				public void callback(String url, ArrayList<WasatterStatus> result,

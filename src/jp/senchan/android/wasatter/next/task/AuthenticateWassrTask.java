@@ -1,6 +1,6 @@
 package jp.senchan.android.wasatter.next.task;
 
-import jp.senchan.android.wasatter.client.NewWassrClient;
+import jp.senchan.android.wasatter.client.WassrClient;
 import jp.senchan.android.wasatter.next.exception.WassrException;
 import jp.senchan.android.wasatter.next.listener.OnAuthenticationResultListener;
 import jp.senchan.lib.os.AsyncTaskCompat;
@@ -18,7 +18,7 @@ public class AuthenticateWassrTask extends AsyncTaskCompat<String, Integer, Bool
 		String loginId = params[0];
 		String password = params[1];
 
-		NewWassrClient client = new NewWassrClient(loginId, password);
+		WassrClient client = new WassrClient(loginId, password);
 
 		//FriendTimelineを見てちゃんと認証できてるか確認
 		try {

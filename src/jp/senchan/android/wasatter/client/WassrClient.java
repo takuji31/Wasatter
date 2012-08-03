@@ -28,7 +28,7 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
-public class NewWassrClient {
+public class WassrClient {
 
 	private static final String HOST = "api.wassr.jp";
 	private static final int PORT = 80;
@@ -38,7 +38,7 @@ public class NewWassrClient {
 	private String mLoginId;
 	private String mPassword;
 
-	public NewWassrClient(String loginId, String password) {
+	public WassrClient(String loginId, String password) {
 		mLoginId = loginId;
 		mPassword = password;
 	}
