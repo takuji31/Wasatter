@@ -134,10 +134,6 @@ public class WassrClient {
                 }
                 String profile = obj.getJSONObject("user").getString(
                         "profile_image_url");
-                if (Wasatter.downloadWaitUrls.indexOf(profile) == -1
-                        && Wasatter.images.get(profile) == null) {
-                    Wasatter.downloadWaitUrls.add(profile);
-                }
                 ws.profileImageUrl = profile;
                 if ("null".equalsIgnoreCase(ws.replyMessage)) {
                     ws.replyMessage = this.app.getString(R.string.message_private_message);
@@ -146,14 +142,7 @@ public class WassrClient {
                 // お題のイイネは取得しない。
                 int fav_count = favorites.length();
                 for (int k = 0; k < fav_count; k++) {
-                    String icon_url = WassrClient.FAVORITE_ICON_URL.replace(
-                            "[user]", favorites.getString(k));
                     ws.favorite.add(favorites.getString(k));
-                    if (!WassrClient.ODAI_URL.equals(url)
-                            && Wasatter.downloadWaitUrls.indexOf(icon_url) == -1
-                            && Wasatter.images.get(icon_url) == null) {
-                        Wasatter.downloadWaitUrls.add(icon_url);
-                    }
                 }
                 ws.favorited = ws.favorite.indexOf(app.getWassrId()) != -1;
                 ret.add(ws);

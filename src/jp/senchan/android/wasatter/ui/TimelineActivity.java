@@ -1,6 +1,5 @@
 package jp.senchan.android.wasatter.ui;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import com.actionbarsherlock.view.Menu;
@@ -15,15 +14,11 @@ import jp.senchan.android.wasatter.adapter.Odai;
 import jp.senchan.android.wasatter.adapter.Timeline;
 import jp.senchan.android.wasatter.adapter.WasatterAdapter;
 import jp.senchan.android.wasatter.task.TaskReloadTimeline;
-import jp.senchan.android.wasatter.utils.SQLiteHelperImageStore;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.view.View;
@@ -159,7 +154,6 @@ public class TimelineActivity extends WasatterActivity {
             adb.setPositiveButton("OK", new OpenSettingClickListener());
             adb.show();
         } else if (this.first_load) {
-            this.loadCache();
             this.doReloadTask(this.mode);
         } else if (this.from_config) {
             WasatterAdapter adapter = (WasatterAdapter) this.ls.getAdapter();
@@ -329,33 +323,6 @@ public class TimelineActivity extends WasatterActivity {
         ad.setMessage(sb.toString());
         ad.setPositiveButton("OK", null);
         ad.show();
-    }
-
-    public void loadCache() {
-        SQLiteHelperImageStore imageStore = app().imageStore;
-        SQLiteDatabase db = imageStore.getReadableDatabase();
-        SQLiteDatabase dbw = imageStore.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from imagestore", null);
-        c.moveToFirst();
-        int count = c.getCount();
-        for (int i = 0; i < count; i++) {
-            String url = c.getString(0);
-            String imageName = c.getString(1);
-            long created = c.getLong(2);
-            if (created > Wasatter.cacheExpire()) {
-                Wasatter.images.put(url, app().getImage(imageName));
-            } else {
-                SQLiteStatement st = dbw
-                        .compileStatement("delete from imagestore where url=?");
-                st.bindString(1, url);
-                st.execute();
-                File file = new File(new SpannableStringBuilder(
-                        app().getImagePath()).append(imageName).toString());
-                file.delete();
-            }
-            c.moveToNext();
-        }
-        c.close();
     }
 
     @Override

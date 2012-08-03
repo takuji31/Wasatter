@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.androidquery.AQuery;
-
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
@@ -13,7 +11,6 @@ import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.client.WassrClient;
 import jp.senchan.android.wasatter.next.Functions;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +20,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.androidquery.AQuery;
 
 public class Timeline extends ArrayAdapter<WasatterItem> implements
         WasatterAdapter {

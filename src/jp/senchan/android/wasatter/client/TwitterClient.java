@@ -89,10 +89,6 @@ public class TwitterClient {
                         .replace("[rid]", ws.rid);
                 String profile = obj.getJSONObject("user").getString(
                         "profile_image_url");
-                if (Wasatter.downloadWaitUrls.indexOf(profile) == -1
-                        && Wasatter.images.get(profile) == null) {
-                    Wasatter.downloadWaitUrls.add(profile);
-                }
                 ws.profileImageUrl = profile;
                 ws.replyUserNick = obj.getString("in_reply_to_screen_name");
                 ws.epoch = sdf.parse(obj.getString("created_at")).getTime() / 1000;

@@ -1,15 +1,5 @@
 package jp.senchan.android.wasatter;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,18 +9,10 @@ import jp.senchan.android.wasatter.client.TwitterClient;
 import jp.senchan.android.wasatter.client.WassrClient;
 import jp.senchan.android.wasatter.next.PrefKey;
 import jp.senchan.android.wasatter.ui.TimelineActivity;
-import jp.senchan.android.wasatter.utils.SQLiteHelperImageStore;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.lib.BaseApp;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.text.SpannableStringBuilder;
 
 public class Wasatter extends BaseApp {
 	public static final String AGENT = "Wasatter for Android";
@@ -41,8 +23,6 @@ public class Wasatter extends BaseApp {
 	private static final String REGEX_URL = "https?://[^\\s]+";
 	public static final String ODAI_DATE_FORMAT = "yyyy/MM/dd";
 	public static final String REPLY = "reply";
-	public static ArrayList<String> downloadWaitUrls = new ArrayList<String>();
-	public static HashMap<String, Bitmap> images = new HashMap<String, Bitmap>();
 	public static final int FILENAME_LENGTH = 5;
 	private static String ERROR_AUTH = "401";
 	private static String ERROR_TMP = "503";
@@ -53,7 +33,6 @@ public class Wasatter extends BaseApp {
 
 	private static final int PREF_VERSION = 1;
 
-	public SQLiteHelperImageStore imageStore;
 	public WassrClient wassrClient;
 	public TwitterClient twitterClient;
 	public WasatterItem selected;
@@ -61,11 +40,9 @@ public class Wasatter extends BaseApp {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		imageStore = new SQLiteHelperImageStore(this);
 		wassrClient = new WassrClient(this);
 		twitterClient = new TwitterClient(this);
 		
-		Resources res = getResources();
 		if(getPrefVersion() == 0) {
 		    //TODO バージョンアップに必要な処理
 		    //イメージストアのDBファイル削除
@@ -78,10 +55,6 @@ public class Wasatter extends BaseApp {
 		}
 	}
 
-	public static long cacheExpire() {
-		return new Date().getTime() / 1000 - 2 * 24 * 60 * 60;
-	}
-
 	public static String getUrl(String text) {
 		Pattern pt = Pattern.compile(Wasatter.REGEX_URL,
 				Pattern.CASE_INSENSITIVE);
@@ -90,99 +63,6 @@ public class Wasatter extends BaseApp {
 			return mc.group();
 		}
 		return "";
-	}
-
-	public String makeImageFileName() {
-		String names = "abcdefghijklmnopqrstuvwxyz0123456789";
-		SpannableStringBuilder path = new SpannableStringBuilder();
-		path.append(getImagePath());
-		SpannableStringBuilder ret = new SpannableStringBuilder();
-		int max = 35;
-		Random ran = new Random(new Date().getTime());
-		for (int i = 0; i < FILENAME_LENGTH; i++) {
-			int j = ran.nextInt(max + 1);
-			ret.append(names.charAt(j));
-		}
-		ret.append(".png");
-		path.append(ret);
-		// 存在しないファイル名になるまで再帰呼び出し
-		if (new File(path.toString()).exists()) {
-			return makeImageFileName();
-		} else {
-			return ret.toString();
-		}
-	}
-
-	public boolean saveImage(String name, byte[] data) {
-		// ファイル名の生成
-		SpannableStringBuilder path = new SpannableStringBuilder();
-		path.append(getImagePath());
-		path.append(name);
-		File save = new File(path.toString());
-		// 親ディレクトリがなければ生成する
-		save.getParentFile().mkdirs();
-		OutputStream out = null;
-		try {
-			// ファイル出力ストリームのオープン
-			out = new FileOutputStream(path.toString());
-
-			// バイト配列の書き込み
-			out.write(data, 0, data.length);
-
-			// ファイル出力ストリームのクローズ
-			out.close();
-			return true;
-		} catch (Exception e) {
-			try {
-				if (out != null)
-					out.close();
-			} catch (Exception e2) {
-			}
-			return false;
-		}
-	}
-
-	public Bitmap getImage(String name) {
-		// ファイル名の生成
-		SpannableStringBuilder path = new SpannableStringBuilder();
-		path.append(getImagePath());
-		path.append(name);
-		try {
-			return BitmapFactory.decodeStream(new FileInputStream(path
-					.toString()));
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	public void deleteImage(String name) {
-		try {
-			File file = new File(new SpannableStringBuilder(getImagePath())
-					.append(name).toString());
-			file.delete();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
-
-	public String getImagePath() {
-		return getDir("imagecache", Context.MODE_PRIVATE).toString();
-	}
-
-	public void deleteImageCache() {
-		Wasatter.images.clear();
-		SQLiteDatabase rdb = imageStore.getReadableDatabase();
-		SQLiteDatabase wdb = imageStore.getWritableDatabase();
-		Cursor c = rdb.rawQuery("select filename from imagestore", null);
-		c.moveToFirst();
-		int count = c.getCount();
-		for (int i = 0; i < count; i++) {
-			String imageName = c.getString(0);
-			deleteImage(imageName);
-			c.moveToNext();
-		}
-		c.close();
-		wdb.execSQL("delete from imagestore");
 	}
 
 	// TODO リソース外出し、というかそもそもこんなにエラー詳しくないほうがよいのではないか
