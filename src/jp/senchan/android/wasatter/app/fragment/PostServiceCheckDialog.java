@@ -35,4 +35,10 @@ public class PostServiceCheckDialog extends WasatterDialogFragment {
 		});
 		return builder.create();
 	}
+	
+	
+	
+	public interface OnPostServiceSelectedListener {
+		public void onPostServiceSelected(boolean[] selected);
+	}
 }
