@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.next.ui.view;
+package jp.senchan.android.wasatter.view;
 
 //source: http://blog.svpino.com/2011/08/disabling-pagingswiping-on-android.html
 

@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.next.ui.view;
+package jp.senchan.android.wasatter.view;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.next.Functions;

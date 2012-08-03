@@ -13,9 +13,9 @@ import android.support.v4.app.Fragment;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.next.ui.fragment.TimelineFragment;
-import jp.senchan.android.wasatter.next.ui.view.SlideMenu;
-import jp.senchan.android.wasatter.next.ui.view.SlideMenuAdapter;
-import jp.senchan.android.wasatter.next.ui.view.SlideMenuItem;
+import jp.senchan.android.wasatter.view.SlideMenu;
+import jp.senchan.android.wasatter.view.SlideMenuAdapter;
+import jp.senchan.android.wasatter.view.SlideMenuItem;
 
 public class HomeActivity extends WasatterActivity {
 

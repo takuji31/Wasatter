@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.next.ui.view;
+package jp.senchan.android.wasatter.view;
 
 public class SlideMenuItem {
 	public int icon;

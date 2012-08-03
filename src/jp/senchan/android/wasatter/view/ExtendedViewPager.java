@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.next.ui.view;
+package jp.senchan.android.wasatter.view;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
