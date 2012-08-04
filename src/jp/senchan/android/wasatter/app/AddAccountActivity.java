@@ -1,9 +1,9 @@
-package jp.senchan.android.wasatter.next.ui.activity;
+package jp.senchan.android.wasatter.app;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.WasatterActivity;
-import jp.senchan.android.wasatter.next.ui.fragment.SetTwitterAccountFragment;
-import jp.senchan.android.wasatter.next.ui.fragment.SetWassrAccountFragment;
+import jp.senchan.android.wasatter.app.fragment.SetTwitterAccountFragment;
+import jp.senchan.android.wasatter.app.fragment.SetWassrAccountFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

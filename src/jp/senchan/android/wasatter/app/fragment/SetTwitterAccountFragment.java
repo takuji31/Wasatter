@@ -1,8 +1,9 @@
-package jp.senchan.android.wasatter.next.ui.fragment;
+package jp.senchan.android.wasatter.app.fragment;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 
 import twitter4j.auth.AccessToken;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class SetTwitterAccountFragment extends WasatterFragment implements OnURL
 	NewTwitterOAuthClient mClient;
 	private WebView mWebView;
 
+	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -77,6 +79,7 @@ public class SetTwitterAccountFragment extends WasatterFragment implements OnURL
 		SherlockDialogFragment f = (SherlockDialogFragment) fm.findFragmentByTag(TAG_DIALOG);
 		if(f != null) {
 			f.dismiss();
+			fm.beginTransaction().remove(f).commit();
 		}
 	}
 

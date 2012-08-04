@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.next.ui.fragment;
+package jp.senchan.android.wasatter.app.fragment;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.ResultCode;

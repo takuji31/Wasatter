@@ -4,14 +4,16 @@
     <string-array name="debug_menu_label">
         <item>Post</item>
         <item>Original</item>
-        <item>Account</item>
         <item>Home</item>
+        <item >Config</item>
+        <item >OldVersionConfig</item>
     </string-array>
     <string-array name="debug_menu_class">
         <item>.next.ui.activity.PostActivity</item>
         <item>.app.TimelineActivity</item>
-        <item>.next.ui.activity.AccountListActivity</item>
-        <item>.next.ui.activity.HomeActivity</item>
+        <item>.app.HomeActivity</item>
+        <item >.app.ConfigActivity</item>
+        <item >.app.debug.ConfigActivity</item>
     </string-array>
 
 </resources>
