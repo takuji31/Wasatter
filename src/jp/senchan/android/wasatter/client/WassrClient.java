@@ -98,7 +98,7 @@ public class WassrClient {
 						}
 					}
 				}
-				callback.callback(url, results, status);
+				callback.callback(url, results, status.getCode());
 			}
 		};
 		aq.auth(new BasicHandle(mLoginId, mPassword));

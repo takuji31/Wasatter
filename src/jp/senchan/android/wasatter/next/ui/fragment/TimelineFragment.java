@@ -32,8 +32,8 @@ public class TimelineFragment extends WasatterListFragment {
 				
 				@Override
 				public void callback(String url, ArrayList<WasatterStatus> result,
-						AjaxStatus status) {
-					if (status.getCode() != 200) {
+						int status) {
+					if (status != 200) {
 						app.toast(R.string.message_something_wrong).show();
 					}
 					mAdapter = new TimelineAdapter(getActivity(), result);
