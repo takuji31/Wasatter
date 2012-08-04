@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <PreferenceScreen
-        android:title="Twitter" >
-         <intent
-          android:action="android.intent.action.MAIN"
-          android:targetPackage="jp.senchan.android.wasatter"
-          android:targetClass="jp.senchan.android.wasatter.app.AddAccountActivity" >
-      <extra android:name="service" android:value="@integer/service_id_twitter" />
-     </intent>
-    </PreferenceScreen>
-    <PreferenceScreen
-        android:title="Wassr" >
-         <intent
-          android:action="android.intent.action.MAIN"
-          android:targetPackage="jp.senchan.android.wasatter"
-          android:targetClass="jp.senchan.android.wasatter.app.AddAccountActivity" >
-      <extra android:name="service" android:value="@integer/service_id_wassr" />
-     </intent>
-    </PreferenceScreen>
+    <PreferenceCategory android:title="@string/title_config_account" >
+        <PreferenceScreen android:title="Twitter" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="jp.senchan.android.wasatter.app.AddAccountActivity"
+                android:targetPackage="jp.senchan.android.wasatter" >
+                <extra
+                    android:name="service"
+                    android:value="@integer/service_id_twitter" />
+            </intent>
+        </PreferenceScreen>
+        <PreferenceScreen android:title="Wassr" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="jp.senchan.android.wasatter.app.AddAccountActivity"
+                android:targetPackage="jp.senchan.android.wasatter" >
+                <extra
+                    android:name="service"
+                    android:value="@integer/service_id_wassr" />
+            </intent>
+        </PreferenceScreen>
+    </PreferenceCategory>
 </PreferenceScreen>
