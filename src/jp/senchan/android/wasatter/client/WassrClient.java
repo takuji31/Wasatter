@@ -87,7 +87,6 @@ public class WassrClient {
 			public void callback(String url, JSONArray object, AjaxStatus status) {
 				ArrayList<WasatterStatus> results = new ArrayList<WasatterStatus>();
 				if (object != null) {
-					//TODO JSON解析
 					int length = object.length();
 					for (int i = 0; i < length; i++) {
 						try {
