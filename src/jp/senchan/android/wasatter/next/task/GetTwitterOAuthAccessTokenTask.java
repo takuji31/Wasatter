@@ -1,6 +1,6 @@
 package jp.senchan.android.wasatter.next.task;
 
-import jp.senchan.android.wasatter.next.client.NewTwitterOAuthClient;
+import jp.senchan.android.wasatter.client.NewTwitterClient;
 import jp.senchan.android.wasatter.next.listener.OnAccessTokenReceivedListener;
 import jp.senchan.lib.os.AsyncTaskCompat;
 import twitter4j.TwitterException;
@@ -10,9 +10,9 @@ import android.net.Uri;
 public class GetTwitterOAuthAccessTokenTask extends AsyncTaskCompat<Uri, TwitterException, AccessToken>{
 
 	private OnAccessTokenReceivedListener mListener;
-	private NewTwitterOAuthClient mClient;
+	private NewTwitterClient mClient;
 
-	public GetTwitterOAuthAccessTokenTask(OnAccessTokenReceivedListener listener, NewTwitterOAuthClient client) {
+	public GetTwitterOAuthAccessTokenTask(OnAccessTokenReceivedListener listener, NewTwitterClient client) {
 		mClient = client;
 		mListener = listener;
 	}
