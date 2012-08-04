@@ -1,9 +1,9 @@
-package jp.senchan.android.wasatter.next.ui.activity;
+package jp.senchan.android.wasatter.app;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import jp.senchan.android.wasatter.WasatterActivity;
-import jp.senchan.android.wasatter.next.ui.fragment.PostFragment;
+import jp.senchan.android.wasatter.app.fragment.PostFragment;
 
 public class PostActivity extends WasatterActivity {
     @Override

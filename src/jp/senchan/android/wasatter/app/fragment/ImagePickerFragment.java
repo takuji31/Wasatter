@@ -1,4 +1,4 @@
-package jp.senchan.android.wasatter.next.ui.fragment.imagepicker;
+package jp.senchan.android.wasatter.app.fragment;
 
 import java.io.InputStream;
 

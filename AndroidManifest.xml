@@ -53,7 +53,7 @@
         <activity android:name=".next.ui.activity.DebugMenuActivity"></activity>
         <activity android:name=".app.HomeActivity"></activity>
         <activity android:name=".app.AddAccountActivity"></activity>
-        <activity android:name=".next.ui.activity.PostActivity"></activity>
+        <activity android:name=".app.PostActivity"></activity>
         <activity android:name=".app.ConfigActivity"></activity>
         <activity android:name=".app.debug.ConfigActivity"></activity>
         </application>
