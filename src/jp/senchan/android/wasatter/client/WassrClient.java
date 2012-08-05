@@ -3,10 +3,10 @@ package jp.senchan.android.wasatter.client;
 import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.WasatterActivity;
+import jp.senchan.android.wasatter.model.api.APICallback;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.model.api.impl.wassr.WassrStatus;
 import jp.senchan.android.wasatter.next.exception.WassrException;
-import jp.senchan.android.wasatter.next.listener.APICallback;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -63,7 +63,7 @@ public class WassrClient {
 						}
 					}
 				}
-				callback.callback(url, results, status.getCode());
+				callback.runCallback(results, status.getCode());
 			}
 		};
 		mAQuery.ajax(builder.build().toString(), JSONArray.class, cb);

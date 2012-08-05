@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
+import jp.senchan.android.wasatter.model.api.APICallback;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.model.api.impl.twitter.TwitterStatus;
-import jp.senchan.android.wasatter.next.listener.APICallback;
 import android.text.TextUtils;
 import twitter4j.AsyncTwitter;
 import twitter4j.AsyncTwitterFactory;
@@ -58,12 +58,12 @@ public class TwitterAsyncClient {
 				for (Status status : statuses) {
 					result.add(new TwitterStatus(status));
 				}
-				callback.callback(null, result, 200);
+				callback.runCallback(result, 200);
 			}
 			
 			@Override
 			public void onException(TwitterException ex, TwitterMethod method) {
-				callback.callback(null, new ArrayList<WasatterStatus>(), ex.getStatusCode());
+				callback.runCallback(new ArrayList<WasatterStatus>(), ex.getStatusCode());
 			}
 		});
 		Paging paging = new Paging(page);

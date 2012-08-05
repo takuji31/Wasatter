@@ -21,10 +21,9 @@ import jp.senchan.android.wasatter.adapter.TimelineAdapter;
 import jp.senchan.android.wasatter.app.ConfigActivity;
 import jp.senchan.android.wasatter.app.PostActivity;
 import jp.senchan.android.wasatter.client.TwitterAsyncClient;
-import jp.senchan.android.wasatter.client.TwitterClient;
 import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.model.api.APICallback;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
-import jp.senchan.android.wasatter.next.listener.APICallback;
 import jp.senchan.android.wasatter.utils.WasatterStatusComparator;
 
 public class TimelineFragment extends WasatterListFragment implements OnScrollListener {
@@ -36,8 +35,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	private APICallback<ArrayList<WasatterStatus>> mCallback =  new APICallback<ArrayList<WasatterStatus>>() {
 		
 		@Override
-		public void callback(String url, ArrayList<WasatterStatus> result,
-				int status) {
+		protected void callback(ArrayList<WasatterStatus> result, int status) {
 			loadingCount--;
 			if (status != 200) {
 				app().toast(R.string.message_something_wrong).show();

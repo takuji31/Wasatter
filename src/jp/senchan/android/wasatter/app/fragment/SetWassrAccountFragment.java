@@ -9,8 +9,8 @@ import jp.senchan.android.wasatter.ResultCode;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterFragment;
 import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.model.api.APICallback;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
-import jp.senchan.android.wasatter.next.listener.APICallback;
 import jp.senchan.android.wasatter.next.listener.OnAuthenticationResultListener;
 import android.app.Activity;
 import android.os.Bundle;
@@ -66,8 +66,7 @@ public class SetWassrAccountFragment extends WasatterFragment implements OnAuthe
 		new WassrClient(new AQuery(getActivity()), id, password).friendTimeline(1, new APICallback<ArrayList<WasatterStatus>>() {
 			
 			@Override
-			public void callback(String url, ArrayList<WasatterStatus> result,
-					int status) {
+			public void callback(ArrayList<WasatterStatus> result, int status) {
 					onAuthenticationResult(status == 200);
 			}
 		});
