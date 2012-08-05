@@ -1,7 +1,11 @@
 package jp.senchan.android.wasatter.model.api;
 
-public abstract class WasatterStatus {
-	public abstract String name();
-	public abstract String screenName();
-	public abstract String serviceName();
+import android.text.Spanned;
+
+public interface WasatterStatus {
+	public String getServiceName();
+	public Spanned getBody();
+	public String getStatusId();
+	public WasatterUser getUser();
+	public long getTime();
 }

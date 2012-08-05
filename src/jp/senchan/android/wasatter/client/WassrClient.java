@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
-import jp.senchan.android.wasatter.model.api.WassrStatus;
+import jp.senchan.android.wasatter.model.api.impl.wassr.WassrStatus;
 import jp.senchan.android.wasatter.next.exception.WassrException;
 import jp.senchan.android.wasatter.next.listener.APICallback;
 
