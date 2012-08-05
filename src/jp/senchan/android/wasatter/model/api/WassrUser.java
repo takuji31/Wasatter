@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class WassrUser {
 
-	//XXX WasssrはTwitterのnameがsceent_naemになってる矛盾仕様
+	//XXX WasssrはTwitterのnameがsceent_nameになってる矛盾仕様
 	public static final String KEY_NAME = "screen_name";
 	public static final String KEY_PROFILE_IMAGE = "profile_image_url";
 	public static final String KEY_PROTECTED = "protected";
