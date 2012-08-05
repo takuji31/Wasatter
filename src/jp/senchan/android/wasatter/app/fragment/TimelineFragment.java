@@ -30,7 +30,9 @@ import jp.senchan.android.wasatter.utils.WasatterStatusComparator;
 
 public class TimelineFragment extends WasatterListFragment implements OnScrollListener {
 	
-	private static final String sDialogTag = "VersionInfoDialogFragmen";
+	private static final String sDialogTag = "VersionInfoDialogFragment";
+	private static final String sStateKeyTimeline = "timeline";
+	
 	private AQuery mAquery;
 	private AsyncTwitter mAsyncTwitter;
 	private TwitterAsyncClient mTwitterClient;
@@ -64,15 +66,29 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	ArrayList<WasatterStatus> mTimeline;
 
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
 		mAquery = new AQuery(getActivity(), getView());
+		
+		if (savedInstanceState != null) {
+			mTimeline = (ArrayList<WasatterStatus>) savedInstanceState.getSerializable(sStateKeyTimeline);
+		}
 		if (mTimeline == null) {
 			loadTimeline();
+		} else {
+			mAdapter = new TimelineAdapter(getActivity(), mTimeline);
+			setListAdapter(mAdapter);
 		}
 		getListView().setOnScrollListener(this);
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putSerializable(sStateKeyTimeline, mTimeline);
 	}
 	
 	@Override
