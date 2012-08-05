@@ -17,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterListFragment;
 import jp.senchan.android.wasatter.adapter.TimelineAdapter;
 import jp.senchan.android.wasatter.app.ConfigActivity;
@@ -38,18 +39,22 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 		
 		@Override
 		protected void callback(ArrayList<WasatterStatus> result, int status) {
-			mLoadingCount--;
-			if (status != 200) {
-				app().toast(R.string.message_something_wrong).show();
+			WasatterActivity activity = activity();
+			//getActivityの結果がnullなら既に親のActivityは破棄されてます
+			if (activity != null) {
+				activity.invalidateOptionsMenu();
+				mLoadingCount--;
+				if (status != 200) {
+					app().toast(R.string.message_something_wrong).show();
+				}
+				if (mTimeline == null) {
+					initializeAdapter(result);
+				} else {
+					mTimeline.addAll(result);
+					Collections.sort(mTimeline, new WasatterStatusComparator());
+					mAdapter.notifyDataSetChanged();
+				}
 			}
-			if (mTimeline == null) {
-				initializeAdapter(result);
-			} else {
-				mTimeline.addAll(result);
-				Collections.sort(mTimeline, new WasatterStatusComparator());
-				mAdapter.notifyDataSetChanged();
-			}
-			activity().invalidateOptionsMenu();
 		}
 	};
 	
