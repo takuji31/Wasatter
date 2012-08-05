@@ -13,6 +13,10 @@ import android.text.Html.ImageGetter;
 import android.text.Spanned;
 
 public class WassrStatus implements WasatterStatus {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String KEY_RID = "rid";
 	public static final String KEY_LOGIN_ID = "user_login_id";
 	public static final String KEY_USER = "user";

@@ -6,6 +6,10 @@ import twitter4j.User;
 
 public class TwitterUser implements WasatterUser {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public User mUser;
 
 	public TwitterUser(User user) {

@@ -1,8 +1,10 @@
 package jp.senchan.android.wasatter.model.api;
 
+import java.io.Serializable;
+
 import android.text.Spanned;
 
-public interface WasatterStatus {
+public interface WasatterStatus extends Serializable {
 	public String getServiceName();
 	public Spanned getBody();
 	public String getStatusId();

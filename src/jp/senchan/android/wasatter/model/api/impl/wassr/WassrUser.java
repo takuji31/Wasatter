@@ -7,6 +7,10 @@ import org.json.JSONObject;
 
 public class WassrUser implements WasatterUser {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//XXX WasssrはTwitterのnameがsceent_nameになってる矛盾仕様
 	public static final String KEY_NAME = "screen_name";
 	public static final String KEY_PROFILE_IMAGE = "profile_image_url";

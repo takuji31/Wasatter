@@ -9,6 +9,10 @@ import twitter4j.Status;
 
 public class TwitterStatus implements WasatterStatus {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Status mStatus;
 	private TwitterUser mUser;
 	
