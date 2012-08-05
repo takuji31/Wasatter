@@ -44,7 +44,6 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 			WasatterActivity activity = activity();
 			//getActivityの結果がnullなら既に親のActivityは破棄されてます
 			if (activity != null) {
-				activity.invalidateOptionsMenu();
 				mLoadingCount--;
 				if (status != 200) {
 					app().toast(R.string.message_something_wrong).show();
@@ -55,8 +54,8 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 					mTimeline.addAll(result);
 					Collections.sort(mTimeline, new WasatterStatusComparator());
 					mAdapter.notifyDataSetChanged();
-					activity().invalidateOptionsMenu();
 				}
+				activity().invalidateOptionsMenu();
 			}
 		}
 	};
