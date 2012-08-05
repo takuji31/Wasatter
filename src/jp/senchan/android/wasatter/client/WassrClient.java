@@ -64,7 +64,7 @@ public class WassrClient {
 		try {
 			HttpResponse res = client.execute(get);
 			HttpEntity entity = res.getEntity();
-			String data = EntityUtils.toString(entity);
+			EntityUtils.toString(entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new WassrException();
