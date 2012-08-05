@@ -7,8 +7,11 @@ import com.actionbarsherlock.view.MenuItem;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.WasatterActivity;
+import jp.senchan.android.wasatter.adapter.Timeline;
 import jp.senchan.android.wasatter.app.fragment.TimelineFragment;
 import jp.senchan.android.wasatter.view.SlideMenu;
 import jp.senchan.android.wasatter.view.SlideMenuAdapter;
@@ -51,8 +54,12 @@ public class HomeActivity extends WasatterActivity {
 		ab.setDisplayHomeAsUpEnabled(true);
 		
 		//タイムライン表示
-		TimelineFragment fragment = (TimelineFragment) Fragment.instantiate(this, TimelineFragment.class.getName(), null);
-		getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
+		FragmentManager fm = getSupportFragmentManager();
+		TimelineFragment fragment = (TimelineFragment) fm.findFragmentById(R.id.container);
+		if (fragment == null) {
+			fragment = (TimelineFragment) Fragment.instantiate(this, TimelineFragment.class.getName(), null);
+			fm.beginTransaction().replace(R.id.container, fragment).commit();
+		}
 	}
 
 	@Override

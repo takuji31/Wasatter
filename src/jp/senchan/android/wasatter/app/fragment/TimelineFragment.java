@@ -12,6 +12,7 @@ import com.androidquery.AQuery;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import jp.senchan.android.wasatter.R;
@@ -28,6 +29,7 @@ import jp.senchan.android.wasatter.utils.WasatterStatusComparator;
 
 public class TimelineFragment extends WasatterListFragment implements OnScrollListener {
 	
+	private static final String sDialogTag = "VersionInfoDialogFragmen";
 	private AQuery mAquery;
 	private AsyncTwitter mAsyncTwitter;
 	private TwitterAsyncClient mTwitterClient;
@@ -36,7 +38,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 		
 		@Override
 		protected void callback(ArrayList<WasatterStatus> result, int status) {
-			loadingCount--;
+			mLoadingCount--;
 			if (status != 200) {
 				app().toast(R.string.message_something_wrong).show();
 			}
@@ -47,18 +49,18 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 				Collections.sort(mTimeline, new WasatterStatusComparator());
 				mAdapter.notifyDataSetChanged();
 			}
+			activity().invalidateOptionsMenu();
 		}
 	};
 	
 	int mPage = 0;
-	int loadingCount = 0;
+	int mLoadingCount = 0;
 	TimelineAdapter mAdapter;
 	ArrayList<WasatterStatus> mTimeline;
 
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
 		mAquery = new AQuery(getActivity(), getView());
@@ -80,6 +82,12 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	}
 	
 	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		MenuItem item = menu.findItem(R.id.menu_reload);
+		item.setEnabled(mLoadingCount == 0);
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.menu_post) {
@@ -97,6 +105,8 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 			return true;
 		}
 		if (id == R.id.menu_version_info) {
+			VersionInfoDialogFragment fragment = (VersionInfoDialogFragment) Fragment.instantiate(getActivity(), VersionInfoDialogFragment.class.getName());
+			fragment.show(getFragmentManager(), sDialogTag);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -106,7 +116,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		if (loadingCount == 0 && firstVisibleItem + visibleItemCount == totalItemCount) {
+		if (mLoadingCount == 0 && firstVisibleItem + visibleItemCount == totalItemCount) {
 			loadTimeline();
 		}
 	}
@@ -127,7 +137,8 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 		if (mAsyncTwitter != null) {
 			mAsyncTwitter.shutdown();
 		}
-		loadingCount = 0;
+		mCallback.cancel();
+		mLoadingCount = 0;
 	}
 	
 	private void reloadTimeline() {
@@ -140,18 +151,20 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	}
 	
 	private void loadTimeline() {
+		//FIXME 今の実装だとリロード連打したりするとタイムラインの内容が被る
 		final Wasatter app = app();
 		mPage++;
 		if (app.canLoadWassrTimeline()) {
-			loadingCount++;
+			mLoadingCount++;
 			mWassrClient = new WassrClient(mAquery, app.getWassrId(), app.getWassrPass());
 			mWassrClient.friendTimeline(mPage, mCallback);
 		}
 		if (app.canLoadTwitterTimeline()) {
-			loadingCount++;
+			mLoadingCount++;
 			mTwitterClient = new TwitterAsyncClient(app);
 			mAsyncTwitter = mTwitterClient.friendTimeline(mPage, mCallback);
 		}
+		activity().invalidateOptionsMenu();
 	}
 
 }
