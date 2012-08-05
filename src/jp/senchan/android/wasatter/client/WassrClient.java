@@ -56,22 +56,6 @@ public class WassrClient {
 		return builder;
 	}
 
-	public ArrayList<WassrStatus> friendTimeline(int page) throws WassrException {
-		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
-		builder.appendQueryParameter("page", String.valueOf(page));
-		DefaultHttpClient client = getHttpClient();
-		HttpGet get = new HttpGet(builder.build().toString());
-		try {
-			HttpResponse res = client.execute(get);
-			HttpEntity entity = res.getEntity();
-			EntityUtils.toString(entity);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new WassrException();
-		}
-		return null;
-	}
-
 	public void friendTimeline(int page, AQuery aq, final APICallback<ArrayList<WasatterStatus>> callback) {
 		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
 		builder.appendQueryParameter("page", String.valueOf(page));
@@ -94,7 +78,6 @@ public class WassrClient {
 			}
 		};
 		aq.auth(new BasicHandle(mLoginId, mPassword));
-		AjaxCallback.setTimeout(10000);
 		aq.ajax(builder.build().toString(), JSONArray.class, cb);
 	}
 	
