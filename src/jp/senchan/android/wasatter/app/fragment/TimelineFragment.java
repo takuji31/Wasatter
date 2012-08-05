@@ -55,6 +55,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 					mTimeline.addAll(result);
 					Collections.sort(mTimeline, new WasatterStatusComparator());
 					mAdapter.notifyDataSetChanged();
+					activity().invalidateOptionsMenu();
 				}
 			}
 		}
