@@ -8,4 +8,7 @@
     <string name="title_attach_image">画像を添付</string>
     <string name="title_service">サービス</string>
     <string name="title_config_account">アカウントの設定</string>
+    <string name="menu_title_post">投稿する</string>
+    <string name="menu_title_config">設定</string>
+    <string name="menu_title_version_info">バージョン情報</string>
 </resources>
