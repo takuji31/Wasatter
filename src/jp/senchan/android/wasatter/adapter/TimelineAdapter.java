@@ -6,7 +6,6 @@ import com.androidquery.AQuery;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.TextView;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;

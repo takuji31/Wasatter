@@ -1,14 +1,11 @@
 package jp.senchan.android.wasatter.model.api;
 
-import jp.senchan.android.wasatter.Wasatter;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.Html.ImageGetter;
-import android.text.Spannable;
 import android.text.Spanned;
 
 public class WassrStatus extends WasatterStatus {

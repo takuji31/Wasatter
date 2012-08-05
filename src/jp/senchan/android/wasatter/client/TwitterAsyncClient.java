@@ -2,16 +2,10 @@ package jp.senchan.android.wasatter.client;
 
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
-import android.net.Uri;
 import android.text.TextUtils;
 import twitter4j.AsyncTwitter;
 import twitter4j.AsyncTwitterFactory;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
-import twitter4j.auth.OAuthAuthorization;
-import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 

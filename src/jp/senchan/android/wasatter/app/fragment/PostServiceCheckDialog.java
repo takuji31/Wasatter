@@ -2,7 +2,6 @@ package jp.senchan.android.wasatter.app.fragment;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.WasatterDialogFragment;
-import jp.senchan.android.wasatter.next.listener.OnServiceSelectedListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;

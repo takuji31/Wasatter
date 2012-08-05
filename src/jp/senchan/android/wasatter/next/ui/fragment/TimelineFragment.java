@@ -3,8 +3,6 @@ package jp.senchan.android.wasatter.next.ui.fragment;
 import java.util.ArrayList;
 
 import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxStatus;
-
 import android.os.Bundle;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
@@ -12,7 +10,6 @@ import jp.senchan.android.wasatter.WasatterListFragment;
 import jp.senchan.android.wasatter.adapter.TimelineAdapter;
 import jp.senchan.android.wasatter.client.WassrClient;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
-import jp.senchan.android.wasatter.model.api.WassrStatus;
 import jp.senchan.android.wasatter.next.listener.APICallback;
 
 public class TimelineFragment extends WasatterListFragment {

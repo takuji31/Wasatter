@@ -2,7 +2,6 @@ package jp.senchan.android.wasatter.client;
 
 import java.util.ArrayList;
 
-import jp.senchan.android.wasatter.BuildConfig;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.model.api.WassrStatus;
 import jp.senchan.android.wasatter.next.exception.WassrException;
@@ -24,9 +23,6 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 
 import android.net.Uri;
-import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
 
 public class WassrClient {
 
