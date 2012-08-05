@@ -63,7 +63,7 @@ public class SetWassrAccountFragment extends WasatterFragment implements OnAuthe
 		buttonLogin.setClickable(false);
 		editTextLoginId.setEnabled(false);
 		editTextPassword.setEnabled(false);
-		new WassrClient(id, password).friendTimeline(1, new AQuery(getActivity()), new APICallback<ArrayList<WasatterStatus>>() {
+		new WassrClient(new AQuery(getActivity()), id, password).friendTimeline(1, new APICallback<ArrayList<WasatterStatus>>() {
 			
 			@Override
 			public void callback(String url, ArrayList<WasatterStatus> result,

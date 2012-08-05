@@ -2,6 +2,7 @@ package jp.senchan.android.wasatter.client;
 
 import java.util.ArrayList;
 
+import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.model.api.WassrStatus;
 import jp.senchan.android.wasatter.next.exception.WassrException;
@@ -27,25 +28,13 @@ import android.net.Uri;
 public class WassrClient {
 
 	private static final String HOST = "api.wassr.jp";
-	private static final int PORT = 80;
-
 	private static final String FRIEND_TIMELINE = "/statuses/friends_timeline.json";
 
-	private String mLoginId;
-	private String mPassword;
+	private AQuery mAQuery;
 
-	public WassrClient(String loginId, String password) {
-		mLoginId = loginId;
-		mPassword = password;
-	}
-
-	public DefaultHttpClient getHttpClient() {
-		DefaultHttpClient client = new DefaultHttpClient();
-
-		client.getCredentialsProvider().setCredentials(
-				new AuthScope(HOST, PORT),
-				new UsernamePasswordCredentials(mLoginId, mPassword));
-		return client;
+	public WassrClient(AQuery aq, String loginId, String password) {
+		mAQuery = aq;
+		mAQuery.auth(new BasicHandle(loginId, password));
 	}
 
 	public Uri.Builder getRequestUriBuilder(String path) {
@@ -56,7 +45,7 @@ public class WassrClient {
 		return builder;
 	}
 
-	public void friendTimeline(int page, AQuery aq, final APICallback<ArrayList<WasatterStatus>> callback) {
+	public void friendTimeline(int page, final APICallback<ArrayList<WasatterStatus>> callback) {
 		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
 		builder.appendQueryParameter("page", String.valueOf(page));
 		AjaxCallback<JSONArray> cb = new AjaxCallback<JSONArray>(){
@@ -77,8 +66,7 @@ public class WassrClient {
 				callback.callback(url, results, status.getCode());
 			}
 		};
-		aq.auth(new BasicHandle(mLoginId, mPassword));
-		aq.ajax(builder.build().toString(), JSONArray.class, cb);
+		mAQuery.ajax(builder.build().toString(), JSONArray.class, cb);
 	}
 	
 }

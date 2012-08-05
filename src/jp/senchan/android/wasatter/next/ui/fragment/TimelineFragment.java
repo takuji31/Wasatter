@@ -25,7 +25,7 @@ public class TimelineFragment extends WasatterListFragment {
 		if (mTimeline == null) {
 			final Wasatter app = app();
 			
-			new WassrClient(app.getWassrId(), app.getWassrPass()).friendTimeline(1, mAquery, new APICallback<ArrayList<WasatterStatus>>() {
+			new WassrClient(mAquery, app.getWassrId(), app.getWassrPass()).friendTimeline(1, new APICallback<ArrayList<WasatterStatus>>() {
 				
 				@Override
 				public void callback(String url, ArrayList<WasatterStatus> result,
