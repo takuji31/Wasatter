@@ -7,6 +7,8 @@ import twitter4j.AsyncTwitter;
 
 import com.androidquery.AQuery;
 import android.os.Bundle;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterListFragment;
@@ -18,7 +20,10 @@ import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.next.listener.APICallback;
 import jp.senchan.android.wasatter.utils.WasatterStatusComparator;
 
-public class TimelineFragment extends WasatterListFragment {
+public class TimelineFragment extends WasatterListFragment implements OnScrollListener {
+	
+	static final float NEXT_LOAD_POSITION = 0.8f;
+	
 	private AQuery mAquery;
 	private AsyncTwitter mAsyncTwitter;
 	private TwitterAsyncClient mTwitterClient;
@@ -28,6 +33,7 @@ public class TimelineFragment extends WasatterListFragment {
 		@Override
 		public void callback(String url, ArrayList<WasatterStatus> result,
 				int status) {
+			loadingCount--;
 			if (status != 200) {
 				app().toast(R.string.message_something_wrong).show();
 			}
@@ -41,6 +47,8 @@ public class TimelineFragment extends WasatterListFragment {
 		}
 	};
 	
+	int mPage = 0;
+	int loadingCount = 0;
 	TimelineAdapter mAdapter;
 	ArrayList<WasatterStatus> mTimeline;
 
@@ -51,18 +59,9 @@ public class TimelineFragment extends WasatterListFragment {
 		super.onActivityCreated(savedInstanceState);
 		mAquery = new AQuery(getActivity(), getView());
 		if (mTimeline == null) {
-			final Wasatter app = app();
-			
-			if (app.canLoadWassrTimeline()) {
-				mWassrClient = new WassrClient(mAquery, app.getWassrId(), app.getWassrPass());
-				mWassrClient.friendTimeline(1, mCallback);
-			}
-			if (app.canLoadTwitterTimeline()) {
-				mTwitterClient = new TwitterAsyncClient(app);
-				mAsyncTwitter = mTwitterClient.friendTimeline(1, mCallback);
-			}
-			
+			loadTimeline();
 		}
+		getListView().setOnScrollListener(this);
 	}
 	
 	@Override
@@ -76,10 +75,44 @@ public class TimelineFragment extends WasatterListFragment {
 		super.onDestroy();
 	}
 	
+	
+	
 	public void initializeAdapter(ArrayList<WasatterStatus> list) {
 		mTimeline = list;
 		mAdapter = new TimelineAdapter(getActivity(), list);
 		setListAdapter(mAdapter);
 	}
+	
+	private void reloadTimeline() {
+		mTimeline = null;
+		mPage = 0;
+		loadTimeline();
+	}
+	
+	private void loadTimeline() {
+		final Wasatter app = app();
+		mPage++;
+		if (app.canLoadWassrTimeline()) {
+			loadingCount++;
+			mWassrClient = new WassrClient(mAquery, app.getWassrId(), app.getWassrPass());
+			mWassrClient.friendTimeline(mPage, mCallback);
+		}
+		if (app.canLoadTwitterTimeline()) {
+			loadingCount++;
+			mTwitterClient = new TwitterAsyncClient(app);
+			mAsyncTwitter = mTwitterClient.friendTimeline(mPage, mCallback);
+		}
+	}
+
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem,
+			int visibleItemCount, int totalItemCount) {
+		if (loadingCount == 0 && firstVisibleItem + visibleItemCount == totalItemCount) {
+			loadTimeline();
+		}
+	}
+
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState) {}
 	
 }
