@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.WasatterActivity;
-import jp.senchan.android.wasatter.next.ui.fragment.TimelineFragment;
+import jp.senchan.android.wasatter.app.fragment.TimelineFragment;
 import jp.senchan.android.wasatter.view.SlideMenu;
 import jp.senchan.android.wasatter.view.SlideMenuAdapter;
 import jp.senchan.android.wasatter.view.SlideMenuItem;
