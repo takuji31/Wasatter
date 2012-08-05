@@ -30,15 +30,14 @@ public class TimelineAdapter extends ArrayListAdapter<WasatterStatus> {
 	@Override
 	public View createView(int position, WasatterStatus item, View v) {
 		
-		WassrStatus st = (WassrStatus) item;
 		AQuery aq = new AQuery(v);
-		WasatterUser user = st.getUser();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/yy HH:mm::ss");
+		WasatterUser user = item.getUser();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/yy HH:mm:ss");
 		
 		aq.id(R.id.textViewName).text(user.getName());
-		aq.id(R.id.textViewServiceName).text(st.getServiceName());
-		aq.id(R.id.textViewBody).text(st.getBody());
-		aq.id(R.id.textViewCreatedAt).text(sdf.format(new Date(st.getTime())));
+		aq.id(R.id.textViewServiceName).text(item.getServiceName());
+		aq.id(R.id.textViewBody).text(item.getBody());
+		aq.id(R.id.textViewCreatedAt).text(sdf.format(new Date(item.getTime())));
 		aq.id(R.id.imageViewIcon).image(R.drawable.ic_default_user_icon).image(user.getProfileImageUrl());
 		
 		return v;

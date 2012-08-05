@@ -13,6 +13,7 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.lib.BaseApp;
 
 import android.app.AlertDialog;
+import android.text.TextUtils;
 
 public class Wasatter extends BaseApp {
 	public static final String AGENT = "Wasatter for Android";
@@ -172,6 +173,14 @@ public class Wasatter extends BaseApp {
 	
 	public boolean isImageLoadEnabled() {
 		return getPref(PrefKey.IMAGE_LOAD_ENABLED, true);
+	}
+	
+	public boolean canLoadWassrTimeline() {
+		return isLoadWassrTimeline() && !TextUtils.isEmpty(getWassrId()) && !TextUtils.isEmpty(getWassrPass());
+	}
+
+	public boolean canLoadTwitterTimeline() {
+		return isLoadTwitterTimeline() && !TextUtils.isEmpty(getTwitterToken()) && !TextUtils.isEmpty(getTwitterTokenSecret());
 	}
 
 

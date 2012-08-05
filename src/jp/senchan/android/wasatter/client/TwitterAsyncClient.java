@@ -1,10 +1,21 @@
 package jp.senchan.android.wasatter.client;
 
+import java.util.ArrayList;
+
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
+import jp.senchan.android.wasatter.model.api.WasatterStatus;
+import jp.senchan.android.wasatter.model.api.impl.twitter.TwitterStatus;
+import jp.senchan.android.wasatter.next.listener.APICallback;
 import android.text.TextUtils;
 import twitter4j.AsyncTwitter;
 import twitter4j.AsyncTwitterFactory;
+import twitter4j.Paging;
+import twitter4j.ResponseList;
+import twitter4j.Status;
+import twitter4j.TwitterAdapter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterMethod;
 import twitter4j.auth.AccessToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
@@ -40,6 +51,27 @@ public class TwitterAsyncClient {
 	
 	public void shutdown() {
 		getClient().shutdown();
+	}
+
+	public void friendTimeline(int page, final APICallback<ArrayList<WasatterStatus>> callback) {
+		AsyncTwitter client = getClient();
+		client.addListener(new TwitterAdapter(){
+			@Override
+			public void gotHomeTimeline(ResponseList<Status> statuses) {
+				ArrayList<WasatterStatus> result = new ArrayList<WasatterStatus>();
+				for (Status status : statuses) {
+					result.add(new TwitterStatus(status));
+				}
+				callback.callback(null, result, 200);
+			}
+			
+			@Override
+			public void onException(TwitterException ex, TwitterMethod method) {
+				callback.callback(null, new ArrayList<WasatterStatus>(), ex.getStatusCode());
+			}
+		});
+		Paging paging = new Paging(page);
+		client.getHomeTimeline(paging);
 	}
 	
 }
