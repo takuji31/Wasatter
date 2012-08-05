@@ -26,20 +26,13 @@ public class WassrStatus implements WasatterStatus {
 	private String mRid;
 	private WassrUser mUser;
 	private long mEpoch;
-	private Spanned mBody;
+	private String mBody;
 	
 	public WassrStatus(JSONObject json) throws JSONException {
 		mRid = json.getString(KEY_RID);
 		mUser = new WassrUser(json.getJSONObject(KEY_USER), json.getString(KEY_LOGIN_ID));
 		mEpoch = json.getLong(KEY_EPOCH);
-		mBody = Html.fromHtml(json.getString(KEY_HTML), new ImageGetter() {
-			
-			@Override
-			public Drawable getDrawable(String source) {
-				//TODO ネットワーク経由で絵文字取得、キャッシュあったらそれ使う
-				return null;
-			}
-		}, null);
+		mBody = json.getString(KEY_HTML);
 	}
 
  	@Override
@@ -49,7 +42,14 @@ public class WassrStatus implements WasatterStatus {
 
 	@Override
 	public Spanned getBody() {
-		return mBody;
+		return Html.fromHtml(mBody, new ImageGetter() {
+			
+			@Override
+			public Drawable getDrawable(String source) {
+				//TODO ネットワーク経由で絵文字取得、キャッシュあったらそれ使う
+				return null;
+			}
+		}, null);
 	}
 
 	@Override
