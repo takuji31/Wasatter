@@ -1,5 +1,7 @@
 package jp.senchan.android.wasatter.model.api;
 
+import jp.senchan.android.wasatter.Wasatter;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,5 +44,10 @@ public class WassrStatus extends WasatterStatus {
 	@Override
 	public String screenName() {
 		return String.format("@%s", user.screenName);
+	}
+
+	@Override
+	public String serviceName() {
+		return Wasatter.SERVICE_WASSR;
 	}
 }
