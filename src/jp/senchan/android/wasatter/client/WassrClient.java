@@ -65,10 +65,7 @@ public class WassrClient {
 			HttpResponse res = client.execute(get);
 			HttpEntity entity = res.getEntity();
 			String data = EntityUtils.toString(entity);
-			JSONArray json = new JSONArray(data);
-			//TODO JSON解析
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new WassrException();
 		}

@@ -1,11 +1,17 @@
 package jp.senchan.android.wasatter.app.fragment;
 
+import java.util.ArrayList;
+
+import com.androidquery.AQuery;
+
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.ResultCode;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterFragment;
+import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.model.api.WasatterStatus;
+import jp.senchan.android.wasatter.next.listener.APICallback;
 import jp.senchan.android.wasatter.next.listener.OnAuthenticationResultListener;
-import jp.senchan.android.wasatter.next.task.AuthenticateWassrTask;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,7 +24,6 @@ import android.widget.EditText;
 
 public class SetWassrAccountFragment extends WasatterFragment implements OnAuthenticationResultListener {
 
-	private AuthenticateWassrTask currentTask;
 
 	private EditText editTextLoginId;
 	private EditText editTextPassword;
@@ -58,8 +63,14 @@ public class SetWassrAccountFragment extends WasatterFragment implements OnAuthe
 		buttonLogin.setClickable(false);
 		editTextLoginId.setEnabled(false);
 		editTextPassword.setEnabled(false);
-		currentTask = new AuthenticateWassrTask(this);
-		currentTask.supportExecute(id, password);
+		new WassrClient(id, password).friendTimeline(1, new AQuery(getActivity()), new APICallback<ArrayList<WasatterStatus>>() {
+			
+			@Override
+			public void callback(String url, ArrayList<WasatterStatus> result,
+					int status) {
+					onAuthenticationResult(status == 200);
+			}
+		});
 	}
 
 	@Override
