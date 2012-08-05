@@ -69,4 +69,8 @@ public class WassrClient {
 		mAQuery.ajax(builder.build().toString(), JSONArray.class, cb);
 	}
 	
+	public void cancel() {
+		mAQuery.ajaxCancel();
+	}
+	
 }

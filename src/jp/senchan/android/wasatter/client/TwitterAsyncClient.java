@@ -49,11 +49,7 @@ public class TwitterAsyncClient {
 		return mFactory.getInstance(mToken);
 	}
 	
-	public void shutdown() {
-		getClient().shutdown();
-	}
-
-	public void friendTimeline(int page, final APICallback<ArrayList<WasatterStatus>> callback) {
+	public AsyncTwitter friendTimeline(int page, final APICallback<ArrayList<WasatterStatus>> callback) {
 		AsyncTwitter client = getClient();
 		client.addListener(new TwitterAdapter(){
 			@Override
@@ -72,6 +68,7 @@ public class TwitterAsyncClient {
 		});
 		Paging paging = new Paging(page);
 		client.getHomeTimeline(paging);
+		return client;
 	}
 	
 }

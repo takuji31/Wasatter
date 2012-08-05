@@ -3,6 +3,8 @@ package jp.senchan.android.wasatter.app.fragment;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import twitter4j.AsyncTwitter;
+
 import com.androidquery.AQuery;
 import android.os.Bundle;
 import jp.senchan.android.wasatter.R;
@@ -18,8 +20,9 @@ import jp.senchan.android.wasatter.utils.WasatterStatusComparator;
 
 public class TimelineFragment extends WasatterListFragment {
 	private AQuery mAquery;
-	private ArrayList<WasatterStatus> mTimeline;
-	TimelineAdapter mAdapter;
+	private AsyncTwitter mAsyncTwitter;
+	private TwitterAsyncClient mTwitterClient;
+	private WassrClient mWassrClient;
 	private APICallback<ArrayList<WasatterStatus>> mCallback =  new APICallback<ArrayList<WasatterStatus>>() {
 		
 		@Override
@@ -38,6 +41,10 @@ public class TimelineFragment extends WasatterListFragment {
 		}
 	};
 	
+	TimelineAdapter mAdapter;
+	ArrayList<WasatterStatus> mTimeline;
+
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -47,13 +54,26 @@ public class TimelineFragment extends WasatterListFragment {
 			final Wasatter app = app();
 			
 			if (app.canLoadWassrTimeline()) {
-				new WassrClient(mAquery, app.getWassrId(), app.getWassrPass()).friendTimeline(1, mCallback);
+				mWassrClient = new WassrClient(mAquery, app.getWassrId(), app.getWassrPass());
+				mWassrClient.friendTimeline(1, mCallback);
 			}
 			if (app.canLoadTwitterTimeline()) {
-				new TwitterAsyncClient(app).friendTimeline(1, mCallback);
+				mTwitterClient = new TwitterAsyncClient(app);
+				mAsyncTwitter = mTwitterClient.friendTimeline(1, mCallback);
 			}
 			
 		}
+	}
+	
+	@Override
+	public void onDestroy() {
+		if (mWassrClient != null) {
+			mWassrClient.cancel();
+		}
+		if (mAsyncTwitter != null) {
+			mAsyncTwitter.shutdown();
+		}
+		super.onDestroy();
 	}
 	
 	public void initializeAdapter(ArrayList<WasatterStatus> list) {
