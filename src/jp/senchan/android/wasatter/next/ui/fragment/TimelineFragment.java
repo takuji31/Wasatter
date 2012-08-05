@@ -11,9 +11,9 @@ import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterListFragment;
 import jp.senchan.android.wasatter.adapter.TimelineAdapter;
 import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.model.api.WasatterStatus;
+import jp.senchan.android.wasatter.model.api.WassrStatus;
 import jp.senchan.android.wasatter.next.listener.APICallback;
-import jp.senchan.android.wasatter.next.model.api.WasatterStatus;
-import jp.senchan.android.wasatter.next.model.api.WassrStatus;
 
 public class TimelineFragment extends WasatterListFragment {
 	private AQuery mAquery;

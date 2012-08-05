@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
-import jp.senchan.android.wasatter.next.model.api.WasatterStatus;
-import jp.senchan.android.wasatter.next.model.api.WassrStatus;
+import jp.senchan.android.wasatter.model.api.WasatterStatus;
+import jp.senchan.android.wasatter.model.api.WassrStatus;
 import jp.senchan.lib.view.ArrayListAdapter;
 
 public class TimelineAdapter extends ArrayListAdapter<WasatterStatus> {

@@ -3,10 +3,10 @@ package jp.senchan.android.wasatter.client;
 import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.BuildConfig;
+import jp.senchan.android.wasatter.model.api.WasatterStatus;
+import jp.senchan.android.wasatter.model.api.WassrStatus;
 import jp.senchan.android.wasatter.next.exception.WassrException;
 import jp.senchan.android.wasatter.next.listener.APICallback;
-import jp.senchan.android.wasatter.next.model.api.WasatterStatus;
-import jp.senchan.android.wasatter.next.model.api.WassrStatus;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
