@@ -7,6 +7,7 @@ import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.model.api.impl.twitter.TwitterStatus;
 import jp.senchan.android.wasatter.next.listener.APICallback;
+import android.os.Handler;
 import android.text.TextUtils;
 import twitter4j.AsyncTwitter;
 import twitter4j.AsyncTwitterFactory;
@@ -25,6 +26,7 @@ public class TwitterAsyncClient {
 	private AsyncTwitterFactory mFactory;
 	private AccessToken mToken;
 	private Wasatter mApp;
+	private Handler mHandler = new Handler();
 
 	public TwitterAsyncClient(Wasatter app) {
 		ConfigurationBuilder builder = new ConfigurationBuilder();
@@ -54,21 +56,34 @@ public class TwitterAsyncClient {
 		client.addListener(new TwitterAdapter(){
 			@Override
 			public void gotHomeTimeline(ResponseList<Status> statuses) {
-				ArrayList<WasatterStatus> result = new ArrayList<WasatterStatus>();
+				final ArrayList<WasatterStatus> result = new ArrayList<WasatterStatus>();
 				for (Status status : statuses) {
 					result.add(new TwitterStatus(status));
 				}
-				callback.callback(null, result, 200);
+				mHandler.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						callback.callback(null, result, 200);
+					}
+				});
 			}
 			
 			@Override
-			public void onException(TwitterException ex, TwitterMethod method) {
-				callback.callback(null, new ArrayList<WasatterStatus>(), ex.getStatusCode());
+			public void onException(final TwitterException ex, TwitterMethod method) {
+				mHandler.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						callback.callback(null, new ArrayList<WasatterStatus>(), ex.getStatusCode());
+					}
+				});
 			}
 		});
 		Paging paging = new Paging(page);
 		client.getHomeTimeline(paging);
 		return client;
 	}
+	
 	
 }
