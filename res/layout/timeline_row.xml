@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="10dp" >
+    android:padding="10dp" >
     <ImageView
         android:id="@+id/imageViewIcon"
         android:layout_width="48dp"
@@ -12,9 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
         android:contentDescription="Profile icon for this user"
         android:src="@drawable/ic_default_user_icon" />
     <TextView
@@ -30,7 +28,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
     <TextView
         android:id="@+id/textViewServiceName"
-        android:layout_width="68dp"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/imageViewIcon"
