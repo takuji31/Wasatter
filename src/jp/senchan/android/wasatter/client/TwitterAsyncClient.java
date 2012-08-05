@@ -17,8 +17,6 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterAsyncClient {
 	
-	private RequestToken mRequestToken;
-	private OAuthAuthorization mOAuth;
 	private AsyncTwitterFactory mFactory;
 	private AccessToken mToken;
 	private Wasatter mApp;
@@ -29,7 +27,6 @@ public class TwitterAsyncClient {
 		builder.setOAuthConsumerSecret(OAuthTwitter.CONSUMER_SECRET);
 		Configuration conf = builder.build();
 		mApp = app;
-		mOAuth = new OAuthAuthorization(conf);
 		mFactory = new AsyncTwitterFactory(conf);
 		fetchToken();
 	}
