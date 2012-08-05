@@ -42,7 +42,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 			if (status != 200) {
 				app().toast(R.string.message_something_wrong).show();
 			}
-			if (mTimeline == null || mAdapter == null) {
+			if (mTimeline == null) {
 				initializeAdapter(result);
 			} else {
 				mTimeline.addAll(result);
