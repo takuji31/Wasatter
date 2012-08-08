@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import jp.senchan.android.wasatter.BundleKey;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
@@ -33,6 +34,15 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	private static final String sDialogTag = "VersionInfoDialogFragment";
 	private static final String sStateKeyTimeline = "timeline";
 	
+	public static final int MODE_TIMELINE       = 0;
+	public static final int MODE_MENSION        = 1;
+	public static final int MODE_MYPOST         = 2;
+	public static final int MODE_DM             = 10;
+	public static final int MODE_ODAI           = 100;
+	public static final int MODE_CHANNEL_LIST   = 1000;
+	public static final int MODE_CHANNEL_STATUS = 1001;
+	
+	private int mMode;
 	private AQuery mAquery;
 	private AsyncTwitter mAsyncTwitter;
 	private TwitterAsyncClient mTwitterClient;
@@ -72,6 +82,13 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
 		mAquery = new AQuery(getActivity(), getView());
+		
+		Bundle args = getArguments();
+		if (args != null) {
+			mMode = args.getInt(BundleKey.MODE, MODE_TIMELINE);
+		} else {
+			mMode = MODE_TIMELINE;
+		}
 		
 		if (savedInstanceState != null) {
 			mTimeline = (ArrayList<WasatterStatus>) savedInstanceState.getSerializable(sStateKeyTimeline);
