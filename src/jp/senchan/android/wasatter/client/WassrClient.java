@@ -2,6 +2,7 @@ package jp.senchan.android.wasatter.client;
 
 import java.util.ArrayList;
 
+import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.model.api.APICallback;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
@@ -29,10 +30,15 @@ public class WassrClient {
 
 	private static final String HOST = "api.wassr.jp";
 	private static final String FRIEND_TIMELINE = "/statuses/friends_timeline.json";
+	private static final int PORT = 80;
 
 	private AQuery mAQuery;
-
+	private String mLoginId;
+	private String mPassword;
+	
 	public WassrClient(AQuery aq, String loginId, String password) {
+		mLoginId = loginId;
+		mPassword = password;
 		mAQuery = aq;
 		mAQuery.auth(new BasicHandle(loginId, password));
 	}
@@ -45,7 +51,16 @@ public class WassrClient {
 		return builder;
 	}
 
-	public ArrayList<WassrStatus> friendTimeline(int page) throws WassrException {
+	public DefaultHttpClient getHttpClient() {
+		DefaultHttpClient client = new DefaultHttpClient();
+		client.getCredentialsProvider().setCredentials(
+				new AuthScope(HOST, PORT),
+				new UsernamePasswordCredentials(mLoginId, mPassword));
+		return client;
+	}
+
+	public ArrayList<WassrStatus> friendTimeline(int page)
+			throws WassrException {
 		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
 		builder.appendQueryParameter("page", String.valueOf(page));
 		DefaultHttpClient client = getHttpClient();
@@ -61,10 +76,11 @@ public class WassrClient {
 		return null;
 	}
 
-	public void friendTimeline(int page, final APICallback<ArrayList<WasatterStatus>> callback) {
+	public void friendTimeline(int page,
+			final APICallback<ArrayList<WasatterStatus>> callback) {
 		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
 		builder.appendQueryParameter("page", String.valueOf(page));
-		AjaxCallback<JSONArray> cb = new AjaxCallback<JSONArray>(){
+		AjaxCallback<JSONArray> cb = new AjaxCallback<JSONArray>() {
 			@Override
 			public void callback(String url, JSONArray object, AjaxStatus status) {
 				ArrayList<WasatterStatus> results = new ArrayList<WasatterStatus>();
@@ -72,7 +88,8 @@ public class WassrClient {
 					int length = object.length();
 					for (int i = 0; i < length; i++) {
 						try {
-							WassrStatus s = new WassrStatus(object.getJSONObject(i));
+							WassrStatus s = new WassrStatus(
+									object.getJSONObject(i));
 							results.add(s);
 						} catch (JSONException e) {
 							e.printStackTrace();
@@ -84,9 +101,9 @@ public class WassrClient {
 		};
 		mAQuery.ajax(builder.build().toString(), JSONArray.class, cb);
 	}
-	
+
 	public void cancel() {
 		mAQuery.ajaxCancel();
 	}
-	
+
 }
