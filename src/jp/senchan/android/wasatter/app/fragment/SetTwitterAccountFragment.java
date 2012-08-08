@@ -19,7 +19,7 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.ResultCode;
 import jp.senchan.android.wasatter.WasatterFragment;
 import jp.senchan.android.wasatter.auth.params.OAuthTwitter;
-import jp.senchan.android.wasatter.client.NewTwitterClient;
+import jp.senchan.android.wasatter.client.TwitterClient;
 import jp.senchan.android.wasatter.next.listener.OnAccessTokenReceivedListener;
 import jp.senchan.android.wasatter.next.listener.OnURLCreatedListener;
 import jp.senchan.android.wasatter.next.task.GetTwitterOAuthAccessTokenTask;
@@ -29,7 +29,7 @@ import jp.senchan.android.wasatter.next.ui.fragment.dialog.CreateAuthenticationU
 public class SetTwitterAccountFragment extends WasatterFragment implements OnURLCreatedListener, OnAccessTokenReceivedListener {
 
 	private static final String TAG_DIALOG = "dialog";
-	NewTwitterClient mClient;
+	TwitterClient mClient;
 	private WebView mWebView;
 
 	@SuppressLint("SetJavaScriptEnabled")
@@ -39,7 +39,7 @@ public class SetTwitterAccountFragment extends WasatterFragment implements OnURL
 		mWebView = new WebView(getActivity());
 		mWebView.getSettings().setJavaScriptEnabled(true);
 
-		mClient = new NewTwitterClient();
+		mClient = new TwitterClient();
 
 		WebViewClient client = new WebViewClient(){
 			@Override

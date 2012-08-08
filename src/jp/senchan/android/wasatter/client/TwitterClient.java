@@ -11,13 +11,13 @@ import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class NewTwitterClient {
+public class TwitterClient {
 	
 	private RequestToken mRequestToken;
 	private OAuthAuthorization mOAuth;
 	protected Configuration conf;
 
-	public NewTwitterClient() {
+	public TwitterClient() {
 		ConfigurationBuilder builder = new ConfigurationBuilder();
 		builder.setOAuthConsumerKey(OAuthTwitter.CONSUMER_KEY);
 		builder.setOAuthConsumerSecret(OAuthTwitter.CONSUMER_SECRET);
