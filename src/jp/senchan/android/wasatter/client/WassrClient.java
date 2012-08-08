@@ -43,6 +43,13 @@ public class WassrClient {
 		mAQuery.auth(new BasicHandle(loginId, password));
 	}
 
+	public WassrClient(Wasatter app) {
+		mLoginId = app.getWassrId();
+		mPassword = app.getWassrPass();
+		mAQuery = new AQuery(app);
+		mAQuery.auth(new BasicHandle(mLoginId, mPassword));
+	}
+
 	public Uri.Builder getRequestUriBuilder(String path) {
 		Uri.Builder builder = new Uri.Builder();
 		builder.scheme("http");
