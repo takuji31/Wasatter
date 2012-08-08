@@ -30,7 +30,7 @@ import android.text.SpannableStringBuilder;
  * @author Senka/Takuji
  *
  */
-public class TwitterClient {
+public class OldTwitterClient {
     private static final String FRIEND_TIMELINE_URL = "http://twitter.com/statuses/home_timeline.json";
     private static final String REPLY_URL = "http://twitter.com/statuses/replies.json";
     private static final String MYPOST_URL = "http://twitter.com/statuses/user_timeline.json";
@@ -40,7 +40,7 @@ public class TwitterClient {
 
     private Wasatter app;
 
-    public TwitterClient(Wasatter app) {
+    public OldTwitterClient(Wasatter app) {
 		// TODO Auto-generated constructor stub
     	this.app = app;
 	}

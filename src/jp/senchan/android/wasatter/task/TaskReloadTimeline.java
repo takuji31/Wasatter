@@ -10,7 +10,7 @@ import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.adapter.Odai;
 import jp.senchan.android.wasatter.adapter.Timeline;
-import jp.senchan.android.wasatter.client.TwitterClient;
+import jp.senchan.android.wasatter.client.OldTwitterClient;
 import jp.senchan.android.wasatter.client.OldWassrClient;
 import jp.senchan.android.wasatter.utils.StatusItemComparator;
 import twitter4j.TwitterException;
@@ -46,7 +46,7 @@ public class TaskReloadTimeline extends
     private OldWassrClient wassrClient () {
     	return mActivity.app().wassrClient;
     }
-    private TwitterClient twitterClient () {
+    private OldTwitterClient twitterClient () {
     	return mActivity.app().twitterClient;
     }
 
