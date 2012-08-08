@@ -39,7 +39,7 @@ public class SetTwitterAccountFragment extends WasatterFragment implements OnURL
 		mWebView = new WebView(getActivity());
 		mWebView.getSettings().setJavaScriptEnabled(true);
 
-		mClient = new TwitterClient();
+		mClient = new TwitterClient(app());
 
 		WebViewClient client = new WebViewClient(){
 			@Override
