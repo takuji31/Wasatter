@@ -66,7 +66,7 @@ public class WassrClient {
 		return client;
 	}
 
-	public ArrayList<WassrStatus> friendTimeline(int page)
+	public ArrayList<WasatterStatus> friendTimeline(int page)
 			throws WassrException {
 		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
 		builder.appendQueryParameter("page", String.valueOf(page));
@@ -75,12 +75,19 @@ public class WassrClient {
 		try {
 			HttpResponse res = client.execute(get);
 			HttpEntity entity = res.getEntity();
-			EntityUtils.toString(entity);
+			String str = EntityUtils.toString(entity);
+			JSONArray json = new JSONArray(str);
+			ArrayList<WasatterStatus> results = new ArrayList<WasatterStatus>();
+			int length = json.length();
+			for (int i = 0; i < length; i++) {
+				WassrStatus s = new WassrStatus(json.getJSONObject(i));
+				results.add(s);
+			}
+			return results;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new WassrException();
 		}
-		return null;
 	}
 
 	public void friendTimeline(int page,
