@@ -13,6 +13,8 @@ import com.androidquery.AQuery;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import jp.senchan.android.wasatter.BundleKey;
@@ -25,63 +27,45 @@ import jp.senchan.android.wasatter.app.ConfigActivity;
 import jp.senchan.android.wasatter.app.PostActivity;
 import jp.senchan.android.wasatter.client.TwitterAsyncClient;
 import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.loader.TimelineLoader;
 import jp.senchan.android.wasatter.model.api.APICallback;
+import jp.senchan.android.wasatter.model.api.TimelinePager;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
+import jp.senchan.android.wasatter.model.api.impl.twitter.TwitterTimelinePager;
+import jp.senchan.android.wasatter.model.api.impl.wassr.WassrTimelinePager;
 import jp.senchan.android.wasatter.utils.WasatterStatusComparator;
 
-public class TimelineFragment extends WasatterListFragment implements OnScrollListener {
+public class TimelineFragment extends WasatterListFragment implements OnScrollListener,LoaderCallbacks<TimelinePager> {
 	
 	private static final String sDialogTag = "VersionInfoDialogFragment";
-	private static final String sStateKeyTimeline = "timeline";
+	private static final String sStateKeyWassrTimelinePager = "WassrTimelinePager";
+	private static final String sStateKeyTwitterTimelinePager = "TwitterTimelinePager";
 	
-	public static final int MODE_TIMELINE       = 0;
-	public static final int MODE_MENSION        = 1;
-	public static final int MODE_MYPOST         = 2;
+	public static final int MODE_TIMELINE       = 1;
+	public static final int MODE_MENSION        = 2;
+	public static final int MODE_MYPOST         = 3;
 	public static final int MODE_DM             = 10;
 	public static final int MODE_ODAI           = 100;
 	public static final int MODE_CHANNEL_LIST   = 1000;
 	public static final int MODE_CHANNEL_STATUS = 1001;
 	
+	public static final int SERVICE_TWITTER = 1;
+	public static final int SERVICE_WASSR = 2;
+	
 	private int mMode;
-	private AQuery mAquery;
-	private AsyncTwitter mAsyncTwitter;
-	private TwitterAsyncClient mTwitterClient;
-	private WassrClient mWassrClient;
-	private APICallback<ArrayList<WasatterStatus>> mCallback =  new APICallback<ArrayList<WasatterStatus>>() {
-		
-		@Override
-		protected void callback(ArrayList<WasatterStatus> result, int status) {
-			WasatterActivity activity = activity();
-			//getActivityの結果がnullなら既に親のActivityは破棄されてます
-			if (activity != null) {
-				mLoadingCount--;
-				if (status != 200) {
-					app().toast(R.string.message_something_wrong).show();
-				}
-				if (mTimeline == null) {
-					initializeAdapter(result);
-				} else {
-					mTimeline.addAll(result);
-					Collections.sort(mTimeline, new WasatterStatusComparator());
-					mAdapter.notifyDataSetChanged();
-				}
-				activity().invalidateOptionsMenu();
-			}
-		}
-	};
+	private WassrTimelinePager mWassrPager;
+	private TwitterTimelinePager mTwitterPager;
 	
 	int mPage = 0;
 	int mLoadingCount = 0;
 	TimelineAdapter mAdapter;
-	ArrayList<WasatterStatus> mTimeline;
+	ArrayList<WasatterStatus> mTimeline = new ArrayList<WasatterStatus>();
 
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
-		mAquery = new AQuery(getActivity(), getView());
 		
 		Bundle args = getArguments();
 		if (args != null) {
@@ -89,23 +73,31 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 		} else {
 			mMode = MODE_TIMELINE;
 		}
+		mAdapter = new TimelineAdapter(getActivity(), mTimeline);
 		
 		if (savedInstanceState != null) {
-			mTimeline = (ArrayList<WasatterStatus>) savedInstanceState.getSerializable(sStateKeyTimeline);
+			mTwitterPager = (TwitterTimelinePager) savedInstanceState.getSerializable(sStateKeyTwitterTimelinePager);
+			mWassrPager = (WassrTimelinePager) savedInstanceState.getSerializable(sStateKeyWassrTimelinePager);
+			combineTimeline();
 		}
-		if (mTimeline == null) {
-			loadTimeline();
-		} else {
-			mAdapter = new TimelineAdapter(getActivity(), mTimeline);
-			setListAdapter(mAdapter);
-		}
+
+		loadTimeline();
 		getListView().setOnScrollListener(this);
 	}
 	
+	private void combineTimeline() {
+		mTimeline.clear();
+		mTimeline.addAll(mWassrPager);
+		mTimeline.addAll(mTwitterPager);
+		Collections.sort(mTimeline, new WasatterStatusComparator());
+		setListAdapter(mAdapter);
+	}
+
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putSerializable(sStateKeyTimeline, mTimeline);
+		outState.putSerializable(sStateKeyTwitterTimelinePager, mTwitterPager);
+		outState.putSerializable(sStateKeyWassrTimelinePager, mWassrPager);
 	}
 	
 	@Override
@@ -155,54 +147,79 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
 		if (mLoadingCount == 0 && firstVisibleItem + visibleItemCount == totalItemCount) {
-			loadTimeline();
+			loadNext();
 		}
+	}
+
+	private void loadNext() {
+		
 	}
 
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {}
 	
-	public void initializeAdapter(ArrayList<WasatterStatus> list) {
-		mTimeline = list;
-		mAdapter = new TimelineAdapter(getActivity(), list);
-		setListAdapter(mAdapter);
-	}
-	
 	private void cancelLoading() {
-		if (mWassrClient != null) {
-			mWassrClient.cancel();
-		}
-		if (mAsyncTwitter != null) {
-			mAsyncTwitter.shutdown();
-		}
-		mCallback.cancel();
-		mLoadingCount = 0;
+		//TODO キャンセル処理
 	}
 	
 	private void reloadTimeline() {
 		cancelLoading();
-		mTimeline = null;
 		mAdapter = null;
-		mPage = 0;
 		setListAdapter(null);
 		loadTimeline();
 	}
 	
 	private void loadTimeline() {
-		//FIXME 今の実装だとリロード連打したりするとタイムラインの内容が被る
 		final Wasatter app = app();
-		mPage++;
 		if (app.canLoadWassrTimeline()) {
-			mLoadingCount++;
-			mWassrClient = new WassrClient(mAquery, app.getWassrId(), app.getWassrPass());
-			mWassrClient.friendTimeline(mPage, mCallback);
+			int id = mMode * SERVICE_WASSR;
+			Bundle args = new Bundle();
+			args.putInt(BundleKey.SERVICE, SERVICE_WASSR);
+			getLoaderManager().initLoader(id, args, this);
 		}
 		if (app.canLoadTwitterTimeline()) {
-			mLoadingCount++;
-			mTwitterClient = new TwitterAsyncClient(app);
-			mAsyncTwitter = mTwitterClient.friendTimeline(mPage, mCallback);
+			int id = mMode * SERVICE_TWITTER;
+			Bundle args = new Bundle();
+			args.putInt(BundleKey.SERVICE, SERVICE_TWITTER);
+			getLoaderManager().initLoader(id, args, this);
 		}
-		activity().invalidateOptionsMenu();
+	}
+
+	@Override
+	public Loader<TimelinePager> onCreateLoader(int id, Bundle args) {
+		int service = args.getInt(BundleKey.SERVICE);
+		Wasatter app = app();
+		TimelinePager pager = null;
+		if (service == SERVICE_WASSR) {
+			if (mWassrPager == null) {
+				mWassrPager = new WassrTimelinePager(app, mMode);
+			}
+			pager = mWassrPager;
+		} else if (service == SERVICE_TWITTER) {
+			if (mTwitterPager == null) {
+				mTwitterPager = new TwitterTimelinePager(app, mMode);
+			}
+			pager = mTwitterPager;
+		} else {
+			app.showErrorToast();
+			return null;
+		}
+		return new TimelineLoader(app, pager);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<TimelinePager> loader, TimelinePager data) {
+		if (data.getLastResultCode() != TimelinePager.SUCCESS) {
+			app().showErrorToast();
+		} else {
+			combineTimeline();
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<TimelinePager> loader) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

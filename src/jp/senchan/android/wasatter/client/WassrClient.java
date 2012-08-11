@@ -66,8 +66,7 @@ public class WassrClient {
 		return client;
 	}
 
-	public ArrayList<WasatterStatus> getFriendTimeline(int page)
-			throws WassrException {
+	public ArrayList<WasatterStatus> getFriendTimeline(int page) {
 		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
 		builder.appendQueryParameter("page", String.valueOf(page));
 		DefaultHttpClient client = getHttpClient();
@@ -86,8 +85,8 @@ public class WassrClient {
 			return results;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new WassrException();
 		}
+		return null;
 	}
 
 	public void friendTimeline(int page,

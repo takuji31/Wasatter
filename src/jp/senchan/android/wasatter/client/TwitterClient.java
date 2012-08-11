@@ -61,10 +61,15 @@ public class TwitterClient {
 		return getClient().getOAuthAccessToken(mRequestToken, verifier);
 	}
 	
-	public ArrayList<WasatterStatus> getFrientTimeline(int page) {
+	public ArrayList<WasatterStatus> getHomeTimeline(long mSinceId) {
 		try {
 			Twitter client = getClient();
-			Paging paging = new Paging(page);
+			Paging paging = null;
+			if (mSinceId == 0) {
+				paging = new Paging(1);
+			} else {
+				paging = new Paging(mSinceId);
+			}
 			ResponseList<Status> statuses;
 			statuses = client.getHomeTimeline(paging);
 			ArrayList<WasatterStatus> result = new ArrayList<WasatterStatus>();
