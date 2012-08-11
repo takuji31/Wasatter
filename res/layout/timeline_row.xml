@@ -3,8 +3,10 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="right"
     android:orientation="vertical"
     android:padding="10dp" >
+
     <ImageView
         android:id="@+id/imageViewIcon"
         android:layout_width="48dp"
@@ -15,6 +17,7 @@
         android:layout_marginRight="10dp"
         android:contentDescription="Profile icon for this user"
         android:src="@drawable/ic_default_user_icon" />
+
     <TextView
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
@@ -22,10 +25,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/imageViewIcon"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_toRightOf="@+id/imageViewIcon"
         android:text="NameNameName"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <TextView
         android:id="@+id/textViewServiceName"
         android:layout_width="48dp"
@@ -35,6 +38,7 @@
         android:gravity="center"
         android:text="Wasatter"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
     <TextView
         android:id="@+id/textViewBody"
         android:layout_width="wrap_content"
@@ -44,14 +48,37 @@
         android:layout_marginTop="5dp"
         android:text="BodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBody"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
     <TextView
         android:id="@+id/textViewCreatedAt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewBody"
-        android:layout_alignParentRight="true"
+        android:layout_alignRight="@+id/textViewName"
         android:layout_below="@+id/textViewBody"
         android:gravity="right"
         android:text="2012/01/01 00:00:00"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ImageView
+        android:id="@+id/imageViewRetweetIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignRight="@+id/textViewCreatedAt"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/textViewCreatedAt"
+        android:src="@drawable/ic_default_user_icon" />
+
+    <TextView
+        android:id="@+id/textViewRetweetedBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageViewRetweetIcon"
+        android:layout_alignLeft="@+id/textViewCreatedAt"
+        android:layout_toLeftOf="@+id/imageViewRetweetIcon"
+        android:gravity="right"
+        android:text="Retweeted by takuji31"
+        android:layout_marginRight="5dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>

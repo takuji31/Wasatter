@@ -40,6 +40,15 @@ public class TimelineAdapter extends ArrayListAdapter<WasatterStatus> {
 		aq.id(R.id.textViewCreatedAt).text(sdf.format(new Date(item.getTime())));
 		aq.id(R.id.imageViewIcon).image(R.drawable.ic_default_user_icon).image(user.getProfileImageUrl());
 		
+		if (item.isRetweet()) {
+			WasatterUser retweetUser = item.getRetweetUser();
+			aq.id(R.id.textViewRetweetedBy).visible().text(String.format(mContext.getString(R.string.message_retweeted_by), retweetUser.getScreenName()));
+			aq.id(R.id.imageViewRetweetIcon).visible().image(R.drawable.ic_default_user_icon).image(retweetUser.getProfileImageUrl());
+		} else {
+			aq.id(R.id.textViewRetweetedBy).gone();
+			aq.id(R.id.imageViewRetweetIcon).gone();
+		}
+		
 		return v;
 	}
 

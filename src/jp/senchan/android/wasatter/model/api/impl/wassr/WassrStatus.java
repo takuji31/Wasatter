@@ -71,4 +71,9 @@ public class WassrStatus implements WasatterStatus {
 	public boolean isRetweet() {
 		return false;
 	}
+
+	@Override
+	public WasatterUser getRetweetUser() {
+		return null;
+	}
 }

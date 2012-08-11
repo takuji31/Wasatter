@@ -56,7 +56,12 @@ public class TwitterStatus implements WasatterStatus {
 
 	@Override
 	public boolean isRetweet() {
-		return mStatus.isRetweet();
+		return mRetweetStatus != null;
+	}
+
+	@Override
+	public WasatterUser getRetweetUser() {
+		return mRetweetUser;
 	}
 
 }
