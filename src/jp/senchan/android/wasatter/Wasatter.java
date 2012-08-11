@@ -95,6 +95,10 @@ public class Wasatter extends BaseApp {
 	public int getDefaultPrefVersion() {
 		return PREF_VERSION;
 	}
+	
+	public void showErrorToast() {
+		toast(R.string.message_something_wrong).show();
+	}
 
 	// アカウント設定
 	public boolean isWassrEnabled() {
