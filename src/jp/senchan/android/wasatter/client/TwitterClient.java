@@ -61,14 +61,15 @@ public class TwitterClient {
 		return getClient().getOAuthAccessToken(mRequestToken, verifier);
 	}
 	
-	public ArrayList<WasatterStatus> getHomeTimeline(long mSinceId) {
+	public ArrayList<WasatterStatus> getHomeTimeline(long maxId) {
 		try {
 			Twitter client = getClient();
-			Paging paging = null;
-			if (mSinceId == 0) {
-				paging = new Paging(1);
+			Paging paging = new Paging();
+			if (maxId == 0) {
+				paging.setPage(1);
 			} else {
-				paging = new Paging(mSinceId);
+				//max_idはどうもmax_id自身を含むようなので、-1する
+				paging.setMaxId(maxId - 1);
 			}
 			ResponseList<Status> statuses;
 			statuses = client.getHomeTimeline(paging);

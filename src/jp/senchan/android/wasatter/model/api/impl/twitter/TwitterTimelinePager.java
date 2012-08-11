@@ -13,7 +13,7 @@ public class TwitterTimelinePager extends TimelinePager {
 	private static final long serialVersionUID = 1L;
 	
 	private TwitterClient mClient;
-	private long mSinceId = 0;
+	private long mMaxId = 0;
 	
 	public TwitterTimelinePager(Wasatter app,int mode) {
 		mClient = new TwitterClient(app);
@@ -26,13 +26,13 @@ public class TwitterTimelinePager extends TimelinePager {
 		
 		switch (mMode) {
 			case TimelineFragment.MODE_TIMELINE:
-				result = mClient.getHomeTimeline(mSinceId);
+				result = mClient.getHomeTimeline(mMaxId);
 			break;
 		}
 		
 		if (result != null) {
 			addAll(result);
-			mSinceId = Long.parseLong(result.get(result.size() - 1).getStatusId());
+			mMaxId = Long.parseLong(result.get(result.size() - 1).getStatusId());
 			setLastResultCode(SUCCESS);
 		} else {
 			setLastResultCode(FAILURE);
