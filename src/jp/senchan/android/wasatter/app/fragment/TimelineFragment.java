@@ -55,6 +55,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	private int mMode;
 	private WassrTimelinePager mWassrPager;
 	private TwitterTimelinePager mTwitterPager;
+	private boolean isFirstLoad = true;
 	
 	int mPage = 0;
 	int mLoadingCount = 0;
@@ -102,7 +103,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	
 	@Override
 	public void onDestroy() {
-		cancelLoading();
+		destroyLoader();
 		super.onDestroy();
 	}
 	
@@ -146,43 +147,61 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		if (mLoadingCount == 0 && firstVisibleItem + visibleItemCount == totalItemCount) {
-			loadNext();
+		if (firstVisibleItem + visibleItemCount == totalItemCount) {
+			//TODO 2度以上走らないようにする
+			loadTimeline();
 		}
-	}
-
-	private void loadNext() {
-		
 	}
 
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {}
 	
-	private void cancelLoading() {
-		//TODO キャンセル処理
+	private int getWassrLoaderId() {
+		return mMode * SERVICE_WASSR;
+	}
+	
+	private int getTwitterLoaderId() {
+		return mMode * SERVICE_TWITTER;
+	}
+	
+	private void destroyLoader() {
+		getLoaderManager().destroyLoader(getWassrLoaderId());
+		getLoaderManager().destroyLoader(getTwitterLoaderId());
 	}
 	
 	private void reloadTimeline() {
-		cancelLoading();
-		mAdapter = null;
+		destroyLoader();
+		isFirstLoad = false;
 		setListAdapter(null);
+		setListShown(false);
+		mWassrPager = null;
+		mTwitterPager = null;
 		loadTimeline();
 	}
 	
 	private void loadTimeline() {
 		final Wasatter app = app();
 		if (app.canLoadWassrTimeline()) {
-			int id = mMode * SERVICE_WASSR;
+			int id = getWassrLoaderId();
 			Bundle args = new Bundle();
 			args.putInt(BundleKey.SERVICE, SERVICE_WASSR);
-			getLoaderManager().initLoader(id, args, this);
+			if (isFirstLoad) {
+				getLoaderManager().initLoader(id, args, this);
+			} else {
+				getLoaderManager().restartLoader(id, args, this);
+			}
 		}
 		if (app.canLoadTwitterTimeline()) {
-			int id = mMode * SERVICE_TWITTER;
+			int id = getTwitterLoaderId();
 			Bundle args = new Bundle();
 			args.putInt(BundleKey.SERVICE, SERVICE_TWITTER);
-			getLoaderManager().initLoader(id, args, this);
+			if (isFirstLoad) {
+				getLoaderManager().initLoader(id, args, this);
+			} else {
+				getLoaderManager().restartLoader(id, args, this);
+			}
 		}
+		isFirstLoad = false;
 	}
 
 	@Override
