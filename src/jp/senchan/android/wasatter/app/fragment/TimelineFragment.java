@@ -38,6 +38,7 @@ import jp.senchan.android.wasatter.utils.WasatterStatusComparator;
 public class TimelineFragment extends WasatterListFragment implements OnScrollListener,LoaderCallbacks<TimelinePager> {
 	
 	private static final String sDialogTag = "VersionInfoDialogFragment";
+	private static final String sStateKeyTimeline = "timeline";
 	private static final String sStateKeyWassrTimelinePager = "WassrTimelinePager";
 	private static final String sStateKeyTwitterTimelinePager = "TwitterTimelinePager";
 	
@@ -56,13 +57,12 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	private WassrTimelinePager mWassrPager;
 	private TwitterTimelinePager mTwitterPager;
 	private boolean isFirstLoad = true;
-	
-	int mPage = 0;
-	int mLoadingCount = 0;
-	TimelineAdapter mAdapter;
-	ArrayList<WasatterStatus> mTimeline = new ArrayList<WasatterStatus>();
+	private TimelineAdapter mAdapter;
+	private ArrayList<WasatterStatus> mTimeline = new ArrayList<WasatterStatus>();
+	private int mLoadingCount = 0;
 
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -74,15 +74,17 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 		} else {
 			mMode = MODE_TIMELINE;
 		}
-		mAdapter = new TimelineAdapter(getActivity(), mTimeline);
 		
 		if (savedInstanceState != null) {
 			mTwitterPager = (TwitterTimelinePager) savedInstanceState.getSerializable(sStateKeyTwitterTimelinePager);
 			mWassrPager = (WassrTimelinePager) savedInstanceState.getSerializable(sStateKeyWassrTimelinePager);
-			combineTimeline();
+			mTimeline = (ArrayList<WasatterStatus>) savedInstanceState.getSerializable(sStateKeyTimeline);
+			mAdapter = new TimelineAdapter(getActivity(), mTimeline);
+			setListAdapter(mAdapter);
+		} else {
+			loadTimeline();
 		}
 
-		loadTimeline();
 		getListView().setOnScrollListener(this);
 	}
 	
@@ -91,7 +93,13 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 		mTimeline.addAll(mWassrPager);
 		mTimeline.addAll(mTwitterPager);
 		Collections.sort(mTimeline, new WasatterStatusComparator());
-		setListAdapter(mAdapter);
+		if (mAdapter == null) {
+			mAdapter = new TimelineAdapter(getActivity(), mTimeline);
+			setListAdapter(mAdapter);
+		} else {
+			setListShown(true);
+			mAdapter.notifyDataSetChanged();
+		}
 	}
 
 	@Override
@@ -99,6 +107,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 		super.onSaveInstanceState(outState);
 		outState.putSerializable(sStateKeyTwitterTimelinePager, mTwitterPager);
 		outState.putSerializable(sStateKeyWassrTimelinePager, mWassrPager);
+		outState.putSerializable(sStateKeyTimeline, mTimeline);
 	}
 	
 	@Override
@@ -115,7 +124,6 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		MenuItem item = menu.findItem(R.id.menu_reload);
-		item.setEnabled(mLoadingCount == 0);
 	}
 	
 	@Override
@@ -147,7 +155,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		if (firstVisibleItem + visibleItemCount == totalItemCount) {
+		if (mLoadingCount == 0 &&firstVisibleItem + visibleItemCount == totalItemCount) {
 			//TODO 2度以上走らないようにする
 			loadTimeline();
 		}
@@ -174,8 +182,10 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 		isFirstLoad = false;
 		setListAdapter(null);
 		setListShown(false);
+		mAdapter = null;
 		mWassrPager = null;
 		mTwitterPager = null;
+		mLoadingCount = 0;
 		loadTimeline();
 	}
 	
@@ -223,11 +233,13 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 			app.showErrorToast();
 			return null;
 		}
+		mLoadingCount++;
 		return new TimelineLoader(app, pager);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<TimelinePager> loader, TimelinePager data) {
+		mLoadingCount--;
 		if (data.getLastResultCode() != TimelinePager.SUCCESS) {
 			app().showErrorToast();
 		} else {
