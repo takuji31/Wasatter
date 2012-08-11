@@ -14,11 +14,19 @@ public class TwitterStatus implements WasatterStatus {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Status mStatus;
+	private Status mRetweetStatus;
 	private TwitterUser mUser;
+	private TwitterUser mRetweetUser;
 	
 	public TwitterStatus(Status status) {
-		mStatus = status;
-		mUser = new TwitterUser(status.getUser());
+		if (status.isRetweet()) {
+			mRetweetStatus = status;
+			mStatus = status.getRetweetedStatus();
+			mRetweetUser = new TwitterUser(mRetweetStatus.getUser());
+		} else {
+			mStatus = status;
+		}
+		mUser = new TwitterUser(mStatus.getUser());
 	}
 
 	@Override
@@ -44,6 +52,11 @@ public class TwitterStatus implements WasatterStatus {
 	@Override
 	public long getTime() {
 		return mStatus.getCreatedAt().getTime();
+	}
+
+	@Override
+	public boolean isRetweet() {
+		return mStatus.isRetweet();
 	}
 
 }

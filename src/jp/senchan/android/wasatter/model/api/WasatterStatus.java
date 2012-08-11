@@ -10,4 +10,5 @@ public interface WasatterStatus extends Serializable {
 	public String getStatusId();
 	public WasatterUser getUser();
 	public long getTime();
+	public boolean isRetweet();
 }

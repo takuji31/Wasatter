@@ -66,4 +66,9 @@ public class WassrStatus implements WasatterStatus {
 	public long getTime() {
 		return mEpoch * 1000;
 	}
+
+	@Override
+	public boolean isRetweet() {
+		return false;
+	}
 }
