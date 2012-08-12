@@ -23,7 +23,6 @@ public class TimelineAdapter extends ArrayListAdapter<WasatterStatus> {
 
 	@Override
 	public int getViewLayoutId(int position) {
-		// TODO Auto-generated method stub
 		return R.layout.timeline_row;
 	}
 
