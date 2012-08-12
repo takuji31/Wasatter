@@ -18,7 +18,9 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.TwitterMethod;
 import twitter4j.auth.AccessToken;
+import twitter4j.auth.OAuthAuthorization;
 import twitter4j.auth.RequestToken;
+import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterClient {
@@ -27,13 +29,15 @@ public class TwitterClient {
 	private RequestToken mRequestToken;
 	private AccessToken mToken;
 	private Wasatter mApp;
+	private Configuration mConf;
 
 	public TwitterClient(Wasatter app) {
 		ConfigurationBuilder builder = new ConfigurationBuilder();
 		builder.setOAuthConsumerKey(OAuthTwitter.CONSUMER_KEY);
 		builder.setOAuthConsumerSecret(OAuthTwitter.CONSUMER_SECRET);
+		mConf = builder.build();
 		mApp = app;
-		mFactory = new TwitterFactory(builder.build());
+		mFactory = new TwitterFactory(mConf);
 		fetchToken();
 	}
 	
@@ -50,15 +54,19 @@ public class TwitterClient {
 		return mFactory.getInstance(mToken);
 	}
 	
+	public OAuthAuthorization getAuthorizer() {
+		return new OAuthAuthorization(mConf);
+	}
+	
 
 	public String getAuthorizationURL () throws TwitterException {
-		mRequestToken = getClient().getOAuthRequestToken();
+		mRequestToken = getAuthorizer().getOAuthRequestToken();
 		return mRequestToken.getAuthorizationURL();
 	}
 	
 	public AccessToken getAccessTokenFromURL (Uri uri) throws TwitterException {
 		String verifier = uri.getQueryParameter("oauth_verifier");
-		return getClient().getOAuthAccessToken(mRequestToken, verifier);
+		return getAuthorizer().getOAuthAccessToken(mRequestToken, verifier);
 	}
 	
 	public ArrayList<WasatterStatus> getHomeTimeline(long maxId) {
