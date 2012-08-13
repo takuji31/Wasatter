@@ -15,6 +15,9 @@ public class WassrTimelinePager extends TimelinePager {
 	private int mNextPage = 1;
 	private WassrClient mClient;
 	
+	public WassrTimelinePager() {
+	}
+	
 	public WassrTimelinePager(Wasatter app,int mode) {
 		super();
 		mClient = new WassrClient(app);

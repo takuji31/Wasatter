@@ -15,6 +15,9 @@ public class TwitterTimelinePager extends TimelinePager {
 	private TwitterClient mClient;
 	private long mMaxId = 0;
 	
+	public TwitterTimelinePager() {
+	}
+	
 	public TwitterTimelinePager(Wasatter app,int mode) {
 		mClient = new TwitterClient(app);
 		mMode = mode;

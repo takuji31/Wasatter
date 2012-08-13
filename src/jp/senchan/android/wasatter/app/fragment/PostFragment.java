@@ -1,15 +1,28 @@
 package jp.senchan.android.wasatter.app.fragment;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterFragment;
+import jp.senchan.android.wasatter.client.TwitterClient;
+import jp.senchan.android.wasatter.client.WasatterApiClient;
+import jp.senchan.android.wasatter.client.WassrClient;
+import jp.senchan.android.wasatter.loader.ItemPostLoader;
+import jp.senchan.android.wasatter.utils.ServiceCodeUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.text.TextUtils;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +32,24 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.AQuery;
 
-public class PostFragment extends WasatterFragment {
+public class PostFragment extends WasatterFragment implements LoaderCallbacks<Boolean> {
 	
-	private static final String sStateKeyImage = "image";
+	private static final String sStateKeyImage = "post_image_path";
+	private static final String sStateKeyPostingWassr = "posting_wassr";
+	private static final String sStateKeyPostingTwitter = "posting_twitter";
+	private static final String sStateKeySucceedWassr = "succeed_wassr";
+	private static final String sStateKeySucceedTwitter = "succeed_twitter";
+	private static final String sTagDialog = "UpdateStatusProgressDialogFragment";
 	
+
 	public static final String TAG_PICKER = "tag_picker";
 	
+	private boolean mPostingWassr = false;
+	private boolean mPostingTwitter = false;
+	private boolean mSucceedWassr = false;
+	private boolean mSucceedTwitter = false;
 	private String mImageFilePath;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
@@ -37,6 +61,11 @@ public class PostFragment extends WasatterFragment {
     	super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
         	setPostImage(savedInstanceState.getString(sStateKeyImage));
+        	mPostingWassr = savedInstanceState.getBoolean(sStateKeyPostingWassr);
+        	mPostingTwitter = savedInstanceState.getBoolean(sStateKeyPostingTwitter);
+        	mSucceedWassr = savedInstanceState.getBoolean(sStateKeySucceedWassr);
+        	mSucceedTwitter = savedInstanceState.getBoolean(sStateKeySucceedTwitter);
+        	checkPostState();
 		}
     }
 
@@ -52,6 +81,10 @@ public class PostFragment extends WasatterFragment {
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
     	outState.putString(sStateKeyImage, mImageFilePath);
+    	outState.putBoolean(sStateKeyPostingWassr, mPostingWassr);
+    	outState.putBoolean(sStateKeyPostingTwitter, mPostingTwitter);
+    	outState.putBoolean(sStateKeySucceedWassr, mSucceedWassr);
+    	outState.putBoolean(sStateKeySucceedTwitter, mSucceedTwitter);
     }
 
     @Override
@@ -66,11 +99,32 @@ public class PostFragment extends WasatterFragment {
 			ImagePickerFragment df = (ImagePickerFragment) Fragment.instantiate(getActivity(), ImagePickerFragment.class.getName(), null);
 			getFragmentManager().beginTransaction().add(df, TAG_PICKER).commit();
 			break;
+		case R.id.menu_post:
+			startPost();
+			break;
 		default:
 			break;
 		}
     	return true;
     }
+
+	private void startPost() {
+		mPostingWassr = true;
+		mPostingTwitter = true;
+		mSucceedTwitter = true;
+		mSucceedWassr = true;
+		checkPostState();
+	}
+
+	private void checkPostState() {
+		LoaderManager lm = getLoaderManager();
+		if (mPostingWassr) {
+			lm.initLoader(ServiceCodeUtil.resIdToId(getActivity(), R.integer.service_id_wassr), null, this);
+		}
+		if (mPostingTwitter) {
+			lm.initLoader(ServiceCodeUtil.resIdToId(getActivity(), R.integer.service_id_twitter), null, this);
+		}
+	}
 
 	public void setPostImage(String path) {
 		mImageFilePath = path;
@@ -81,5 +135,55 @@ public class PostFragment extends WasatterFragment {
 			aq.id(R.id.imageViewPreview).image((Drawable)null);
 		}
 	}
+	
+	private UpdateStatusProgressDialogFragment getProgressDialogFragment() {
+		FragmentManager fm = getFragmentManager();
+		return (UpdateStatusProgressDialogFragment) fm.findFragmentByTag(sTagDialog);
+	}
+
+	@Override
+	public Loader<Boolean> onCreateLoader(int id, Bundle args) {
+		WasatterApiClient client = null;
+		Wasatter app = app();
+
+		UpdateStatusProgressDialogFragment f = getProgressDialogFragment();
+		if (f == null) {
+			f = (UpdateStatusProgressDialogFragment) Fragment.instantiate(getActivity(), UpdateStatusProgressDialogFragment.class.getName());
+			f.show(getFragmentManager(), sTagDialog);
+		}
+		
+		AQuery aq = new AQuery(getActivity(), getView());
+		String body = aq.id(R.id.editTextBody).getEditable().toString();
+		if (ServiceCodeUtil.equals(getActivity(), id, R.integer.service_id_wassr)) {
+			client = new WassrClient(app);
+		} else if (ServiceCodeUtil.equals(getActivity(), id, R.integer.service_id_twitter)) {
+			client = new TwitterClient(app);
+		}
+		return new ItemPostLoader(getActivity(), client, body, mImageFilePath, "");
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Boolean> loader, Boolean data) {
+		int id = loader.getId();
+		if (ServiceCodeUtil.equals(getActivity(), id, R.integer.service_id_wassr)) {
+			mPostingWassr = false;
+			mSucceedWassr = data;
+		}
+		if (ServiceCodeUtil.equals(getActivity(), id, R.integer.service_id_twitter)) {
+			mPostingTwitter = false;
+			mSucceedTwitter = data;
+		}
+		UpdateStatusProgressDialogFragment f = getProgressDialogFragment();
+		if (!mPostingWassr && !mPostingTwitter) {
+			f.onDismiss(f.getDialog());
+			if (!mSucceedWassr || !mSucceedTwitter) {
+				//TODO 失敗したほうを再投稿できるようにすること
+				app().showErrorToast();
+			}
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Boolean> loader) {}
 	
 }

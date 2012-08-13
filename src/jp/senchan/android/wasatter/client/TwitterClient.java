@@ -25,7 +25,7 @@ import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class TwitterClient {
+public class TwitterClient implements WasatterApiClient {
 	
 	private TwitterFactory mFactory;
 	private RequestToken mRequestToken;

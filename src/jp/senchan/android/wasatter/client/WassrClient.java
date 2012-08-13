@@ -1,5 +1,9 @@
 package jp.senchan.android.wasatter.client;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.Wasatter;
@@ -11,13 +15,21 @@ import jp.senchan.android.wasatter.next.exception.WassrException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpOptions;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.androidquery.AQuery;
 import com.androidquery.auth.BasicHandle;
@@ -25,11 +37,13 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 
 import android.net.Uri;
+import android.text.TextUtils;
 
-public class WassrClient {
+public class WassrClient implements WasatterApiClient {
 
 	private static final String HOST = "api.wassr.jp";
 	private static final String FRIEND_TIMELINE = "/statuses/friends_timeline.json";
+	private static final String UPDATE_STATUS = "/statuses/update.json";
 	private static final int PORT = 80;
 
 	private AQuery mAQuery;
@@ -64,6 +78,50 @@ public class WassrClient {
 				new AuthScope(HOST, PORT),
 				new UsernamePasswordCredentials(mLoginId, mPassword));
 		return client;
+	}
+	
+	public boolean updateStatus(String body, String imagePath, String replyRid) {
+		
+		try {
+			DefaultHttpClient client = getHttpClient();
+			Uri.Builder builder = getRequestUriBuilder(UPDATE_STATUS);
+			HttpPost post = new HttpPost(builder.build().toString());
+			MultipartEntity entity = new MultipartEntity();
+			entity.addPart("status", new StringBody(body, Charset.forName("UTF-8")));
+			entity.addPart("source", new StringBody(Wasatter.VIA));
+			if (!TextUtils.isEmpty(replyRid)) {
+				entity.addPart("reply_status_rid", new StringBody(replyRid));
+			}
+			if (imagePath != null) {
+				entity.addPart("image", new FileBody(new File(imagePath)));
+			}
+			post.setEntity(entity);
+			HttpResponse res = client.execute(post);
+			if (res.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+				String jsonString = EntityUtils.toString(res.getEntity());
+				JSONObject obj = new JSONObject(jsonString);
+				obj.length();
+				return true;
+			}
+			
+			return false;
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 
 	public ArrayList<WasatterStatus> getFriendTimeline(int page) {
