@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
     <EditText
         android:id="@+id/editTextBody"
         android:layout_width="match_parent"
@@ -15,10 +14,8 @@
         android:hint="@string/hint_status"
         android:inputType="textMultiLine"
         android:minLines="3" >
-
         <requestFocus />
     </EditText>
-
     <TextView
         android:id="@+id/textViewLabelPostTo"
         android:layout_width="wrap_content"
@@ -26,9 +23,9 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editTextBody"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
         android:text="Post to:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <TextView
         android:id="@+id/textViewPostTo"
         android:layout_width="wrap_content"
@@ -40,10 +37,11 @@
         android:layout_toRightOf="@+id/textViewLabelPostTo"
         android:text="Wassr,Twitter"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <ImageView
         android:id="@+id/imageViewPreview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewPostTo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
 </RelativeLayout>
