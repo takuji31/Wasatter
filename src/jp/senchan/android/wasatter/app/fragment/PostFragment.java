@@ -4,7 +4,9 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.WasatterFragment;
 import jp.senchan.android.wasatter.app.fragment.ImagePickerFragment.OnImagePickedLisntener;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,13 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.AQuery;
 
-public class PostFragment extends WasatterFragment implements OnImagePickedLisntener {
+public class PostFragment extends WasatterFragment {
 	public static final String TAG_PICKER = "tag_picker";
+	
+	private Bitmap mImageBitmap;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // TODO 自動生成されたメソッド・スタブ
-        super.onCreate(savedInstanceState);
+         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
@@ -29,6 +32,11 @@ public class PostFragment extends WasatterFragment implements OnImagePickedLisnt
         View v = inflater.inflate(R.layout.post, null);
 
         return v;
+    }
+    
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+    	super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -40,7 +48,7 @@ public class PostFragment extends WasatterFragment implements OnImagePickedLisnt
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
 		case R.id.menu_image:
-			ImagePickerFragment df = new ImagePickerFragment(this);
+			ImagePickerFragment df = (ImagePickerFragment) Fragment.instantiate(getActivity(), ImagePickerFragment.class.getName(), null);
 			getFragmentManager().beginTransaction().add(df, TAG_PICKER).commit();
 			break;
 		default:
@@ -49,10 +57,16 @@ public class PostFragment extends WasatterFragment implements OnImagePickedLisnt
     	return true;
     }
 
-	@Override
-	public void onImagePicked(Bitmap image) {
-		// TODO 画像をpickした後の処理
+	public void setPostImage(Bitmap image) {
+		//Bitmapのデーターを解放してメモリーを空ける
+		if (mImageBitmap != null) {
+			mImageBitmap.recycle();
+			mImageBitmap = null;
+		}
+		
+		mImageBitmap = image;
 		AQuery aq = new AQuery(activity(), getView());
 		aq.id(R.id.imageViewPreview).image(image);
 	}
+
 }

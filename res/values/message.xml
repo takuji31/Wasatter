@@ -4,5 +4,6 @@
     <string name="message_something_wrong">何かがおかしいです、やり直してください</string>
     <string name="message_please_wait">しばらくお待ちください&#8230;</string>
     <string name="message_retweeted_by">Retweeted by %s</string>
+    <string name="message_out_of_memory_error">メモリーが足りないようです。アプリを再起動してやり直してください。</string>
     
 </resources>
