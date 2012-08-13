@@ -18,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import jp.senchan.android.wasatter.next.IntentCode;
+import jp.senchan.android.wasatter.utils.UriResolver;
 
 
 public class ImagePickerFragment extends WasatterFragment {
@@ -50,7 +51,7 @@ public class ImagePickerFragment extends WasatterFragment {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Bitmap image = null;
+		String path = null;
 		if (resultCode != Activity.RESULT_OK) {
 			return;
 		}
@@ -81,8 +82,8 @@ public class ImagePickerFragment extends WasatterFragment {
 			    uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
 			    in = activity().getContentResolver().openInputStream(uri);
 			}
-			image = BitmapFactory.decodeStream(in);
 			in.close();
+			path = UriResolver.getPath(getActivity(), uri);
 		} catch (OutOfMemoryError e) {
 			Log.d("ImagePicker", "Memory tarinai yo!");
 			e.printStackTrace();
@@ -90,7 +91,7 @@ public class ImagePickerFragment extends WasatterFragment {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mListener.onImagePicked(image);
+		mListener.onImagePicked(path);
 	}
 	
 	private void pickImageFromGallery() {
@@ -131,7 +132,7 @@ public class ImagePickerFragment extends WasatterFragment {
 	
 	
 	public interface OnImagePickedLisntener {
-		public void onImagePicked(Bitmap image);
+		public void onImagePicked(String imagePath);
 		public void clearPickedImage();
 	}
 }

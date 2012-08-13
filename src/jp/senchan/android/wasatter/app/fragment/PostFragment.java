@@ -1,15 +1,15 @@
 package jp.senchan.android.wasatter.app.fragment;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.WasatterFragment;
-import jp.senchan.android.wasatter.app.fragment.ImagePickerFragment.OnImagePickedLisntener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,18 +25,18 @@ public class PostFragment extends WasatterFragment {
 	
 	public static final String TAG_PICKER = "tag_picker";
 	
-	private Bitmap mImageBitmap;
+	private String mImageFilePath;
     @Override
     public void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        
+    }
+    
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+    	super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
-			byte[] imageData = savedInstanceState.getByteArray(sStateKeyImage);
-			if (imageData != null && imageData.length != 0) {
-				Bitmap bmp = deserializeBitmap(imageData);
-				setPostImage(bmp);
-			}
+        	setPostImage(savedInstanceState.getString(sStateKeyImage));
 		}
     }
 
@@ -51,7 +51,7 @@ public class PostFragment extends WasatterFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
-    	outState.putByteArray(sStateKeyImage, serializeBitmap());
+    	outState.putString(sStateKeyImage, mImageFilePath);
     }
 
     @Override
@@ -72,31 +72,14 @@ public class PostFragment extends WasatterFragment {
     	return true;
     }
 
-	public void setPostImage(Bitmap image) {
-		//Bitmapのデーターを解放してメモリーを空ける
-		if (mImageBitmap != null) {
-			mImageBitmap.recycle();
-			mImageBitmap = null;
-		}
-		
-		mImageBitmap = image;
+	public void setPostImage(String path) {
+		mImageFilePath = path;
 		AQuery aq = new AQuery(activity(), getView());
-		aq.id(R.id.imageViewPreview).image(image);
-	}
-	
-	public byte[] serializeBitmap() {
-		if (mImageBitmap != null) {
-		    ByteArrayOutputStream out = new ByteArrayOutputStream();
-		    mImageBitmap.compress(Bitmap.CompressFormat.PNG, 0, out);
-		    return out.toByteArray();
+		if (!TextUtils.isEmpty(path)) {
+			aq.id(R.id.imageViewPreview).image(new File(path), 480);
 		} else {
-			return null;
+			aq.id(R.id.imageViewPreview).image((Drawable)null);
 		}
 	}
 	
-	public Bitmap deserializeBitmap(byte[] data) {
-		return BitmapFactory.decodeByteArray(data, 0, data.length);
-	}
-	
-
 }
