@@ -38,9 +38,13 @@ public class PostActivity extends WasatterActivity implements OnImagePickedLisnt
 
 	@Override
 	public void onImagePicked(Bitmap image) {
-		PostFragment f = getPostFragment();
-		if (f != null) {
-			f.setPostImage(image);
+		PostFragment postFragment = getPostFragment();
+		if (postFragment != null) {
+			postFragment.setPostImage(image);
+		}
+		ImagePickerFragment imagePickerFragment = getImagePickerFragment();
+		if (imagePickerFragment != null) {
+			getSupportFragmentManager().beginTransaction().remove(imagePickerFragment).commit();
 		}
 	}
 
