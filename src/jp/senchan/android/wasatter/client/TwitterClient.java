@@ -1,5 +1,6 @@
 package jp.senchan.android.wasatter.client;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.Wasatter;
@@ -12,6 +13,7 @@ import twitter4j.AsyncTwitter;
 import twitter4j.Paging;
 import twitter4j.ResponseList;
 import twitter4j.Status;
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterAdapter;
 import twitter4j.TwitterException;
@@ -67,6 +69,26 @@ public class TwitterClient {
 	public AccessToken getAccessTokenFromURL (Uri uri) throws TwitterException {
 		String verifier = uri.getQueryParameter("oauth_verifier");
 		return getAuthorizer().getOAuthAccessToken(mRequestToken, verifier);
+	}
+	
+	public boolean updateStatus(String body, String imagePath, String replyId) {
+		if (TextUtils.isEmpty(body)) {
+			return false;
+		}
+		StatusUpdate status = new StatusUpdate(body);
+		if (imagePath != null) {
+			status.media(new File(imagePath));
+		}
+		if (!TextUtils.isEmpty(replyId)) {
+			status.setInReplyToStatusId(Long.parseLong(replyId));
+		}
+		try {
+			getClient().updateStatus(status);
+			return true;
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	public ArrayList<WasatterStatus> getHomeTimeline(long maxId) {
