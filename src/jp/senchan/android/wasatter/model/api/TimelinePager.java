@@ -1,8 +1,9 @@
 package jp.senchan.android.wasatter.model.api;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class TimelinePager extends ArrayList<WasatterStatus> {
+public abstract class TimelinePager extends ArrayList<WasatterStatus> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
