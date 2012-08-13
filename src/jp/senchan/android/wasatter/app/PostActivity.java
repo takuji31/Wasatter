@@ -44,7 +44,8 @@ public class PostActivity extends WasatterActivity implements OnImagePickedLisnt
 		}
 		ImagePickerFragment imagePickerFragment = getImagePickerFragment();
 		if (imagePickerFragment != null) {
-			getSupportFragmentManager().beginTransaction().remove(imagePickerFragment).commit();
+			//XXX onActivityResultで呼ばれる(onResumeより先に呼ばれる)からcheckStateLossはとばす
+			getSupportFragmentManager().beginTransaction().remove(imagePickerFragment).commitAllowingStateLoss();
 		}
 	}
 
