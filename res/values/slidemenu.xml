@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="slidemenu_title">
+        <item>@string/title_profile</item>
+        <item>@string/title_timeline</item>
+        <item>@string/title_reply</item>
+        <item>@string/title_odai</item>
+        <item>@string/title_channel</item>
+    </string-array>
+    <string-array name="slidemenu_icon">
+        <item>ic_action_profile</item>
+        <item>ic_action_timeline</item>
+        <item>ic_action_reply</item>
+        <item>ic_action_odai</item>
+        <item>ic_action_channel</item>
+    </string-array>
+</resources>
