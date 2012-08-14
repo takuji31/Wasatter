@@ -3,13 +3,9 @@ package jp.senchan.android.wasatter.app.fragment;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import twitter4j.AsyncTwitter;
-
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.androidquery.AQuery;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,15 +16,11 @@ import android.widget.AbsListView.OnScrollListener;
 import jp.senchan.android.wasatter.BundleKey;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
-import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterListFragment;
 import jp.senchan.android.wasatter.adapter.TimelineAdapter;
 import jp.senchan.android.wasatter.app.ConfigActivity;
 import jp.senchan.android.wasatter.app.PostActivity;
-import jp.senchan.android.wasatter.client.TwitterAsyncClient;
-import jp.senchan.android.wasatter.client.WassrClient;
 import jp.senchan.android.wasatter.loader.TimelineLoader;
-import jp.senchan.android.wasatter.model.api.APICallback;
 import jp.senchan.android.wasatter.model.api.TimelinePager;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.model.api.impl.twitter.TwitterTimelinePager;

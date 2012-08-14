@@ -1,7 +1,6 @@
 package jp.senchan.android.wasatter.app;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 

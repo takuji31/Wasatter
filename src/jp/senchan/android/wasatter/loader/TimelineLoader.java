@@ -2,7 +2,6 @@ package jp.senchan.android.wasatter.loader;
 
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.model.api.TimelinePager;
-import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
 public class TimelineLoader extends AsyncTaskLoader<TimelinePager> {

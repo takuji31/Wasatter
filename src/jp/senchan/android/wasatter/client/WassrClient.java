@@ -7,12 +7,9 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.Wasatter;
-import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.model.api.APICallback;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.model.api.impl.wassr.WassrStatus;
-import jp.senchan.android.wasatter.next.exception.WassrException;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -20,7 +17,6 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpOptions;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;

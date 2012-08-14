@@ -1,9 +1,6 @@
 package jp.senchan.android.wasatter.app.fragment;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterFragment;
@@ -12,8 +9,6 @@ import jp.senchan.android.wasatter.client.WasatterApiClient;
 import jp.senchan.android.wasatter.client.WassrClient;
 import jp.senchan.android.wasatter.loader.ItemPostLoader;
 import jp.senchan.android.wasatter.utils.ServiceCodeUtil;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,7 +17,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
