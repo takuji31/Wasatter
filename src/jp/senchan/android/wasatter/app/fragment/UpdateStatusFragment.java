@@ -33,7 +33,8 @@ public class UpdateStatusFragment extends WasatterFragment implements LoaderCall
 	private static final String sStateKeyPostingTwitter = "posting_twitter";
 	private static final String sStateKeySucceedWassr = "succeed_wassr";
 	private static final String sStateKeySucceedTwitter = "succeed_twitter";
-	private static final String sTagDialog = "UpdateStatusProgressDialogFragment";
+	private static final String sTagProgressDialog = "UpdateStatusProgressDialogFragment";
+	private static final String sTagCheckDialog = "ServiceCheckDialogFragment";
 	
 
 	public static final String TAG_PICKER = "tag_picker";
@@ -90,16 +91,18 @@ public class UpdateStatusFragment extends WasatterFragment implements LoaderCall
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
 		case R.id.menu_image:
-			ImagePickerFragment df = (ImagePickerFragment) Fragment.instantiate(getActivity(), ImagePickerFragment.class.getName(), null);
-			getFragmentManager().beginTransaction().add(df, TAG_PICKER).commit();
-			break;
+			ImagePickerFragment ipf = (ImagePickerFragment) Fragment.instantiate(getActivity(), ImagePickerFragment.class.getName(), null);
+			getFragmentManager().beginTransaction().add(ipf, TAG_PICKER).commit();
+			return true;
 		case R.id.menu_post:
 			startPost();
-			break;
-		default:
-			break;
+			return true;
+		case R.id.menu_service:
+			ServiceCheckDialogFragment scdf = (ServiceCheckDialogFragment) Fragment.instantiate(getActivity(), ServiceCheckDialogFragment.class.getName());
+			scdf.show(getFragmentManager(), sTagCheckDialog);
+			return true;
 		}
-    	return true;
+    	return false;
     }
 
 	private void startPost() {
@@ -122,7 +125,7 @@ public class UpdateStatusFragment extends WasatterFragment implements LoaderCall
 		UpdateStatusProgressDialogFragment f = getProgressDialogFragment();
 		if (f == null && (mPostingWassr || mPostingTwitter)) {
 			f = (UpdateStatusProgressDialogFragment) Fragment.instantiate(getActivity(), UpdateStatusProgressDialogFragment.class.getName());
-			f.show(getFragmentManager(), sTagDialog);
+			f.show(getFragmentManager(), sTagProgressDialog);
 		}
 		
 	}
@@ -139,7 +142,7 @@ public class UpdateStatusFragment extends WasatterFragment implements LoaderCall
 	
 	private UpdateStatusProgressDialogFragment getProgressDialogFragment() {
 		FragmentManager fm = getFragmentManager();
-		return (UpdateStatusProgressDialogFragment) fm.findFragmentByTag(sTagDialog);
+		return (UpdateStatusProgressDialogFragment) fm.findFragmentByTag(sTagProgressDialog);
 	}
 
 	@Override

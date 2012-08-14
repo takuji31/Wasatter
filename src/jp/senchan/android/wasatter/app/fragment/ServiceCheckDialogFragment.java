@@ -12,7 +12,7 @@ import android.os.Bundle;
 
 public class ServiceCheckDialogFragment extends WasatterDialogFragment {
 
-	private OnPostServiceSelectedListener mListener;
+	private OnServiceCheckedListener mListener;
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -33,7 +33,8 @@ public class ServiceCheckDialogFragment extends WasatterDialogFragment {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				//TODO 選択処理
-				mListener.onPostServiceSelected(selected);
+				mListener.onServiceChecked(selected);
+				dismiss();
 			}
 		});
 		return builder.create();
@@ -43,15 +44,15 @@ public class ServiceCheckDialogFragment extends WasatterDialogFragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
-			mListener = (OnPostServiceSelectedListener) activity;
+			mListener = (OnServiceCheckedListener) activity;
 		} catch (ClassCastException e) {
-			throw new ClassCastException(activity.toString() + " must be implements " + OnPostServiceSelectedListener.class.getName());
+			throw new ClassCastException(activity.toString() + " must be implements " + OnServiceCheckedListener.class.getName());
 		}
 	}
 	
 	
 	
-	public interface OnPostServiceSelectedListener {
-		public void onPostServiceSelected(boolean[] selected);
+	public interface OnServiceCheckedListener {
+		public void onServiceChecked(boolean[] selected);
 	}
 }

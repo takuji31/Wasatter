@@ -6,11 +6,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.app.fragment.ImagePickerFragment;
+import jp.senchan.android.wasatter.app.fragment.ServiceCheckDialogFragment.OnServiceCheckedListener;
 import jp.senchan.android.wasatter.app.fragment.UpdateStatusFragment;
 import jp.senchan.android.wasatter.app.fragment.ImagePickerDialogFragment.OnImagePickerListener;
 import jp.senchan.android.wasatter.app.fragment.ImagePickerFragment.OnImagePickedLisntener;
 
-public class UpdateStatusActivity extends WasatterActivity implements OnImagePickedLisntener, OnImagePickerListener {
+public class UpdateStatusActivity extends WasatterActivity implements OnImagePickedLisntener, OnImagePickerListener, OnServiceCheckedListener {
 	
 	private static final String sPostFragmentTag = "PostFragment";
 	
@@ -58,6 +59,14 @@ public class UpdateStatusActivity extends WasatterActivity implements OnImagePic
 		ImagePickerFragment f = getImagePickerFragment();
 		if (f != null) {
 			f.startPickImage(which);
+		}
+	}
+
+	@Override
+	public void onServiceChecked(boolean[] selected) {
+		UpdateStatusFragment f = getPostFragment();
+		if (f != null) {
+			//TODO 投稿サービスの選択
 		}
 	}
     
