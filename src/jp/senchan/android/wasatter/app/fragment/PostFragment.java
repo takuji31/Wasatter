@@ -109,6 +109,7 @@ public class PostFragment extends WasatterFragment implements LoaderCallbacks<Bo
     }
 
 	private void startPost() {
+		//TODO 適切なマルチポスト
 		mPostingWassr = true;
 		mPostingTwitter = true;
 		mSucceedTwitter = true;
@@ -124,6 +125,12 @@ public class PostFragment extends WasatterFragment implements LoaderCallbacks<Bo
 		if (mPostingTwitter) {
 			lm.initLoader(ServiceCodeUtil.resIdToId(getActivity(), R.integer.service_id_twitter), null, this);
 		}
+		UpdateStatusProgressDialogFragment f = getProgressDialogFragment();
+		if (f == null && (mPostingWassr || mPostingTwitter)) {
+			f = (UpdateStatusProgressDialogFragment) Fragment.instantiate(getActivity(), UpdateStatusProgressDialogFragment.class.getName());
+			f.show(getFragmentManager(), sTagDialog);
+		}
+		
 	}
 
 	public void setPostImage(String path) {
@@ -146,12 +153,6 @@ public class PostFragment extends WasatterFragment implements LoaderCallbacks<Bo
 		WasatterApiClient client = null;
 		Wasatter app = app();
 
-		UpdateStatusProgressDialogFragment f = getProgressDialogFragment();
-		if (f == null) {
-			f = (UpdateStatusProgressDialogFragment) Fragment.instantiate(getActivity(), UpdateStatusProgressDialogFragment.class.getName());
-			f.show(getFragmentManager(), sTagDialog);
-		}
-		
 		AQuery aq = new AQuery(getActivity(), getView());
 		String body = aq.id(R.id.editTextBody).getEditable().toString();
 		if (ServiceCodeUtil.equals(getActivity(), id, R.integer.service_id_wassr)) {
@@ -173,12 +174,15 @@ public class PostFragment extends WasatterFragment implements LoaderCallbacks<Bo
 			mPostingTwitter = false;
 			mSucceedTwitter = data;
 		}
-		UpdateStatusProgressDialogFragment f = getProgressDialogFragment();
+		final UpdateStatusProgressDialogFragment f = getProgressDialogFragment();
 		if (!mPostingWassr && !mPostingTwitter) {
-			f.onDismiss(f.getDialog());
 			if (!mSucceedWassr || !mSucceedTwitter) {
 				//TODO 失敗したほうを再投稿できるようにすること
 				app().showErrorToast();
+				//onLoadFinishedでFragmentの処理をするならAllowingStateLossしないといけない
+				f.dismissAllowingStateLoss();
+			} else {
+				getActivity().finish();
 			}
 		}
 	}
