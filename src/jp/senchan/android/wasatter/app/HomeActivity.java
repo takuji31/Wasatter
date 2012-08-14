@@ -31,11 +31,13 @@ public class HomeActivity extends WasatterActivity {
 		Resources res = getResources();
 		String[] titles = res.getStringArray(R.array.slidemenu_title);
 		String[] icons = res.getStringArray(R.array.slidemenu_icon);
+		int[] ids = res.getIntArray(R.array.slidemenu_id);
 		
 		for (int i = 0; i < titles.length; i++) {
 			SlideMenuItem item = new SlideMenuItem();
 			item.label = titles[i];
 			item.icon = res.getIdentifier(icons[i], "drawable", getPackageName());
+			item.id = ids[i];
 			items.add(item);
 		}
 		

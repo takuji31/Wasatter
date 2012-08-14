@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <integer-array name="slidemenu_id">
+        <item>@integer/menu_id_profile</item>
+        <item>@integer/menu_id_timeline</item>
+        <item>@integer/menu_id_reply</item>
+        <item>@integer/menu_id_odai</item>
+        <item>@integer/menu_id_channel</item>
+    </integer-array>
     <string-array name="slidemenu_title">
         <item>@string/title_profile</item>
         <item>@string/title_timeline</item>
@@ -14,4 +21,9 @@
         <item>ic_action_odai</item>
         <item>ic_action_channel</item>
     </string-array>
+    <item name="menu_id_profile" type="integer">0</item>
+    <item name="menu_id_timeline" type="integer">1</item>
+    <item name="menu_id_reply" type="integer">2</item>
+    <item name="menu_id_odai" type="integer">3</item>
+    <item name="menu_id_channel" type="integer">4</item>
 </resources>
