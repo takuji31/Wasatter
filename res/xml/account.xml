@@ -4,7 +4,7 @@
         <PreferenceScreen android:title="Twitter" >
             <intent
                 android:action="android.intent.action.MAIN"
-                android:targetClass="jp.senchan.android.wasatter.app.AddAccountActivity"
+                android:targetClass="jp.senchan.android.wasatter.app.SetAccountActivity"
                 android:targetPackage="jp.senchan.android.wasatter" >
                 <extra
                     android:name="service"
@@ -14,7 +14,7 @@
         <PreferenceScreen android:title="Wassr" >
             <intent
                 android:action="android.intent.action.MAIN"
-                android:targetClass="jp.senchan.android.wasatter.app.AddAccountActivity"
+                android:targetClass="jp.senchan.android.wasatter.app.SetAccountActivity"
                 android:targetPackage="jp.senchan.android.wasatter" >
                 <extra
                     android:name="service"
