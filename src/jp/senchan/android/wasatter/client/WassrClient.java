@@ -22,6 +22,9 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,6 +76,12 @@ public class WassrClient implements WasatterApiClient {
 		client.getCredentialsProvider().setCredentials(
 				new AuthScope(HOST, PORT),
 				new UsernamePasswordCredentials(mLoginId, mPassword));
+		//リトライを禁止する
+		client.setHttpRequestRetryHandler(new DefaultHttpRequestRetryHandler(0, false));
+		HttpParams params = client.getParams();
+		//コネクションのタイムアウトを最適化
+		HttpConnectionParams.setConnectionTimeout(params, 20000); 
+		HttpConnectionParams.setSoTimeout(params, 20000); 
 		return client;
 	}
 	
