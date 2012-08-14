@@ -9,7 +9,7 @@
         <item >OldVersionConfig</item>
     </string-array>
     <string-array name="debug_menu_class">
-        <item>.next.ui.activity.PostActivity</item>
+        <item>.app.UpdateStatusActivity</item>
         <item>.app.TimelineActivity</item>
         <item>.app.HomeActivity</item>
         <item >.app.ConfigActivity</item>

@@ -10,7 +10,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.os.Bundle;
 
-public class PostServiceCheckDialog extends WasatterDialogFragment {
+public class ServiceCheckDialogFragment extends WasatterDialogFragment {
 
 	private OnPostServiceSelectedListener mListener;
 	

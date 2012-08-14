@@ -19,7 +19,7 @@ import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterListFragment;
 import jp.senchan.android.wasatter.adapter.TimelineAdapter;
 import jp.senchan.android.wasatter.app.ConfigActivity;
-import jp.senchan.android.wasatter.app.PostActivity;
+import jp.senchan.android.wasatter.app.UpdateStatusActivity;
 import jp.senchan.android.wasatter.loader.TimelineLoader;
 import jp.senchan.android.wasatter.model.api.TimelinePager;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
@@ -122,7 +122,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.menu_post) {
-			Intent intent = new Intent(getActivity(), PostActivity.class);
+			Intent intent = new Intent(getActivity(), UpdateStatusActivity.class);
 			startActivity(intent);
 			return true;
 		}

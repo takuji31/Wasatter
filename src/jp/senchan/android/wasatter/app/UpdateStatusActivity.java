@@ -6,11 +6,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.app.fragment.ImagePickerFragment;
-import jp.senchan.android.wasatter.app.fragment.PostFragment;
+import jp.senchan.android.wasatter.app.fragment.UpdateStatusFragment;
 import jp.senchan.android.wasatter.app.fragment.ImagePickerDialogFragment.OnImagePickerListener;
 import jp.senchan.android.wasatter.app.fragment.ImagePickerFragment.OnImagePickedLisntener;
 
-public class PostActivity extends WasatterActivity implements OnImagePickedLisntener, OnImagePickerListener {
+public class UpdateStatusActivity extends WasatterActivity implements OnImagePickedLisntener, OnImagePickerListener {
 	
 	private static final String sPostFragmentTag = "PostFragment";
 	
@@ -22,22 +22,22 @@ public class PostActivity extends WasatterActivity implements OnImagePickedLisnt
         Fragment f = fm.findFragmentById(android.R.id.content);
         if (f == null) {
             FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(android.R.id.content, Fragment.instantiate(this, PostFragment.class.getName()), sPostFragmentTag);
+            ft.replace(android.R.id.content, Fragment.instantiate(this, UpdateStatusFragment.class.getName()), sPostFragmentTag);
             ft.commit();
 		}
     }
     
-    private PostFragment getPostFragment() {
-    	return (PostFragment) getSupportFragmentManager().findFragmentByTag(sPostFragmentTag);
+    private UpdateStatusFragment getPostFragment() {
+    	return (UpdateStatusFragment) getSupportFragmentManager().findFragmentByTag(sPostFragmentTag);
     }
 
     private ImagePickerFragment getImagePickerFragment() {
-    	return (ImagePickerFragment) getSupportFragmentManager().findFragmentByTag(PostFragment.TAG_PICKER);
+    	return (ImagePickerFragment) getSupportFragmentManager().findFragmentByTag(UpdateStatusFragment.TAG_PICKER);
     }
 
 	@Override
 	public void onImagePicked(String path) {
-		PostFragment postFragment = getPostFragment();
+		UpdateStatusFragment postFragment = getPostFragment();
 		if (postFragment != null) {
 			postFragment.setPostImage(path);
 		}

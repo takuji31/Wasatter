@@ -7,7 +7,7 @@ import jp.senchan.android.wasatter.WasatterFragment;
 import jp.senchan.android.wasatter.client.TwitterClient;
 import jp.senchan.android.wasatter.client.WasatterApiClient;
 import jp.senchan.android.wasatter.client.WassrClient;
-import jp.senchan.android.wasatter.loader.ItemPostLoader;
+import jp.senchan.android.wasatter.loader.UpdateStatusLoader;
 import jp.senchan.android.wasatter.utils.ServiceCodeUtil;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -26,7 +26,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.AQuery;
 
-public class PostFragment extends WasatterFragment implements LoaderCallbacks<Boolean> {
+public class UpdateStatusFragment extends WasatterFragment implements LoaderCallbacks<Boolean> {
 	
 	private static final String sStateKeyImage = "post_image_path";
 	private static final String sStateKeyPostingWassr = "posting_wassr";
@@ -154,7 +154,7 @@ public class PostFragment extends WasatterFragment implements LoaderCallbacks<Bo
 		} else if (ServiceCodeUtil.equals(getActivity(), id, R.integer.service_id_twitter)) {
 			client = new TwitterClient(app);
 		}
-		return new ItemPostLoader(getActivity(), client, body, mImageFilePath, "");
+		return new UpdateStatusLoader(getActivity(), client, body, mImageFilePath, "");
 	}
 
 	@Override
