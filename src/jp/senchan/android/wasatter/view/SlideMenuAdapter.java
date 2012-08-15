@@ -3,7 +3,7 @@ package jp.senchan.android.wasatter.view;
 import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.R;
-import jp.senchan.lib.view.ArrayListAdapter;
+import jp.senchan.lib.app.ArrayListAdapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;

@@ -10,7 +10,7 @@ import jp.senchan.android.wasatter.client.OldTwitterClient;
 import jp.senchan.android.wasatter.client.OldWassrClient;
 import jp.senchan.android.wasatter.next.PrefKey;
 import jp.senchan.android.wasatter.R;
-import jp.senchan.lib.BaseApp;
+import jp.senchan.lib.app.BaseApp;
 
 import android.app.AlertDialog;
 import android.text.TextUtils;

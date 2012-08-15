@@ -11,7 +11,7 @@ import android.view.View;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.model.api.WasatterUser;
-import jp.senchan.lib.view.ArrayListAdapter;
+import jp.senchan.lib.app.ArrayListAdapter;
 
 public class TimelineAdapter extends ArrayListAdapter<WasatterStatus> {
 
