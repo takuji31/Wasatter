@@ -196,7 +196,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 				getLoaderManager().restartLoader(id, args, this);
 			}
 		}
-		if (app.canLoadTwitterTimeline()) {
+		if (app.canLoadTwitterTimeline() && mMode != MODE_ODAI && mMode != MODE_CHANNEL_LIST && mMode != MODE_CHANNEL_STATUS) {
 			int id = getTwitterLoaderId();
 			Bundle args = new Bundle();
 			args.putInt(BundleKey.SERVICE, SERVICE_TWITTER);
