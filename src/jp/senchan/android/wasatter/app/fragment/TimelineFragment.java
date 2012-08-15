@@ -73,13 +73,17 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 			mTwitterPager = (TwitterTimelinePager) savedInstanceState.getSerializable(sStateKeyTwitterTimelinePager);
 			mWassrPager = (WassrTimelinePager) savedInstanceState.getSerializable(sStateKeyWassrTimelinePager);
 			mTimeline = (ArrayList<WasatterStatus>) savedInstanceState.getSerializable(sStateKeyTimeline);
-			mAdapter = new TimelineAdapter(getActivity(), mTimeline);
+			createAdapter();
 			setListAdapter(mAdapter);
 		} else {
 			loadTimeline();
 		}
 
 		getListView().setOnScrollListener(this);
+	}
+
+	private void createAdapter() {
+		mAdapter = new TimelineAdapter(getActivity(), mTimeline);
 	}
 	
 	private void combineTimeline() {
@@ -90,7 +94,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 			Collections.sort(mTimeline, new WasatterStatusComparator());
 		}
 		if (mAdapter == null) {
-			mAdapter = new TimelineAdapter(getActivity(), mTimeline);
+			createAdapter();
 			setListAdapter(mAdapter);
 		} else {
 			setListShown(true);
