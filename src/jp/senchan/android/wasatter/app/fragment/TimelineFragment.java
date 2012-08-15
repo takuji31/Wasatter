@@ -118,11 +118,6 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	}
 	
 	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		MenuItem item = menu.findItem(R.id.menu_reload);
-	}
-	
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.menu_post) {
