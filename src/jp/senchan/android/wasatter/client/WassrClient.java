@@ -47,6 +47,7 @@ public class WassrClient implements WasatterApiClient {
 	private static final String HOST = "api.wassr.jp";
 	private static final String FRIEND_TIMELINE = "/statuses/friends_timeline.json";
 	private static final String MENSION = "/statuses/replies.json";
+	private static final String USER_TIMELINE = "/statuses/user_timeline.json";
 	private static final String UPDATE_STATUS = "/statuses/update.json";
 	private static final int PORT = 80;
 
@@ -170,6 +171,10 @@ public class WassrClient implements WasatterApiClient {
 
 	public ArrayList<WasatterStatus> getMension(int page) {
 		return retrieveTimeline(MENSION, page, null);
+	}
+	
+	public ArrayList<WasatterStatus> getUserTimeline(int page) {
+		return retrieveTimeline(USER_TIMELINE, page, null);
 	}
 	
 	public void friendTimeline(int page,

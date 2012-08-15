@@ -34,6 +34,9 @@ public class TwitterTimelinePager extends TimelinePager {
 			case TimelineFragment.MODE_MENSION:
 				result = mClient.getMension(mMaxId);
 			break;
+			case TimelineFragment.MODE_USER_TIMELINE:
+				result = mClient.getUserTimeline(mMaxId);
+			break;
 		}
 		
 		if (result != null) {

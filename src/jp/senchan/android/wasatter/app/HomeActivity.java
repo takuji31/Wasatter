@@ -96,7 +96,7 @@ public class HomeActivity extends WasatterActivity implements
 		Bundle args = new Bundle();
 		String fragmentClass = TimelineFragment.class.getName();
 		if (item.id == ServiceCodeUtil.resIdToId(this, R.integer.menu_id_profile)) {
-			args.putInt(BundleKey.MODE, TimelineFragment.MODE_MYPOST);
+			args.putInt(BundleKey.MODE, TimelineFragment.MODE_USER_TIMELINE);
 		} else if (item.id == ServiceCodeUtil.resIdToId(this, R.integer.menu_id_timeline)) {
 			args.putInt(BundleKey.MODE, TimelineFragment.MODE_TIMELINE);
 		} else if (item.id == ServiceCodeUtil.resIdToId(this, R.integer.menu_id_reply)) {

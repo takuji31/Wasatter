@@ -141,6 +141,17 @@ public class TwitterClient implements WasatterApiClient {
 		});
 	}
 	
+	public ArrayList<WasatterStatus> getUserTimeline(long maxId) {
+		return retrieveTimeline(getPaging(maxId), new TwitterResultGetter() {
+			
+			@Override
+			public ResponseList<Status> getResponse(Twitter client, Paging paging)
+					throws TwitterException {
+				return client.getUserTimeline(paging);
+			}
+		});
+	}
+	
 	public interface TwitterResultGetter {
 		public ResponseList<Status> getResponse(Twitter client, Paging paging) throws TwitterException;
 	}

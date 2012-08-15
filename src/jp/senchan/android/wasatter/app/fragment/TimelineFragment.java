@@ -36,7 +36,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	
 	public static final int MODE_TIMELINE       = 1;
 	public static final int MODE_MENSION        = 2;
-	public static final int MODE_MYPOST         = 3;
+	public static final int MODE_USER_TIMELINE         = 3;
 	public static final int MODE_DM             = 10;
 	public static final int MODE_ODAI           = 100;
 	public static final int MODE_CHANNEL_LIST   = 1000;
