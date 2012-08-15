@@ -3,6 +3,7 @@ package jp.senchan.android.wasatter.app.fragment;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -16,6 +17,7 @@ import android.widget.AbsListView.OnScrollListener;
 import jp.senchan.android.wasatter.BundleKey;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
+import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterListFragment;
 import jp.senchan.android.wasatter.adapter.TimelineAdapter;
 import jp.senchan.android.wasatter.app.ConfigActivity;
@@ -36,7 +38,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	
 	public static final int MODE_TIMELINE       = 1;
 	public static final int MODE_MENSION        = 2;
-	public static final int MODE_USER_TIMELINE         = 3;
+	public static final int MODE_USER_TIMELINE  = 3;
 	public static final int MODE_DM             = 10;
 	public static final int MODE_ODAI           = 100;
 	public static final int MODE_CHANNEL_LIST   = 1000;
@@ -226,6 +228,8 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 			return null;
 		}
 		mLoadingCount++;
+		WasatterActivity activity = activity();
+		activity.setSupportProgressBarIndeterminateVisibility(true);
 		return new TimelineLoader(app, pager);
 	}
 
@@ -236,6 +240,10 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 			app().showErrorToast();
 		} else {
 			combineTimeline();
+		}
+		if (mLoadingCount <= 0) {
+			WasatterActivity activity = activity();
+			activity.setSupportProgressBarIndeterminateVisibility(false);
 		}
 	}
 

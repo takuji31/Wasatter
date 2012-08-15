@@ -3,6 +3,7 @@ package jp.senchan.android.wasatter.app;
 import java.util.ArrayList;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class HomeActivity extends WasatterActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 		mMenu = new SlideMenu(this);
