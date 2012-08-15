@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -76,6 +77,15 @@ public class HomeActivity extends WasatterActivity implements
 			return true;
 		}
 		return super.onMenuItemSelected(featureId, item);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && mMenu.isMenuShown()) {
+			mMenu.hide();
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override

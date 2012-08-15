@@ -115,4 +115,8 @@ public class SlideMenu {
 						.getParent(), true);
 		sMenuShown = false;
 	}
+
+	public boolean isMenuShown() {
+		return sMenuShown;
+	}
 }
