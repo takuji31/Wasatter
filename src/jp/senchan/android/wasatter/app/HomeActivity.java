@@ -16,6 +16,7 @@ import jp.senchan.android.wasatter.BundleKey;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.app.fragment.TimelineFragment;
+import jp.senchan.android.wasatter.utils.ServiceCodeUtil;
 import jp.senchan.android.wasatter.view.SlideMenu;
 import jp.senchan.android.wasatter.view.SlideMenuAdapter;
 import jp.senchan.android.wasatter.view.SlideMenuItem;
@@ -84,22 +85,16 @@ public class HomeActivity extends WasatterActivity implements
 		Fragment oldFragment = fm.findFragmentById(R.id.container);
 		Bundle args = new Bundle();
 		String fragmentClass = TimelineFragment.class.getName();
-		switch (item.id) {
-		case R.integer.menu_id_profile:
+		if (item.id == ServiceCodeUtil.resIdToId(this, R.integer.menu_id_profile)) {
 			args.putInt(BundleKey.MODE, TimelineFragment.MODE_MYPOST);
-			break;
-		case R.integer.menu_id_timeline:
+		} else if (item.id == ServiceCodeUtil.resIdToId(this, R.integer.menu_id_timeline)) {
 			args.putInt(BundleKey.MODE, TimelineFragment.MODE_TIMELINE);
-			break;
-		case R.integer.menu_id_reply:
+		} else if (item.id == ServiceCodeUtil.resIdToId(this, R.integer.menu_id_reply)) {
 			args.putInt(BundleKey.MODE, TimelineFragment.MODE_MENSION);
-			break;
-		case R.integer.menu_id_odai:
+		} else if (item.id == ServiceCodeUtil.resIdToId(this, R.integer.menu_id_odai)) {
 			args.putInt(BundleKey.MODE, TimelineFragment.MODE_ODAI);
-			break;
-		case R.integer.menu_id_channel:
+		} else if (item.id == ServiceCodeUtil.resIdToId(this, R.integer.menu_id_channel)) {
 			args.putInt(BundleKey.MODE, TimelineFragment.MODE_CHANNEL_LIST);
-			break;
 		}
 
 		Fragment newFragment = Fragment.instantiate(this, fragmentClass, args);
