@@ -32,6 +32,9 @@ public class WassrTimelinePager extends TimelinePager {
 			case TimelineFragment.MODE_TIMELINE:
 				result = mClient.getFriendTimeline(mNextPage);
 			break;
+			case TimelineFragment.MODE_MENSION:
+				result = mClient.getMension(mNextPage);
+			break;
 
 			default:
 				

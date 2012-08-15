@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.model.api.APICallback;
@@ -42,6 +46,7 @@ public class WassrClient implements WasatterApiClient {
 
 	private static final String HOST = "api.wassr.jp";
 	private static final String FRIEND_TIMELINE = "/statuses/friends_timeline.json";
+	private static final String MENSION = "/statuses/replies.json";
 	private static final String UPDATE_STATUS = "/statuses/update.json";
 	private static final int PORT = 80;
 
@@ -128,10 +133,16 @@ public class WassrClient implements WasatterApiClient {
 		
 		return false;
 	}
-
-	public ArrayList<WasatterStatus> getFriendTimeline(int page) {
-		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
+	
+	public ArrayList<WasatterStatus> retrieveTimeline(String path, int page, HashMap<String, String> params) {
+		Uri.Builder builder = getRequestUriBuilder(path);
 		builder.appendQueryParameter("page", String.valueOf(page));
+		if (params != null) {
+			Set<Entry<String, String>> set = params.entrySet();
+			for (Entry<String, String> entry : set) {
+				builder.appendQueryParameter(entry.getKey(), entry.getValue());
+			}
+		}
 		DefaultHttpClient client = getHttpClient();
 		HttpGet get = new HttpGet(builder.build().toString());
 		try {
@@ -150,8 +161,17 @@ public class WassrClient implements WasatterApiClient {
 			e.printStackTrace();
 		}
 		return null;
+		
 	}
 
+	public ArrayList<WasatterStatus> getFriendTimeline(int page) {
+		return retrieveTimeline(FRIEND_TIMELINE, page, null);
+	}
+
+	public ArrayList<WasatterStatus> getMension(int page) {
+		return retrieveTimeline(MENSION, page, null);
+	}
+	
 	public void friendTimeline(int page,
 			final APICallback<ArrayList<WasatterStatus>> callback) {
 		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);

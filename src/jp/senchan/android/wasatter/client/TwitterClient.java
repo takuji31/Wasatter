@@ -88,27 +88,60 @@ public class TwitterClient implements WasatterApiClient {
 		return false;
 	}
 	
-	public ArrayList<WasatterStatus> getHomeTimeline(long maxId) {
+	public Paging getPaging(long maxId) {
+		Paging paging = new Paging();
+		if (maxId == 0) {
+			paging.setPage(1);
+		} else {
+			//max_idはどうもmax_id自身を含むようなので、-1する
+			paging.setMaxId(maxId - 1);
+		}
+		return paging;
+	}
+	
+	public ArrayList<WasatterStatus> convertResponseList(ResponseList<Status> list) {
+		ArrayList<WasatterStatus> result = new ArrayList<WasatterStatus>();
+		for (Status status : list) {
+			result.add(new TwitterStatus(status));
+		}
+		return result;
+	}
+	
+	public ArrayList<WasatterStatus> retrieveTimeline(Paging paging, TwitterResultGetter getter) {
 		try {
 			Twitter client = getClient();
-			Paging paging = new Paging();
-			if (maxId == 0) {
-				paging.setPage(1);
-			} else {
-				//max_idはどうもmax_id自身を含むようなので、-1する
-				paging.setMaxId(maxId - 1);
-			}
-			ResponseList<Status> statuses;
-			statuses = client.getHomeTimeline(paging);
-			ArrayList<WasatterStatus> result = new ArrayList<WasatterStatus>();
-			for (Status status : statuses) {
-				result.add(new TwitterStatus(status));
-			}
-			return result;
+			ResponseList<Status> statuses = getter.getResponse(client, paging);
+			return convertResponseList(statuses);
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public ArrayList<WasatterStatus> getHomeTimeline(long maxId) {
+		return retrieveTimeline(getPaging(maxId), new TwitterResultGetter() {
+			
+			@Override
+			public ResponseList<Status> getResponse(Twitter client, Paging paging)
+					throws TwitterException {
+				return client.getHomeTimeline(paging);
+			}
+		});
+	}
+
+	public ArrayList<WasatterStatus> getMension(long maxId) {
+		return retrieveTimeline(getPaging(maxId), new TwitterResultGetter() {
+			
+			@Override
+			public ResponseList<Status> getResponse(Twitter client, Paging paging)
+					throws TwitterException {
+				return client.getMentions(paging);
+			}
+		});
+	}
+	
+	public interface TwitterResultGetter {
+		public ResponseList<Status> getResponse(Twitter client, Paging paging) throws TwitterException;
 	}
 }
