@@ -34,6 +34,7 @@ public class HomeActivity extends WasatterActivity implements
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
+		setSupportProgressBarIndeterminateVisibility(false);
 		mMenu = new SlideMenu(this);
 
 		mMenuItems = new ArrayList<SlideMenuItem>();
