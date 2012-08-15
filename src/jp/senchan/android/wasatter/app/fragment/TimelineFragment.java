@@ -83,10 +83,12 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	}
 	
 	private void combineTimeline() {
-		mTimeline.clear();
-		mTimeline.addAll(mWassrPager);
-		mTimeline.addAll(mTwitterPager);
-		Collections.sort(mTimeline, new WasatterStatusComparator());
+		synchronized (mTimeline) {
+			mTimeline.clear();
+			mTimeline.addAll(mWassrPager);
+			mTimeline.addAll(mTwitterPager);
+			Collections.sort(mTimeline, new WasatterStatusComparator());
+		}
 		if (mAdapter == null) {
 			mAdapter = new TimelineAdapter(getActivity(), mTimeline);
 			setListAdapter(mAdapter);
@@ -173,7 +175,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	
 	private void reloadTimeline() {
 		destroyLoader();
-		isFirstLoad = false;
+		isFirstLoad = true;
 		setListAdapter(null);
 		setListShown(false);
 		mAdapter = null;
