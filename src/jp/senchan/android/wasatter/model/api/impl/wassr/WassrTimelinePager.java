@@ -37,6 +37,8 @@ public class WassrTimelinePager extends TimelinePager {
 			break;
 			case TimelineFragment.MODE_USER_TIMELINE:
 				result = mClient.getUserTimeline(mNextPage);
+			case TimelineFragment.MODE_ODAI:
+				result = mClient.getOdaiTimeline(mNextPage);
 			break;
 		}
 		if (result != null) {

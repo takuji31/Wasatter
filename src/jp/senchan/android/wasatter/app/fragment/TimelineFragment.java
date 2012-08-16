@@ -19,6 +19,7 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterListFragment;
+import jp.senchan.android.wasatter.adapter.OdaiAdapter;
 import jp.senchan.android.wasatter.adapter.TimelineAdapter;
 import jp.senchan.android.wasatter.app.ConfigActivity;
 import jp.senchan.android.wasatter.app.UpdateStatusActivity;
@@ -28,6 +29,7 @@ import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.model.api.impl.twitter.TwitterTimelinePager;
 import jp.senchan.android.wasatter.model.api.impl.wassr.WassrTimelinePager;
 import jp.senchan.android.wasatter.utils.WasatterStatusComparator;
+import jp.senchan.lib.app.ArrayListAdapter;
 
 public class TimelineFragment extends WasatterListFragment implements OnScrollListener,LoaderCallbacks<TimelinePager> {
 	
@@ -51,7 +53,7 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	private WassrTimelinePager mWassrPager;
 	private TwitterTimelinePager mTwitterPager;
 	private boolean isFirstLoad = true;
-	private TimelineAdapter mAdapter;
+	private ArrayListAdapter<WasatterStatus> mAdapter;
 	private ArrayList<WasatterStatus> mTimeline = new ArrayList<WasatterStatus>();
 	private int mLoadingCount = 0;
 
@@ -83,14 +85,22 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	}
 
 	private void createAdapter() {
-		mAdapter = new TimelineAdapter(getActivity(), mTimeline);
+		if (mMode == MODE_ODAI) {
+			mAdapter = new OdaiAdapter(getActivity(), mTimeline);
+		} else {
+			mAdapter = new TimelineAdapter(getActivity(), mTimeline);
+		}
 	}
 	
 	private void combineTimeline() {
 		synchronized (mTimeline) {
 			mTimeline.clear();
-			mTimeline.addAll(mWassrPager);
-			mTimeline.addAll(mTwitterPager);
+			if (mWassrPager != null) {
+				mTimeline.addAll(mWassrPager);
+			}
+			if (mTwitterPager != null) {
+				mTimeline.addAll(mTwitterPager);
+			}
 			Collections.sort(mTimeline, new WasatterStatusComparator());
 		}
 		if (mAdapter == null) {

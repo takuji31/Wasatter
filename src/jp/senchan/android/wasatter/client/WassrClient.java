@@ -173,6 +173,12 @@ public class WassrClient implements WasatterApiClient {
 		return retrieveTimeline(USER_TIMELINE, page, null);
 	}
 	
+	public ArrayList<WasatterStatus> getOdaiTimeline(int page) {
+		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("id", "odai");
+		return retrieveTimeline(USER_TIMELINE, page, param);
+	}
+
 	public void friendTimeline(int page,
 			final APICallback<ArrayList<WasatterStatus>> callback) {
 		Uri.Builder builder = getRequestUriBuilder(FRIEND_TIMELINE);
