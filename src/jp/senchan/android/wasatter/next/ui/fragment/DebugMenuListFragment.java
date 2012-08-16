@@ -34,9 +34,12 @@ public class DebugMenuListFragment extends WasatterListFragment {
 			return;
 		} else {
 			String klass = mClasses[position];
-			StringBuilder sb = new StringBuilder(activity().getPackageName());
+			if (klass.startsWith(".")) {
+				StringBuilder sb = new StringBuilder(activity().getPackageName());
+				klass = sb.append(klass).toString();
+			}
 			try {
-				Class<?> c = Class.forName(sb.append(klass).toString());
+				Class<?> c = Class.forName(klass);
 				Intent intent = new Intent(activity(), c);
 				startActivity(intent);
 			} catch (ClassNotFoundException e) {
