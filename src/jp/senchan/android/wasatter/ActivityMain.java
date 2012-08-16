@@ -1,6 +1,6 @@
 package jp.senchan.android.wasatter;
 
-import jp.senchan.android.wasatter.app.TimelineActivity;
+import jp.senchan.android.wasatter.app.HomeActivity;
 import jp.senchan.android.wasatter.next.ui.activity.DebugMenuActivity;
 import jp.senchan.android.wasatter2.BuildConfig;
 import android.content.Intent;
@@ -12,10 +12,10 @@ public class ActivityMain extends WasatterActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Wasatter app = app();
-		Intent intent = new Intent(app, TimelineActivity.class);
-		if(BuildConfig.DEBUG) {
+		Intent intent = new Intent(app, HomeActivity.class);
+		/*if(BuildConfig.DEBUG) {
 			intent = new Intent(app, DebugMenuActivity.class);
-		}
+		}*/
 		startActivity(intent);
 		finish();
 	}
