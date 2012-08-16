@@ -19,6 +19,7 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterListFragment;
+import jp.senchan.android.wasatter.adapter.ChannelListAdapter;
 import jp.senchan.android.wasatter.adapter.OdaiAdapter;
 import jp.senchan.android.wasatter.adapter.TimelineAdapter;
 import jp.senchan.android.wasatter.app.ConfigActivity;
@@ -87,6 +88,8 @@ public class TimelineFragment extends WasatterListFragment implements OnScrollLi
 	private void createAdapter() {
 		if (mMode == MODE_ODAI) {
 			mAdapter = new OdaiAdapter(getActivity(), mTimeline);
+		} else if (mMode == MODE_CHANNEL_LIST) {
+			mAdapter = new ChannelListAdapter(getActivity(), mTimeline);
 		} else {
 			mAdapter = new TimelineAdapter(getActivity(), mTimeline);
 		}

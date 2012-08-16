@@ -50,7 +50,7 @@ public class WassrClient implements WasatterApiClient {
 	private static final String MENSION = "/statuses/replies.json";
 	private static final String USER_TIMELINE = "/statuses/user_timeline.json";
 	private static final String UPDATE_STATUS = "/statuses/update.json";
-	private static final String CHANNEL_LIST = "http://api.wassr.jp/channel_user/user_list.json";
+	private static final String CHANNEL_LIST = "/channel_user/user_list.json";
 	private static final int PORT = 80;
 
 	private AQuery mAQuery;
@@ -195,7 +195,7 @@ public class WassrClient implements WasatterApiClient {
 			HttpResponse res = client.execute(get);
 			HttpEntity entity = res.getEntity();
 			String str = EntityUtils.toString(entity);
-			JSONArray json = new JSONArray(str);
+			JSONArray json = new JSONObject(str).getJSONArray("channels");
 			ArrayList<WasatterStatus> results = new ArrayList<WasatterStatus>();
 			int length = json.length();
 			for (int i = 0; i < length; i++) {
