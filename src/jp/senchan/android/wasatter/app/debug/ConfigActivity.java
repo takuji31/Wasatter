@@ -1,6 +1,6 @@
 package jp.senchan.android.wasatter.app.debug;
 
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 

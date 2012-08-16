@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter.WasatterListFragment;
 
 public class DebugMenuListFragment extends WasatterListFragment {

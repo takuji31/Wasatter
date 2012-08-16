@@ -8,7 +8,7 @@ import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
 import android.widget.TextView;
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.utils.URLImageParser;
 import jp.senchan.lib.app.ArrayListAdapter;

@@ -3,7 +3,7 @@
  */
 package jp.senchan.android.wasatter.app;
 
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;

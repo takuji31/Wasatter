@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter.WasatterDialogFragment;
 
 public class VersionInfoDialogFragment extends WasatterDialogFragment {

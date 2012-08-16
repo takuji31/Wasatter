@@ -2,7 +2,7 @@ package jp.senchan.android.wasatter.app.fragment;
 
 import java.io.InputStream;
 
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter.WasatterFragment;
 import android.app.Activity;
 import android.content.ContentValues;

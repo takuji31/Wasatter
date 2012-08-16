@@ -9,7 +9,7 @@ import jp.senchan.android.wasatter.app.TimelineActivity;
 import jp.senchan.android.wasatter.client.OldTwitterClient;
 import jp.senchan.android.wasatter.client.OldWassrClient;
 import jp.senchan.android.wasatter.next.PrefKey;
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import jp.senchan.lib.app.BaseApp;
 
 import android.app.AlertDialog;

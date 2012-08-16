@@ -3,7 +3,7 @@
  */
 package jp.senchan.android.wasatter.app;
 
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.auth.params.OAuthTwitter;

@@ -2,7 +2,7 @@ package jp.senchan.android.wasatter.app;
 
 import java.util.List;
 
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;

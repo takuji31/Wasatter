@@ -1,6 +1,6 @@
 package jp.senchan.android.wasatter.app.fragment;
 
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;

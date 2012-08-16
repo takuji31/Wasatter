@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter.ResultCode;
 import jp.senchan.android.wasatter.WasatterFragment;
 import jp.senchan.android.wasatter.auth.params.OAuthTwitter;

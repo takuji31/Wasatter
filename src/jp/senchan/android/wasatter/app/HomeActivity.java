@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import jp.senchan.android.wasatter.BundleKey;
-import jp.senchan.android.wasatter.R;
+import jp.senchan.android.wasatter2.R;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.app.fragment.TimelineFragment;
 import jp.senchan.android.wasatter.utils.ServiceCodeUtil;
