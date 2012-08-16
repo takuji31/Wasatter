@@ -13,9 +13,9 @@ public class ActivityMain extends WasatterActivity {
 		super.onCreate(savedInstanceState);
 		Wasatter app = app();
 		Intent intent = new Intent(app, HomeActivity.class);
-		/*if(BuildConfig.DEBUG) {
+		if(BuildConfig.DEBUG) {
 			intent = new Intent(app, DebugMenuActivity.class);
-		}*/
+		}
 		startActivity(intent);
 		finish();
 	}
