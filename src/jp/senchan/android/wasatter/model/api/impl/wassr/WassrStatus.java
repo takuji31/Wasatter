@@ -10,11 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.graphics.drawable.Drawable;
-import android.text.Html;
-import android.text.Html.ImageGetter;
-import android.text.Spanned;
-
 public class WassrStatus implements WasatterStatus {
 	/**
 	 * 
@@ -54,15 +49,8 @@ public class WassrStatus implements WasatterStatus {
 	}
 
 	@Override
-	public Spanned getBody() {
-		return Html.fromHtml(mBody, new ImageGetter() {
-			
-			@Override
-			public Drawable getDrawable(String source) {
-				//TODO ネットワーク経由で絵文字取得、キャッシュあったらそれ使う
-				return null;
-			}
-		}, null);
+	public String getBody() {
+		return mBody;
 	}
 
 	@Override

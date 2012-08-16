@@ -7,13 +7,17 @@ import java.util.Date;
 import com.androidquery.AQuery;
 
 import android.content.Context;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
+import android.widget.TextView;
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
 import jp.senchan.android.wasatter.model.api.WasatterUser;
+import jp.senchan.android.wasatter.utils.URLImageParser;
 import jp.senchan.lib.app.ArrayListAdapter;
 
-public class TimelineAdapter extends ArrayListAdapter<WasatterStatus> {
+public class TimelineAdapter extends BaseTimelineAdapter {
 
 	public TimelineAdapter(Context context, ArrayList<WasatterStatus> list) {
 		super(context, list);
@@ -29,11 +33,11 @@ public class TimelineAdapter extends ArrayListAdapter<WasatterStatus> {
 		
 		AQuery aq = new AQuery(v);
 		WasatterUser user = item.getUser();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/yy HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		
 		aq.id(R.id.textViewName).text(user.getName());
 		aq.id(R.id.textViewServiceName).text(item.getServiceName());
-		aq.id(R.id.textViewBody).text(item.getBody());
+		setHtmlText(item.getBody(), aq, R.id.textViewBody);
 		aq.id(R.id.textViewCreatedAt).text(sdf.format(new Date(item.getTime())));
 		aq.id(R.id.imageViewIcon).image(R.drawable.ic_default_user_icon).image(user.getProfileImageUrl());
 		
