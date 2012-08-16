@@ -13,6 +13,7 @@ import java.util.Set;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.model.api.APICallback;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
+import jp.senchan.android.wasatter.model.api.impl.wassr.WassrChannel;
 import jp.senchan.android.wasatter.model.api.impl.wassr.WassrStatus;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -49,6 +50,7 @@ public class WassrClient implements WasatterApiClient {
 	private static final String MENSION = "/statuses/replies.json";
 	private static final String USER_TIMELINE = "/statuses/user_timeline.json";
 	private static final String UPDATE_STATUS = "/statuses/update.json";
+	private static final String CHANNEL_LIST = "http://api.wassr.jp/channel_user/user_list.json";
 	private static final int PORT = 80;
 
 	private AQuery mAQuery;
@@ -133,7 +135,9 @@ public class WassrClient implements WasatterApiClient {
 	
 	public ArrayList<WasatterStatus> retrieveTimeline(String path, int page, HashMap<String, String> params) {
 		Uri.Builder builder = getRequestUriBuilder(path);
-		builder.appendQueryParameter("page", String.valueOf(page));
+		if (page != 0) {
+			builder.appendQueryParameter("page", String.valueOf(page));
+		}
 		if (params != null) {
 			Set<Entry<String, String>> set = params.entrySet();
 			for (Entry<String, String> entry : set) {
@@ -177,6 +181,32 @@ public class WassrClient implements WasatterApiClient {
 		HashMap<String, String> param = new HashMap<String, String>();
 		param.put("id", "odai");
 		return retrieveTimeline(USER_TIMELINE, page, param);
+	}
+
+	public ArrayList<WasatterStatus> getChannelList(int page) {
+		//TODO 共通化
+		Uri.Builder builder = getRequestUriBuilder(CHANNEL_LIST);
+		if (page != 0) {
+			builder.appendQueryParameter("page", String.valueOf(page));
+		}
+		DefaultHttpClient client = getHttpClient();
+		HttpGet get = new HttpGet(builder.build().toString());
+		try {
+			HttpResponse res = client.execute(get);
+			HttpEntity entity = res.getEntity();
+			String str = EntityUtils.toString(entity);
+			JSONArray json = new JSONArray(str);
+			ArrayList<WasatterStatus> results = new ArrayList<WasatterStatus>();
+			int length = json.length();
+			for (int i = 0; i < length; i++) {
+				WassrChannel ch = new WassrChannel(json.getJSONObject(i));
+				results.add(ch);
+			}
+			return results;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public void friendTimeline(int page,
