@@ -5,7 +5,7 @@
             <intent
                 android:action="android.intent.action.MAIN"
                 android:targetClass="jp.senchan.android.wasatter.app.SetAccountActivity"
-                android:targetPackage="jp.senchan.android.wasatter2" >
+                android:targetPackage="jp.senchan.android.wasatter" >
                 <extra
                     android:name="service"
                     android:value="@integer/service_id_twitter" />
@@ -15,7 +15,7 @@
             <intent
                 android:action="android.intent.action.MAIN"
                 android:targetClass="jp.senchan.android.wasatter.app.SetAccountActivity"
-                android:targetPackage="jp.senchan.android.wasatter2" >
+                android:targetPackage="jp.senchan.android.wasatter" >
                 <extra
                     android:name="service"
                     android:value="@integer/service_id_wassr" />

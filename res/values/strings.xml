@@ -2,7 +2,7 @@
 <resources>
 	<string name="key_setting_display_load_image">display_load_image</string>
 	<string name="reload_complete">リロードしました。</string>
-	<string name="app_name">Wasatter2Beta</string>
+	<string name="app_name">Wasatter</string>
 	<string name="service_twitter">Twitter</string>
 	<string name="service_wassr">Wassr</string>
 	<string name="message_post_twitter_success">投稿しました。(Twitter)</string>

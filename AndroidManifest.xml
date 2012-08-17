@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jp.senchan.android.wasatter2"
+    package="jp.senchan.android.wasatter"
     android:versionCode="13"
     android:versionName="2.0.0" >
 
@@ -13,11 +13,11 @@
 
     <application
         android:label="@string/app_name"
-        android:name="jp.senchan.android.wasatter.Wasatter"
+        android:name=".Wasatter"
         android:icon="@drawable/ic_launcher" android:theme="@style/Theme.Sherlock.Light.DarkActionBar">
         <activity
             android:configChanges="orientation"
-            android:name="jp.senchan.android.wasatter.ActivityMain" >
+            android:name=".ActivityMain" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,36 +26,36 @@
         </activity>
         <activity
             android:configChanges="orientation"
-            android:name="jp.senchan.android.wasatter.app.TimelineActivity" >
+            android:name=".app.TimelineActivity" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="New post"
-            android:name="jp.senchan.android.wasatter.app.Update" >
+            android:name=".app.Update" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="Setting"
-            android:name="jp.senchan.android.wasatter.app.Setting" >
+            android:name=".app.Setting" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="Status"
-            android:name="jp.senchan.android.wasatter.app.Detail" >
+            android:name=".app.Detail" >
         </activity>
         <activity
             android:configChanges="orientation"
             android:label="Get OAuth token"
-            android:name="jp.senchan.android.wasatter.app.OAuthToken" >
+            android:name=".app.OAuthToken" >
         </activity>
-        <activity android:name="jp.senchan.android.wasatter.next.ui.activity.AccountListActivity"></activity>
-        <activity android:name="jp.senchan.android.wasatter.next.ui.activity.ConfigHomeActivity"></activity>
-        <activity android:name="jp.senchan.android.wasatter.next.ui.activity.DebugMenuActivity"></activity>
-        <activity android:name="jp.senchan.android.wasatter.app.HomeActivity"></activity>
-        <activity android:name="jp.senchan.android.wasatter.app.SetAccountActivity"></activity>
-        <activity android:name="jp.senchan.android.wasatter.app.UpdateStatusActivity"></activity>
-        <activity android:name="jp.senchan.android.wasatter.app.ConfigActivity"></activity>
-        <activity android:name="jp.senchan.android.wasatter.app.debug.ConfigActivity"></activity>
+        <activity android:name=".next.ui.activity.AccountListActivity"></activity>
+        <activity android:name=".next.ui.activity.ConfigHomeActivity"></activity>
+        <activity android:name=".next.ui.activity.DebugMenuActivity"></activity>
+        <activity android:name=".app.HomeActivity"></activity>
+        <activity android:name=".app.SetAccountActivity"></activity>
+        <activity android:name=".app.UpdateStatusActivity"></activity>
+        <activity android:name=".app.ConfigActivity"></activity>
+        <activity android:name=".app.debug.ConfigActivity"></activity>
         </application>
 
 </manifest>

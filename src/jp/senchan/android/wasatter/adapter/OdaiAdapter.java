@@ -8,7 +8,7 @@ import com.androidquery.AQuery;
 
 import android.content.Context;
 import android.view.View;
-import jp.senchan.android.wasatter2.R;
+import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.model.api.WasatterStatus;
 
 public class OdaiAdapter extends BaseTimelineAdapter {

@@ -15,7 +15,7 @@ import android.support.v4.content.Loader;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import jp.senchan.android.wasatter.BundleKey;
-import jp.senchan.android.wasatter2.R;
+import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterActivity;
 import jp.senchan.android.wasatter.WasatterListFragment;

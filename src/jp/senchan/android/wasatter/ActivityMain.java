@@ -1,8 +1,7 @@
 package jp.senchan.android.wasatter;
 
-import jp.senchan.android.wasatter.app.HomeActivity;
+import jp.senchan.android.wasatter.app.TimelineActivity;
 import jp.senchan.android.wasatter.next.ui.activity.DebugMenuActivity;
-import jp.senchan.android.wasatter2.BuildConfig;
 import android.content.Intent;
 import android.os.Bundle;
 
