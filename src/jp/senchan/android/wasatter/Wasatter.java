@@ -180,11 +180,11 @@ public class Wasatter extends BaseApp {
 	}
 	
 	public boolean canLoadWassrTimeline() {
-		return isLoadWassrTimeline() && !TextUtils.isEmpty(getWassrId()) && !TextUtils.isEmpty(getWassrPass());
+		return !TextUtils.isEmpty(getWassrId()) && !TextUtils.isEmpty(getWassrPass());
 	}
 
 	public boolean canLoadTwitterTimeline() {
-		return isLoadTwitterTimeline() && !TextUtils.isEmpty(getTwitterToken()) && !TextUtils.isEmpty(getTwitterTokenSecret());
+		return !TextUtils.isEmpty(getTwitterToken()) && !TextUtils.isEmpty(getTwitterTokenSecret());
 	}
 
 

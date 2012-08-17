@@ -5,11 +5,14 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import twitter4j.auth.AccessToken;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,11 +49,27 @@ public class SetTwitterAccountFragment extends WasatterFragment implements OnURL
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				Uri uri = Uri.parse(url);
 				//TODO ホスト名外出し
-				if(TextUtils.equals(uri.getAuthority(), OAuthTwitter.CALLBACK_HOST)) {
+				Log.d("HOST", url);
+				if(TextUtils.equals(uri.getHost(), OAuthTwitter.CALLBACK_HOST)) {
 					getAccessToken(uri);
 					return true;
 				}
 				return false;
+			}
+			
+			@Override
+			public void onPageStarted(WebView view, String url, Bitmap favicon) {
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+					//3.0未満の場合はshouldOverrideUrlLoadingが呼ばれない場合があるのでここで処理する
+					Uri uri = Uri.parse(url);
+					//TODO ホスト名外出し
+					Log.d("HOST", url);
+					if(TextUtils.equals(uri.getHost(), OAuthTwitter.CALLBACK_HOST)) {
+						view.stopLoading();
+						getAccessToken(uri);
+					}
+					return;
+				}
 			}
 		};
 		mWebView.setWebViewClient(client);
