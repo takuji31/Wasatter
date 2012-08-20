@@ -27,16 +27,12 @@ public class TwitterTimelinePager extends TimelinePager {
 	public void loadNext() {
 		ArrayList<WasatterStatus> result = null;
 		
-		switch (mMode) {
-			case TimelineFragment.MODE_TIMELINE:
-				result = mClient.getHomeTimeline(mMaxId);
-			break;
-			case TimelineFragment.MODE_MENSION:
-				result = mClient.getMension(mMaxId);
-			break;
-			case TimelineFragment.MODE_USER_TIMELINE:
-				result = mClient.getUserTimeline(mMaxId);
-			break;
+		if (mMode == TimelineFragment.MODE_TIMELINE) {
+			result = mClient.getHomeTimeline(mMaxId);
+		} else if (mMode == TimelineFragment.MODE_MENSION) {
+			result = mClient.getMension(mMaxId);
+		} else if (mMode == TimelineFragment.MODE_USER_TIMELINE) {
+			result = mClient.getUserTimeline(mMaxId);
 		}
 		
 		if (result != null) {

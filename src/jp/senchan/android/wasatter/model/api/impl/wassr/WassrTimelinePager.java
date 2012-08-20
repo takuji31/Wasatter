@@ -28,22 +28,16 @@ public class WassrTimelinePager extends TimelinePager {
 	public void loadNext() {
 		//TODO 重複削除とかやっておきたい
 		ArrayList<WasatterStatus> result = null;
-		switch (mMode) {
-			case TimelineFragment.MODE_TIMELINE:
-				result = mClient.getFriendTimeline(mNextPage);
-			break;
-			case TimelineFragment.MODE_MENSION:
-				result = mClient.getMension(mNextPage);
-			break;
-			case TimelineFragment.MODE_USER_TIMELINE:
-				result = mClient.getUserTimeline(mNextPage);
-			break;
-			case TimelineFragment.MODE_ODAI:
-				result = mClient.getOdaiTimeline(mNextPage);
-			break;
-			case TimelineFragment.MODE_CHANNEL_LIST:
-				result = mClient.getChannelList(mNextPage);
-			break;
+		if (mMode == TimelineFragment.MODE_TIMELINE) {
+			result = mClient.getFriendTimeline(mNextPage);
+		} else if (mMode == TimelineFragment.MODE_MENSION) {
+			result = mClient.getMension(mNextPage);
+		} else if (mMode == TimelineFragment.MODE_USER_TIMELINE) {
+			result = mClient.getUserTimeline(mNextPage);
+		} else if (mMode == TimelineFragment.MODE_ODAI) {
+			result = mClient.getOdaiTimeline(mNextPage);
+		} else if (mMode == TimelineFragment.MODE_CHANNEL_LIST) {
+			result = mClient.getChannelList(mNextPage);
 		}
 		if (result != null) {
 			mNextPage++;
