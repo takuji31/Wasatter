@@ -1,0 +1,391 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+From SenchanLib:
+* .gitignore
+* README.md
+* libs-src/
+* libs-src/guice-3.0-javadoc.jar
+* libs-src/guice-3.0-sources.jar
+* libs-src/roboguice-2.0-javadoc.jar
+* libs-src/roboguice-2.0-sources.jar
+From Wasatter:
+* .gitignore
+* README.md
+* Wasatter/
+* Wasatter/.idea/
+* Wasatter/.idea/.name
+* Wasatter/.idea/compiler.xml
+* Wasatter/.idea/copyright/
+* Wasatter/.idea/copyright/profiles_settings.xml
+* Wasatter/.idea/misc.xml
+* Wasatter/.idea/modules.xml
+* Wasatter/.idea/vcs.xml
+* Wasatter/.idea/workspace.xml
+* Wasatter/build.gradle
+* Wasatter/gradle/
+* Wasatter/gradle/wrapper/
+* Wasatter/gradle/wrapper/gradle-wrapper.jar
+* Wasatter/gradle/wrapper/gradle-wrapper.properties
+* Wasatter/gradlew
+* Wasatter/gradlew.bat
+* Wasatter/local.properties
+* Wasatter/senchanLib/
+* Wasatter/senchanLib/build.gradle
+* Wasatter/senchanLib/libs/
+* Wasatter/senchanLib/libs/guice-3.0-no_aop.jar
+* Wasatter/senchanLib/libs/javax.inject.jar
+* Wasatter/senchanLib/libs/jsr305-1.3.9.jar
+* Wasatter/senchanLib/libs/roboguice-2.0.jar
+* Wasatter/senchanLib/libs/roboguice-sherlock-1.4.jar
+* Wasatter/senchanLib/lint.xml
+* Wasatter/senchanLib/src/
+* Wasatter/senchanLib/src/main/
+* Wasatter/senchanLib/src/main/AndroidManifest.xml
+* Wasatter/senchanLib/src/main/java/
+* Wasatter/senchanLib/src/main/java/jp/
+* Wasatter/senchanLib/src/main/java/jp/senchan/
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/app/
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/app/ArrayListAdapter.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/app/BaseActivity.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/app/BaseApp.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/app/BaseDialogFragment.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/app/BaseFragment.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/app/BaseListFragment.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/app/DragViewListener.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/app/TabFragmentPagerAdapter.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/app/ToastService.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/content/
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/content/SimpleCursorLoader.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/json/
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/json/WrappedJsonArray.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/json/WrappedJsonObject.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/os/
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/os/AsyncTaskCompat.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/widget/
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/widget/PagingArrayListAdapter.java
+* Wasatter/senchanLib/src/main/java/jp/senchan/lib/widget/PagingListView.java
+* Wasatter/settings.gradle
+* Wasatter/wasatter/
+* Wasatter/wasatter/build.gradle
+* Wasatter/wasatter/libs/
+* Wasatter/wasatter/libs/android-query-full.0.22.10.jar
+* Wasatter/wasatter/libs/apache-mime4j-core-0.7.2.jar
+* Wasatter/wasatter/libs/httpmime-4.2.1.jar
+* Wasatter/wasatter/libs/twitter4j-core-android-3.0.0-SNAPSHOT.jar
+* Wasatter/wasatter/lint.xml
+* Wasatter/wasatter/src/
+* Wasatter/wasatter/src/main/
+* Wasatter/wasatter/src/main/AndroidManifest.xml
+* Wasatter/wasatter/src/main/assets/
+* Wasatter/wasatter/src/main/assets/create.sql
+* Wasatter/wasatter/src/main/java/
+* Wasatter/wasatter/src/main/java/jp/
+* Wasatter/wasatter/src/main/java/jp/senchan/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/ActivityMain.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/BundleKey.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/IntentCode.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/ResultCode.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/Wasatter.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/WasatterActivity.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/WasatterDialogFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/WasatterFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/WasatterItem.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/WasatterListFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/adapter/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/adapter/BaseTimelineAdapter.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/adapter/ChannelListAdapter.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/adapter/Odai.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/adapter/OdaiAdapter.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/adapter/Timeline.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/adapter/TimelineAdapter.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/adapter/WasatterAdapter.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/ConfigActivity.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/Detail.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/DetailActivity.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/HomeActivity.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/OAuthPreference.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/OAuthToken.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/SetAccountActivity.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/Setting.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/TimelineActivity.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/Update.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/UpdateStatusActivity.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/debug/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/debug/ConfigActivity.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/fragment/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/fragment/AccountPreferenceFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/fragment/ImagePickerDialogFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/fragment/ImagePickerFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/fragment/ServiceCheckDialogFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/fragment/SetTwitterAccountFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/fragment/SetWassrAccountFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/fragment/TimelineFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/fragment/UpdateStatusFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/fragment/UpdateStatusProgressDialogFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/app/fragment/VersionInfoDialogFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/client/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/client/OldTwitterClient.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/client/OldWassrClient.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/client/TwitterClient.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/client/WasatterApiClient.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/client/WassrClient.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/loader/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/loader/TimelineLoader.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/loader/UpdateStatusLoader.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/APICallback.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/TimelinePager.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/WasatterStatus.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/WasatterUser.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/impl/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/impl/twitter/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/impl/twitter/TwitterStatus.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/impl/twitter/TwitterTimelinePager.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/impl/twitter/TwitterUser.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/impl/wassr/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/impl/wassr/WassrChannel.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/impl/wassr/WassrReply.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/impl/wassr/WassrStatus.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/impl/wassr/WassrTimelinePager.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/model/api/impl/wassr/WassrUser.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/BundleKey.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/Functions.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/IntentCode.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/PrefKey.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/exception/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/exception/WassrException.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/listener/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/listener/OnAccessTokenReceivedListener.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/listener/OnAuthenticationResultListener.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/listener/OnServiceSelectedListener.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/listener/OnURLCreatedListener.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/menu/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/menu/SlideMenuItem.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/task/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/task/GetTwitterOAuthAccessTokenTask.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/task/GetTwitterOAuthRequestURLTask.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/ui/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/ui/activity/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/ui/activity/DebugMenuActivity.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/ui/fragment/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/ui/fragment/DebugMenuListFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/ui/fragment/dialog/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/ui/fragment/dialog/AccountTypeSelectDialog.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/next/ui/fragment/dialog/CreateAuthenticationURLProgressDialogFragment.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/task/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/task/TaskGetOAuthRequestUrl.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/task/TaskReloadTimeline.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/task/TaskSetOAuthToken.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/task/TaskToggleFavorite.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/task/TaskUpdate.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/utils/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/utils/ServiceCodeUtil.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/utils/StatusItemComparator.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/utils/URLDrawable.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/utils/URLImageParser.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/utils/UriResolver.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/utils/WasatterStatusComparator.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/view/
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/view/SlideMenu.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/view/SlideMenuAdapter.java
+* Wasatter/wasatter/src/main/java/jp/senchan/android/wasatter/view/SlideMenuItem.java
+* Wasatter/wasatter/src/main/res/
+* Wasatter/wasatter/src/main/res/drawable-hdpi/
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_action_channel.png
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_action_config.png
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_action_odai.png
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_action_post.png
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_action_profile.png
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_action_reload.png
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_action_reply.png
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_action_service.png
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_action_timeline.png
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_action_version_info.png
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_default_user_icon.png
+* Wasatter/wasatter/src/main/res/drawable-hdpi/ic_launcher.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_action_channel.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_action_config.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_action_odai.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_action_post.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_action_profile.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_action_reload.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_action_reply.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_action_service.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_action_timeline.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_action_version_info.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_default_user_icon.png
+* Wasatter/wasatter/src/main/res/drawable-ldpi/ic_launcher.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_action_channel.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_action_config.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_action_odai.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_action_post.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_action_profile.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_action_reload.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_action_reply.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_action_service.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_action_timeline.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_action_version_info.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_default_user_icon.png
+* Wasatter/wasatter/src/main/res/drawable-mdpi/ic_launcher.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_action_channel.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_action_config.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_action_odai.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_action_post.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_action_profile.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_action_reload.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_action_reply.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_action_service.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_action_timeline.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_action_version_info.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_default_user_icon.png
+* Wasatter/wasatter/src/main/res/drawable-xhdpi/ic_launcher.png
+* Wasatter/wasatter/src/main/res/layout/
+* Wasatter/wasatter/src/main/res/layout/channel_row.xml
+* Wasatter/wasatter/src/main/res/layout/home.xml
+* Wasatter/wasatter/src/main/res/layout/login_wassr.xml
+* Wasatter/wasatter/src/main/res/layout/menu.xml
+* Wasatter/wasatter/src/main/res/layout/menu_listitem.xml
+* Wasatter/wasatter/src/main/res/layout/odai_row.xml
+* Wasatter/wasatter/src/main/res/layout/old_detail.xml
+* Wasatter/wasatter/src/main/res/layout/old_oauth_dialog.xml
+* Wasatter/wasatter/src/main/res/layout/old_odai_row.xml
+* Wasatter/wasatter/src/main/res/layout/old_status_update.xml
+* Wasatter/wasatter/src/main/res/layout/old_timeline.xml
+* Wasatter/wasatter/src/main/res/layout/old_timeline_row.xml
+* Wasatter/wasatter/src/main/res/layout/post.xml
+* Wasatter/wasatter/src/main/res/layout/timeline_row.xml
+* Wasatter/wasatter/src/main/res/menu/
+* Wasatter/wasatter/src/main/res/menu/account_list.xml
+* Wasatter/wasatter/src/main/res/menu/main.xml
+* Wasatter/wasatter/src/main/res/menu/post.xml
+* Wasatter/wasatter/src/main/res/menu/timeline.xml
+* Wasatter/wasatter/src/main/res/values/
+* Wasatter/wasatter/src/main/res/values/button.xml
+* Wasatter/wasatter/src/main/res/values/debug_menu.xml
+* Wasatter/wasatter/src/main/res/values/dialog.xml
+* Wasatter/wasatter/src/main/res/values/dialog_items.xml
+* Wasatter/wasatter/src/main/res/values/hint.xml
+* Wasatter/wasatter/src/main/res/values/message.xml
+* Wasatter/wasatter/src/main/res/values/old_dialog.xml
+* Wasatter/wasatter/src/main/res/values/old_error_message.xml
+* Wasatter/wasatter/src/main/res/values/old_menu_title.xml
+* Wasatter/wasatter/src/main/res/values/old_setting_key.xml
+* Wasatter/wasatter/src/main/res/values/old_setting_summary.xml
+* Wasatter/wasatter/src/main/res/values/old_setting_title.xml
+* Wasatter/wasatter/src/main/res/values/old_toggle_button_title.xml
+* Wasatter/wasatter/src/main/res/values/service_name.xml
+* Wasatter/wasatter/src/main/res/values/slidemenu.xml
+* Wasatter/wasatter/src/main/res/values/strings.xml
+* Wasatter/wasatter/src/main/res/values/title.xml
+* Wasatter/wasatter/src/main/res/xml/
+* Wasatter/wasatter/src/main/res/xml/account.xml
+* Wasatter/wasatter/src/main/res/xml/preference_header.xml
+* Wasatter/wasatter/src/main/res/xml/setting.xml
+* Wasatter/wasatterOAuthParams/
+* Wasatter/wasatterOAuthParams/build.gradle
+* Wasatter/wasatterOAuthParams/src/
+* Wasatter/wasatterOAuthParams/src/main/
+* Wasatter/wasatterOAuthParams/src/main/java/
+* Wasatter/wasatterOAuthParams/src/main/java/jp/
+* Wasatter/wasatterOAuthParams/src/main/java/jp/senchan/
+* Wasatter/wasatterOAuthParams/src/main/java/jp/senchan/android/
+* Wasatter/wasatterOAuthParams/src/main/java/jp/senchan/android/wasatter/
+* Wasatter/wasatterOAuthParams/src/main/java/jp/senchan/android/wasatter/auth/
+* Wasatter/wasatterOAuthParams/src/main/java/jp/senchan/android/wasatter/auth/params/
+* Wasatter/wasatterOAuthParams/src/main/java/jp/senchan/android/wasatter/auth/params/OAuthTwitter.java
+* Wasatter/wasatterOAuthParams/src/main/java/jp/senchan/android/wasatter/auth/params/Wassr.java
+* ic_launcher-web.png
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:18.0.0
+
+Replaced Libraries with Dependencies:
+-------------------------------------
+The importer recognized the following library projects as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the source files in your project were of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the library replacement in the import wizard and try
+again:
+
+library =>
+    com.actionbarsherlock:actionbarsherlock:4.4.0@aar
+    com.android.support:support-v4:18.0.0
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+In SenchanLib:
+* AndroidManifest.xml => senchanLib/src/main/AndroidManifest.xml
+* libs/guice-3.0-no_aop.jar => senchanLib/libs/guice-3.0-no_aop.jar
+* libs/javax.inject.jar => senchanLib/libs/javax.inject.jar
+* libs/jsr305-1.3.9.jar => senchanLib/libs/jsr305-1.3.9.jar
+* libs/roboguice-2.0.jar => senchanLib/libs/roboguice-2.0.jar
+* libs/roboguice-sherlock-1.4.jar => senchanLib/libs/roboguice-sherlock-1.4.jar
+* lint.xml => senchanLib/lint.xml
+* src/ => senchanLib/src/main/java/
+In WasatterOAuthParams:
+* src/ => wasatterOAuthParams/src/main/java/
+In Wasatter:
+* AndroidManifest.xml => wasatter/src/main/AndroidManifest.xml
+* assets/ => wasatter/src/main/assets/
+* libs/android-query-full.0.22.10.jar => wasatter/libs/android-query-full.0.22.10.jar
+* libs/apache-mime4j-core-0.7.2.jar => wasatter/libs/apache-mime4j-core-0.7.2.jar
+* libs/httpmime-4.2.1.jar => wasatter/libs/httpmime-4.2.1.jar
+* libs/twitter4j-core-android-3.0.0-SNAPSHOT.jar => wasatter/libs/twitter4j-core-android-3.0.0-SNAPSHOT.jar
+* lint.xml => wasatter/lint.xml
+* res/ => wasatter/src/main/res/
+* src/ => wasatter/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
