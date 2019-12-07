@@ -2,13 +2,11 @@ package jp.senchan.android.wasatter.task;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
-import jp.senchan.android.wasatter.WassrClient;
-import jp.senchan.android.wasatter.R.id;
 import jp.senchan.android.wasatter.activity.Setting;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,7 +17,6 @@ public class TaskUpdate extends AsyncTask<String, String, Void> {
 	public boolean twitter;
 	public boolean wassr;
 	public boolean r_twitter = false;
-	public boolean r_wassr = false;
 	public boolean channel;
 
 	public TaskUpdate(boolean... params) {
@@ -31,28 +28,8 @@ public class TaskUpdate extends AsyncTask<String, String, Void> {
 
 	@Override
 	protected Void doInBackground(String... params) {
-		if(this.channel){
-			publishProgress(Wasatter.MODE_POSTING, params[2]);
-			try {
-				this.r_wassr = WassrClient.updateChannel(params[2],params[0], params[1]);
-			} catch (TwitterException e) {
-				// TODO 自動生成された catch ブロック
-				publishProgress(Wasatter.MODE_ERROR, Wasatter.SERVICE_WASSR,
-						String.valueOf(e.getStatusCode()));
-				this.r_wassr = false;
-			}
-			return null;
-		}
 		if (this.wassr) {
 			publishProgress(Wasatter.MODE_POSTING, Wasatter.SERVICE_WASSR);
-			try {
-				this.r_wassr = WassrClient.updateTimeLine(params[0], params[1]);
-			} catch (TwitterException e) {
-				// TODO 自動生成された catch ブロック
-				publishProgress(Wasatter.MODE_ERROR, Wasatter.SERVICE_WASSR,
-						String.valueOf(e.getStatusCode()));
-				this.r_wassr = false;
-			}
 		}
 		if (this.twitter) {
 			Twitter tw;

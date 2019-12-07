@@ -8,7 +8,6 @@ import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterAdapter;
 import jp.senchan.android.wasatter.WasatterItem;
-import jp.senchan.android.wasatter.WassrClient;
 import jp.senchan.android.wasatter.activity.Setting;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -109,9 +108,6 @@ public class Timeline extends ArrayAdapter<WasatterItem> implements
 				if (Setting.isLoadFavoriteImage()) {
 					for (int i = 0; i < count; i++) {
 						ImageView add_icon = new ImageView(view.getContext());
-						add_icon.setImageBitmap(Wasatter.images
-								.get(WassrClient.FAVORITE_ICON_URL.replace(
-										"[user]", favorites.get(i))));
 						add_icon.setLayoutParams(new LayoutParams(28, 28));
 						add_icon.setPadding(2, 2, 2, 2);
 						layout_favorite_icons.addView(add_icon);
