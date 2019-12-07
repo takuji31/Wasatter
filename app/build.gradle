@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
@@ -20,4 +22,6 @@ android {
 dependencies {
     implementation "org.twitter4j:twitter4j-core:4.0.7"
     implementation "org.twitter4j:twitter4j-media-support:4.0.6"
+    implementation "com.squareup.picasso:picasso:2.71828"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
