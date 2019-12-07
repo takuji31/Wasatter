@@ -24,7 +24,7 @@ interface SettingsRepository {
     val isDisplayButtons: Boolean
 
     companion object {
-        fun getDefaultInstance(context: Context) = SettingRepositoryImpl(context, PreferenceManager.getDefaultSharedPreferences(context))
+        fun getDefaultInstance(context: Context): SettingsRepository = SettingRepositoryImpl(context, PreferenceManager.getDefaultSharedPreferences(context))
     }
 }
 
