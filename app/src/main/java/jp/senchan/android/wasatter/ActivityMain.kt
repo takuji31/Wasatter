@@ -54,7 +54,6 @@ class ActivityMain : Activity() {
     var selectedItem: WasatterItem? = null
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Wasatter.CONTEXT = this.applicationContext
         this.setContentView(R.layout.main)
         ls = findViewById<View>(R.id.timeline_list) as ListView
         progress_image = findViewById<View>(R.id.load_image_progress) as ProgressBar
