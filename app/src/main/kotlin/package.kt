@@ -1,0 +1,1 @@
+package jp.senchan.android.wasatter
