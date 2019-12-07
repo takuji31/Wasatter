@@ -32,7 +32,6 @@ import jp.senchan.android.wasatter.activity.Detail;
 import jp.senchan.android.wasatter.activity.Setting;
 import jp.senchan.android.wasatter.activity.Update;
 import jp.senchan.android.wasatter.adapter.Timeline;
-import jp.senchan.android.wasatter.task.TaskImageDownloadWithCache;
 import jp.senchan.android.wasatter.task.TaskReloadTimeline;
 
 public class ActivityMain extends Activity {
@@ -67,7 +66,6 @@ public class ActivityMain extends Activity {
         super.onCreate(savedInstanceState);
         Wasatter.CONTEXT = this.getApplicationContext();
         this.setContentView(R.layout.main);
-        Wasatter.imageStore = new SQLiteHelperImageStore(Wasatter.CONTEXT);
         this.ls = (ListView) this.findViewById(R.id.timeline_list);
         this.progress_image = (ProgressBar) this
                 .findViewById(R.id.load_image_progress);
@@ -156,7 +154,6 @@ public class ActivityMain extends Activity {
             adb.setPositiveButton("OK", new OpenSettingClickListener());
             adb.show();
         } else if (this.first_load) {
-            this.loadCache();
             this.doReloadTask(this.mode);
         } else if (this.from_config) {
             WasatterAdapter adapter = (WasatterAdapter) this.ls.getAdapter();
@@ -196,10 +193,6 @@ public class ActivityMain extends Activity {
         this.first_load = false;
         TaskReloadTimeline rt = new TaskReloadTimeline(this.ls, mode);
         rt.execute();
-    }
-
-    public void startImageDownload() {
-        new TaskImageDownloadWithCache().execute();
     }
 
     // メニューが生成される際に起動される。
@@ -322,33 +315,6 @@ public class ActivityMain extends Activity {
         ad.setMessage(sb.toString());
         ad.setPositiveButton("OK", null);
         ad.show();
-    }
-
-    public void loadCache() {
-        SQLiteHelperImageStore imageStore = Wasatter.imageStore;
-        SQLiteDatabase db = imageStore.getReadableDatabase();
-        SQLiteDatabase dbw = imageStore.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from imagestore", null);
-        c.moveToFirst();
-        int count = c.getCount();
-        for (int i = 0; i < count; i++) {
-            String url = c.getString(0);
-            String imageName = c.getString(1);
-            long created = c.getLong(2);
-            if (created > Wasatter.cacheExpire()) {
-                Wasatter.images.put(url, Wasatter.getImage(imageName));
-            } else {
-                SQLiteStatement st = dbw
-                        .compileStatement("delete from imagestore where url=?");
-                st.bindString(1, url);
-                st.execute();
-                File file = new File(new SpannableStringBuilder(Wasatter
-                        .getImagePath()).append(imageName).toString());
-                file.delete();
-            }
-            c.moveToNext();
-        }
-        c.close();
     }
 
     @Override

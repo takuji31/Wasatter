@@ -154,6 +154,5 @@ public class TaskReloadTimeline extends
             this.listview.requestFocus();
         }
         Wasatter.main.layout_progress_timeline.setVisibility(View.GONE);
-        Wasatter.main.startImageDownload();
     }
 }

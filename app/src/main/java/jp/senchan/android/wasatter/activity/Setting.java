@@ -18,6 +18,8 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceClickListener;
 
+import com.squareup.picasso.Picasso;
+
 /**
  * アカウント設定
  *
@@ -175,9 +177,7 @@ public class Setting extends PreferenceActivity {
 			DialogInterface.OnClickListener {
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
-			// TODO 自動生成されたメソッド・スタブ
-			Wasatter.deleteImageCache();
-			Wasatter.main.first_load = Setting.isLoadImage();
+			// TODO: clear image cache
 		}
 	}
 }

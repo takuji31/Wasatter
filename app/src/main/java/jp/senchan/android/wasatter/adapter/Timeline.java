@@ -11,6 +11,7 @@ import jp.senchan.android.wasatter.WasatterItem;
 import jp.senchan.android.wasatter.activity.Setting;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils.TruncateAt;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class Timeline extends ArrayAdapter<WasatterItem> implements
 		WasatterAdapter {
@@ -74,14 +77,16 @@ public class Timeline extends ArrayAdapter<WasatterItem> implements
 				reply_name.setText("");
 				reply_name.setVisibility(View.GONE);
 			}
-			// アイコンをロードする。
-			Bitmap image = Wasatter.images.get(item.profileImageUrl);
+			// 画像をセット
 			ImageView icon = (ImageView) view.findViewById(R.id.icon);
-			if (!Setting.isLoadImage()) {
-				icon.setVisibility(View.GONE);
-			} else {
-				icon.setImageBitmap(image);
+			if (Setting.isLoadImage()) {
+				Picasso.get().setLoggingEnabled(true);
+				Picasso.get()
+						.load(Uri.parse(item.profileImageUrl))
+						.into(icon);
 				icon.setVisibility(View.VISIBLE);
+			} else {
+				icon.setVisibility(View.GONE);
 			}
 			// サービス名をビューにセットする
 			TextView service = (TextView) view.findViewById(R.id.service_name);

@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 /**
  * 各つぶやき/ヒトコトの詳細
  *
@@ -54,9 +56,10 @@ public class Detail extends Activity {
 			status.setText(wss.text);
 			// 画像をセット
 			ImageView icon = (ImageView) this.findViewById(R.id.icon);
-			Bitmap bmp = Wasatter.images.get(wss.profileImageUrl);
-			if (bmp != null && Setting.isLoadImage()) {
-				icon.setImageBitmap(bmp);
+			if (Setting.isLoadImage()) {
+				Picasso.get()
+						.load(Uri.parse(wss.profileImageUrl))
+						.into(icon);
 				icon.setVisibility(View.VISIBLE);
 			} else {
 				icon.setVisibility(View.GONE);
