@@ -20,22 +20,21 @@ import twitter4j.auth.AccessToken
 /**
  * @author takuji
  */
-class TaskToggleFavorite(private val detail: Detail) : AsyncTask<WasatterItem?, Void?, Boolean>() {
+    class TaskToggleFavorite(private val detail: Detail) : AsyncTask<WasatterItem, Unit, Boolean>() {
     private var item: WasatterItem? = null
-    private val status: String? = null
-    protected override fun doInBackground(vararg params: WasatterItem): Boolean {
+
+    override fun doInBackground(vararg params: WasatterItem): Boolean {
         item = params[0]
         if (Wasatter.SERVICE_TWITTER == item!!.service) {
-            val tw: Twitter
-            tw = TwitterFactory().instance
+            val tw: Twitter = TwitterFactory().instance
             tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET)
-            tw.oAuthAccessToken = AccessToken(Setting.Companion.getTwitterToken(), Setting.Companion.getTwitterTokenSecret())
+            tw.oAuthAccessToken = AccessToken(Setting.twitterToken, Setting.twitterTokenSecret)
             return try {
                 val st = tw.createFavorite(item!!.rid.toLong())
                 st.text != null
-            } catch (e: NumberFormatException) { // TODO 自動生成された catch ブロック
+            } catch (e: NumberFormatException) {
                 false
-            } catch (e: TwitterException) { // TODO 自動生成された catch ブロック
+            } catch (e: TwitterException) {
                 false
             }
         }
@@ -51,9 +50,9 @@ class TaskToggleFavorite(private val detail: Detail) : AsyncTask<WasatterItem?, 
         if (!isWassr) {
             text = if (result) "お気に入りに追加しました。" else "お気に入りに追加できませんでした。"
             if (favorited) {
-                button.setText(Detail.Companion.DEL_TWITTER)
+                button.setText(Detail.DEL_TWITTER)
             } else {
-                button.setText(Detail.Companion.ADD_TWITTER)
+                button.setText(Detail.ADD_TWITTER)
             }
         } else if (favorited) {
             text = if (result) "イイネ！しました。" else "イイネ！を取り消しできませんでした。"
@@ -61,9 +60,9 @@ class TaskToggleFavorite(private val detail: Detail) : AsyncTask<WasatterItem?, 
             text = if (result) "イイネ！を取り消しました。" else "イイネ！できませんでした。"
         }
         if (favorited && isWassr) {
-            button.setText(Detail.Companion.DEL_WASSR)
+            button.setText(Detail.DEL_WASSR)
         } else if (isWassr) {
-            button.setText(Detail.Companion.ADD_WASSR)
+            button.setText(Detail.ADD_WASSR)
         }
         text_result.text = text
         detail.favoriteButton!!.isClickable = true

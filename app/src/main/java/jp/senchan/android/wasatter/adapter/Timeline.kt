@@ -20,18 +20,14 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class Timeline(context: Context, textViewResourceId: Int,
-               private val items: ArrayList<WasatterItem?>?, channel: Boolean) : ArrayAdapter<WasatterItem?>(context, textViewResourceId, items!!), WasatterAdapter {
-    private val inflater: LayoutInflater
+               private val items: ArrayList<WasatterItem>?, channel: Boolean) : ArrayAdapter<WasatterItem>(context, textViewResourceId, items!!), WasatterAdapter {
+    private val inflater: LayoutInflater =  context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        var view = view
-        if (view == null) { // 受け取ったビューがnullなら新しくビューを生成
-            view = inflater.inflate(R.layout.timeline_row, null)
-        }
+        val view = view ?: inflater.inflate(R.layout.timeline_row, null)
         // データの取得
         val item = items!![position]
         if (item != null) {
-            val screenName = view
-                    .findViewById<View>(R.id.screen_name) as TextView
+            val screenName = view.findViewById<View>(R.id.screen_name) as TextView
             // 名前をビューにセットする
             val text = view!!.findViewById<View>(R.id.status) as TextView
             if (screenName != null) {
@@ -42,26 +38,25 @@ class Timeline(context: Context, textViewResourceId: Int,
                 text.text = item.text
             }
             // テキストの行数を決定する。
-            text.isSingleLine = !Setting.Companion.isDisplayBodyMultiLine()
-            if (!Setting.Companion.isDisplayBodyMultiLine()) {
+            text.isSingleLine = !Setting.isDisplayBodyMultiLine
+            if (!Setting.isDisplayBodyMultiLine) {
                 text.ellipsize = TruncateAt.MARQUEE
             } else {
                 text.ellipsize = null
             }
             // 返信元の名前をビューにセットする
             val reply_name = view.findViewById<View>(R.id.reply_name) as TextView
-            if (reply_name != null && "null" != item.replyUserNick
-                    && item.replyUserNick != null) {
+            if ("null" != item.replyUserNick && item.replyUserNick != null) {
                 reply_name.text = SpannableStringBuilder(">").append(
                         item.replyUserNick).toString()
                 reply_name.visibility = View.VISIBLE
-            } else if (reply_name != null) {
+            } else {
                 reply_name.text = ""
                 reply_name.visibility = View.GONE
             }
             // 画像をセット
             val icon = view.findViewById<View>(R.id.icon) as ImageView
-            if (Setting.Companion.isLoadImage()) {
+            if (Setting.isLoadImage) {
                 Picasso.get().isLoggingEnabled = true
                 Picasso.get()
                         .load(Uri.parse(item.profileImageUrl))
@@ -72,9 +67,7 @@ class Timeline(context: Context, textViewResourceId: Int,
             }
             // サービス名をビューにセットする
             val service = view.findViewById<View>(R.id.service_name) as TextView
-            if (service != null) {
-                service.text = item.service
-            }
+            service.text = item.service
             // イイネ！アイコンリストを表示
             val layout_favorite_list = view
                     .findViewById<View>(R.id.layout_favorite) as LinearLayout
@@ -91,7 +84,7 @@ class Timeline(context: Context, textViewResourceId: Int,
                 layout_favorite_icons.removeAllViews()
                 layout_favorite_icons.addView(tv)
                 layout_favorite_list.visibility = View.VISIBLE
-                if (Setting.Companion.isLoadFavoriteImage()) {
+                if (Setting.isLoadFavoriteImage) {
                     for (i in 0 until count) {
                         val add_icon = ImageView(view.context)
                         add_icon.layoutParams = ViewGroup.LayoutParams(28, 28)
@@ -112,10 +105,5 @@ class Timeline(context: Context, textViewResourceId: Int,
 
     override fun updateView() { // TODO 自動生成されたメソッド・スタブ
         super.notifyDataSetChanged()
-    }
-
-    init {
-        inflater = context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 }

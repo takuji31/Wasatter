@@ -100,8 +100,7 @@ class Setting : PreferenceActivity() {
                 return PreferenceManager
                         .getDefaultSharedPreferences(con)
                         .getBoolean(
-                                con
-                                        .getString(R.string.key_setting_twitter_load_timeline),
+                                con.getString(R.string.key_setting_twitter_load_timeline),
                                 true)
             }
 

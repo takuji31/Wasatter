@@ -24,7 +24,7 @@ import twitter4j.auth.RequestToken
  * @author Senka/Takuji
  */
 class OAuthToken : Activity() {
-    var twitter: Twitter? = null
+    lateinit var twitter: Twitter
     var request: RequestToken? = null
     override fun onCreate(savedInstanceState: Bundle?) { // TODO 自動生成されたメソッド・スタブ
         super.onCreate(savedInstanceState)

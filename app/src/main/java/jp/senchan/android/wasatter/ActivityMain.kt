@@ -22,28 +22,30 @@ import jp.senchan.android.wasatter.task.TaskReloadTimeline
 import java.util.*
 
 class ActivityMain : Activity() {
-    var ls: ListView? = null
-    var list_timeline: ArrayList<WasatterItem?>? = null
-    var list_reply: ArrayList<WasatterItem?>? = null
-    var list_mypost: ArrayList<WasatterItem?>? = null
+    var list_timeline: ArrayList<WasatterItem>? = null
+    var list_reply: ArrayList<WasatterItem>? = null
+    var list_mypost: ArrayList<WasatterItem>? = null
     var list_odai: ArrayList<WasatterItem>? = null
     var list_channel_list: ArrayList<WasatterItem>? = null
-    var list_channel: ArrayList<WasatterItem?>? = null
-    var button_reload_channel_list: Button? = null
-    var button_timeline: ToggleButton? = null
-    var button_reply: ToggleButton? = null
-    var button_mypost: ToggleButton? = null
-    var button_channel: ToggleButton? = null
-    var button_odai: ToggleButton? = null
-    var progress_image: ProgressBar? = null
-    var layout_progress_timeline: LinearLayout? = null
-    var layout_channel_list: LinearLayout? = null
-    var spinner_channel_list: Spinner? = null
-    var loading_timeline_text: TextView? = null
+    var list_channel: ArrayList<WasatterItem>? = null
+
+    lateinit var ls: ListView
+    lateinit var button_reload_channel_list: Button
+    lateinit var button_timeline: ToggleButton
+    lateinit var button_reply: ToggleButton
+    lateinit var button_mypost: ToggleButton
+    lateinit var button_channel: ToggleButton
+    lateinit var button_odai: ToggleButton
+    lateinit var progress_image: ProgressBar
+    lateinit var layout_progress_timeline: LinearLayout
+    lateinit var layout_channel_list: LinearLayout
+    lateinit var spinner_channel_list: Spinner
+    lateinit var loading_timeline_text: TextView
+
     var first_load = true
     var reload_image = false
     var from_config = false
-    var mode: Int = TaskReloadTimeline.Companion.MODE_TIMELINE
+    var mode: Int = TaskReloadTimeline.MODE_TIMELINE
     private var selctedButtonId = 0
     var selected_channel: String? = null
     var selectedItem: WasatterItem? = null
@@ -57,9 +59,8 @@ class ActivityMain : Activity() {
         layout_channel_list = findViewById<View>(R.id.layout_channel_list) as LinearLayout
         loading_timeline_text = findViewById<View>(R.id.text_loading_timeline) as TextView
         spinner_channel_list = findViewById<View>(R.id.channel_list) as Spinner
-        button_reload_channel_list = findViewById<View>(R.id.button_reload_channel_list) as Button
-        button_reload_channel_list
-                .setOnClickListener(ChannelReloadButtonClickListener())
+        button_reload_channel_list = findViewById<Button>(R.id.button_reload_channel_list)
+        button_reload_channel_list?.setOnClickListener(ChannelReloadButtonClickListener())
         // トグルボタンを代入
         button_timeline = findViewById<View>(R.id.toggle_button_timeline) as ToggleButton
         button_reply = findViewById<View>(R.id.toggle_button_reply) as ToggleButton
@@ -92,18 +93,18 @@ class ActivityMain : Activity() {
         super.onResume()
         // ボタンの表示設定
         val layout_buttons = findViewById<View>(R.id.layout_buttons) as LinearLayout
-        if (Setting.Companion.isDisplayButtons()) {
+        if (Setting.isDisplayButtons) {
             layout_buttons.visibility = View.VISIBLE
         } else {
             layout_buttons.visibility = View.GONE
         }
         // テーマの設定
 // TwitterもしくはWassrが有効になっているかチェックする
-        val enable = (!Setting.Companion.isTwitterEnabled()
-                && !Setting.Companion.isWassrEnabled())
-        val wassr_empty = Setting.Companion.isWassrEnabled() && ("" == Setting.Companion.getWassrId() || "" == Setting.Companion.getWassrPass())
-        val twitter_oauth_empty = (Setting.Companion.isTwitterEnabled()
-                && ("" == Setting.Companion.getTwitterToken() || "" == Setting.Companion.getTwitterTokenSecret()))
+        val enable = (!Setting.isTwitterEnabled
+                && !Setting.isWassrEnabled)
+        val wassr_empty = Setting.isWassrEnabled && ("" == Setting.wassrId || "" == Setting.wassrPass)
+        val twitter_oauth_empty = (Setting.isTwitterEnabled
+                && ("" == Setting.twitterToken || "" == Setting.twitterTokenSecret))
         val adb = AlertDialog.Builder(this)
         if (enable) {
             adb.setMessage(R.string.notice_message_no_enable)
@@ -130,29 +131,29 @@ class ActivityMain : Activity() {
 
     val timeLine: Unit
         get() {
-            doReloadTask(TaskReloadTimeline.Companion.MODE_TIMELINE)
+            doReloadTask(TaskReloadTimeline.MODE_TIMELINE)
         }
 
     val reply: Unit
         get() {
-            doReloadTask(TaskReloadTimeline.Companion.MODE_REPLY)
+            doReloadTask(TaskReloadTimeline.MODE_REPLY)
         }
 
     val myPost: Unit
         get() {
-            doReloadTask(TaskReloadTimeline.Companion.MODE_MYPOST)
+            doReloadTask(TaskReloadTimeline.MODE_MYPOST)
         }
 
     val channelList: Unit
         get() {
-            doReloadTask(TaskReloadTimeline.Companion.MODE_CHANNEL_LIST)
+            doReloadTask(TaskReloadTimeline.MODE_CHANNEL_LIST)
         }
 
     fun getChannel(channel: String?) {
         ls!!.adapter = null
         first_load = false
         val rt = TaskReloadTimeline(ls,
-                TaskReloadTimeline.Companion.MODE_CHANNEL)
+                TaskReloadTimeline.MODE_CHANNEL)
         rt.execute(channel)
     }
 
@@ -213,7 +214,7 @@ class ActivityMain : Activity() {
 
     fun checkWassrEnabled(id: Int): Int {
         var id = id
-        val wassr: Boolean = Setting.Companion.isWassrEnabled()
+        val wassr: Boolean = Setting.isWassrEnabled
         button_odai!!.isEnabled = wassr
         button_channel!!.isEnabled = wassr
         val wassr_function_list = ArrayList<Int>()
@@ -292,7 +293,7 @@ class ActivityMain : Activity() {
 // OnClickListenerの定義
     private inner class TimelineButtonClickListener : View.OnClickListener {
         override fun onClick(v: View) {
-            mode = TaskReloadTimeline.Companion.MODE_TIMELINE
+            mode = TaskReloadTimeline.MODE_TIMELINE
             buttonSelect(v.id)
             if (list_timeline == null) {
                 timeLine
@@ -308,7 +309,7 @@ class ActivityMain : Activity() {
 
     private inner class ReplyButtonClickListener : View.OnClickListener {
         override fun onClick(v: View) {
-            mode = TaskReloadTimeline.Companion.MODE_REPLY
+            mode = TaskReloadTimeline.MODE_REPLY
             buttonSelect(v.id)
             if (list_reply == null) {
                 reply
@@ -323,7 +324,7 @@ class ActivityMain : Activity() {
 
     private inner class MyPostButtonClickListener : View.OnClickListener {
         override fun onClick(v: View) {
-            mode = TaskReloadTimeline.Companion.MODE_MYPOST
+            mode = TaskReloadTimeline.MODE_MYPOST
             buttonSelect(v.id)
             if (list_mypost == null) {
                 myPost
@@ -339,7 +340,7 @@ class ActivityMain : Activity() {
 
     private inner class ChannelButtonClickListener : View.OnClickListener {
         override fun onClick(v: View) {
-            mode = TaskReloadTimeline.Companion.MODE_CHANNEL_LIST
+            mode = TaskReloadTimeline.MODE_CHANNEL_LIST
             buttonSelect(v.id)
             if (list_channel_list == null) {
                 channelList

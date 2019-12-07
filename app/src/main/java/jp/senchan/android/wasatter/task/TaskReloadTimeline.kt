@@ -16,16 +16,16 @@ import twitter4j.conf.ConfigurationBuilder
 import java.util.*
 
 class TaskReloadTimeline // コンストラクタ
-(protected var listview: ListView?, protected var mode: Int) : AsyncTask<String?, String?, ArrayList<WasatterItem?>>() {
+constructor(protected val listview: ListView, protected var mode: Int) : AsyncTask<String, String, ArrayList<WasatterItem>>() {
     // バックグラウンドで実行する処理
-    protected override fun doInBackground(vararg param: String): ArrayList<WasatterItem?> {
-        val result = ArrayList<WasatterItem?>()
+    override fun doInBackground(vararg param: String): ArrayList<WasatterItem> {
+        val result = ArrayList<WasatterItem>()
         val twitter = TwitterFactory(
                 ConfigurationBuilder()
                         .setOAuthConsumerKey(Wasatter.OAUTH_KEY)
                         .setOAuthConsumerSecret(Wasatter.OAUTH_SECRET)
-                        .setOAuthAccessToken(Setting.Companion.getTwitterToken())
-                        .setOAuthAccessTokenSecret(Setting.Companion.getTwitterTokenSecret())
+                        .setOAuthAccessToken(Setting.twitterToken)
+                        .setOAuthAccessTokenSecret(Setting.twitterTokenSecret)
                         .build()
         ).instance
         when (mode) {
@@ -60,7 +60,7 @@ class TaskReloadTimeline // コンストラクタ
         return result
     }
 
-    protected override fun onProgressUpdate(vararg values: String) { // まず、何が起こってここに飛んできたか判定
+    override fun onProgressUpdate(vararg values: String) { // まず、何が起こってここに飛んできたか判定
         val service = values[0]
         val error = values[1]
         Wasatter.displayHttpError(error, service)
@@ -77,7 +77,7 @@ class TaskReloadTimeline // コンストラクタ
     }
 
     // メインスレッドで実行する処理
-    override fun onPostExecute(result: ArrayList<WasatterItem?>) { // 取得結果の代入
+    override fun onPostExecute(result: ArrayList<WasatterItem>) { // 取得結果の代入
         var set = false
         when (mode) {
             MODE_TIMELINE -> {
@@ -108,10 +108,9 @@ class TaskReloadTimeline // コンストラクタ
         // ListViewへの挿入
         if (set) {
             val channel = mode == MODE_CHANNEL
-            val adapter = Timeline(listview
-                    .getContext(), R.layout.timeline_row, result, channel)
+            val adapter = Timeline(listview.context, R.layout.timeline_row, result, channel)
             if (!channel) {
-                adapter.sort(StatusItemComparator())
+                adapter.sort(StatusItemComparator)
             }
             listview!!.adapter = adapter
             listview!!.requestFocus()

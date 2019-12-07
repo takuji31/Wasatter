@@ -15,9 +15,9 @@ class Wasatter : Application() {
         const val REPLY = "reply"
         const val OAUTH_KEY = "5WURvsXWy6pwsFyJvR7Yw"
         const val OAUTH_SECRET = "Ya9SKf2G0iPDRzrGeFrwTVe4eIgsjO8t4chCQl62vs"
-        var CONTEXT: Context? = null
+        lateinit var CONTEXT: Context
         var images = HashMap<String, Bitmap>()
-        var main: ActivityMain? = null
+        lateinit var main: ActivityMain
         private const val ERROR_AUTH = "401"
         private const val ERROR_TMP = "503"
         var MODE_POSTING = "mode_posting"

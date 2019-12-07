@@ -44,7 +44,7 @@ class Detail : Activity() {
             status.text = wss.text
             // 画像をセット
             val icon = findViewById<View>(R.id.icon) as ImageView
-            if (Setting.Companion.isLoadImage()) {
+            if (Setting.isLoadImage) {
                 Picasso.get()
                         .load(Uri.parse(wss.profileImageUrl))
                         .into(icon)
@@ -102,7 +102,7 @@ class Detail : Activity() {
             if (Wasatter.SERVICE_TWITTER == wss.service) {
                 button_favorite.text = ADD_TWITTER
             } else if (wss.favorite != null
-                    && wss.favorite.indexOf(Setting.Companion.getWassrId()) != -1) {
+                    && wss.favorite.indexOf(Setting.wassrId) != -1) {
                 button_favorite.text = DEL_WASSR
             } else {
                 button_favorite.text = ADD_WASSR

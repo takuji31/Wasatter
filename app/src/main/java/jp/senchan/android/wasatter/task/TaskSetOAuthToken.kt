@@ -11,24 +11,24 @@ import twitter4j.TwitterException
 /**
  * @author takuji
  */
-class TaskSetOAuthToken(var target: OAuthToken) : AsyncTask<String?, Void?, Boolean?>() {
+class TaskSetOAuthToken(var target: OAuthToken) : AsyncTask<String, Unit, Unit>() {
     override fun onPreExecute() {
         target.finish()
     }
 
-    protected override fun doInBackground(vararg params: String): Boolean? {
+    override fun doInBackground(vararg params: String) {
         try {
-            val access_token = target.twitter!!.getOAuthAccessToken(
+            val access_token = target.twitter.getOAuthAccessToken(
                     target.request, params[0])
-            Setting.Companion.setTwitterToken(access_token.token)
-            Setting.Companion.setTwitterTokenSecret(access_token.tokenSecret)
-        } catch (e: TwitterException) { // TODO 自動生成された catch ブロック
+            Setting.setTwitterToken(access_token.token)
+            Setting.setTwitterTokenSecret(access_token.tokenSecret)
+        } catch (e: TwitterException) {
             e.printStackTrace()
         }
-        return null
     }
 
-    override fun onPostExecute(result: Boolean?) { // TODO OAuthToken更新完了の処理を書く
+    override fun onPostExecute(result: Unit) {
+        // TODO OAuthToken更新完了の処理を書く
     }
 
 }
