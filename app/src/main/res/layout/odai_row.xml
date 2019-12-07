@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>  
+<?xml version="1.0" encoding="utf-8"?>  
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
     android:layout_width="fill_parent" android:padding="6dip" android:layout_height="fill_parent">  
     <TableLayout android:id="@+id/TableLayout01" android:layout_width="fill_parent" android:layout_height="fill_parent"><TextView android:layout_width="fill_parent" android:gravity="center_vertical" android:layout_height="wrap_content" android:id="@+id/odai_date" android:textStyle="bold" android:textSize="20dip"/>

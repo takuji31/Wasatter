@@ -1,0 +1,23 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "jp.senchan.android.wasatter"
+        minSdkVersion 23
+        targetSdkVersion 29
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    implementation "org.twitter4j:twitter4j-core:2.1.9"
+    implementation "org.twitter4j:twitter4j-media-support:2.1.9"
+}

@@ -1,0 +1,146 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .gitignore
+* .idea/
+* .idea/workspace.xml
+* README
+* lib/
+* lib/twitter4j-core-2.1.9-SNAPSHOT-javadoc.jar
+* lib/twitter4j-core-2.1.9-SNAPSHOT-sources.jar
+* lib/twitter4j-core-2.1.9-SNAPSHOT.jar
+* lib/twitter4j-media-support-2.1.9-SNAPSHOT-javadoc.jar
+* lib/twitter4j-media-support-2.1.9-SNAPSHOT-sources.jar
+* lib/twitter4j-media-support-2.1.9-SNAPSHOT.jar
+* senchanLib/
+* senchanLib/build/
+* senchanLib/build/generated/
+* senchanLib/build/generated/source/
+* senchanLib/build/generated/source/buildConfig/
+* senchanLib/build/generated/source/buildConfig/androidTest/
+* senchanLib/build/generated/source/buildConfig/androidTest/debug/
+* senchanLib/build/generated/source/buildConfig/androidTest/debug/jp/
+* senchanLib/build/generated/source/buildConfig/androidTest/debug/jp/senchan/
+* senchanLib/build/generated/source/buildConfig/androidTest/debug/jp/senchan/lib/
+* senchanLib/build/generated/source/buildConfig/androidTest/debug/jp/senchan/lib/test/
+* senchanLib/build/generated/source/buildConfig/androidTest/debug/jp/senchan/lib/test/BuildConfig.java
+* senchanLib/build/generated/source/buildConfig/debug/
+* senchanLib/build/generated/source/buildConfig/debug/jp/
+* senchanLib/build/generated/source/buildConfig/debug/jp/senchan/
+* senchanLib/build/generated/source/buildConfig/debug/jp/senchan/lib/
+* senchanLib/build/generated/source/buildConfig/debug/jp/senchan/lib/BuildConfig.java
+* senchanLib/build/intermediates/
+* senchanLib/build/intermediates/aapt_friendly_merged_manifests/
+* senchanLib/build/intermediates/aapt_friendly_merged_manifests/debug/
+* senchanLib/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/
+* senchanLib/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml
+* senchanLib/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/output.json
+* senchanLib/build/intermediates/incremental/
+* senchanLib/build/intermediates/incremental/packageDebugResources/
+* senchanLib/build/intermediates/incremental/packageDebugResources/compile-file-map.properties
+* senchanLib/build/intermediates/incremental/packageDebugResources/merger.xml
+* senchanLib/build/intermediates/library_manifest/
+* senchanLib/build/intermediates/library_manifest/debug/
+* senchanLib/build/intermediates/library_manifest/debug/AndroidManifest.xml
+* senchanLib/build/intermediates/manifest_merge_blame_file/
+* senchanLib/build/intermediates/manifest_merge_blame_file/debug/
+* senchanLib/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
+* senchanLib/build/intermediates/manifest_merge_blame_file/debugAndroidTest/
+* senchanLib/build/intermediates/manifest_merge_blame_file/debugAndroidTest/manifest-merger-blame-debug-androidTest-report.txt
+* senchanLib/build/intermediates/merged_manifests/
+* senchanLib/build/intermediates/merged_manifests/debug/
+* senchanLib/build/intermediates/merged_manifests/debug/output.json
+* senchanLib/build/intermediates/merged_manifests/debugAndroidTest/
+* senchanLib/build/intermediates/merged_manifests/debugAndroidTest/AndroidManifest.xml
+* senchanLib/build/intermediates/merged_manifests/debugAndroidTest/output.json
+* senchanLib/build/outputs/
+* senchanLib/build/outputs/logs/
+* senchanLib/build/outputs/logs/manifest-merger-debug-report.txt
+* wasatter/
+* wasatter/build/
+* wasatter/build/generated/
+* wasatter/build/generated/source/
+* wasatter/build/generated/source/buildConfig/
+* wasatter/build/generated/source/buildConfig/androidTest/
+* wasatter/build/generated/source/buildConfig/androidTest/debug/
+* wasatter/build/generated/source/buildConfig/androidTest/debug/jp/
+* wasatter/build/generated/source/buildConfig/androidTest/debug/jp/senchan/
+* wasatter/build/generated/source/buildConfig/androidTest/debug/jp/senchan/android/
+* wasatter/build/generated/source/buildConfig/androidTest/debug/jp/senchan/android/wasatter/
+* wasatter/build/generated/source/buildConfig/androidTest/debug/jp/senchan/android/wasatter/test/
+* wasatter/build/generated/source/buildConfig/androidTest/debug/jp/senchan/android/wasatter/test/BuildConfig.java
+* wasatter/build/generated/source/buildConfig/debug/
+* wasatter/build/generated/source/buildConfig/debug/jp/
+* wasatter/build/generated/source/buildConfig/debug/jp/senchan/
+* wasatter/build/generated/source/buildConfig/debug/jp/senchan/android/
+* wasatter/build/generated/source/buildConfig/debug/jp/senchan/android/wasatter/
+* wasatter/build/generated/source/buildConfig/debug/jp/senchan/android/wasatter/BuildConfig.java
+* wasatter/build/intermediates/
+* wasatter/build/intermediates/apk_list/
+* wasatter/build/intermediates/apk_list/debug/
+* wasatter/build/intermediates/apk_list/debug/mainApkListPersistenceDebug/
+* wasatter/build/intermediates/apk_list/debug/mainApkListPersistenceDebug/apk-list.gson
+* wasatter/build/intermediates/bundle_manifest/
+* wasatter/build/intermediates/bundle_manifest/debug/
+* wasatter/build/intermediates/bundle_manifest/debug/processDebugManifest/
+* wasatter/build/intermediates/bundle_manifest/debug/processDebugManifest/bundle-manifest/
+* wasatter/build/intermediates/bundle_manifest/debug/processDebugManifest/bundle-manifest/AndroidManifest.xml
+* wasatter/build/intermediates/bundle_manifest/debug/processDebugManifest/bundle-manifest/output.json
+* wasatter/build/intermediates/compatible_screen_manifest/
+* wasatter/build/intermediates/compatible_screen_manifest/debug/
+* wasatter/build/intermediates/compatible_screen_manifest/debug/createDebugCompatibleScreenManifests/
+* wasatter/build/intermediates/compatible_screen_manifest/debug/createDebugCompatibleScreenManifests/out/
+* wasatter/build/intermediates/compatible_screen_manifest/debug/createDebugCompatibleScreenManifests/out/output.json
+* wasatter/build/intermediates/instant_app_manifest/
+* wasatter/build/intermediates/instant_app_manifest/debug/
+* wasatter/build/intermediates/instant_app_manifest/debug/AndroidManifest.xml
+* wasatter/build/intermediates/instant_app_manifest/debug/output.json
+* wasatter/build/intermediates/manifest_merge_blame_file/
+* wasatter/build/intermediates/manifest_merge_blame_file/debug/
+* wasatter/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
+* wasatter/build/intermediates/merged_manifests/
+* wasatter/build/intermediates/merged_manifests/debug/
+* wasatter/build/intermediates/merged_manifests/debug/AndroidManifest.xml
+* wasatter/build/intermediates/merged_manifests/debug/output.json
+* wasatter/build/intermediates/merged_manifests/debugAndroidTest/
+* wasatter/build/intermediates/merged_manifests/debugAndroidTest/AndroidManifest.xml
+* wasatter/build/intermediates/merged_manifests/debugAndroidTest/output.json
+* wasatter/build/intermediates/metadata_feature_manifest/
+* wasatter/build/intermediates/metadata_feature_manifest/debug/
+* wasatter/build/intermediates/metadata_feature_manifest/debug/processDebugManifest/
+* wasatter/build/intermediates/metadata_feature_manifest/debug/processDebugManifest/metadata-feature/
+* wasatter/build/intermediates/metadata_feature_manifest/debug/processDebugManifest/metadata-feature/output.json
+* wasatter/build/outputs/
+* wasatter/build/outputs/logs/
+* wasatter/build/outputs/logs/manifest-merger-debug-report.txt
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app/src/main/AndroidManifest.xml
+* lint.xml => app/lint.xml
+* res/ => app/src/main/res/
+* src/ => app/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
