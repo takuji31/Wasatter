@@ -9,11 +9,15 @@ import java.util.ArrayList;
 
 import jp.senchan.android.wasatter.R;
 import jp.senchan.android.wasatter.StatusItemComparator;
-import jp.senchan.android.wasatter.TwitterClient;
 import jp.senchan.android.wasatter.Wasatter;
 import jp.senchan.android.wasatter.WasatterItem;
+import jp.senchan.android.wasatter.activity.Setting;
 import jp.senchan.android.wasatter.adapter.Timeline;
+import twitter4j.ResponseList;
+import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class TaskReloadTimeline extends
         AsyncTask<String, String, ArrayList<WasatterItem>> {
@@ -36,11 +40,22 @@ public class TaskReloadTimeline extends
 
     // バックグラウンドで実行する処理
     protected ArrayList<WasatterItem> doInBackground(String... param) {
-        ArrayList<WasatterItem> ret = new ArrayList<WasatterItem>();
+        ArrayList<WasatterItem> result = new ArrayList<WasatterItem>();
+        Twitter twitter = new TwitterFactory(
+                new ConfigurationBuilder()
+                        .setOAuthConsumerKey(Wasatter.OAUTH_KEY)
+                        .setOAuthConsumerSecret(Wasatter.OAUTH_SECRET)
+                        .setOAuthAccessToken(Setting.getTwitterToken())
+                        .setOAuthAccessTokenSecret(Setting.getTwitterTokenSecret())
+                    .build()
+        ).getInstance();
         switch (this.mode) {
             case TaskReloadTimeline.MODE_TIMELINE:
                 try {
-                    ret.addAll(TwitterClient.getTimeLine());
+                    ResponseList<twitter4j.Status> homeTimeline = twitter.getHomeTimeline();
+                    for (twitter4j.Status status : homeTimeline) {
+                        result.add(new WasatterItem(status));
+                    }
                 } catch (TwitterException e) {
                     publishProgress(Wasatter.SERVICE_TWITTER, String.valueOf(e
                             .getStatusCode()));
@@ -48,7 +63,10 @@ public class TaskReloadTimeline extends
                 break;
             case TaskReloadTimeline.MODE_REPLY:
                 try {
-                    ret.addAll(TwitterClient.getReply());
+                    ResponseList<twitter4j.Status> mentionsTimeline = twitter.getMentionsTimeline();
+                    for (twitter4j.Status status : mentionsTimeline) {
+                        result.add(new WasatterItem(status));
+                    }
                 } catch (TwitterException e) {
                     publishProgress(Wasatter.SERVICE_TWITTER, String.valueOf(e
                             .getStatusCode()));
@@ -57,7 +75,10 @@ public class TaskReloadTimeline extends
                 break;
             case TaskReloadTimeline.MODE_MYPOST:
                 try {
-                    ret.addAll(TwitterClient.getMyPost());
+                    ResponseList<twitter4j.Status> userTimeline = twitter.getUserTimeline();
+                    for (twitter4j.Status status : userTimeline) {
+                        result.add(new WasatterItem(status));
+                    }
                 } catch (TwitterException e) {
                     publishProgress(Wasatter.SERVICE_TWITTER, String.valueOf(e
                             .getStatusCode()));
@@ -65,7 +86,7 @@ public class TaskReloadTimeline extends
 
                 break;
         }
-        return ret;
+        return result;
     }
 
     @Override

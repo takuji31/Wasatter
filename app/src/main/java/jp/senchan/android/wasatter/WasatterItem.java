@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import android.text.SpannableStringBuilder;
 
+import twitter4j.Status;
+
 /**
  * Wasatterつぶやき＆ヒトコトクラス
  *
@@ -19,36 +21,69 @@ public class WasatterItem implements Serializable {
 	/**
 	 * ユーザーID（発言者）
 	 */
-	public String id;
+	public final String id;
 	/**
 	 * ユーザー名（発言者）
 	 */
-	public String name;
+	public final String name;
 	/**
 	 * ヒトコト
 	 */
-	public String text;
+	public final String text;
 	/**
 	 * プロフィール画像のURL
 	 */
-	public String profileImageUrl;
+	public final String profileImageUrl;
 	/**
 	 * パーマリンク
 	 */
-	public String link;
+	public final String link;
 	/**
 	 * RID
 	 */
-	public String rid;
+	public final String rid;
 	/**
 	 * サービスの種類
 	 */
-	public String service;
-	public String replyUserNick;
-	public String replyMessage;
-	public long epoch;
-	public ArrayList<String> favorite = new ArrayList<String>();
-	public boolean channel;
+	public final String service;
+	public final String replyUserNick;
+	public final String replyMessage;
+	public final long epoch;
+	public final ArrayList<String> favorite;
+
+	public final boolean favorited;
+
+	public WasatterItem(String id, String name, String text, String profileImageUrl, String link, String rid, String service, String replyUserNick, String replyMessage, long epoch, ArrayList<String> favorite, boolean favorited) {
+		this.id = id;
+		this.name = name;
+		this.text = text;
+		this.profileImageUrl = profileImageUrl;
+		this.link = link;
+		this.rid = rid;
+		this.service = service;
+		this.replyUserNick = replyUserNick;
+		this.replyMessage = replyMessage;
+		this.epoch = epoch;
+		this.favorite = favorite;
+		this.favorited = favorited;
+	}
+
+	public WasatterItem(Status status) {
+		this(
+				status.getUser().getScreenName(),
+				status.getUser().getScreenName(),
+				status.getText(),
+				status.getUser().getProfileImageURL(),
+				"https://twitter.com/" + status.getUser().getScreenName() + "/status/" + status.getId(),
+				String.valueOf(status.getId()),
+				"Twitter",
+				status.getInReplyToScreenName(),
+				"",
+				status.getCreatedAt().getTime() / 1000L,
+				new ArrayList<String>(),
+				status.isFavorited()
+		);
+	}
 
 	@Override
 	public String toString() {
@@ -56,5 +91,4 @@ public class WasatterItem implements Serializable {
 		return new SpannableStringBuilder(name).append("(").append(id).append(
 				")").toString();
 	}
-	public boolean favorited;
 }
