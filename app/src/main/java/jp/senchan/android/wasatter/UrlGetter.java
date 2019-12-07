@@ -3,11 +3,11 @@
  */
 package jp.senchan.android.wasatter;
 
+import twitter4j.HttpClientFactory;
+import twitter4j.HttpResponse;
+import twitter4j.JSONException;
+import twitter4j.JSONObject;
 import twitter4j.TwitterException;
-import twitter4j.internal.http.HttpClientWrapper;
-import twitter4j.internal.http.HttpResponse;
-import twitter4j.internal.org.json.JSONException;
-import twitter4j.internal.org.json.JSONObject;
 
 /**
  * bit.ly/j.mpの短縮URL
@@ -21,14 +21,13 @@ public class UrlGetter {
 
 	public static String bitly(String original, String api_url) {
 		try {
-			HttpClientWrapper http = new HttpClientWrapper();
-			HttpResponse response = http
+			HttpResponse response = HttpClientFactory.getInstance()
 					.get(api_url.replace("[url]", original));
 			JSONObject res = response.asJSONObject();
 			return res.getJSONObject("results").getJSONObject(original)
 					.getString("shortUrl");
-		} catch (JSONException e) {
-		} catch (TwitterException e) {
+		} catch (JSONException | TwitterException e) {
+			e.printStackTrace();
 		}
 		return "";
 	}

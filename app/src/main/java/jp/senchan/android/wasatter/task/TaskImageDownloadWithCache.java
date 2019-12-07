@@ -14,9 +14,10 @@ import jp.senchan.android.wasatter.R.id;
 import jp.senchan.android.wasatter.activity.Setting;
 import jp.senchan.android.wasatter.adapter.Timeline;
 
+import twitter4j.HttpClient;
+import twitter4j.HttpClientFactory;
+import twitter4j.HttpResponse;
 import twitter4j.TwitterException;
-import twitter4j.internal.http.HttpClientWrapper;
-import twitter4j.internal.http.HttpResponse;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
@@ -65,7 +66,7 @@ public class TaskImageDownloadWithCache extends AsyncTask<Void, Integer, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 		// 画像のダウンロードを行うサービス
-		HttpClientWrapper http = new HttpClientWrapper();
+		HttpClient http = HttpClientFactory.getInstance();
 		SQLiteDatabase db = Wasatter.imageStore.getWritableDatabase();
 		ArrayList<String> urls = Wasatter.downloadWaitUrls;
 		db.beginTransaction();

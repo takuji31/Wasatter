@@ -6,7 +6,8 @@ package jp.senchan.android.wasatter.task;
 import jp.senchan.android.wasatter.activity.OAuthToken;
 import jp.senchan.android.wasatter.activity.Setting;
 import twitter4j.TwitterException;
-import twitter4j.http.AccessToken;
+import twitter4j.auth.AccessToken;
+
 import android.os.AsyncTask;
 
 /**
