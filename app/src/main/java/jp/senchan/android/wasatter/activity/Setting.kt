@@ -65,14 +65,6 @@ class Setting : PreferenceActivity() {
     }
 
     companion object {
-        // アカウント設定
-        val isWassrEnabled: Boolean
-            get() {
-                val con = Wasatter.CONTEXT
-                return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-                        "enable_wassr", false)
-            }
-
         val isTwitterEnabled: Boolean
             get() {
                 val con = Wasatter.CONTEXT
@@ -87,13 +79,6 @@ class Setting : PreferenceActivity() {
                         "display_body_multi_line", false)
             }
 
-        val isLoadWassrTimeline: Boolean
-            get() {
-                val con = Wasatter.CONTEXT
-                return PreferenceManager.getDefaultSharedPreferences(con).getBoolean(
-                        con!!.getString(R.string.key_setting_wassr_load_timeline), true)
-            }
-
         val isLoadTwitterTimeline: Boolean
             get() {
                 val con = Wasatter.CONTEXT
@@ -102,34 +87,6 @@ class Setting : PreferenceActivity() {
                         .getBoolean(
                                 con.getString(R.string.key_setting_twitter_load_timeline),
                                 true)
-            }
-
-        val wassrId: String?
-            get() {
-                val con = Wasatter.CONTEXT
-                return PreferenceManager.getDefaultSharedPreferences(con).getString(
-                        "wassr_id", "")
-            }
-
-        val wassrPass: String?
-            get() {
-                val con = Wasatter.CONTEXT
-                return PreferenceManager.getDefaultSharedPreferences(con).getString(
-                        "wassr_pass", "")
-            }
-
-        val twitterId: String?
-            get() {
-                val con = Wasatter.CONTEXT
-                return PreferenceManager.getDefaultSharedPreferences(con).getString(
-                        "twitter_id", "")
-            }
-
-        val twitterPass: String?
-            get() {
-                val con = Wasatter.CONTEXT
-                return PreferenceManager.getDefaultSharedPreferences(con).getString(
-                        "twitter_pass", "")
             }
 
         fun setTwitterToken(token: String?): Boolean {

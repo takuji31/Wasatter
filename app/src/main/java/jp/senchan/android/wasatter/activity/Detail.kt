@@ -101,11 +101,6 @@ class Detail : Activity() {
             val button_favorite = findViewById<View>(R.id.button_favorite) as Button
             if (Wasatter.SERVICE_TWITTER == wss.service) {
                 button_favorite.text = ADD_TWITTER
-            } else if (wss.favorite != null
-                    && wss.favorite.indexOf(Setting.wassrId) != -1) {
-                button_favorite.text = DEL_WASSR
-            } else {
-                button_favorite.text = ADD_WASSR
             }
             button_favorite.setOnClickListener {
                 TaskToggleFavorite(this@Detail)

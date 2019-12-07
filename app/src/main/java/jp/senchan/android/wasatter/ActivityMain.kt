@@ -99,21 +99,14 @@ class ActivityMain : Activity() {
             layout_buttons.visibility = View.GONE
         }
         // テーマの設定
-// TwitterもしくはWassrが有効になっているかチェックする
-        val enable = (!Setting.isTwitterEnabled
-                && !Setting.isWassrEnabled)
-        val wassr_empty = Setting.isWassrEnabled && ("" == Setting.wassrId || "" == Setting.wassrPass)
+        // TwitterもしくはWassrが有効になっているかチェックする
+        val enable = (!Setting.isTwitterEnabled)
         val twitter_oauth_empty = (Setting.isTwitterEnabled
                 && ("" == Setting.twitterToken || "" == Setting.twitterTokenSecret))
         val adb = AlertDialog.Builder(this)
         if (enable) {
             adb.setMessage(R.string.notice_message_no_enable)
             adb.setTitle(R.string.notice_title_no_enable)
-            adb.setPositiveButton("OK", OpenSettingClickListener())
-            adb.show()
-        } else if (wassr_empty) {
-            adb.setMessage(R.string.notice_message_no_value)
-            adb.setTitle(R.string.notice_title_no_value)
             adb.setPositiveButton("OK", OpenSettingClickListener())
             adb.show()
         } else if (twitter_oauth_empty) {
@@ -214,13 +207,12 @@ class ActivityMain : Activity() {
 
     fun checkWassrEnabled(id: Int): Int {
         var id = id
-        val wassr: Boolean = Setting.isWassrEnabled
-        button_odai!!.isEnabled = wassr
-        button_channel!!.isEnabled = wassr
+        button_odai!!.isEnabled = false
+        button_channel!!.isEnabled = false
         val wassr_function_list = ArrayList<Int>()
         wassr_function_list.add(R.id.toggle_button_channel)
         wassr_function_list.add(R.id.toggle_button_odai)
-        if (wassr_function_list.indexOf(Integer.valueOf(id)) != -1 && !wassr) {
+        if (wassr_function_list.indexOf(Integer.valueOf(id)) != -1) {
             id = R.id.toggle_button_timeline
         }
         return id

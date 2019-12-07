@@ -30,8 +30,8 @@ class Update : Activity() {
         // チェックボックスの設定
         val wassr_enable = findViewById<View>(R.id.check_post_wassr) as CheckBox
         val twitter_enable = findViewById<View>(R.id.check_post_twitter) as CheckBox
-        wassr_enable.isChecked = Setting.isWassrEnabled
-        wassr_enable.isClickable = Setting.isWassrEnabled
+        wassr_enable.isChecked = false
+        wassr_enable.isClickable = false
         twitter_enable.isChecked = Setting.isTwitterEnabled
         twitter_enable.isClickable = Setting.isTwitterEnabled
         if (channel) {

@@ -16,12 +16,10 @@ class Wasatter : Application() {
         const val OAUTH_KEY = "5WURvsXWy6pwsFyJvR7Yw"
         const val OAUTH_SECRET = "Ya9SKf2G0iPDRzrGeFrwTVe4eIgsjO8t4chCQl62vs"
         lateinit var CONTEXT: Context
-        var images = HashMap<String, Bitmap>()
         lateinit var main: ActivityMain
         private const val ERROR_AUTH = "401"
         private const val ERROR_TMP = "503"
         var MODE_POSTING = "mode_posting"
-        var MODE_DISPLAY = "mode_display"
         var MODE_ERROR = "mode_error"
 
 
@@ -37,8 +35,7 @@ class Wasatter : Application() {
 
         //TODO リソース外出し、というかそもそもこんなにエラー詳しくないほうがよいのではないか
         fun displayHttpError(error: String, service: String) {
-            val message: String
-            message = if (ERROR_TMP == error && SERVICE_WASSR == service) {
+            val message: String = if (ERROR_TMP == error && SERVICE_WASSR == service) {
                 "エラーが発生しました（Wassr,503）Wassrが一時的に不安定になっている可能性があります。"
             } else if (ERROR_TMP == error && SERVICE_TWITTER == service) {
                 "エラーが発生しました（Twitter,503）API制限を超えた可能性があります。"
