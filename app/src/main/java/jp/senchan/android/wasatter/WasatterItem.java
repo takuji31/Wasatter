@@ -73,7 +73,7 @@ public class WasatterItem implements Serializable {
 				status.getUser().getScreenName(),
 				status.getUser().getScreenName(),
 				status.getText(),
-				status.getUser().getProfileImageURL(),
+				status.getUser().getProfileImageURLHttps(),
 				"https://twitter.com/" + status.getUser().getScreenName() + "/status/" + status.getId(),
 				String.valueOf(status.getId()),
 				"Twitter",
