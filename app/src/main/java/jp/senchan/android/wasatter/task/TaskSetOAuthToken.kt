@@ -20,8 +20,8 @@ class TaskSetOAuthToken(var target: OAuthToken) : AsyncTask<String, Unit, Unit>(
         try {
             val access_token = target.twitter.getOAuthAccessToken(
                     target.request, params[0])
-            Setting.setTwitterToken(access_token.token)
-            Setting.setTwitterTokenSecret(access_token.tokenSecret)
+            target.settingsRepository.twitterToken = access_token.token
+            target.settingsRepository.twitterTokenSecret = access_token.tokenSecret
         } catch (e: TwitterException) {
             e.printStackTrace()
         }

@@ -9,12 +9,18 @@ import android.widget.*
 import jp.senchan.android.wasatter.R
 import jp.senchan.android.wasatter.Wasatter
 import jp.senchan.android.wasatter.WasatterItem
+import jp.senchan.android.wasatter.repository.SettingsRepository
 import jp.senchan.android.wasatter.task.TaskUpdate
 
 /**
  * @author Senka/Takuji
  */
 class Update : Activity() {
+
+    private val settingsRepository by lazy {
+        SettingsRepository.getDefaultInstance(this)
+    }
+
     protected var ws: WasatterItem? = null
     protected var reply = false
     protected var channel = false
@@ -32,8 +38,8 @@ class Update : Activity() {
         val twitter_enable = findViewById<View>(R.id.check_post_twitter) as CheckBox
         wassr_enable.isChecked = false
         wassr_enable.isClickable = false
-        twitter_enable.isChecked = Setting.isTwitterEnabled
-        twitter_enable.isClickable = Setting.isTwitterEnabled
+        twitter_enable.isChecked = settingsRepository.isTwitterEnabled
+        twitter_enable.isClickable = settingsRepository.isTwitterEnabled
         if (channel) {
             twitter_enable.isChecked = false
             twitter_enable.isClickable = false
@@ -95,7 +101,7 @@ class Update : Activity() {
             // 二重投稿防止
             update_button.isClickable = false
             val ut = TaskUpdate(
-                    reply, wassr.isChecked,
+                    this, reply, wassr.isChecked,
                     twitter.isChecked, channel)
             ut
                     .execute(

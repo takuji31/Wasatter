@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.TextView
 import jp.senchan.android.wasatter.R
 import jp.senchan.android.wasatter.Wasatter
+import jp.senchan.android.wasatter.repository.SettingsRepository
 import jp.senchan.android.wasatter.task.TaskGetOAuthRequestUrl
 import jp.senchan.android.wasatter.task.TaskSetOAuthToken
 import twitter4j.Twitter
@@ -24,6 +25,9 @@ import twitter4j.auth.RequestToken
  * @author Senka/Takuji
  */
 class OAuthToken : Activity() {
+
+    val settingsRepository by lazy { SettingsRepository.getDefaultInstance(this) }
+
     lateinit var twitter: Twitter
     var request: RequestToken? = null
     override fun onCreate(savedInstanceState: Bundle?) { // TODO 自動生成されたメソッド・スタブ
@@ -70,9 +74,8 @@ class OAuthToken : Activity() {
 
     private inner class ClearTokenOkButtonClickListener : DialogInterface.OnClickListener {
         override fun onClick(dialog: DialogInterface, which: Int) { // TODO 自動生成されたメソッド・スタブ
-            Setting.Companion.setTwitterToken("")
-            Setting.Companion.setTwitterTokenSecret("")
-            // Wasatter.makeToast("OAuthトークンをクリアしました。");
+            settingsRepository.twitterToken = null
+            settingsRepository.twitterTokenSecret = null
             val ad = AlertDialog.Builder(
                     this@OAuthToken)
             ad.setMessage("OAuthトークンを削除しました。")

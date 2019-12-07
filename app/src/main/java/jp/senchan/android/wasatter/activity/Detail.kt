@@ -16,6 +16,7 @@ import jp.senchan.android.wasatter.R
 import jp.senchan.android.wasatter.ResultCode
 import jp.senchan.android.wasatter.Wasatter
 import jp.senchan.android.wasatter.WasatterItem
+import jp.senchan.android.wasatter.repository.SettingsRepository
 import jp.senchan.android.wasatter.task.TaskToggleFavorite
 
 /**
@@ -24,6 +25,11 @@ import jp.senchan.android.wasatter.task.TaskToggleFavorite
  * @author Senka/Takuji
  */
 class Detail : Activity() {
+
+    val settingsRepository by lazy {
+        SettingsRepository.getDefaultInstance(this)
+    }
+
     protected var ws: WasatterItem? = null
     var favoriteButton: Button? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +50,7 @@ class Detail : Activity() {
             status.text = wss.text
             // 画像をセット
             val icon = findViewById<View>(R.id.icon) as ImageView
-            if (Setting.isLoadImage) {
+            if (settingsRepository.isLoadImage) {
                 Picasso.get()
                         .load(Uri.parse(wss.profileImageUrl))
                         .into(icon)

@@ -15,13 +15,17 @@ import com.squareup.picasso.Picasso
 import jp.senchan.android.wasatter.R
 import jp.senchan.android.wasatter.WasatterAdapter
 import jp.senchan.android.wasatter.WasatterItem
-import jp.senchan.android.wasatter.activity.Setting
+import jp.senchan.android.wasatter.repository.SettingsRepository
 import java.text.SimpleDateFormat
 import java.util.*
 
 class Timeline(context: Context, textViewResourceId: Int,
                private val items: ArrayList<WasatterItem>?, channel: Boolean) : ArrayAdapter<WasatterItem>(context, textViewResourceId, items!!), WasatterAdapter {
     private val inflater: LayoutInflater =  context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+    private val settingsRepository by lazy {
+        SettingsRepository.getDefaultInstance(context)
+    }
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val view = view ?: inflater.inflate(R.layout.timeline_row, null)
         // データの取得
@@ -38,8 +42,8 @@ class Timeline(context: Context, textViewResourceId: Int,
                 text.text = item.text
             }
             // テキストの行数を決定する。
-            text.isSingleLine = !Setting.isDisplayBodyMultiLine
-            if (!Setting.isDisplayBodyMultiLine) {
+            text.isSingleLine = !settingsRepository.isDisplayBodyMultiLine
+            if (!settingsRepository.isDisplayBodyMultiLine) {
                 text.ellipsize = TruncateAt.MARQUEE
             } else {
                 text.ellipsize = null
@@ -56,7 +60,7 @@ class Timeline(context: Context, textViewResourceId: Int,
             }
             // 画像をセット
             val icon = view.findViewById<View>(R.id.icon) as ImageView
-            if (Setting.isLoadImage) {
+            if (settingsRepository.isLoadImage) {
                 Picasso.get().isLoggingEnabled = true
                 Picasso.get()
                         .load(Uri.parse(item.profileImageUrl))
@@ -84,7 +88,7 @@ class Timeline(context: Context, textViewResourceId: Int,
                 layout_favorite_icons.removeAllViews()
                 layout_favorite_icons.addView(tv)
                 layout_favorite_list.visibility = View.VISIBLE
-                if (Setting.isLoadFavoriteImage) {
+                if (settingsRepository.isLoadFavoriteImage) {
                     for (i in 0 until count) {
                         val add_icon = ImageView(view.context)
                         add_icon.layoutParams = ViewGroup.LayoutParams(28, 28)

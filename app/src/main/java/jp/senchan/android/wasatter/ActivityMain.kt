@@ -13,11 +13,10 @@ import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.AdapterView.OnItemSelectedListener
-import jp.senchan.android.wasatter.ActivityMain
 import jp.senchan.android.wasatter.activity.Detail
-import jp.senchan.android.wasatter.activity.Setting
 import jp.senchan.android.wasatter.activity.Update
 import jp.senchan.android.wasatter.adapter.Timeline
+import jp.senchan.android.wasatter.repository.SettingsRepository
 import jp.senchan.android.wasatter.task.TaskReloadTimeline
 import java.util.*
 
@@ -28,6 +27,10 @@ class ActivityMain : Activity() {
     var list_odai: ArrayList<WasatterItem>? = null
     var list_channel_list: ArrayList<WasatterItem>? = null
     var list_channel: ArrayList<WasatterItem>? = null
+
+    private val settingsRepository: SettingsRepository by lazy {
+        SettingsRepository.getDefaultInstance(this)
+    }
 
     lateinit var ls: ListView
     lateinit var button_reload_channel_list: Button
@@ -93,16 +96,16 @@ class ActivityMain : Activity() {
         super.onResume()
         // ボタンの表示設定
         val layout_buttons = findViewById<View>(R.id.layout_buttons) as LinearLayout
-        if (Setting.isDisplayButtons) {
+        if (settingsRepository.isDisplayButtons) {
             layout_buttons.visibility = View.VISIBLE
         } else {
             layout_buttons.visibility = View.GONE
         }
         // テーマの設定
         // TwitterもしくはWassrが有効になっているかチェックする
-        val enable = (!Setting.isTwitterEnabled)
-        val twitter_oauth_empty = (Setting.isTwitterEnabled
-                && ("" == Setting.twitterToken || "" == Setting.twitterTokenSecret))
+        val enable = (!settingsRepository.isTwitterEnabled)
+        val twitter_oauth_empty = (settingsRepository.isTwitterEnabled
+                && ("" == settingsRepository.twitterToken || "" == settingsRepository.twitterTokenSecret))
         val adb = AlertDialog.Builder(this)
         if (enable) {
             adb.setMessage(R.string.notice_message_no_enable)
@@ -145,7 +148,7 @@ class ActivityMain : Activity() {
     fun getChannel(channel: String?) {
         ls!!.adapter = null
         first_load = false
-        val rt = TaskReloadTimeline(ls,
+        val rt = TaskReloadTimeline(this, ls,
                 TaskReloadTimeline.MODE_CHANNEL)
         rt.execute(channel)
     }
@@ -153,7 +156,7 @@ class ActivityMain : Activity() {
     fun doReloadTask(mode: Int) {
         ls!!.adapter = null
         first_load = false
-        val rt = TaskReloadTimeline(ls, mode)
+        val rt = TaskReloadTimeline(this, ls, mode)
         rt.execute()
     }
 
@@ -222,7 +225,7 @@ class ActivityMain : Activity() {
      * 設定ダイアログを開くメソッド
      */
     fun openSetting() {
-        val intent_setting = Intent(this, Setting::class.java)
+        val intent_setting = Intent(this, settingsRepository::class.java)
         from_config = true
         this.startActivity(intent_setting)
     }

@@ -1,5 +1,6 @@
 package jp.senchan.android.wasatter.task
 
+import android.content.Context
 import android.os.AsyncTask
 import android.text.SpannableStringBuilder
 import android.view.View
@@ -8,26 +9,34 @@ import jp.senchan.android.wasatter.R
 import jp.senchan.android.wasatter.StatusItemComparator
 import jp.senchan.android.wasatter.Wasatter
 import jp.senchan.android.wasatter.WasatterItem
-import jp.senchan.android.wasatter.activity.Setting
 import jp.senchan.android.wasatter.adapter.Timeline
+import jp.senchan.android.wasatter.repository.SettingsRepository
+import twitter4j.Twitter
 import twitter4j.TwitterException
 import twitter4j.TwitterFactory
 import twitter4j.conf.ConfigurationBuilder
 import java.util.*
 
 class TaskReloadTimeline // コンストラクタ
-constructor(protected val listview: ListView, protected var mode: Int) : AsyncTask<String, String, ArrayList<WasatterItem>>() {
-    // バックグラウンドで実行する処理
-    override fun doInBackground(vararg param: String): ArrayList<WasatterItem> {
-        val result = ArrayList<WasatterItem>()
-        val twitter = TwitterFactory(
+constructor(context: Context, protected val listview: ListView, protected var mode: Int) : AsyncTask<String, String, ArrayList<WasatterItem>>() {
+
+    private val twitter : Twitter
+
+    init {
+        val settingsRepository = SettingsRepository.getDefaultInstance(context)
+        twitter = TwitterFactory(
                 ConfigurationBuilder()
                         .setOAuthConsumerKey(Wasatter.OAUTH_KEY)
                         .setOAuthConsumerSecret(Wasatter.OAUTH_SECRET)
-                        .setOAuthAccessToken(Setting.twitterToken)
-                        .setOAuthAccessTokenSecret(Setting.twitterTokenSecret)
+                        .setOAuthAccessToken(settingsRepository.twitterToken)
+                        .setOAuthAccessTokenSecret(settingsRepository.twitterTokenSecret)
                         .build()
         ).instance
+    }
+    // バックグラウンドで実行する処理
+    override fun doInBackground(vararg param: String): ArrayList<WasatterItem> {
+        val result = ArrayList<WasatterItem>()
+
         when (mode) {
             MODE_TIMELINE -> try {
                 val homeTimeline = twitter.homeTimeline

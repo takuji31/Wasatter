@@ -28,7 +28,7 @@ import twitter4j.auth.AccessToken
         if (Wasatter.SERVICE_TWITTER == item!!.service) {
             val tw: Twitter = TwitterFactory().instance
             tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET)
-            tw.oAuthAccessToken = AccessToken(Setting.twitterToken, Setting.twitterTokenSecret)
+            tw.oAuthAccessToken = AccessToken(detail.settingsRepository.twitterToken, detail.settingsRepository.twitterTokenSecret)
             return try {
                 val st = tw.createFavorite(item!!.rid.toLong())
                 st.text != null

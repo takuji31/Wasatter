@@ -1,18 +1,30 @@
 package jp.senchan.android.wasatter.task
 
+import android.content.Context
 import android.os.AsyncTask
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import jp.senchan.android.wasatter.R
 import jp.senchan.android.wasatter.Wasatter
-import jp.senchan.android.wasatter.activity.Setting
+import jp.senchan.android.wasatter.repository.SettingsRepository
 import twitter4j.Twitter
 import twitter4j.TwitterException
 import twitter4j.TwitterFactory
 import twitter4j.auth.AccessToken
 
-class TaskUpdate(vararg params: Boolean) : AsyncTask<String, String, Unit>() {
+class TaskUpdate(context: Context, vararg params: Boolean) : AsyncTask<String, String, Unit>() {
+
+
+    private val tw: Twitter
+
+    init {
+        val settingsRepository = SettingsRepository.getDefaultInstance(context)
+        tw = TwitterFactory().instance
+        tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET)
+        tw.oAuthAccessToken = AccessToken(settingsRepository.twitterToken, settingsRepository.twitterTokenSecret)
+    }
+
     var reply: Boolean
     var twitter: Boolean
     var wassr: Boolean
@@ -23,9 +35,6 @@ class TaskUpdate(vararg params: Boolean) : AsyncTask<String, String, Unit>() {
             publishProgress(Wasatter.MODE_POSTING, Wasatter.SERVICE_WASSR)
         }
         if (twitter) {
-            val tw: Twitter = TwitterFactory().instance
-            tw.setOAuthConsumer(Wasatter.OAUTH_KEY, Wasatter.OAUTH_SECRET)
-            tw.oAuthAccessToken = AccessToken(Setting.twitterToken, Setting.twitterTokenSecret)
             r_twitter = try {
                 publishProgress(Wasatter.MODE_POSTING, Wasatter.SERVICE_TWITTER)
                 tw.updateStatus(params[0])
