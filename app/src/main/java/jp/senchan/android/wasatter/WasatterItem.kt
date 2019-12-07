@@ -1,6 +1,5 @@
 package jp.senchan.android.wasatter
 
-import android.text.SpannableStringBuilder
 import twitter4j.Status
 import java.io.Serializable
 import java.util.*
@@ -10,7 +9,7 @@ import java.util.*
  *
  * @author Senka/Takuji
  */
-class WasatterItem(
+data class WasatterItem(
         /**
          * ユーザーID（発言者）
          */
@@ -45,20 +44,15 @@ class WasatterItem(
             status.user.screenName,
             status.text,
             status.user.profileImageURLHttps,
-            "https://twitter.com/" + status.user.screenName + "/status/" + status.id, status.id.toString(),
+            "https://twitter.com/${status.user.screenName}/status/${status.id}",
+            status.id.toString(),
             "Twitter",
             status.inReplyToScreenName,
             "",
             status.createdAt.time / 1000L,
             ArrayList<String?>(),
             status.isFavorited
-    ) {
-    }
-
-    override fun toString(): String { // TODO 自動生成されたメソッド・スタブ
-        return SpannableStringBuilder(name).append("(").append(id).append(
-                ")").toString()
-    }
+    )
 
     companion object {
         /**
