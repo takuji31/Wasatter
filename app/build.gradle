@@ -6,6 +6,8 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
+        versionCode = 12
+        versionName = "1.1.0a"
         applicationId "jp.senchan.android.wasatter"
         minSdkVersion 23
         targetSdkVersion 29
