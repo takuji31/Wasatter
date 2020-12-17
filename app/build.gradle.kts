@@ -15,6 +15,10 @@ android {
         targetSdkVersion(30)
     }
 
+    buildFeatures {
+        compose = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -35,6 +39,12 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+        useIR = true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = Deps.composeVersion
     }
 }
 
@@ -51,6 +61,17 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("com.google.android.material:material:1.2.1")
+
+    implementation("androidx.compose.ui:ui:${Deps.composeVersion}")
+    implementation("androidx.compose.ui:ui-tooling:${Deps.composeVersion}")
+    implementation("androidx.compose.foundation:foundation:${Deps.composeVersion}")
+    implementation("androidx.compose.material:material:${Deps.composeVersion}")
+    implementation("androidx.compose.material:material-icons-core:${Deps.composeVersion}")
+    implementation("androidx.compose.material:material-icons-extended:${Deps.composeVersion}")
+    implementation("androidx.compose.runtime:runtime-livedata:${Deps.composeVersion}")
+    implementation("androidx.compose.runtime:runtime-rxjava2:${Deps.composeVersion}")
+
+    androidTestImplementation("androidx.compose.ui:ui-test:${Deps.composeVersion}")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")
 
