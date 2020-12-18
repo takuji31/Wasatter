@@ -93,6 +93,7 @@ dependencies {
 
 
     implementation("org.twitter4j:twitter4j-core:4.0.7")
+    implementation("org.twitter4j:twitter4j-async:4.0.7")
     implementation("org.twitter4j:twitter4j-media-support:4.0.6")
     implementation("com.squareup.picasso:picasso:2.71828")
 }
