@@ -43,7 +43,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerVersion = "1.4.0"
+        kotlinCompilerVersion = Deps.kotlinVersion
         kotlinCompilerExtensionVersion = Deps.composeVersion
     }
 }
@@ -68,10 +68,11 @@ dependencies {
     implementation("androidx.compose.material:material:${Deps.composeVersion}")
     implementation("androidx.compose.material:material-icons-core:${Deps.composeVersion}")
     implementation("androidx.compose.material:material-icons-extended:${Deps.composeVersion}")
-    implementation("androidx.compose.runtime:runtime-livedata:${Deps.composeVersion}")
-    implementation("androidx.compose.runtime:runtime-rxjava2:${Deps.composeVersion}")
+    implementation("androidx.navigation:navigation-compose:1.0.0-alpha04")
 
     androidTestImplementation("androidx.compose.ui:ui-test:${Deps.composeVersion}")
+
+    implementation("com.jakewharton.timber:timber:4.7.1")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")
 
