@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=3299c9&secondary.color=c96232  -->
+    <style name="Base.Theme.Wasatter" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    </style>
+
+    <style name="Theme.Wasatter" parent="Base.Theme.Wasatter">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+    </style>
+
+    <style name="hoge" parent="Widget.Design.AppBarLayout" />
+</resources>
