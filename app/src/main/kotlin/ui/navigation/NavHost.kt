@@ -40,7 +40,7 @@ fun WasatterNavHost() {
     val currentScreen by viewModel.currentScreen.collectAsState()
     val lifecycleOwner = AmbientLifecycleOwner.current
 
-    LaunchedEffect(subject = navController) {
+    LaunchedEffect(subject = lifecycleOwner) {
         viewModel.attachNavController(lifecycleOwner, navController)
     }
 
