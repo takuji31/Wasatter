@@ -18,10 +18,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptionsBuilder
+import androidx.navigation.compose.KEY_ROUTE
 import androidx.navigation.compose.NamedNavArgument
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.popUpTo
 import androidx.navigation.compose.rememberNavController
@@ -78,9 +78,7 @@ private fun NavGraphBuilder.screenComposable(
     content: @Composable (NavBackStackEntry) -> Unit,
 ) = composable(
     screen.path,
-    arguments = listOf(navArgument("path") {
-        defaultValue = screen.path
-    }) + arguments,
+    arguments = arguments,
     deepLinks = deepLinks,
     content = content
 )
@@ -112,7 +110,7 @@ class NavHostViewModel @ViewModelInject constructor(
     private val destinationChangedListener =
         NavController.OnDestinationChangedListener { _, destination, arguments ->
             val logger = Timber.tag("Navigation")
-            val screenPath = arguments?.get("path")
+            val screenPath = arguments?.get(KEY_ROUTE)
             val currentScreen = currentScreen.value
             if (arguments == null || screenPath == null) {
                 // something's wrong
