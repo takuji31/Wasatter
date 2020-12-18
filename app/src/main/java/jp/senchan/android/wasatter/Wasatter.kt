@@ -2,9 +2,7 @@ package jp.senchan.android.wasatter
 
 import android.app.AlertDialog
 import android.app.Application
-import android.content.Context
-import android.graphics.Bitmap
-import java.util.*
+import timber.log.Timber
 import java.util.regex.Pattern
 
 class Wasatter : Application() {
@@ -21,10 +19,9 @@ class Wasatter : Application() {
         var MODE_POSTING = "mode_posting"
         var MODE_ERROR = "mode_error"
 
-
         fun getUrl(text: String?): String {
             val pt = Pattern.compile(REGEX_URL,
-                    Pattern.CASE_INSENSITIVE)
+                Pattern.CASE_INSENSITIVE)
             val mc = pt.matcher(text)
             while (mc.find()) {
                 return mc.group()
@@ -52,5 +49,10 @@ class Wasatter : Application() {
             ad.setPositiveButton("閉じる", null)
             ad.show()
         }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        Timber.plant(Timber.DebugTree())
     }
 }
