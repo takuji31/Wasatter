@@ -24,11 +24,15 @@ interface SettingsRepository {
     val isDisplayButtons: Boolean
 
     companion object {
-        fun getDefaultInstance(context: Context): SettingsRepository = SettingRepositoryImpl(context, PreferenceManager.getDefaultSharedPreferences(context))
+        fun getDefaultInstance(context: Context): SettingsRepository =
+            SettingRepositoryImpl(context, PreferenceManager.getDefaultSharedPreferences(context))
     }
 }
 
-class SettingRepositoryImpl(private val context: Context, private val sharedPreferences: SharedPreferences) : SettingsRepository {
+class SettingRepositoryImpl(
+    private val context: Context,
+    private val sharedPreferences: SharedPreferences,
+) : SettingsRepository {
     override val isTwitterEnabled: Boolean
         get() = sharedPreferences.getBoolean("enable_twitter", false)
 
@@ -37,12 +41,12 @@ class SettingRepositoryImpl(private val context: Context, private val sharedPref
 
     override val isLoadTwitterTimeline: Boolean
         get() = sharedPreferences.getBoolean(
-                context.getString(R.string.key_setting_twitter_load_timeline),
-                true
+            context.getString(R.string.key_setting_twitter_load_timeline),
+            true
         )
 
     override var twitterToken: String?
-        get() = sharedPreferences.getString("twitter_token", "")
+        get() = sharedPreferences.getString("twitter_token", null)
         set(value) {
             sharedPreferences.edit {
                 putString("twitter_token", value)
@@ -50,7 +54,7 @@ class SettingRepositoryImpl(private val context: Context, private val sharedPref
         }
 
     override var twitterTokenSecret: String?
-        get() = sharedPreferences.getString("twitter_token_secret", "")
+        get() = sharedPreferences.getString("twitter_token_secret", null)
         set(value) {
             sharedPreferences.edit {
                 putString("twitter_token_secret", value)
@@ -65,5 +69,6 @@ class SettingRepositoryImpl(private val context: Context, private val sharedPref
 
     override val isDisplayButtons: Boolean
         get() =
-            sharedPreferences.getBoolean(context.getString(R.string.key_setting_display_buttons), true)
+            sharedPreferences.getBoolean(context.getString(R.string.key_setting_display_buttons),
+                true)
 }

@@ -5,4 +5,6 @@ object Deps {
     object AndroidX {
         const val lifecycleVersion = "2.2.0"
     }
+
+    const val daggerVersion = "2.30.1-alpha"
 }

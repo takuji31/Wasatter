@@ -18,9 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
+import dagger.hilt.android.AndroidEntryPoint
 import jp.senchan.android.wasatter.ui.screen.LaunchScreen
 import jp.senchan.android.wasatter.ui.screen.Main
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

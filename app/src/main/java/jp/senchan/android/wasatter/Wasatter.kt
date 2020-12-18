@@ -2,9 +2,11 @@ package jp.senchan.android.wasatter
 
 import android.app.AlertDialog
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import java.util.regex.Pattern
 
+@HiltAndroidApp
 class Wasatter : Application() {
     companion object {
         const val SERVICE_WASSR = "Wassr"

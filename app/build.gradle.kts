@@ -1,7 +1,9 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
     id("kotlin-parcelize")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -72,6 +74,19 @@ dependencies {
 
     androidTestImplementation("androidx.compose.ui:ui-test:${Deps.composeVersion}")
 
+    implementation("com.google.dagger:hilt-android:${Deps.daggerVersion}")
+    kapt("com.google.dagger:hilt-android-compiler:${Deps.daggerVersion}")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02")
+    kapt("androidx.hilt:hilt-compiler:1.0.0-alpha02")
+
+    // For instrumentation tests
+    androidTestImplementation("com.google.dagger:hilt-android-testing:${Deps.daggerVersion}")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:${Deps.daggerVersion}")
+
+    // For local unit tests
+    testImplementation("com.google.dagger:hilt-android-testing:${Deps.daggerVersion}")
+    kaptTest("com.google.dagger:hilt-android-compiler:${Deps.daggerVersion}")
+
     implementation("com.jakewharton.timber:timber:4.7.1")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")
@@ -80,4 +95,8 @@ dependencies {
     implementation("org.twitter4j:twitter4j-core:4.0.7")
     implementation("org.twitter4j:twitter4j-media-support:4.0.6")
     implementation("com.squareup.picasso:picasso:2.71828")
+}
+
+kapt {
+    correctErrorTypes = true
 }

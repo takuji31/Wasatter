@@ -6,6 +6,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.AmbientLifecycleOwner
 import androidx.compose.ui.viewinterop.viewModel
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.SavedStateHandle
@@ -15,6 +17,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.NamedNavArgument
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,6 +25,7 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.popUpTo
 import androidx.navigation.compose.rememberNavController
+import jp.senchan.android.wasatter.repository.SettingsRepository
 import jp.senchan.android.wasatter.ui.screen.OAuthLoginScreen
 import jp.senchan.android.wasatter.ui.screen.Timeline
 import jp.senchan.android.wasatter.ui.screen.WasatterScaffold
@@ -81,7 +85,11 @@ private fun NavGraphBuilder.screenComposable(
     content = content
 )
 
-class NavHostViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
+class NavHostViewModel @ViewModelInject constructor(
+    settingsRepository: SettingsRepository,
+    @Assisted savedStateHandle: SavedStateHandle,
+) :
+    ViewModel() {
     private var navController = MutableStateFlow<NavController?>(null)
     private val _currentScreen = MutableStateFlow<Screen>(HomeScreen.Timeline)
     val currentScreen: StateFlow<Screen>
@@ -96,6 +104,9 @@ class NavHostViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
                 savedStateHandle.set(currentScreenKey, it)
             }
             .launchIn(viewModelScope)
+        if (settingsRepository.twitterToken == null || settingsRepository.twitterTokenSecret == null) {
+            navigateReplaceTo(Screen.OAuthLogin)
+        }
     }
 
     private val destinationChangedListener =
@@ -141,18 +152,30 @@ class NavHostViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
             .launchIn(viewModelScope)
     }
 
+    fun navigateReplaceTo(screen: Screen) = navigate {
+        it.navigate(screen) {
+            popUpTo(HomeScreen.Timeline.path) { inclusive = true }
+        }
+    }
+
     fun navigateHomeScreen(homeScreen: HomeScreen) = navigate {
         if (currentScreen == homeScreen) {
             return@navigate
         }
-        _currentScreen.value = homeScreen
-        it.navigate(homeScreen.path) {
+        it.navigate(homeScreen) {
             popUpTo(HomeScreen.Timeline.path) { inclusive = homeScreen is HomeScreen.Timeline }
         }
     }
 
     fun navigateTo(screen: Screen) = navigate {
+        it.navigate(screen)
+    }
+
+    private fun NavController.navigate(
+        screen: Screen,
+        builder: NavOptionsBuilder.() -> Unit = {},
+    ) {
         _currentScreen.value = screen
-        it.navigate(screen.path)
+        navigate(screen.path, builder)
     }
 }
