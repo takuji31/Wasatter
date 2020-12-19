@@ -113,11 +113,12 @@ class NavHostViewModel @ViewModelInject constructor(
     }
 
     fun navigateHomeScreen(homeScreen: HomeScreen) = navigate {
-        if (currentScreen == homeScreen) {
+        if (currentScreen.value == homeScreen) {
             return@navigate
         }
         it.navigate(homeScreen) {
-            popUpTo(HomeScreen.Timeline.path) { inclusive = homeScreen is HomeScreen.Timeline }
+            launchSingleTop = true
+            popUpTo(HomeScreen.Timeline.path) { inclusive = false }
         }
     }
 
