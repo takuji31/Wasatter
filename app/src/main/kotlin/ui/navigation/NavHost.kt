@@ -1,11 +1,6 @@
 package jp.senchan.android.wasatter.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.AmbientLifecycleOwner
-import androidx.compose.ui.viewinterop.viewModel
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -20,15 +15,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.KEY_ROUTE
 import androidx.navigation.compose.NamedNavArgument
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.popUpTo
-import androidx.navigation.compose.rememberNavController
 import jp.senchan.android.wasatter.repository.SettingsRepository
-import jp.senchan.android.wasatter.ui.screen.OAuthLoginScreen
-import jp.senchan.android.wasatter.ui.screen.Timeline
-import jp.senchan.android.wasatter.ui.screen.WasatterScaffold
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -37,41 +27,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import timber.log.Timber
 
-@Composable
-fun WasatterNavHost() {
-    val viewModel: NavHostViewModel = viewModel()
-    val navController = rememberNavController()
-    val currentScreen by viewModel.currentScreen.collectAsState()
-    val lifecycleOwner = AmbientLifecycleOwner.current
-
-    LaunchedEffect(subject = lifecycleOwner) {
-        viewModel.attachNavController(lifecycleOwner, navController)
-    }
-
-    WasatterScaffold(currentScreen = currentScreen,
-        onBottomNavigationItemClick = { viewModel.navigateHomeScreen(it) }) {
-        NavHost(navController = navController,
-            startDestination = HomeScreen.Timeline.path) {
-            screenComposable(HomeScreen.Timeline) {
-                Timeline()
-            }
-            screenComposable(HomeScreen.Notifications) {
-                Timeline()
-            }
-            screenComposable(HomeScreen.Me) {
-                Timeline()
-            }
-            screenComposable(HomeScreen.Settings) {
-                Timeline()
-            }
-            screenComposable(Screen.OAuthLogin) {
-                OAuthLoginScreen()
-            }
-        }
-    }
-}
-
-private fun NavGraphBuilder.screenComposable(
+fun NavGraphBuilder.screenComposable(
     screen: Screen,
     arguments: List<NamedNavArgument> = emptyList(),
     deepLinks: List<NavDeepLink> = emptyList(),

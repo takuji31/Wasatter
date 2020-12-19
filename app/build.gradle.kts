@@ -87,6 +87,9 @@ dependencies {
     testImplementation("com.google.dagger:hilt-android-testing:${Deps.daggerVersion}")
     kaptTest("com.google.dagger:hilt-android-compiler:${Deps.daggerVersion}")
 
+    implementation("io.coil-kt:coil:1.1.0")
+    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.4.1")
+
     implementation("com.jakewharton.timber:timber:4.7.1")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")

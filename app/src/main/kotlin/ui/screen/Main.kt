@@ -1,15 +1,10 @@
 package jp.senchan.android.wasatter.ui.screen
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,19 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import jp.senchan.android.wasatter.ui.navigation.HomeScreen
 import jp.senchan.android.wasatter.ui.navigation.Screen
-import jp.senchan.android.wasatter.ui.navigation.WasatterNavHost
 import jp.senchan.android.wasatter.ui.theme.WasatterMaterialTheme
 
 @Composable
 fun Main(modifier: Modifier = Modifier, topPadding: Dp) {
-    WasatterMaterialTheme(isDarkTheme = isSystemInDarkTheme()) {
-        Column {
-            Spacer(Modifier.padding(top = topPadding))
-            Surface(modifier = modifier) {
-                WasatterNavHost()
-            }
-        }
-    }
 }
 
 @Composable
